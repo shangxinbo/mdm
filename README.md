@@ -1,4 +1,4 @@
-# ark_public
+# mdm
 
 > ark build on public cloud
 
