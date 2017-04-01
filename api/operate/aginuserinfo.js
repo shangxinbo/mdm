@@ -15,11 +15,13 @@ module.exports = function (req, res) {
         "data|10": [
             {
                 "id": '@natural',
-                "user": '@cname',
+                "user": '@name',
                 "user_name": '@email',
                 "nickname": '@cname',
                 "mail": "@email",
                 "tel": "18923156486",
+                "regoin": "狗熊了",   //归属地
+                "application_addr": "我的老家在东北",  //所在位置
                 "created_at": '@date("yyyy-MM-dd HH:mm:ss")'
             }
         ]
