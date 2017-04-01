@@ -5,17 +5,11 @@ import Vue from 'vue'
 Vue.use(Vuex)
 
 const state = {
-    showLayer: false
+    showLayer: false,
+    toast:'' //msg string
 }
 
 const mutations = {
-    //全屏
-    PAGE_NO_SCROLL(state) {
-        state.wholePage = true
-    },
-    PAGE_WIDTH_SCROLL(state) {
-        state.wholePage = false
-    },
     // 显示遮罩层
     SHOW_LAYER(state) {
         state.showLayer = true
@@ -24,13 +18,12 @@ const mutations = {
     HIDE_LAYER(state) {
         state.showLayer = false
     },
-    // 关闭所有弹窗
-    CLOSE_DIALOG(state) {
-        state.dialog.crowdInit = false
-        state.dialog.crowdCreate = false
-        state.dialog.crowdSelect = false
-        state.showLayer = false
-    }
+    SHOW_TOAST(state,msg) {
+        state.toast = msg
+    },
+    HIDE_TOAST(state) {
+        state.toast = ''
+    },
 }
 
 export default new Vuex.Store({

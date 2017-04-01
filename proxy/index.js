@@ -11,7 +11,6 @@ if (process.argv.slice(2).indexOf('--proxy') < 0) {
         if (!restarting) {
             restarting = true
             setTimeout(() => {
-                console.log(123)
                 ls.kill()
                 ls = fork(path.join(__dirname, './start'))
                 restarting = false

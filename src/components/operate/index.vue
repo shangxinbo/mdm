@@ -27,14 +27,14 @@
                                 <th>操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.user}}}</td>
+                                <td>{{item.user}}</td>
                                 <td>{{item.user_name}}</td>
                                 <td>{{item.mail}}</td>
                                 <td>{{item.tel}}</td>
                                 <td>{{item.create_at}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showDialog('update')">修改信息</a>
-                                    <a href="javascript:void(0);" @click="showDialog('changePass')">重置密码</a>
+                                    <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -45,7 +45,7 @@
             </div>
         </div>
         <update-info-dialog></update-info-dialog>
-        <change-pass-dialog></change-pass-dialog>
+        <changePassDialog ref="resetpass"></changePassDialog>
     </div>
 </template>
 <script>
@@ -95,8 +95,8 @@
                 this.$router.replace('/operate/index/' + num)
                 this.refresh()
             },
-            showDialog(){
-                
+            showResetPassDialog(id,user){
+                this.$refs.resetpass.$emit('show',id,user)
             }
         },
         created: function () {
