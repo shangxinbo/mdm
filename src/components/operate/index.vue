@@ -7,7 +7,7 @@
             <div class="title-warp">运营管理</div>
             <div class="data-property">
                 <div class="data-export">
-                    <a href="javascript:void(0);" @click="showDialog('create')" class="btn blue btn-export">
+                    <a href="javascript:void(0);" @click="showCreateDialog" class="btn blue btn-export">
                         <span>
                             <i class="icon add"></i>新建运营
                         </span>
@@ -33,7 +33,7 @@
                                 <td>{{item.tel}}</td>
                                 <td>{{item.create_at}}</td>
                                 <td>
-                                    <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user)">修改信息</a>
+                                    <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user,item.user_name,item.mail,item.tel)">修改信息</a>
                                     <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
                                 </td>
                             </tr>
@@ -99,7 +99,10 @@
                 this.$refs.resetpass.$emit('show',id,user)
             },
             showUpdateDialog(id,user,username,email,tel){
-                this.$refs.updateinfo.$emit('show',id,user,username,email,tel)
+                this.$refs.updateinfo.$emit('edit',id,user,username,email,tel)
+            },
+            showCreateDialog(){
+                this.$refs.updateinfo.$emit('create')
             }
         },
         created: function () {

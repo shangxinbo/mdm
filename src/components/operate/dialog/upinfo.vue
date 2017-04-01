@@ -9,7 +9,7 @@
                 <li>
                     <label>账号</label>
                     <div class="input-warp">
-                        <input class="text disabled" type="text" :value="user" disabled="disabled">
+                        <input class="text disabled" :class="{disabled:edit}" type="text" v-model="user" :disabled="edit?true:false">
                     </div>
                 </li>
                 <li>
@@ -33,59 +33,88 @@
             </ul>
         </div>
         <div class="dialog-footer">
-            <a class="btn blue" href="javascript:void(0);">确定</a>
-            <a class="btn" href="javascript:void(0);">取消</a>
+            <a class="btn blue" href="javascript:void(0);" @click="sure">确定</a>
+            <a class="btn" href="javascript:void(0);" @click="close">取消</a>
         </div>
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
+    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data: function () {
             return {
                 style: 'none',
-                user: '',
                 id: '',
+                user: '',
+                user_error: '',
                 username: '',
+                username_error: '',
                 email: '',
+                email_error: '',
                 tel: '',
-                newpass: '',
-                newpass_error: '',
-                repass: '',
-                repass_error: ''
+                tel_error: '',
+                edit: false
             }
         },
         methods: {
             close: function () {
                 this.style = 'none'
-                this.user = ''
                 this.id = ''
-                this.newpass = ''
-                this.repass = ''
+                this.user = ''
                 this.username = ''
                 this.email = ''
                 this.tel = ''
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                let reg = /^[a-zA-Z0-9]{6,18}$/
-                if (!this.newpass) {
-                    this.newpass_error = '请填写新密码'
-                    return false
-                } else {
-                    if (reg.test(this.newpass)) {
-                        this.newpass_error = ''
-                        if (this.repass == this.newpass) {
-                            this.repass_error = ''
+                let reg_user = /^[a-zA-Z0-9]{6,16}$/
+                let reg_username = /^[\u4e00-\u9fa5]{2,6}$/
+                if (!this.edit) {
+                    if (this.user) {
+                        if (reg_user.test(this.user)) {
+                            this.user_error = ''
                         } else {
-                            this.repass_error = '两次密码不同'
+                            this.user_error = '账号需要是英文大小写及数字组成6~16位'
                             return false
                         }
                     } else {
-                        this.newpass_error = '密码需是英文大小写加数字6~18位'
+                        this.user_error = '请填写账号'
                         return false
                     }
+                } 
+                if(this.username){
+                    if(reg_username.test(this.username)){
+                        this.username_error = ''
+                    }else{
+                        this.username_error = '姓名需要是中文2~6位'
+                        return false
+                    }
+                }else{
+                    this.username_error = '请填写姓名'
+                    return false
+                }
+                if(this.email){
+                    if(isEmail(this.email)){
+                        this.email_error = ''
+                    }else{
+                        this.email_error = '邮箱格式不正确'
+                        return false
+                    }
+                }else{
+                    this.email_error = '请填写邮箱'
+                    return false
+                }
+                if(this.tel){
+                    if(isRealPhone(this.tel)){
+                        this.tel_error = ''
+                    }else{
+                        this.tel_error = '请填写真实的手机号'
+                        return false
+                    }
+                }else{
+                    this.tel_error = '请填写手机号'
+                    return false
                 }
                 let _this = this
                 mAjax(this, {
@@ -107,16 +136,26 @@
         },
         created: function () {
             let _this = this
-            this.$on('show', function (id, user, username, email, tel) {
+            this.$on('edit', function (id, user, username, email, tel) {
                 _this.style = 'block'
                 _this.user = user ? user : ''
                 _this.username = username ? username : ''
                 _this.email = email ? email : ''
                 _this.tel = tel ? tel : ''
                 _this.id = id
+                _this.edit = true
                 _this.$store.commit('SHOW_LAYER')
             })
-        },
+            this.$on('create', function () {
+                _this.style = 'block'
+                _this.user = ''
+                _this.username = ''
+                _this.email = ''
+                _this.tel = ''
+                _this.edit = false
+                _this.$store.commit('SHOW_LAYER')
+            })
+        }
     }
 
 </script>
