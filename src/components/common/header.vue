@@ -25,7 +25,6 @@
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
-            console.log(user)
             return {
                 username: user.user_name,
                 show: false

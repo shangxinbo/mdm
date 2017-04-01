@@ -13,7 +13,7 @@ let mRouter = new Router({
             path: '/',
             component: layout,
             children: [
-                { path: '/operate/index', name: 'operate_index', component: operate_index }
+                    { path: '/operate/index/:page?', name: 'operate_index', component: operate_index }
             ]
         }
     ]
