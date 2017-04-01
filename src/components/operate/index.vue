@@ -45,7 +45,7 @@
             </div>
         </div>
         <update-info-dialog></update-info-dialog>
-        <changePassDialog ref="resetpass"></changePassDialog>
+        <change-pass-dialog ref="resetpass"></change-pass-dialog>
     </div>
 </template>
 <script>
