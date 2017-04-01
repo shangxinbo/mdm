@@ -9,26 +9,26 @@
                 <li>
                     <label>账号</label>
                     <div class="input-warp">
-                        <input class="text" type="text" value="alinea">
+                        <input class="text" type="text" value="alinea" />
                     </div>
                 </li>
                 <li>
                     <label>新密码</label>
                     <div class="input-warp">
-                        <input class="text" type="text" value="">
+                        <input class="text" type="text" value="" />
                     </div>
                 </li>
                 <li>
                     <label>确认密码</label>
                     <div class="input-warp">
-                        <input class="text" type="text" value="">
+                        <input class="text" type="text" value="" />
                     </div>
                 </li>
             </ul>
         </div>
         <div class="dialog-footer">
-            <a class="btn blue" href="javascript:void(0);" onclick="getWindow('resetPasswordSucc','tips-succ');">确定</a>
-            <a class="btn" href="javascript:void(0);" onclick="hideDialog('resetPassword');">取消</a>
+            <a class="btn blue" href="javascript:void(0);">确定</a>
+            <a class="btn" href="javascript:void(0);">取消</a>
         </div>
     </div>
 </template>

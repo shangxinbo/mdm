@@ -5,6 +5,7 @@ Vue.use(Router)
 const login = resolve => System.import('components/users/login.vue')
 const layout = resolve => System.import('components/common/layout.vue')
 const operate_index = resolve => System.import('components/operate/index.vue')
+const agent_index = resolve => System.import('components/agent/index.vue')
 
 let mRouter = new Router({
     routes: [
@@ -13,7 +14,8 @@ let mRouter = new Router({
             path: '/',
             component: layout,
             children: [
-                    { path: '/operate/index/:page?', name: 'operate_index', component: operate_index }
+                    { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
+                    { path: '/agent/index/:page?', name: 'agent_index', component: agent_index }
             ]
         }
     ]
