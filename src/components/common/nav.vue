@@ -14,6 +14,14 @@
                     </router-link>
                 </li>
             </template>
+            <template v-if="type==1">
+                <li class="active">
+                    <router-link to="/users/list/">
+                        <i class="icon icon01"></i>
+                            <span>坐席管理</span>
+                    </router-link>
+                </li>
+            </template>
         </ul>
     </div>
 </template>

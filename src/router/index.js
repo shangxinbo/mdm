@@ -25,12 +25,13 @@ let mRouter = new Router({
 mRouter.beforeEach((to, from, next) => {
     const path = to.path
     const user = JSON.parse(localStorage.getItem('user'))
-    
     if (!user && path != '/login') {
         next({ path: '/login' })
     } else if (path == '/') {
         if (user.type == 0) {
             next({ path: '/operate/index' })
+        } else if(user.type == 1) {
+            next({ path: '/agent/index' })
         } else {
             next({ path: '/sms' })
         }
