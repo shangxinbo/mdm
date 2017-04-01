@@ -7,9 +7,10 @@
             <div class="title-warp">运营管理</div>
             <div class="data-property">
                 <div class="data-export">
-                    <a href="javascript:void(0);" class="btn blue btn-export">
+                    <a href="javascript:void(0);" @click="showDialog('create')" class="btn blue btn-export">
                         <span>
-                            <i class="icon add"></i>新建运营</span>
+                            <i class="icon add"></i>新建运营
+                        </span>
                     </a>
                 </div>
             </div>
@@ -32,8 +33,8 @@
                                 <td>{{item.tel}}</td>
                                 <td>{{item.create_at}}</td>
                                 <td>
-                                    <a href="javascript:void(0);">修改信息</a>
-                                    <a href="javascript:void(0);">重置密码</a>
+                                    <a href="javascript:void(0);" @click="showDialog('update')">修改信息</a>
+                                    <a href="javascript:void(0);" @click="showDialog('changePass')">重置密码</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -43,12 +44,16 @@
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
         </div>
+        <update-info-dialog></update-info-dialog>
+        <change-pass-dialog></change-pass-dialog>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
+    import updateInfoDialog from 'components/operate/dialog/upinfo'
+    import changePassDialog from 'components/operate/dialog/changepass'
     export default {
         data: function () {
             return {
@@ -58,10 +63,12 @@
             }
         },
         components: {
-            pages
+            pages,
+            updateInfoDialog,
+            changePassDialog
         },
         methods: {
-            refresh: function () {
+            refresh() {
                 let _this = this
                 let page = this.$route.params.page
                 page = page ? page : 1
@@ -84,10 +91,13 @@
                     }
                 })
             },
-            jump: function (num) {
+            jump(num) {
                 this.$router.replace('/operate/index/' + num)
                 this.refresh()
             },
+            showDialog(){
+                
+            }
         },
         created: function () {
             this.refresh()
