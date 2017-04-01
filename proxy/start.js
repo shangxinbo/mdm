@@ -4,7 +4,7 @@ const path = require('path')
 const glob = require('glob')
 const request = require('request')
 const bodyParser = require('body-parser')
-const proxy_port = require('../config/dev.env').PROXY_PORT
+const proxy_port = require('../config/dev.env').MOCK_SERVER_PORT
 const app = express()
 const fs = require('fs')
 app

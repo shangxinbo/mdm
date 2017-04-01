@@ -1,15 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import { getCookie } from 'src/services/functions'
 
 Vue.use(Router)
+const login = resolve => System.import('components/users/login.vue')
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    }
-  ]
+    routes: [
+        { path: '/login', name: 'login', component: login }
+    ]
 })
