@@ -33,7 +33,7 @@
                                 <td>{{item.tel}}</td>
                                 <td>{{item.create_at}}</td>
                                 <td>
-                                    <a href="javascript:void(0);" @click="showDialog('update')">修改信息</a>
+                                    <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user)">修改信息</a>
                                     <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
                                 </td>
                             </tr>
@@ -44,7 +44,7 @@
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
         </div>
-        <update-info-dialog></update-info-dialog>
+        <update-info-dialog ref="updateinfo"></update-info-dialog>
         <change-pass-dialog ref="resetpass"></change-pass-dialog>
     </div>
 </template>
@@ -97,6 +97,9 @@
             },
             showResetPassDialog(id,user){
                 this.$refs.resetpass.$emit('show',id,user)
+            },
+            showUpdateDialog(id,user,username,email,tel){
+                this.$refs.updateinfo.$emit('show',id,user,username,email,tel)
             }
         },
         created: function () {
