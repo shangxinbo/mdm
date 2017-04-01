@@ -6,5 +6,7 @@ export default {
     agent_list: API_PRE + '/operation/aginuserinfo',
     reset_operate_pass: API_PRE + '/operation/changePwd',
     create_operate:API_PRE + '/operation/add',
-    update_operate:API_PRE + '/operation/modifyinfo'
+    update_operate:API_PRE + '/operation/modifyinfo',
+    customer_list:API_PRE + '/agent/list',
+    customer_type_list:API_PRE + '/operate/usertype',
 }

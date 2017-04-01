@@ -95,13 +95,13 @@
                 this.$router.replace('/operate/index/' + num)
                 this.refresh()
             },
-            showResetPassDialog(id,user){
-                this.$refs.resetpass.$emit('show',id,user)
+            showResetPassDialog(id, user) {
+                this.$refs.resetpass.$emit('show', id, user)
             },
-            showUpdateDialog(id,user,username,email,tel){
-                this.$refs.updateinfo.$emit('edit',id,user,username,email,tel)
+            showUpdateDialog(id, user, username, email, tel) {
+                this.$refs.updateinfo.$emit('edit', id, user, username, email, tel)
             },
-            showCreateDialog(){
+            showCreateDialog() {
                 this.$refs.updateinfo.$emit('create')
             }
         },
