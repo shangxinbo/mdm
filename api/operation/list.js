@@ -15,8 +15,8 @@ module.exports = function (req, res) {
         "data|10": [
             {
                 "id": '@natural',
-                "user": '@cname',
-                "user_name": '@email',
+                "user": '@word',
+                "user_name": '@cname',
                 "nickname": '@cname',
                 "mail": "@email",
                 "tel": "18923156486",

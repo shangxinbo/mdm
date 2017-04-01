@@ -11,24 +11,28 @@
                     <div class="input-warp">
                         <input class="text disabled" :class="{disabled:edit}" type="text" v-model="user" :disabled="edit?true:false">
                     </div>
+                    <p v-show="user_error" class="error">{{user_error}}</p>
                 </li>
                 <li>
                     <label>姓名</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="username">
                     </div>
+                    <p v-show="username_error" class="error">{{username_error}}</p>
                 </li>
                 <li>
                     <label>邮箱</label>
                     <div class="input-warp">
                         <input class="text" type="email" v-model="email">
                     </div>
+                    <p v-show="email_error" class="error">{{email_error}}</p>
                 </li>
                 <li>
                     <label>手机号</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="tel">
                     </div>
+                    <p v-show="tel_error" class="error">{{tel_error}}</p>
                 </li>
             </ul>
         </div>
@@ -82,51 +86,51 @@
                         this.user_error = '请填写账号'
                         return false
                     }
-                } 
-                if(this.username){
-                    if(reg_username.test(this.username)){
+                }
+                if (this.username) {
+                    if (reg_username.test(this.username)) {
                         this.username_error = ''
-                    }else{
+                    } else {
                         this.username_error = '姓名需要是中文2~6位'
                         return false
                     }
-                }else{
+                } else {
                     this.username_error = '请填写姓名'
                     return false
                 }
-                if(this.email){
-                    if(isEmail(this.email)){
+                if (this.email) {
+                    if (isEmail(this.email)) {
                         this.email_error = ''
-                    }else{
+                    } else {
                         this.email_error = '邮箱格式不正确'
                         return false
                     }
-                }else{
+                } else {
                     this.email_error = '请填写邮箱'
                     return false
                 }
-                if(this.tel){
-                    if(isRealPhone(this.tel)){
+                if (this.tel) {
+                    if (isRealPhone(this.tel)) {
                         this.tel_error = ''
-                    }else{
+                    } else {
                         this.tel_error = '请填写真实的手机号'
                         return false
                     }
-                }else{
+                } else {
                     this.tel_error = '请填写手机号'
                     return false
                 }
                 let _this = this
+                let api = this.edit ? API.update_operate : API.create_operate
+                let data = this.edit ? { id: this.id, user_name: this.username, email: this.email, tel: this.tel } :
+                    { user: this.user, user_name: this.username, email: this.email, tel: this.tel }
                 mAjax(this, {
-                    url: API.reset_operate_pass,
-                    data: {
-                        id: this.id,
-                        new_pwd: this.newpass,
-                        confirm_pwd: this.repass
-                    },
+                    url: api,
+                    data: data,
                     success: data => {
                         _this.close()
-                        _this.$store.commit('SHOW_TOAST', '密码重置成功')
+                        let msg = _this.edit ? '修改信息成功' : '新建账号成功'
+                        _this.$store.commit('SHOW_TOAST', msg)
                     },
                     error: err => {
                         console.log(err)

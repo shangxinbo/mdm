@@ -31,7 +31,7 @@
                                 <td>{{item.user_name}}</td>
                                 <td>{{item.mail}}</td>
                                 <td>{{item.tel}}</td>
-                                <td>{{item.create_at}}</td>
+                                <td>{{item.created_at}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user,item.user_name,item.mail,item.tel)">修改信息</a>
                                     <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>

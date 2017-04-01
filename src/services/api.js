@@ -4,5 +4,7 @@ export default {
     login: API_PRE + '/user/login',
     operate_list: API_PRE + '/operation/list',
     agent_list: API_PRE + '/operation/aginuserinfo',
-    reset_operate_pass: API_PRE + '/operation/changePwd'
+    reset_operate_pass: API_PRE + '/operation/changePwd',
+    create_operate:API_PRE + '/operation/add',
+    update_operate:API_PRE + '/operation/modifyinfo'
 }
