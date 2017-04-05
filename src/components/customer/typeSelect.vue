@@ -48,7 +48,7 @@
             mAjax(this, {
                 url: API.customer_type_list,
                 success: data => {
-                    this.typeList = data.detail
+                    this.typeList = data.data
                 }
             })
         },

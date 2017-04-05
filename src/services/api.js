@@ -9,5 +9,7 @@ export default {
     update_operate:API_PRE + '/operation/modifyinfo',
     customer_list:API_PRE + '/agent/list',
     customer_type_list:API_PRE + '/operate/usertype',
-    customer_add : API_PRE + 'agent/add'
+    customer_add : API_PRE + '/agent/add',
+    customer_detail: API_PRE + '/agent/agininfo',
+    customer_edit: API_PRE + '/agent/modifyinfo'
 }

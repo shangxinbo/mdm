@@ -75,7 +75,7 @@
                     success: function (data) {
                         if (data.code == 200) {
                             this.error = ''
-                            localStorage.setItem('user', JSON.stringify(data.detail))
+                            localStorage.setItem('user', JSON.stringify(data.data))
                             vm.$router.push('/')
                                 
                         }else{

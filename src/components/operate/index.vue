@@ -81,7 +81,7 @@
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            let list = data.detail
+                            let list = data.data
                             _this.list = list.data
                             _this.totalPage = Math.ceil(list.total / list.per_page)
                             _this.currentPage = page

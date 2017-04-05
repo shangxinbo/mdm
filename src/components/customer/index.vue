@@ -56,7 +56,7 @@
                                 <td>¥{{item.balance}}</td>
                                 <td>
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);">修改信息</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showEditDialog(item.id)">修改信息</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);">重置密码</a>
                                 </td>
                             </tr>
@@ -66,6 +66,7 @@
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
         </div>
+        <editDialog ref="editDialog"></editDialog>
     </div>
 </template>
 <script>
@@ -74,6 +75,7 @@
     import pages from 'components/common/pages'
     import typeSelect from './typeSelect'
     import statusSelect from './statusSelect'
+    import editDialog from './dialog/changeInfo'
     export default {
         data: function () {
             return {
@@ -94,7 +96,8 @@
         components: {
             pages,
             typeSelect,
-            statusSelect
+            statusSelect,
+            editDialog
         },
         methods: {
             refresh() {
@@ -111,7 +114,7 @@
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            let list = data.detail
+                            let list = data.data
                             _this.list = list.data
                             _this.totalPage = Math.ceil(list.total / list.per_page)
                             _this.currentPage = page
@@ -124,6 +127,9 @@
             jump(num) {
                 this.$router.replace('/customer/index/' + num)
                 this.refresh()
+            },
+            showEditDialog(id){
+                this.$refs.editDialog.$emit('show',id)
             }
         },
         created: function () {

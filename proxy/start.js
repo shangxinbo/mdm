@@ -17,7 +17,7 @@ app
             res.json({
                 code: 200,
                 message: "",
-                detail: data(req, res)
+                data: data(req, res)
             })
         } else {
             res.send('error')
