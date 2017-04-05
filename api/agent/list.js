@@ -17,7 +17,7 @@ module.exports = function (req, res) {
                 "id": '@natural',
                 "company": '@ctitle',
                 "type":'@ctitle',
-                "audit_status": '@int(0,1)',
+                "audit_status": '@int(0,2)',
                 "balance": "@int(0,100)",
                 "created_at": '@date("yyyy-MM-dd HH:mm:ss")'
             }
