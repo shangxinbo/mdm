@@ -20,17 +20,23 @@
                         <tbody>
                             <tr>
                                 <th>代理账号</th>
+                                <th>代理名称</th>
                                 <th>姓名</th>
                                 <th>邮箱</th>
                                 <th>手机号</th>
+                                <th>归属地</th>
+                                <th>所在位置</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.user}}}</td>
-                                <td>{{item.user_name}}</td>
+                                <td>{{item.id}}</td>
+                                <td>{{item.user}}</td>
+                                <td>{{item.nickname}}</td>
                                 <td>{{item.mail}}</td>
                                 <td>{{item.tel}}</td>
+                                <td>{{item.regoin}}</td>
+                                <td>{{item.application_addr}}</td>
                                 <td>{{item.create_at}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showDialog('update')">修改信息</a>

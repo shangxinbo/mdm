@@ -13,7 +13,13 @@
                     </div>
                 </li>
                 <li>
-                    <label>姓名</label>
+                    <label>代理名称</label>
+                    <div class="input-warp">
+                        <input class="text disabled" type="text" value="BIG" disabled="disabled">
+                    </div>
+                </li>
+                <li>
+                    <label>联系人姓名</label>
                     <div class="input-warp">
                         <input class="text" type="text" value="alinea">
                     </div>
@@ -28,6 +34,18 @@
                     <label>手机号</label>
                     <div class="input-warp">
                         <input class="text" type="text" value="13811145569">
+                    </div>
+                </li>
+                <li>
+                    <label>归属地</label>
+                    <div class="input-warp">
+                        <input class="text disabled" type="text" value="PEKING" disabled="disabled">
+                    </div>
+                </li>
+                <li>
+                    <label>所在位置</label>
+                    <div class="input-warp">
+                        <input class="text disabled" type="text" value="DONGCHE" disabled="disabled">
                     </div>
                 </li>
             </ul>

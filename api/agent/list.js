@@ -8,8 +8,8 @@ module.exports = function (req, res) {
         "per_page": 10,
         "current_page": page,
         "last_page": 3,
-        "next_page_url": "http://sms.geotmt.com/users/list?page=3",
-        "prev_page_url": "http://sms.geotmt.com/users/list?page=1",
+        "next_page_url": "http://sms.geotmt.com/agent/list?page=3",
+        "prev_page_url": "http://sms.geotmt.com/agent/list?page=1",
         "from": 2,
         "to": 2,
         "data|10": [
