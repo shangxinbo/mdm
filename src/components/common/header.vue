@@ -5,6 +5,18 @@
                 <i class="icon login-icon"></i>
                 <div class="quit">
                     <p :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
+                    <a href="operate-agent.html" class="my" v-if="type==1">
+                        <i class="icon icon05"></i>
+                        <span>代理管理</span>
+                    </a>
+                    <a href="client-my.html" class="my" v-if="type==3||type==2">
+                        <i class="icon icon03"></i>
+                        <span>我的账号</span>
+                    </a>
+                    <a href="client-myseat.html" class="my" v-if="type==3">
+                        <i class="icon icon04"></i>
+                        <span>我的坐席</span>
+                    </a>
                     <a href="javascript:void(0);" @click.stop="showChangeMyPassDialog()" class="edit">
                         <i class="icon icon01"></i>
                         <span>修改密码</span>
@@ -28,7 +40,7 @@
             return {
                 username: user.user_name,
                 show: false,
-                type:user.type
+                type: user.type
             }
         },
         methods: {
@@ -52,7 +64,7 @@
                     }
                 })
             },
-            showChangeMyPassDialog(){
+            showChangeMyPassDialog() {
                 this.slideUp()
                 this.$store.commit('SHOW_CHANGEPASS')
             }
@@ -60,7 +72,7 @@
         mounted: function () {
             let _this = this
             Vue.nextTick(function () {
-                document.addEventListener('click',function () {
+                document.addEventListener('click', function () {
                     _this.slideUp()
                 })
             })
