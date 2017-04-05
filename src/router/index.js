@@ -10,6 +10,8 @@ const customer_index = resolve => System.import('components/customer/index.vue')
 const customer_add = resolve => System.import('components/customer/add.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
 const seat = resolve => System.import('components/seat/index.vue')
+const project_list = resolve => System.import('components/project/index.vue')
+
 let mRouter = new Router({
     routes: [
         { path: '/login', name: 'login', component: login },
@@ -22,7 +24,8 @@ let mRouter = new Router({
                     { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
                     { path: '/customer/add', name: 'customer_add', component: customer_add },
                     { path: '/user/myinfo', name: 'myinfo', component: myinfo },
-                    { path: '/seat/index/:page?', name: 'seat', component: seat }
+                    { path: '/seat/index/:page?', name: 'seat', component: seat },
+                    { path: '/project/index/:page?', name: 'project_list', component: project_list }
             ]
         }
     ]

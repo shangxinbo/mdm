@@ -22,7 +22,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/users/list/">
+                    <router-link to="/project/index">
                         <i class="icon icon01"></i>
                         <span>项目管理</span>
                     </router-link>
