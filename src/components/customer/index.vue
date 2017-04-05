@@ -4,7 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">客户管理</div>
+            <div class="title-warp">{{agent.name?agent.name+'的客户':'客户管理'}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -14,7 +14,7 @@
                                 <input class="text" v-model="user" type="text">
                             </div>
                         </li>
-                        <agentSelect ref="agentSelect" v-if="1"></agentSelect>
+                        <agentSelect ref="agentSelect" v-if="!agent.id"></agentSelect>
                         <typeSelect ref="typeSelect"></typeSelect>
                         <statusSelect ref="statusSelect"></statusSelect>
                         <li>
@@ -53,7 +53,7 @@
                         <tbody>
                             <tr>
                                 <th>客户名称</th>
-                                <th v-if="authType==1">所属代理</th>
+                                <th v-if="authType==1&&!agent.id">所属代理</th>
                                 <th>类型</th>
                                 <th>创建日期</th>
                                 <th>状态</th>
@@ -66,8 +66,8 @@
                                 <td>
                                     <a href="#">{{item.company}}</a>
                                 </td>
-                                <td v-if="authType==1">
-                                    <a href="#">{{item.agent_name}}</a>
+                                <td v-if="authType==1&&!agent.id">
+                                    <a href="javascript:void(0);" @click="chooseAgent(item.superior_id,item.agent_name)">{{item.agent_name}}</a>
                                 </td>
                                 <td>{{item.type}}</td>
                                 <td>{{item.created_at}}</td>
@@ -110,7 +110,7 @@
     import editDialog from './dialog/changeInfo'
     import resetPassDialog from 'components/dialog/resetpass'
     import addSeatDialog from './dialog/addSeat'
-    import rechargeDialog from './dialog/recharge' 
+    import rechargeDialog from './dialog/recharge'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
@@ -124,7 +124,11 @@
                     project: '',
                     seat: ''
                 },
-                authType:user.type
+                authType: user.type,
+                agent: {
+                    id: '',
+                    name: ''
+                }
             }
         },
         computed: {
@@ -191,11 +195,19 @@
             showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
             },
-            showAddSeatDialog(id,company,seat){
-                this.$refs.addSeatDialog.$emit('show',id,company,seat)
+            showAddSeatDialog(id, company, seat) {
+                this.$refs.addSeatDialog.$emit('show', id, company, seat)
             },
-            showRechargeDialog(id,company,balance){
-                this.$refs.rechargeDialog.$emit('show',id,company,balance)
+            showRechargeDialog(id, company, balance) {
+                this.$refs.rechargeDialog.$emit('show', id, company, balance)
+            },
+            chooseAgent(id,name){
+                console.log(id)
+                this.agent = {
+                    id:id,
+                    name:name
+                }
+                this.refresh()
             }
         },
         created: function () {
