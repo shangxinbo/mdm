@@ -14,6 +14,7 @@
                                 <input class="text" v-model="user" type="text">
                             </div>
                         </li>
+                        <agentSelect ref="agentSelect" v-if="1"></agentSelect>
                         <typeSelect ref="typeSelect"></typeSelect>
                         <statusSelect ref="statusSelect"></statusSelect>
                         <li>
@@ -25,7 +26,21 @@
                     </ul>
                 </form>
                 <div class="data-export">
-                    <router-link to="/customer/add" class="btn blue btn-export">
+                    <ul v-if="authType==1">
+                        <li>
+                            <span class="t">客户数</span>
+                            <span class="num">{{sum.customer}}</span>
+                        </li>
+                        <li>
+                            <span class="t">进行中项目</span>
+                            <span class="num">{{sum.project}}</span>
+                        </li>
+                        <li>
+                            <span class="t">在用坐席</span>
+                            <span class="num">{{sum.seat}}</span>
+                        </li>
+                    </ul>
+                    <router-link v-else to="/customer/add" class="btn blue btn-export">
                         <span>
                             <i class="icon add"></i>新建客户
                         </span>
@@ -38,9 +53,12 @@
                         <tbody>
                             <tr>
                                 <th>客户名称</th>
+                                <th v-if="authType==1">所属代理</th>
                                 <th>类型</th>
                                 <th>创建日期</th>
                                 <th>状态</th>
+                                <th v-if="authType==1">进行中的项目</th>
+                                <th v-if="authType==1">现有坐席</th>
                                 <th>余额</th>
                                 <th>操作</th>
                             </tr>
@@ -48,13 +66,23 @@
                                 <td>
                                     <a href="#">{{item.company}}</a>
                                 </td>
+                                <td v-if="authType==1">
+                                    <a href="#">{{item.agent_name}}</a>
+                                </td>
                                 <td>{{item.type}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td v-if="item.audit_status==1">通过</td>
                                 <td v-else-if="item.audit_status==2" class="red">未通过</td>
                                 <td v-else>待审核</td>
+                                <td v-if="authType==1">{{item.conduct_project}}</td>
+                                <td v-if="authType==1">{{item.seat_num}}</td>
                                 <td>¥{{item.balance}}</td>
-                                <td>
+                                <td v-if="authType==1">
+                                    <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">审核</router-link>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showEditDialog(item.id)">开通坐席</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showResetPassDialog(item.id,item.company)">充值</a>
+                                </td>
+                                <td v-else>
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showEditDialog(item.id)">修改信息</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showResetPassDialog(item.id,item.company)">重置密码</a>
@@ -76,15 +104,23 @@
     import pages from 'components/common/pages'
     import typeSelect from './typeSelect'
     import statusSelect from './statusSelect'
+    import agentSelect from './agentSelect'
     import editDialog from './dialog/changeInfo'
     import resetPassDialog from 'components/dialog/resetpass'
+    let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
             return {
                 list: [],
                 currentPage: 1,
                 totalPage: 1,
-                user: ''
+                user: '',
+                sum: {
+                    customer: '',
+                    project: '',
+                    seat: ''
+                },
+                authType:user.type
             }
         },
         computed: {
@@ -99,6 +135,7 @@
             pages,
             typeSelect,
             statusSelect,
+            agentSelect,
             editDialog,
             resetPassDialog
         },
@@ -106,20 +143,31 @@
             refresh() {
                 let _this = this
                 let page = this.$route.params.page
+                let api = user.type == 1 ? API.customer_list_by_operate : API.customer_list
                 page = page ? page : 1
                 mAjax(this, {
-                    url: API.customer_list,
+                    url: api,
                     data: {
                         page: page,
-                        user: _this.user,
+                        company: _this.user,
                         type: _this.type,
                         audit_status: _this.status
                     },
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
-                            _this.list = list.data
-                            _this.totalPage = Math.ceil(list.total / list.per_page)
+                            if (user.type == 1) {
+                                _this.sum = {
+                                    customer: list.customer_num,
+                                    project: list.conduct_project,
+                                    seat: list.seat_num
+                                }
+                                _this.list = list.customer.data
+                            } else {
+                                _this.list = list.data
+                            }
+
+                            _this.totalPage = Math.ceil(_this.list.total / _this.list.per_page)
                             _this.currentPage = page
                         } else {
                             _this.list = ''
@@ -131,11 +179,10 @@
                 this.$router.replace('/customer/index/' + num)
                 this.refresh()
             },
-            showEditDialog(id){
-                this.$refs.editDialog.$emit('show',id)
+            showEditDialog(id) {
+                this.$refs.editDialog.$emit('show', id)
             },
-            showResetPassDialog(id,user){
-                console.log(id)
+            showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
             }
         },
