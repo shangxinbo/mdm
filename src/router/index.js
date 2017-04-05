@@ -22,7 +22,7 @@ let mRouter = new Router({
                     { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
                     { path: '/customer/add', name: 'customer_add', component: customer_add },
                     { path: '/user/myinfo', name: 'myinfo', component: myinfo },
-                    { path: '/seat/index/page?', name: 'seat', component: seat }
+                    { path: '/seat/index/:page?', name: 'seat', component: seat }
             ]
         }
     ]
