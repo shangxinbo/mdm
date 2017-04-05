@@ -7,7 +7,7 @@ const layout = resolve => System.import('components/common/layout.vue')
 const operate_index = resolve => System.import('components/operate/index.vue')
 const agent_index = resolve => System.import('components/agent/index.vue')
 const customer_index = resolve => System.import('components/customer/index.vue')
-
+const customer_add = resolve => System.import('components/customer/add.vue')
 let mRouter = new Router({
     routes: [
         { path: '/login', name: 'login', component: login },
@@ -17,7 +17,8 @@ let mRouter = new Router({
             children: [
                     { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
                     { path: '/agent/index/:page?', name: 'agent_index', component: agent_index },
-                    { path: '/customer/index/:page?', name: 'customer_index', component: customer_index }
+                    { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
+                    { path: '/customer/add', name: 'customer_add', component: customer_add }
             ]
         }
     ]
