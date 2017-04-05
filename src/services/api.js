@@ -16,5 +16,6 @@ export default {
     customer_detail: API_PRE + '/agent/agininfo',
     customer_edit: API_PRE + '/agent/modifyinfo',
     angent_list_all:API_PRE + '/operate/agent',
-    add_seat:API_PRE + '/operate/seatmodify'
+    add_seat:API_PRE + '/operate/seatmodify',
+    recharge:API_PRE + '/operate/recharge'
 }

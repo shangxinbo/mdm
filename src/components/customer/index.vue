@@ -80,7 +80,7 @@
                                 <td v-if="authType==1">
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">审核</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num)">开通坐席</a>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showResetPassDialog(item.id,item.company)">充值</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
@@ -97,6 +97,7 @@
         <editDialog ref="editDialog"></editDialog>
         <resetPassDialog ref="resetPassDialog"></resetPassDialog>
         <addSeatDialog ref="addSeatDialog"></addSeatDialog>
+        <rechargeDialog ref="rechargeDialog"></rechargeDialog>
     </div>
 </template>
 <script>
@@ -109,6 +110,7 @@
     import editDialog from './dialog/changeInfo'
     import resetPassDialog from 'components/dialog/resetpass'
     import addSeatDialog from './dialog/addSeat'
+    import rechargeDialog from './dialog/recharge' 
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
@@ -140,7 +142,8 @@
             agentSelect,
             editDialog,
             resetPassDialog,
-            addSeatDialog
+            addSeatDialog,
+            rechargeDialog
         },
         methods: {
             refresh() {
@@ -190,6 +193,9 @@
             },
             showAddSeatDialog(id,company,seat){
                 this.$refs.addSeatDialog.$emit('show',id,company,seat)
+            },
+            showRechargeDialog(id,company,balance){
+                this.$refs.rechargeDialog.$emit('show',id,company,balance)
             }
         },
         created: function () {
