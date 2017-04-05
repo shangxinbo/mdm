@@ -55,8 +55,9 @@
                                 <td v-else>待审核</td>
                                 <td>¥{{item.balance}}</td>
                                 <td>
-                                    <a href="javascript:void(0);">修改信息</a>
-                                    <a href="javascript:void(0);">重置密码</a>
+                                    <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);">修改信息</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);">重置密码</a>
                                 </td>
                             </tr>
                         </tbody>
