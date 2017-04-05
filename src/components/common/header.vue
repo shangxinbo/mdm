@@ -5,10 +5,10 @@
                 <i class="icon login-icon"></i>
                 <div class="quit">
                     <p :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
-                    <router-link to="/upmypass" class="edit">
+                    <a href="javascript:void(0);" @click.stop="showChangeMyPassDialog()" class="edit">
                         <i class="icon icon01"></i>
                         <span>修改密码</span>
-                    </router-link>
+                    </a>
                     <a href="javascript:void(0)" @click="logout">
                         <i class="icon icon02"></i>
                         <span>退 出</span>
@@ -27,7 +27,8 @@
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 username: user.user_name,
-                show: false
+                show: false,
+                type:user.type
             }
         },
         methods: {
@@ -50,6 +51,10 @@
                         _this.error = err
                     }
                 })
+            },
+            showChangeMyPassDialog(){
+                this.slideUp()
+                this.$store.commit('SHOW_CHANGEPASS')
             }
         },
         mounted: function () {

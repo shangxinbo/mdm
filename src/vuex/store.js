@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 const state = {
     showLayer: false,
-    toast:'' //msg string
+    toast:'', //msg string
+    changeMypassDialogShow:false
 }
 
 const mutations = {
@@ -23,6 +24,14 @@ const mutations = {
     },
     HIDE_TOAST(state) {
         state.toast = ''
+    },
+    // 显示遮罩层
+    SHOW_CHANGEPASS(state) {
+        state.changeMypassDialogShow = true
+    },
+    // 隐藏遮罩层
+    HIDE_CHANGEPASS(state) {
+        state.changeMypassDialogShow = false
     },
 }
 

@@ -5,6 +5,7 @@
         <router-view></router-view>
         <mfooter></mfooter>
         <toast></toast>
+        <changeMyPass></changeMyPass>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -13,6 +14,7 @@
     import mfooter from 'components/common/footer.vue'
     import mnav from 'components/common/nav.vue'
     import toast from 'components/dialog/toast'
+    import changeMyPass from 'components/dialog/changeMyPass'
     export default {
         computed:{
             layer:function(){
@@ -23,7 +25,8 @@
             mheader,
             mfooter,
             mnav,
-            toast
+            toast,
+            changeMyPass
         }
     }
 </script>
