@@ -79,7 +79,7 @@
                                 <td>¥{{item.balance}}</td>
                                 <td v-if="authType==1">
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">审核</router-link>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showEditDialog(item.id)">开通坐席</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num)">开通坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showResetPassDialog(item.id,item.company)">充值</a>
                                 </td>
                                 <td v-else>
@@ -96,6 +96,7 @@
         </div>
         <editDialog ref="editDialog"></editDialog>
         <resetPassDialog ref="resetPassDialog"></resetPassDialog>
+        <addSeatDialog ref="addSeatDialog"></addSeatDialog>
     </div>
 </template>
 <script>
@@ -107,6 +108,7 @@
     import agentSelect from './agentSelect'
     import editDialog from './dialog/changeInfo'
     import resetPassDialog from 'components/dialog/resetpass'
+    import addSeatDialog from './dialog/addSeat'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
@@ -137,7 +139,8 @@
             statusSelect,
             agentSelect,
             editDialog,
-            resetPassDialog
+            resetPassDialog,
+            addSeatDialog
         },
         methods: {
             refresh() {
@@ -184,6 +187,9 @@
             },
             showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
+            },
+            showAddSeatDialog(id,company,seat){
+                this.$refs.addSeatDialog.$emit('show',id,company,seat)
             }
         },
         created: function () {
