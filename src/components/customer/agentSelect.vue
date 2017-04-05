@@ -1,16 +1,16 @@
 <template>
     <li>
-        <label class="name">客户类型</label>
+        <label class="name">所属代理</label>
         <div class="input-warp">
-            <div class="select-warp" :class="{'select-open':showType}">
-                <p class="all" @click.stop="showTypeSelect">
-                    <span>{{type.name}}</span>
+            <div class="select-warp" :class="{'select-open':showStatus}">
+                <p class="all" @click.stop="showSelect">
+                    <span>{{selected.name}}</span>
                 </p>
                 <div class="select-ul">
                     <div class="scroll-warp scrollBar" style="overflow-y:auto">
                         <ul>
-                            <li @click.stop="changeType('','全部')">全部</li>
-                            <li v-for="(item,index) in typeList" @click.stop="changeType(index,item)">{{item}}</li>
+                            <li @click.stop="change('','全部')">全部</li>
+                            <li v-for="(item,index) in list" @click.stop="change(index,item)">{{item}}</li>
                         </ul>
                     </div>
                 </div>
@@ -24,31 +24,31 @@
     export default {
         data: function () {
             return {
-                type: {
+                selected: {
                     id: '',
                     name: '全部'
                 },
-                typeList: {},
-                showType: false
+                list: {},
+                showStatus: false
             }
         },
-        methods: { 
-            showTypeSelect: function () {
-                this.showType = true
+        methods: {
+            showSelect: function () {
+                this.showStatus = true
             },
-            changeType: function (id, name) {
-                this.type = {
+            change: function (id, name) {
+                this.selected = {
                     id: id,
                     name: name
                 }
-                this.showType = false
+                this.showStatus = false
             }
         },
         created: function () {
             mAjax(this, {
-                url: API.angent_list_all,
+                url: API.customer_type_list,
                 success: data => {
-                    this.typeList = data.data
+                    this.list = data.data
                 }
             })
         },
@@ -56,5 +56,4 @@
             //TODO  nextstick
         }
     }
-
 </script>

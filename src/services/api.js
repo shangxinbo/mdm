@@ -10,8 +10,11 @@ export default {
     create_operate:API_PRE + '/operation/add',
     update_operate:API_PRE + '/operation/modifyinfo',
     customer_list:API_PRE + '/agent/list',
+    customer_list_by_operate:API_PRE + '/operate/list',
     customer_type_list:API_PRE + '/operate/usertype',
     customer_add : API_PRE + '/agent/add',
     customer_detail: API_PRE + '/agent/agininfo',
-    customer_edit: API_PRE + '/agent/modifyinfo'
+    customer_edit: API_PRE + '/agent/modifyinfo',
+    angent_list_all:API_PRE + '/operate/agent',
+    add_seat:API_PRE + '/operate/seatmodify'
 }

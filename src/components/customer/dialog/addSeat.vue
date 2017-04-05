@@ -1,0 +1,94 @@
+<template>
+    <div class="dialog" :style="{display:style}" style="margin-left:-259px;margin-top:-181px;">
+        <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
+        <div class="dialog-header">
+            <h4>新开坐席</h4>
+        </div>
+        <div class="dialog-body">
+            <ul class="query-warp">
+                <li>
+                    <label>客户名称</label>
+                    <div class="input-warp">
+                        <p class="text">{{company}}</p>
+                    </div>
+                </li>
+                <li>
+                    <label>现有坐席</label>
+                    <div class="input-warp">
+                        <p class="text">{{seat}}</p>
+                    </div>
+                </li>
+                <li>
+                    <label>新开坐席</label>
+                    <div class="input-warp">
+                        <input class="text" type="text" v-model="add">
+                    </div>
+                    <p v-if="add_error" class="error">{{add_error}}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="dialog-footer">
+            <a class="btn blue" href="javascript:void(0);" @click="sure">确定</a>
+            <a class="btn" href="javascript:void(0);" @click="close">取消</a>
+        </div>
+    </div>
+</template>
+<script>
+    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import API from 'src/services/api'
+
+    export default {
+        data: function () {
+            return {
+                style: 'none',
+                company:'',
+                seat:'',
+                add:'',
+                add_error:''
+            }
+        },
+        methods: {
+            close: function () {
+                this.style = 'none'
+                this.$store.commit('HIDE_LAYER')
+            },
+            sure: function () {
+                if(isNaN(this.add)){
+                    this.add_error = '输入不合法'
+                    return false
+                }
+                let _this = this
+                mAjax(this, {
+                    url: API.add_seat,
+                    data: {
+                        id: this.id,
+                        new_seat_num: this.add
+                    },
+                    success: data => {
+                        if (data.code == 200) {
+                            _this.close()
+                            _this.$store.commit('SHOW_TOAST', '添加坐席成功')
+                        } else {
+                            //TODO  修改失败
+                        }
+                    },
+                    error: err => {
+                        console.log(err)
+                    }
+                })
+            }
+        },
+        created: function () {
+            let _this = this
+            this.$on('show', function (id,company,seat) {
+                _this.id = id
+                _this.company = company
+                _this.seat = seat
+                _this.style = 'block'
+                _this.$store.commit('SHOW_LAYER')
+
+            })
+        },
+    }
+
+</script>
