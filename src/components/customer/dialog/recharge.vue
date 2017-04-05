@@ -23,7 +23,8 @@
                     <div class="input-warp">
                         <input class="text" type="text" v-model="money">
                         <p class="notice">
-                            <i class="icon"></i>请务必与财务确认充值金额已到账</p>
+                            <i class="icon"></i>请务必与财务确认充值金额已到账
+                        </p>
                     </div>
                 </li>
             </ul>
