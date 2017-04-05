@@ -9,10 +9,10 @@
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
                     </a>
-                    <a href="client-my.html" class="my" v-if="type==3||type==2">
+                    <router-link to="/user/myinfo" class="my" v-if="type==3||type==2">
                         <i class="icon icon03"></i>
                         <span>我的账号</span>
-                    </a>
+                    </router-link>
                     <a href="client-myseat.html" class="my" v-if="type==3">
                         <i class="icon icon04"></i>
                         <span>我的坐席</span>
