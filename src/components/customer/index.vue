@@ -57,7 +57,7 @@
                                 <td>
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showEditDialog(item.id)">修改信息</a>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);">重置密码</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showResetPassDialog(item.id,item.company)">重置密码</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -67,6 +67,7 @@
             </div>
         </div>
         <editDialog ref="editDialog"></editDialog>
+        <resetPassDialog ref="resetPassDialog"></resetPassDialog>
     </div>
 </template>
 <script>
@@ -76,6 +77,7 @@
     import typeSelect from './typeSelect'
     import statusSelect from './statusSelect'
     import editDialog from './dialog/changeInfo'
+    import resetPassDialog from 'components/dialog/resetpass'
     export default {
         data: function () {
             return {
@@ -97,7 +99,8 @@
             pages,
             typeSelect,
             statusSelect,
-            editDialog
+            editDialog,
+            resetPassDialog
         },
         methods: {
             refresh() {
@@ -130,6 +133,10 @@
             },
             showEditDialog(id){
                 this.$refs.editDialog.$emit('show',id)
+            },
+            showResetPassDialog(id,user){
+                console.log(id)
+                this.$refs.resetPassDialog.$emit('show', id, user)
             }
         },
         created: function () {
