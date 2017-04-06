@@ -24,17 +24,17 @@ let mRouter = new Router({
             path: '/',
             component: layout,
             children: [
-                    { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
-                    { path: '/agent/index/:page?', name: 'agent_index', component: agent_index },
-                    { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
-                    { path: '/customer/add', name: 'customer_add', component: customer_add },
-                    { path: '/user/myinfo', name: 'myinfo', component: myinfo },
-                    { path: '/seat/index/:page?', name: 'seat', component: seat },
-                    { path: '/project/index/:page?', name: 'project_list', component: project_list },
-                    { path: '/call/index/:page?', name: 'call_index', component: call_index },
-                    { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
-                    { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
-                    { path: '/expense/balance', name: 'expense_balance', component: expense_balance }
+                { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
+                { path: '/agent/index/:page?', name: 'agent_index', component: agent_index },
+                { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
+                { path: '/customer/add', name: 'customer_add', component: customer_add },
+                { path: '/user/myinfo', name: 'myinfo', component: myinfo },
+                { path: '/seat/index/:page?', name: 'seat', component: seat },
+                { path: '/project/index/:page?', name: 'project_list', component: project_list },
+                { path: '/call/index/:page?', name: 'call_index', component: call_index },
+                { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
+                { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
+                { path: '/expense/balance', name: 'expense_balance', component: expense_balance }
             ]
         },
         { path: '/error*', name: 'error', component: error },
@@ -51,40 +51,40 @@ mRouter.beforeEach((to, from, next) => {
     } else if (path == '/') {
         if (user.type == 0) {
             next({ path: '/operate/index' })
-        } else if(user.type == 1) {
+        } else if (user.type == 1) {
             next({ path: '/agent/index' })
-        } else if(user.type == 2) {
+        } else if (user.type == 2) {
             next({ path: '/customer/index' })
-        } else if(user.type == 3) {
+        } else if (user.type == 3) {
             next({ path: '/porject/index' })
-        }else if(user.type == 4) {
+        } else if (user.type == 4) {
             next({ path: '/project/index' })
-        }else{
+        } else {
             next({ path: '/project/index' })
         }
     } else {
         let arr = [
-            path.indexOf('/operate')>=0,
-            path.indexOf('/agent')>=0,
-            path.indexOf('/customer')>=0,
-            path.indexOf('/project')>=0,
-            path.indexOf('/call')>=0,
-            path.indexOf('/expense')>=0
+            path.indexOf('/operate') >= 0,
+            path.indexOf('/agent') >= 0,
+            path.indexOf('/customer') >= 0,
+            path.indexOf('/project') >= 0,
+            path.indexOf('/call') >= 0,
+            path.indexOf('/expense') >= 0
         ]
         //权限配置
-        if (user.type == 0 && (arr[1]||arr[2]||arr[3]||arr[4]||arr[5])) {
+        if (user.type == 0 && (arr[1] || arr[2] || arr[3] || arr[4] || arr[5])) {
             next({ path: '/error?code=403' })
         }
         if (user.type == 1 && arr[0]) {
             next({ path: '/error?code=403' })
         }
-        if (user.type == 2 && (arr[0]||arr[1]||arr[3]||arr[4]||arr[5])) {
+        if (user.type == 2 && (arr[0] || arr[1] || arr[3] || arr[4] || arr[5])) {
             next({ path: '/error?code=403' })
         }
-        if (user.type == 3 && (arr[0]||arr[1]||arr[2])) {
+        if (user.type == 3 && (arr[0] || arr[1] || arr[2])) {
             next({ path: '/error?code=403' })
         }
-        if (user.type == 4 && (arr[0]||arr[1]||arr[2]||arr[5])) {
+        if (user.type == 4 && (arr[0] || arr[1] || arr[2] || arr[5])) {
             next({ path: '/error?code=403' })
         }
         next()

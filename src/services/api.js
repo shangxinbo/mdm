@@ -21,6 +21,6 @@ export default {
     recharge: API_PRE + '/operate/recharge',
     project_status: API_PRE + '/project/status',
     project_list: API_PRE + '/project/list',
-    project_stop:API_PRE + '/project/pause',
-    project_start:API_PRE + '/project/start'
+    project_stop: API_PRE + '/project/pause',
+    project_start: API_PRE + '/project/start'
 }
