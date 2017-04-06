@@ -98,13 +98,13 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <a href="#">{{item.name}}</a>
+                                    <router-link :to="'/project/detail/'+item.id">{{item.name}}</router-link>
                                 </td>
                                 <td v-if="!customer_id">
-                                    <router-link :to="{query:{customer_id:item.id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                                    <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="!agent_id&&!customer_id">
-                                    <router-link :to="{query:{agent_id:item.id,agent_name:item.client_name}}">{{item.agency}}</router-link>
+                                    <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
                                 </td>
                                 <td>{{item.project_type}}</td>
                                 <td>{{item.created_at}}</td>
@@ -117,7 +117,7 @@
                                 <td>{{item.odd_time}}</td>
                                 <td>{{item.project_seat_num}}</td>
                                 <td>
-                                    <router-link v-if="item.status==-1" to="/project/check">审核</router-link>
+                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>
