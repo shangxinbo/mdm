@@ -23,13 +23,8 @@ let mRouter = new Router({
                     { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
                     { path: '/customer/add', name: 'customer_add', component: customer_add },
                     { path: '/user/myinfo', name: 'myinfo', component: myinfo },
-<<<<<<< HEAD
-                    { path: '/seat/index/:page?', name: 'seat_project', component: seat_project },
-                    { path: '/seat/traffic/:page?', name: 'seat_traffic', component: seat_traffic }
-=======
                     { path: '/seat/index/:page?', name: 'seat', component: seat },
                     { path: '/project/index/:page?', name: 'project_list', component: project_list }
->>>>>>> 7e65256dca928fb0a9c1ee1f37aaede5cc7b6e72
             ]
         }
     ]
