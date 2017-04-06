@@ -96,7 +96,8 @@
             return {
                 list: [],
                 currentPage: 1,
-                totalPage: 1
+                totalPage: 1,
+                customer_name
             }
         },
         components: {
