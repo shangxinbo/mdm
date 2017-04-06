@@ -53,7 +53,11 @@ mRouter.beforeEach((to, from, next) => {
         } else if(user.type == 2) {
             next({ path: '/customer/index' })
         } else if(user.type == 3) {
-            next({ path: '/customer/index' })
+            next({ path: '/porject/index' })
+        }else if(user.type == 4) {
+            next({ path: '/project/index' })
+        }else{
+            next({ path: '/project/index' })
         }
     } else {
         /*if (path == '/login') {
