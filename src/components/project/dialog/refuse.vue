@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import { mAjax} from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {

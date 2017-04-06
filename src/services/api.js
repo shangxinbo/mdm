@@ -25,4 +25,6 @@ export default {
     project_start: API_PRE + '/project/start',
     project_detail: API_PRE + '/project/detail',
     preject_audit: API_PRE + '/project/audit',
+    seat_list: API_PRE + '/project/seatlist',
+    seat_binding: API_PRE + '/project/binding',
 }
