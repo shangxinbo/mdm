@@ -50,7 +50,7 @@
                             <router-link to="/expense/seat">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
-                                </rou>
+                            </router-link>
                         </li>
                     </ul>
                 </li>
@@ -74,7 +74,7 @@
                     <router-link to="/call/index">
                         <span>
                             <i class="icon icon02"></i>话务管理</span>
-                        </rou>
+                    </router-link>
                 </li>
                 <li>
                     <a>
