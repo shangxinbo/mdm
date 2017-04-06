@@ -14,11 +14,11 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li>
+                        <li v-if="!customer_id">
                             <label class="name">客户名称</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
                         </li>
-                        <li v-if="agent_id">
+                        <li v-if="!agent_id&&!customer_id">
                             <label class="name">所属代理</label>
                             <mselect ref="agentSelect" :api="api.agentList" :id="search_agent"></mselect>
                         </li>
