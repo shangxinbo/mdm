@@ -11,6 +11,11 @@ const customer_add = resolve => System.import('components/customer/add.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
 const seat = resolve => System.import('components/seat/index.vue')
 const project_list = resolve => System.import('components/project/index.vue')
+const call_index = resolve => System.import('components/call/index.vue')
+const expense_project = resolve => System.import('components/expense/project.vue')
+const expense_seat = resolve => System.import('components/expense/seat.vue')
+const expense_balance = resolve => System.import('components/expense/balance.vue')
+
 let mRouter = new Router({
     routes: [
         { path: '/login', name: 'login', component: login },
@@ -24,7 +29,11 @@ let mRouter = new Router({
                     { path: '/customer/add', name: 'customer_add', component: customer_add },
                     { path: '/user/myinfo', name: 'myinfo', component: myinfo },
                     { path: '/seat/index/:page?', name: 'seat', component: seat },
-                    { path: '/project/index/:page?', name: 'project_list', component: project_list }
+                    { path: '/project/index/:page?', name: 'project_list', component: project_list },
+                    { path: '/call/index/:page?', name: 'call_index', component: call_index },
+                    { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
+                    { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
+                    { path: '/expense/balance', name: 'expense_balance', component: expense_balance }
             ]
         }
     ]

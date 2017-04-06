@@ -28,7 +28,7 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/users/list/">
+                    <router-link to="/call/index">
                         <i class="icon icon02"></i>
                         <span>话务管理</span>
                     </router-link>
@@ -36,20 +36,21 @@
                 <li>
                     <a>
                         <span>
-                            <i class="icon icon03"></i>计费管理</span>
+                            <i class="icon icon03"></i>计费管理
+                        </span>
                     </a>
                     <ul>
                         <li class="active">
-                            <a href="operate-charging.html">
+                            <router-link to="/expense/project">
                                 <span>
                                     <i class="icon icon03-1"></i>项目计费</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li>
-                            <a href="operate-charging-seat.html">
+                            <router-link to="/expense/seat">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
-                            </a>
+                                </rou>
                         </li>
                     </ul>
                 </li>
@@ -64,56 +65,56 @@
             </template>
             <template v-if="type==3">
                 <li>
-                    <a href="client-manage.html">
+                    <router-link to="/project/index">
                         <span>
                             <i class="icon icon01"></i>项目管理</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="client-telephone.html">
+                    <router-link to="/call/index">
                         <span>
                             <i class="icon icon02"></i>话务管理</span>
-                    </a>
+                        </rou>
                 </li>
-                <li class="active">
-                    <a href="client-charging.html">
+                <li>
+                    <a>
                         <span>
                             <i class="icon icon03"></i>计费管理</span>
                     </a>
                     <ul>
                         <li>
-                            <a href="client-charging.html">
+                            <router-link to="/expense/project">
                                 <span>
                                     <i class="icon icon03-1"></i>项目计费</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li>
-                            <a href="client-charging-seat.html">
+                            <router-link to="/expense/seat">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
-                            </a>
+                            </router-link>
                         </li>
                         <li>
-                            <a href="client-charging-balance.html">
+                            <router-link to="/expense/balance">
                                 <span>
                                     <i class="icon icon03-3"></i>余额管理</span>
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </li>
             </template>
             <template v-if="type==4">
                 <li class="title active">
-                    <a href="seat-project.html">
+                    <router-link to="/project/index">
                         <span>
                             <i class="icon icon01"></i>我的项目</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li class="title">
-                    <a href="seat-traffic.html">
+                    <router-link to="/call/index">
                         <span>
                             <i class="icon icon02"></i>我的话务</span>
-                    </a>
+                    </router-link>
                 </li>
             </template>
         </ul>
