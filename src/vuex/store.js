@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const state = {
     showLayer: false,
-    toast:'', //msg string
+    toast:'',    //msg string
     changeMypassDialogShow:false
 }
 

@@ -14,6 +14,8 @@
     import mfooter from 'components/common/footer.vue'
     import mnav from 'components/common/nav.vue'
     import toast from 'components/dialog/toast'
+    import alert from 'components/dialog/alert'
+    import confirm from 'components/dialog/confirm'
     import changeMyPass from 'components/dialog/changeMyPass'
     export default {
         computed:{

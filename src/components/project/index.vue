@@ -14,9 +14,18 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <customerSelect ref="customerSelect"></customerSelect>
-                        <agentSelect ref="agentSelect"></agentSelect>
-                        <statusSelect ref="statusSelect"></statusSelect>
+                        <li>
+                            <label class="name">客户名称</label>
+                            <mselect ref="customerSelect" :api="api.customerList"></mselect>
+                        </li>
+                        <li>
+                            <label class="name">所属代理</label>
+                            <mselect ref="agentSelect" :api="api.agentList"></mselect>
+                        </li>
+                        <li>
+                            <label class="name">项目状态</label>
+                            <mselect ref="statusSelect" :api="api.statusList"></mselect>
+                        </li>
                         <li>
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
@@ -32,7 +41,8 @@
                         <li>
                             <button class="btn blue" type="button" @click="jump(1)">
                                 <span>
-                                    <i class="icon search"></i>查询</span>
+                                    <i class="icon search"></i>查询
+                                </span>
                             </button>
                         </li>
                     </ul>
@@ -41,101 +51,56 @@
                     <ul>
                         <li>
                             <span class="t">项目数</span>
-                            <span class="num">{{sum.project_all}}</span>
+                            <span class="num">{{sum.projectNumTotal}}</span>
                         </li>
                         <li>
                             <span class="t">进行中项目</span>
-                            <span class="num">{{sum.project_run}}</span>
+                            <span class="num">{{sum.projectStatusIngTotal}}</span>
                         </li>
                         <li>
                             <span class="t">线索量</span>
-                            <span class="num">{{sum.clue_num}}</span>
+                            <span class="num">{{sum.clueNumTotal}}</span>
                         </li>
                         <li>
                             <span class="t">剩余线索</span>
-                            <span class="num">{{sum.clue_last}}</span>
+                            <span class="num">{{sum.oddNumTotal}}</span>
                         </li>
                         <li>
                             <span class="t">拨通线索</span>
-                            <span class="num">{{sum.clue_catch}}</span>
+                            <span class="num">{{sum.connectNumTotal}}</span>
                         </li>
                         <li>
                             <span class="t">有效率</span>
-                            <span class="num">{{sum.rate}}%</span>
+                            <span class="num">{{sum.clueValidPercent}}%</span>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="data-warp">
                 <div class="data-table">
-                    <table cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <th>项目名称</th>
-                                <th>客户名称</th>
-                                <th>所属代理</th>
-                                <th>类型</th>
-                                <th>创建日期</th>
-                                <th>状态</th>
-                                <th>线索量</th>
-                                <th>剩余线索</th>
-                                <th>拨通线索</th>
-                                <th>有效率</th>
-                                <th>通话时长</th>
-                                <th>剩余时间</th>
-                                <th>项目坐席</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>
-                                    <a href="#">{{item.name}}</a>
-                                </td>
-                                <td>
-                                    <a href="operate-project-client.html">{{item.client_name}}</a>
-                                </td>
-                                <td>
-                                    <a href="operate-project-agent.html">{{item.agency}}</a>
-                                </td>
-                                <td>{{item.project_type}}</td>
-                                <td>{{item.created_at}}</td>
-                                <td>{{item.project_status}}</td>
-                                <td>{{item.clue_num}}</td>
-                                <td>{{item.clue_odd_num}}</td>
-                                <td>{{item.clue_connect_num}}</td>
-                                <td>{{item.clue_valid_percent}}%</td>
-                                <td>{{item.call_time}}</td>
-                                <td>{{item.odd_time}}</td>
-                                <td>{{item.project_seat_num}}</td>
-                                <td>
-                                    <a href="operate-project-examine.html">审核</a>
-                                    <a href="javascript:void(0);" @click="stop(item.id)">暂停</a>
-                                    <a href="javascript:void(0);" @click="start(item.id)">开启</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <dataTable ref="table" :list="list" v-if="list.length>0"></dataTable>
+                    <p v-else>暂无数据</p>
                 </div>
-                <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
+                <pages :total="page.total" :current="page.current" @jump='jump'></pages>
             </div>
         </div>
-        <confirm ref="confirm"></confirm>
     </div>
 </template>
 <script>
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import customerSelect from './customerSelect'
-    import agentSelect from 'components/customer/agentSelect'
-    import statusSelect from './statusSelect'
+    import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
-    import confirm from 'components/dialog/confirm'
+    import dataTable from './table'
     export default {
         data: function () {
             return {
                 list: [],
-                currentPage: 1,
-                totalPage: 1,
+                page:{
+                    current:1,
+                    total:1
+                },
                 search_name: '',
                 start_time: '',
                 end_time: '',
@@ -143,23 +108,26 @@
                     to: new Date(2017, 0, 1),
                     from: new Date()
                 },
+                api: {
+                    customerList: API.customer_list_all,
+                    agentList: API.customer_type_list,
+                    statusList: API.project_status
+                },
                 sum: {
-                    project_all: '',
-                    project_run: '',
-                    clue_num: '',
-                    clue_last: '',
-                    clue_catch: '',
-                    rate: ''
+                    projectNumTotal: '',
+                    projectStatusIngTotal: '',
+                    clueNumTotal: '',
+                    oddNumTotal: '',
+                    connectNumTotal: '',
+                    clueValidPercent: ''
                 }
             }
         },
         components: {
             pages,
-            customerSelect,
-            agentSelect,
-            statusSelect,
+            mselect,
             datepicker,
-            confirm
+            dataTable
         },
         methods: {
             refresh: function () {
@@ -186,18 +154,11 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            _this.sum = {
-                                project_all: data.data.count.projectNumTotal,
-                                project_run: data.data.count.projectStatusIngTotal,
-                                clue_num: data.data.count.clueNumTotal,
-                                clue_last: data.data.count.oddNumTotal,
-                                clue_catch: data.data.count.connectNumTotal,
-                                rate: data.data.count.clueValidPercent
-                            }
-                            _this.totalPage = Math.ceil(data.data.page.total / 10)
-                            _this.currentPage = page
+                            _this.sum = data.data.count
+                            _this.page.total = Math.ceil(data.data.page.total / 10)
+                            _this.page.current = page
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
@@ -205,34 +166,6 @@
             jump(num) {
                 this.$router.replace('/project/index/' + num)
                 this.refresh()
-            },
-            stop(id) {
-                let _this = this
-                this.$refs.confirm.$emit('show', '是否要暂停该项目', function () {
-                    mAjax(_this, {
-                        url: API.project_stop,
-                        data: {
-                            id: id
-                        },
-                        success: data => {
-                            //TODO toast 
-                        }
-                    })
-                })
-            },
-            start(id) {
-                let _this = this
-                this.$refs.confirm.$emit('show', '是否要开启该项目', function () {
-                    mAjax(_this, {
-                        url: API.project_start,
-                        data: {
-                            id: id
-                        },
-                        success: data => {
-                            //TODO toast 
-                        }
-                    })
-                })
             }
         },
         created: function () {
