@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 const login = resolve => System.import('components/users/login.vue')
 const layout = resolve => System.import('components/common/layout.vue')
+const error = resolve => System.import('components/common/error.vue')
 const operate_index = resolve => System.import('components/operate/index.vue')
 const agent_index = resolve => System.import('components/agent/index.vue')
 const customer_index = resolve => System.import('components/customer/index.vue')
@@ -35,7 +36,9 @@ let mRouter = new Router({
                     { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
                     { path: '/expense/balance', name: 'expense_balance', component: expense_balance }
             ]
-        }
+        },
+        { path: '/error*', name: 'error', component: error },
+        { path: '*', redirect: '/error?code=404' }
     ]
 })
 
@@ -60,20 +63,31 @@ mRouter.beforeEach((to, from, next) => {
             next({ path: '/project/index' })
         }
     } else {
-        /*if (path == '/login') {
-            document.getElementsByTagName('body')[0].className = 'login-body'
-        } else {
-            document.getElementsByTagName('body')[0].className = ''
-            if (user.type == 1 && (path.indexOf('sms') > 0 || path.indexOf('customer') > 0)) {
-                next({ path: '/error?code=403' })
-            }
-            if (user.type == 2 && path.indexOf('users') > 0) {
-                next({ path: '/error?code=403' })
-            }
-        }*/
-        
+        let arr = [
+            path.indexOf('/operate')>=0,
+            path.indexOf('/agent')>=0,
+            path.indexOf('/customer')>=0,
+            path.indexOf('/project')>=0,
+            path.indexOf('/call')>=0,
+            path.indexOf('/expense')>=0
+        ]
+        //权限配置
+        if (user.type == 0 && (arr[1]||arr[2]||arr[3]||arr[4]||arr[5])) {
+            next({ path: '/error?code=403' })
+        }
+        if (user.type == 1 && arr[0]) {
+            next({ path: '/error?code=403' })
+        }
+        if (user.type == 2 && (arr[0]||arr[1]||arr[3]||arr[4]||arr[5])) {
+            next({ path: '/error?code=403' })
+        }
+        if (user.type == 3 && (arr[0]||arr[1]||arr[2])) {
+            next({ path: '/error?code=403' })
+        }
+        if (user.type == 4 && (arr[0]||arr[1]||arr[2]||arr[5])) {
+            next({ path: '/error?code=403' })
+        }
         next()
-
     }
 })
 
