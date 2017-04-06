@@ -24,6 +24,7 @@ module.exports = function (req, res) {
                     "agent_name": "@cname",    //代理名词
                     "audit_status": '@int(0,2)',
                     "balance": "@int(0,100)",
+                    "superior_id": "@int(0,100)",   //代理id
                     "conduct_project":"@int(0,100)",
                     "seat_num":"@int(0,10)",
                     "created_at": '@date("yyyy-MM-dd HH:mm:ss")'

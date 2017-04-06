@@ -1,6 +1,6 @@
 <template>
-    <div class="dialog" id="recharge">
-        <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog" :style="{display:style}" style="margin-left:-259px;margin-top:-181px;">
+        <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
         <div class="dialog-header">
             <h4>充值</h4>
         </div>
@@ -9,28 +9,29 @@
                 <li>
                     <label>客户名称</label>
                     <div class="input-warp">
-                        <p class="text">北京字节跳动科技有限公司</p>
+                        <p class="text">{{company}}</p>
                     </div>
                 </li>
                 <li>
                     <label>余额</label>
                     <div class="input-warp">
-                        <p class="text">&yen; 888.88</p>
+                        <p class="text">&yen; {{balance}}</p>
                     </div>
                 </li>
                 <li class="li-notice">
                     <label>充值金额</label>
                     <div class="input-warp">
-                        <input class="text" type="text" value="">
+                        <input class="text" type="text" v-model="money">
                         <p class="notice">
-                            <i class="icon"></i>请务必与财务确认充值金额已到账</p>
+                            <i class="icon"></i>请务必与财务确认充值金额已到账
+                        </p>
                     </div>
                 </li>
             </ul>
         </div>
         <div class="dialog-footer">
-            <a class="btn blue" href="javascript:void(0);">确定</a>
-            <a class="btn" href="javascript:void(0);">取消</a>
+            <a class="btn blue" href="javascript:void(0);" @click="sure">确定</a>
+            <a class="btn" href="javascript:void(0);" @click="close">取消</a>
         </div>
     </div>
 </template>
@@ -43,9 +44,9 @@
             return {
                 style: 'none',
                 company: '',
-                seat: '',
-                add: '',
-                add_error: ''
+                balance: '',
+                money: '',
+                money_error: ''
             }
         },
         methods: {
@@ -54,21 +55,21 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                if (isNaN(this.add)) {
-                    this.add_error = '输入不合法'
+                if (isNaN(this.money)) {
+                    this.money_error = '输入不合法'
                     return false
                 }
                 let _this = this
                 mAjax(this, {
-                    url: API.add_seat,
+                    url: API.recharge,
                     data: {
                         id: this.id,
-                        new_seat_num: this.add
+                        amount: this.money
                     },
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '添加坐席成功')
+                            _this.$store.commit('SHOW_TOAST', '充值成功')
                         } else {
                             //TODO  修改失败
                         }
@@ -81,10 +82,10 @@
         },
         created: function () {
             let _this = this
-            this.$on('show', function (id, company, seat) {
+            this.$on('show', function (id, company, balance) {
                 _this.id = id
                 _this.company = company
-                _this.seat = seat
+                _this.balance = balance
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
 

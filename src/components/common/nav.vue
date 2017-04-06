@@ -16,13 +16,13 @@
             </template>
             <template v-if="type==1">
                 <li class="active">
-                    <router-link to="/users/list/">
+                    <router-link to="/customer/index">
                         <i class="icon icon04"></i>
                         <span>客户管理</span>
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/users/list/">
+                    <router-link to="/project/index">
                         <i class="icon icon01"></i>
                         <span>项目管理</span>
                     </router-link>
