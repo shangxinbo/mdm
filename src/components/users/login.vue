@@ -2,7 +2,7 @@
     @import '../../assets/less/login.less';
 </style>
 <template>
-    <div>
+    <div @keyup.enter="submit">
         <div class="login-img"></div>
         <div class="login-warp">
             <div class="login-panel">
