@@ -31,7 +31,6 @@ let mRouter = new Router({
                 { path: '/user/myinfo', name: 'myinfo', component: myinfo },
                 { path: '/seat/index/:page?', name: 'seat', component: seat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
-                { path: '/project/agent/', name: 'project_agent', component: project_list },
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },
                 { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },

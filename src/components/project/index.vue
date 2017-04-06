@@ -130,6 +130,7 @@
             </div>
         </div>
         <confirm ref="confirm"></confirm>
+        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
@@ -139,15 +140,16 @@
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
     import confirm from 'components/dialog/confirm'
+    import alert from 'components/dialog/alert'
     export default {
         data: function () {
             return {
                 list: [],
-                search_name: '',
                 start_time: '',
                 end_time: '',
                 currentPage: 1,
                 totalPage: 1,
+                search_name: '',
                 search_customer: '',
                 search_agent: '',
                 search_status: '',
@@ -196,17 +198,17 @@
             pages,
             mselect,
             datepicker,
-            confirm
+            confirm,
+            alert
         },
         methods: {
             refresh: function () {
                 let _this = this
-
                 mAjax(this, {
                     url: API.project_list,
                     data: {
-                        page: _this.currentPage,
                         nums: 10,
+                        page: _this.currentPage,
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
                         search_agency_id: _this.search_agent,
@@ -231,7 +233,6 @@
                     name: this.$route.name,
                     query: obj
                 })
-                this.refresh()
             },
             search() {
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
@@ -261,7 +262,9 @@
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$store.commit('SHOW_TOAST', '已成功暂停')
+                                _this.$refs.alert.$emit('show', '已成功暂停',function(){
+                                    _this.refresh()
+                                })
                             else
                                 _this.$store.commit('SHOW_TOAST', data.message)
                         }
@@ -278,7 +281,9 @@
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$store.commit('SHOW_TOAST', '已成功开启')
+                                _this.$refs.alert.$emit('show', '已成功开启',function(){
+                                    _this.refresh()
+                                })
                             else
                                 _this.$store.commit('SHOW_TOAST', data.message)
                         }
