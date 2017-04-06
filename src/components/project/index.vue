@@ -117,7 +117,7 @@
                                 <td>{{item.odd_time}}</td>
                                 <td>{{item.project_seat_num}}</td>
                                 <td>
-                                    <router-link v-if="item.status==-1" to="/project/check">审核</router-link>
+                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>
