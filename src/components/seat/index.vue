@@ -75,6 +75,20 @@
                                 <th>剩余时间</th>
                                 <th>操作</th>
                             </tr>
+                            <!---tr v-for="(item,index) in list":class="{tr2:index%2}">
+                                <td>{{item.name}}</td>
+                                <td>{{item.type}}</td>
+                                <td>{{item.created_at}}</td>
+                                <td>{{item.project_status}}</td>
+                                <td>{{item.clue_num}}</td>
+                                <td>{{item.clue_odd_num}}</td>
+                                <td>{{item.clue_connect_num}}</td>
+                                <td>{{item.clue_valid_percent}}</td>
+                                <td>{{item.call_time}}</td>
+                                <td>{{item.odd_time}}</td>
+                                <td>
+                                    <a href="javascript:void(0);" @click="showDialog('call')">外呼</a>
+                                </tr-->
                         </tbody>
                     </table>
                 </div>

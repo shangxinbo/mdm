@@ -9,7 +9,8 @@ const agent_index = resolve => System.import('components/agent/index.vue')
 const customer_index = resolve => System.import('components/customer/index.vue')
 const customer_add = resolve => System.import('components/customer/add.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
-const seat = resolve => System.import('components/seat/index.vue')
+const seat_project = resolve => System.import('components/seat/index.vue')
+const seat_traffic = resolve => System.import('components/seat/traffic.vue')
 let mRouter = new Router({
     routes: [
         { path: '/login', name: 'login', component: login },
@@ -22,7 +23,8 @@ let mRouter = new Router({
                     { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
                     { path: '/customer/add', name: 'customer_add', component: customer_add },
                     { path: '/user/myinfo', name: 'myinfo', component: myinfo },
-                    { path: '/seat/index/:page?', name: 'seat', component: seat }
+                    { path: '/seat/index/:page?', name: 'seat_project', component: seat_project },
+                    { path: '/seat/traffic/:page?', name: 'seat_traffic', component: seat_traffic }
             ]
         }
     ]
