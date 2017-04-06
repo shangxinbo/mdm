@@ -32,7 +32,7 @@ module.exports = function (req, res) {
                 "audit_status": 1,
                 "audit_reason": "",
                 "auditor": 11,
-                "status": 1,
+                "status": '@int(-3,3)',
                 "clue_num": 1000,
                 "clue_push_time": '@date("yyyy-MM-dd HH:mm:ss")',
                 "created_clue_time": '@date("yyyy-MM-dd HH:mm:ss")',

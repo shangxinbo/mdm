@@ -7,7 +7,7 @@
             <div class="select-ul">
                 <div class="scroll-warp scrollBar" style="overflow-y:auto">
                     <ul>
-                        <li @click.stop="changeType('','全部')">全部</li>
+                        <li @click.stop="change('','全部')">全部</li>
                         <li v-for="(item,index) in list" @click.stop="change(index,item)">{{item.desc?item.desc:item}}</li>
                     </ul>
                 </div>
@@ -29,7 +29,17 @@
                 show: false
             }
         },
-        props: ['api'],
+        props: ['api', 'id'],
+        watch:{
+            id:function(newVal,oldVal){
+                if(!newVal){
+                    this.selected = {
+                        id: '',
+                        name: '全部'
+                    }
+                }
+            }
+        },
         methods: {
             showSelect: function () {
                 this.show = true
