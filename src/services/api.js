@@ -22,5 +22,9 @@ export default {
     project_status: API_PRE + '/project/status',
     project_list: API_PRE + '/project/list',
     project_stop: API_PRE + '/project/pause',
-    project_start: API_PRE + '/project/start'
+    project_start: API_PRE + '/project/start',
+    expense_project: API_PRE + '/operate/chargingproject',
+    expense_project_user: API_PRE + '/operate/charginuser ',
+    expense_project_agent: API_PRE + '/operate/chargingagent  ',
+    expense_seat: API_PRE + '/operate/chargingseat'
 }
