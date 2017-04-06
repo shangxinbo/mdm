@@ -15,38 +15,38 @@
                 </li>
             </template>
             <template v-if="type==1">
-                <li class="active">
+                <li :class="{active:path.startsWith('/customer')}">
                     <router-link to="/customer/index">
                         <i class="icon icon04"></i>
                         <span>客户管理</span>
                     </router-link>
                 </li>
-                <li>
+                <li :class="{active:path.startsWith('/project')}">
                     <router-link to="/project/index">
                         <i class="icon icon01"></i>
                         <span>项目管理</span>
                     </router-link>
                 </li>
-                <li>
+                <li :class="{active:path.startsWith('/call')}">
                     <router-link to="/call/index">
                         <i class="icon icon02"></i>
                         <span>话务管理</span>
                     </router-link>
                 </li>
-                <li>
-                    <a>
+                <li :class="{active:path.startsWith('/expense')}">
+                    <router-link to="/expense/project">
                         <span>
                             <i class="icon icon03"></i>计费管理
                         </span>
-                    </a>
-                    <ul>
-                        <li class="active">
+                    </router-link>
+                    <ul v-show="path.startsWith('/expense')">
+                        <li :class="{active:path.startsWith('/expense/project')}">
                             <router-link to="/expense/project">
                                 <span>
                                     <i class="icon icon03-1"></i>项目计费</span>
                             </router-link>
                         </li>
-                        <li>
+                        <li :class="{active:path.startsWith('/expense/seat')}">
                             <router-link to="/expense/seat">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
@@ -64,37 +64,37 @@
                 </li>
             </template>
             <template v-if="type==3">
-                <li>
+                <li :class="{active:path.startsWith('/project')}">
                     <router-link to="/project/index">
                         <span>
                             <i class="icon icon01"></i>项目管理</span>
                     </router-link>
                 </li>
-                <li>
+                <li :class="{active:path.startsWith('/call')}">
                     <router-link to="/call/index">
                         <span>
                             <i class="icon icon02"></i>话务管理</span>
                     </router-link>
                 </li>
-                <li>
+                <li :class="{active:path.startsWith('/expense')}">
                     <a>
                         <span>
                             <i class="icon icon03"></i>计费管理</span>
                     </a>
                     <ul>
-                        <li>
+                        <li :class="{active:path.startsWith('/expense/project')}">
                             <router-link to="/expense/project">
                                 <span>
                                     <i class="icon icon03-1"></i>项目计费</span>
                             </router-link>
                         </li>
-                        <li>
+                        <li :class="{active:path.startsWith('/expense/seat')}">
                             <router-link to="/expense/seat">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
                             </router-link>
                         </li>
-                        <li>
+                        <li :class="{active:path.startsWith('/expense/balance')}">
                             <router-link to="/expense/balance">
                                 <span>
                                     <i class="icon icon03-3"></i>余额管理</span>
@@ -104,13 +104,13 @@
                 </li>
             </template>
             <template v-if="type==4">
-                <li class="title active">
+                <li class="title" :class="{active:path.startsWith('/project')}">
                     <router-link to="/project/index">
                         <span>
                             <i class="icon icon01"></i>我的项目</span>
                     </router-link>
                 </li>
-                <li class="title">
+                <li class="title" :class="{active:path.startsWith('/call')}">
                     <router-link to="/call/index">
                         <span>
                             <i class="icon icon02"></i>我的话务</span>
