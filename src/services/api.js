@@ -22,5 +22,7 @@ export default {
     project_status: API_PRE + '/project/status',
     project_list: API_PRE + '/project/list',
     project_stop: API_PRE + '/project/pause',
-    project_start: API_PRE + '/project/start'
+    project_start: API_PRE + '/project/start',
+    project_detail: API_PRE + '/project/detail',
+    preject_audit: API_PRE + '/project/audit',
 }

@@ -12,6 +12,7 @@ const customer_add = resolve => System.import('components/customer/add.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
 const seat = resolve => System.import('components/seat/index.vue')
 const project_list = resolve => System.import('components/project/index.vue')
+const project_detail = resolve => System.import('components/project/detail.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
 const expense_seat = resolve => System.import('components/expense/seat.vue')
@@ -31,6 +32,7 @@ let mRouter = new Router({
                 { path: '/user/myinfo', name: 'myinfo', component: myinfo },
                 { path: '/seat/index/:page?', name: 'seat', component: seat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
+                { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },
                 { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
