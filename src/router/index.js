@@ -18,6 +18,9 @@ const project_list = resolve => System.import('components/project/index.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const call_index = resolve => System.import('components/call/index.vue')
+const call_cate = resolve => System.import('components/call/category.vue')
+const call_project = resolve => System.import('components/call/project.vue')
+const call_client = resolve => System.import('components/call/client.vue')
 const outbound = resolve => System.import('components/seat/outbound.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
 const expense_seat = resolve => System.import('components/expense/seat.vue')
@@ -43,10 +46,12 @@ let mRouter = new Router({
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },
-                { path: '/expense/project', name: 'expense_project', component: expense_project },
-                { path: '/expense/seat', name: 'expense_seat', component: expense_seat },
+                { path: '/call/cate/:id/', name: 'call_cate', component: call_cate },
+                { path: '/call/client/:id/', name: 'call_client', component: call_client },
+                { path: '/call/project/:id/', name: 'call_project', component: call_project },
+                { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
+                { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
                 { path: '/expense/doc', name: 'expense_doc', component: expense_doc },
-                { path: '/expense/balance', name: 'expense_balance', component: expense_balance },
                 { path: '/seat/outbound/:id/', name: 'outbound', component: outbound }
             ]
         },
