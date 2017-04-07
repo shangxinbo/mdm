@@ -112,17 +112,27 @@
                                 </div>
                             </li>
                         </template>
+                        <li v-if="detail.status==-1&&userType==3">
+                            <div class="input-warp">
+                                <a class="btn blue" href="client-afresh.html">重新申请</a>
+                            </div>
+                        </li>
                     </ul>
                 </form>
-                <div class="btn-warp" v-if="detail.status==-3">
+                <div class="btn-warp" v-if="detail.status==-3&&userType==1">
                     <a class="btn blue" href="javascript:void(0);" @click="accept(detail.id)">通过</a>
                     <a class="btn red" href="javascript:void(0);" @click="refuse(detail.id)">拒绝</a>
                 </div>
+                <div class="btn-warp" v-if="detail.status==1&&userType==3">
+                    <button class="btn blue" type="button" @click="assignSeat(detail.id,detail.name)">分配坐席</button>
+                </div>
+                
             </div>
         </div>
         <alert ref="alert"></alert>
         <confirm ref="confirm"></confirm>
         <refuseDialog ref="refuseDialog"></refuseDialog>
+        <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
     </div>
 </template>
 <script>
@@ -131,9 +141,12 @@
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     import refuseDialog from './dialog/refuse'
+    import chooseSeatDialog from './dialog/chooseSeat'
+    let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
             return {
+                userType: user.type,
                 detail: {
                     id: '',
                     status: 1,
@@ -161,7 +174,8 @@
         components: {
             confirm,
             alert,
-            refuseDialog
+            refuseDialog,
+            chooseSeatDialog
         },
         methods: {
             accept(id) {
@@ -184,7 +198,10 @@
                 })
             },
             refuse(id) {
-                this.$refs.refuseDialog.$emit('show',id)
+                this.$refs.refuseDialog.$emit('show', id)
+            },
+            assignSeat(id,name){
+                this.$refs.chooseSeatDialog.$emit('show',id,name)
             }
         },
         created: function () {

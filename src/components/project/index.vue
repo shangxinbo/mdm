@@ -4,7 +4,8 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">{{customer_name?customer_name + '的项目':(agent_name?agent_name + '的项目':'项目管理')}}</div>
+            <div class="title-warp" v-if="userType==4">我的项目</div>
+            <div class="title-warp" v-else>{{customer_name?customer_name + '的项目':(agent_name?agent_name + '的项目':'项目管理')}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -75,7 +76,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="data-export" v-else>
+                <div class="data-export" v-if="userType==3">
                     <ul>
                         <li>
                             <span class="t">
@@ -84,10 +85,10 @@
                             <span class="num">10</span>
                         </li>
                     </ul>
-                    <a href="client-add.html" class="btn blue btn-export">
+                    <router-link to="/project/add" class="btn blue btn-export">
                         <span>
                             <i class="icon add"></i>新建顶目</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <div class="data-warp">
@@ -107,12 +108,13 @@
                                 <th>有效率</th>
                                 <th>通话时长</th>
                                 <th>剩余时间</th>
-                                <th>项目坐席</th>
+                                <th v-if="userType!=4">项目坐席</th>
                                 <th>操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <router-link :to="'/project/detail/'+item.id">{{item.name}}</router-link>
+                                    <span v-if="userType==4">{{item.name}}</span>
+                                    <router-link :to="'/project/detail/'+item.id" v-else>{{item.name}}</router-link>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -129,14 +131,17 @@
                                 <td>{{item.clue_valid_percent}}%</td>
                                 <td>{{item.call_time}}</td>
                                 <td>{{item.odd_time}}</td>
-                                <td>{{item.project_seat_num}}</td>
+                                <td v-if="userType!=4">{{item.project_seat_num}}</td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>
+                                <td v-else-if="userType==4">
+                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">外呼</router-link>
+                                </td>
                                 <td v-else>
-                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">重新申请</router-link>
+                                    <router-link v-if="item.status==-1" :to="'/project/add/' + item.id">重新申请</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>
@@ -313,8 +318,8 @@
                     })
                 })
             },
-            assignSeat(id,name){
-                this.$refs.chooseSeatDialog.$emit('show',id,name)
+            assignSeat(id, name) {
+                this.$refs.chooseSeatDialog.$emit('show', id, name)
             }
         },
         created: function () {

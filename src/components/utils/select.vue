@@ -29,10 +29,10 @@
                 show: false
             }
         },
-        props: ['api', 'id'],
-        watch:{
-            id:function(newVal,oldVal){
-                if(!newVal){
+        props: ['api', 'id', 'initlist'],
+        watch: {
+            id: function (newVal, oldVal) {
+                if (!newVal) {
                     this.selected = {
                         id: '',
                         name: '全部'
@@ -60,12 +60,17 @@
             }
         },
         created: function () {
-            mAjax(this, {
-                url: this.api,
-                success: data => {
-                    this.list = data.data
-                }
-            })
+            if (this.initlist) {
+                this.list = this.initlist
+            } else {
+                mAjax(this, {
+                    url: this.api,
+                    success: data => {
+                        this.list = data.data
+                    }
+                })
+            }
+
         },
         mounted: function () {
             let _this = this
