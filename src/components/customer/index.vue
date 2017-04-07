@@ -4,7 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">{{'客户管理'}}</div>
+            <div class="title-warp">{{agent_name?agent_name+'的客户':'客户管理'}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -14,7 +14,7 @@
                                 <input class="text" v-model="user" type="text">
                             </div>
                         </li>
-                        <li>
+                        <li v-if="!agent_id">
                             <label class="name">所属代理</label>
                             <mselect ref="agentSelect" :api="api.agentSelect"></mselect>
                         </li>
@@ -62,7 +62,7 @@
                         <tbody>
                             <tr>
                                 <th>客户名称</th>
-                                <th v-if="userType==1">所属代理</th>
+                                <th v-if="userType==1&&!agent_id">所属代理</th>
                                 <th>类型</th>
                                 <th>创建日期</th>
                                 <th>状态</th>
@@ -73,10 +73,10 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <a href="#">{{item.company}}</a>
+                                    <router-link :to="'/customer/detail/'+ item.id">{{item.company}}</router-link>
                                 </td>
-                                <td v-if="userType==1">
-                                    <a href="javascript:void(0);">{{item.agent_name}}</a>
+                                <td v-if="userType==1&&!agent_id">
+                                    <router-link :to="{query:{agent_id:item.superior_id,agent_name:item.agent_name}}">{{item.agent_name}}</router-link>
                                 </td>
                                 <td>{{item.type}}</td>
                                 <td>{{item.created_at}}</td>
@@ -87,7 +87,7 @@
                                 <td v-if="userType==1">{{item.seat_num}}</td>
                                 <td>¥{{item.balance}}</td>
                                 <td v-if="userType==1">
-                                    <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">审核</router-link>
+                                    <router-link v-if="item.audit_status==2" :to="'/customer/check/' + item.id">审核</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num)">开通坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
                                 </td>
@@ -134,6 +134,10 @@
                 },
                 agent_id: '',
                 agent_name: '',
+                search_name:'',
+                search_customer:'',
+                search_agent:'',
+                search_status:'',
                 api: {
                     agentSelect: API.customer_type_list,
                     typeSelect: API.angent_list_all,
@@ -155,14 +159,6 @@
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
                 this.refresh()
-            }
-        },
-        computed: {
-            type: function () {
-                return this.$refs.typeSelect ? this.$refs.typeSelect.type.id : ''
-            },
-            status: function () {
-                return this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
             }
         },
         components: {
