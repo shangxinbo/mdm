@@ -19,7 +19,7 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="type!='user'">
+                        <li v-if="type!='user' && userType == 1">
                             <label class="name">客户名称</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
                         </li>
@@ -57,12 +57,15 @@
                 <div class="data-export">
                     <ul>
                         <li>
-                            <span class="t">线索计费</span><span class="num">{{sum.clue_charging}}</span>
+                            <span class="t">线索计费</span><span class="num">¥{{sum.clue_charging}}</span>
                         </li>
                         <li>
-                            <span class="t">通话计费</span><span class="num">{{sum.call_charging}}</span>
+                            <span class="t">通话计费</span><span class="num">¥{{sum.call_charging}}</span>
                         </li>
                     </ul>
+                    <div class="add-explain" v-if="userType==3">
+                        <router-link to="/expense/doc">收费说明</router-link>
+                    </div>
                 </div>
             </div>
             <div class="data-warp">
