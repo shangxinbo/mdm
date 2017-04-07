@@ -222,25 +222,6 @@
                     name: this.$route.name,
                     query: query
                 })
-            },
-            stop(id) {
-                let _this = this
-                this.$refs.confirm.$emit('show', '是否要暂停该项目', function () {
-                    mAjax(_this, {
-                        url: API.project_stop,
-                        data: {
-                            id: id
-                        },
-                        success: data => {
-                            if (data.code == 200)
-                                _this.$refs.alert.$emit('show', '已成功暂停', function () {
-                                    _this.refresh()
-                                })
-                            else
-                                _this.$store.commit('SHOW_TOAST', data.message)
-                        }
-                    })
-                })
             }
         },
         created: function () {
