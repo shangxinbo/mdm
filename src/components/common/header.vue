@@ -5,10 +5,10 @@
                 <i class="icon login-icon"></i>
                 <div class="quit">
                     <p :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
-                    <a href="operate-agent.html" class="my" v-if="type==1">
+                    <router-link to="/agent/index" class="my" v-if="type==1">
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
-                    </a>
+                    </router-link>
                     <router-link to="/user/myinfo" class="my" v-if="type==3||type==2">
                         <i class="icon icon03"></i>
                         <span>我的账号</span>

@@ -76,20 +76,22 @@ mRouter.beforeEach((to, from, next) => {
             path.indexOf('/expense') >= 0
         ]
         //权限配置
-        if (user.type == 0 && (arr[1] || arr[2] || arr[3] || arr[4] || arr[5])) {
-            next({ path: '/error?code=403' })
-        }
-        if (user.type == 1 && arr[0]) {
-            next({ path: '/error?code=403' })
-        }
-        if (user.type == 2 && (arr[0] || arr[1] || arr[3] || arr[4] || arr[5])) {
-            next({ path: '/error?code=403' })
-        }
-        if (user.type == 3 && (arr[0] || arr[1] || arr[2])) {
-            next({ path: '/error?code=403' })
-        }
-        if (user.type == 4 && (arr[0] || arr[1] || arr[2] || arr[5])) {
-            next({ path: '/error?code=403' })
+        if (path != '/login') {
+            if (user.type == 0 && (arr[1] || arr[2] || arr[3] || arr[4] || arr[5])) {
+                next({ path: '/error?code=403' })
+            }
+            if (user.type == 1 && arr[0]) {
+                next({ path: '/error?code=403' })
+            }
+            if (user.type == 2 && (arr[0] || arr[1] || arr[3] || arr[4] || arr[5])) {
+                next({ path: '/error?code=403' })
+            }
+            if (user.type == 3 && (arr[0] || arr[1] || arr[2])) {
+                next({ path: '/error?code=403' })
+            }
+            if (user.type == 4 && (arr[0] || arr[1] || arr[2] || arr[5])) {
+                next({ path: '/error?code=403' })
+            }
         }
         next()
     }
