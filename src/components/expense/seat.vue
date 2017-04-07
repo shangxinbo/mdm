@@ -99,6 +99,9 @@
                 type: 'all',
                 url: API.expense_seat,
                 search_name: '',
+                search_agent: '',
+                search_start_time: '',
+                search_end_time: '',
                 start_time: '',
                 end_time: '',
                 agent_id: '',
@@ -148,6 +151,16 @@
             dataTable
         },
         methods: {
+            init() {
+                this.search_name = this.$route.query.search_name
+                this.search_agent = this.$route.query.search_agent
+                this.search_start_time = this.$route.query.search_start_time
+                this.search_end_time = this.$route.query.search_end_time
+                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.agent_id = this.$route.query.agent_id
+                this.agent_name = this.$route.query.agent_name
+                this.refresh()
+            },
             refresh: function () {
                 let _this = this
                 mAjax(this, {
@@ -181,10 +194,10 @@
             search() {
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let query = Object.assign({}, this.$route.query, {
-                    username: this.search_name,
-                    superior_id: search_agent,
-                    created_at_start: dateFormat(this.start_time),
-                    created_at_end: dateFormat(this.end_time),
+                    search_name: this.search_name,
+                    search_agent: search_agent,
+                    search_start_time: dateFormat(this.start_time),
+                    search_end_time: dateFormat(this.end_time),
                     page: 1
                 })
                 this.$router.replace({
@@ -207,7 +220,7 @@
             } else {
                 this.url = API.expense_seat
             }
-            this.refresh()
+            this.init()
         }
     }
 
