@@ -15,7 +15,9 @@ export default {
     customer_type_list: API_PRE + '/operate/usertype',
     customer_add: API_PRE + '/agent/add',
     customer_detail: API_PRE + '/agent/agininfo',
+    customer_detail_by_operate: API_PRE + '/operate/agentinfo',
     customer_edit: API_PRE + '/agent/modifyinfo',
+    customer_check: API_PRE + '/operate/examine',
     angent_list_all: API_PRE + '/operate/agent',
     add_seat: API_PRE + '/operate/seatmodify',
     recharge: API_PRE + '/operate/recharge',
@@ -35,5 +37,6 @@ export default {
     project_add: API_PRE + '/project/create',
     seat_list: API_PRE + '/project/seatlist',
     seat_binding: API_PRE + '/project/binding',
+    seat_status : API_PRE + '/seat/status',
     seat_tobind: API_PRE + '/project/bindingSeat'
 }

@@ -4,7 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">{{agent.name?agent.name+'的客户':'客户管理'}}</div>
+            <div class="title-warp">{{agent_name?agent_name+'的客户':'客户管理'}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -14,11 +14,20 @@
                                 <input class="text" v-model="user" type="text">
                             </div>
                         </li>
-                        <agentSelect ref="agentSelect" v-if="!agent.id"></agentSelect>
-                        <typeSelect ref="typeSelect"></typeSelect>
-                        <statusSelect ref="statusSelect"></statusSelect>
+                        <li v-if="!agent_id&&userType==1">
+                            <label class="name">所属代理</label>
+                            <mselect ref="agentSelect" :api="api.agentSelect"></mselect>
+                        </li>
                         <li>
-                            <button class="btn blue" type="button" @click="jump(1)">
+                            <label class="name">客户类型</label>
+                            <mselect ref="typeSelect" :api="api.typeSelect"></mselect>
+                        </li>
+                        <li>
+                            <label class="name">客户状态</label>
+                            <mselect ref="statusSelect" :initlist="api.statusSelect"></mselect>
+                        </li>
+                        <li>
+                            <button class="btn blue" type="button" @click="search()">
                                 <span>
                                     <i class="icon search"></i>查询</span>
                             </button>
@@ -26,7 +35,7 @@
                     </ul>
                 </form>
                 <div class="data-export">
-                    <ul v-if="authType==1">
+                    <ul v-if="userType==1">
                         <li>
                             <span class="t">客户数</span>
                             <span class="num">{{sum.customer}}</span>
@@ -53,32 +62,32 @@
                         <tbody>
                             <tr>
                                 <th>客户名称</th>
-                                <th v-if="authType==1&&!agent.id">所属代理</th>
+                                <th v-if="userType==1&&!agent_id">所属代理</th>
                                 <th>类型</th>
                                 <th>创建日期</th>
                                 <th>状态</th>
-                                <th v-if="authType==1">进行中的项目</th>
-                                <th v-if="authType==1">现有坐席</th>
+                                <th v-if="userType==1">进行中的项目</th>
+                                <th v-if="userType==1">现有坐席</th>
                                 <th>余额</th>
                                 <th>操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <a href="#">{{item.company}}</a>
+                                    <router-link :to="'/customer/detail/'+ item.id">{{item.company}}</router-link>
                                 </td>
-                                <td v-if="authType==1&&!agent.id">
-                                    <a href="javascript:void(0);" @click="chooseAgent(item.superior_id,item.agent_name)">{{item.agent_name}}</a>
+                                <td v-if="userType==1&&!agent_id">
+                                    <router-link :to="{query:{agent_id:item.superior_id,agent_name:item.agent_name}}">{{item.agent_name}}</router-link>
                                 </td>
                                 <td>{{item.type}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td v-if="item.audit_status==1">通过</td>
                                 <td v-else-if="item.audit_status==2" class="red">未通过</td>
                                 <td v-else>待审核</td>
-                                <td v-if="authType==1">{{item.conduct_project}}</td>
-                                <td v-if="authType==1">{{item.seat_num}}</td>
+                                <td v-if="userType==1">{{item.conduct_project}}</td>
+                                <td v-if="userType==1">{{item.seat_num}}</td>
                                 <td>¥{{item.balance}}</td>
-                                <td v-if="authType==1">
-                                    <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">审核</router-link>
+                                <td v-if="userType==1">
+                                    <router-link v-if="item.audit_status==2" :to="'/customer/check/' + item.id">审核</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num)">开通坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
                                 </td>
@@ -104,18 +113,17 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import typeSelect from './typeSelect'
-    import statusSelect from './statusSelect'
-    import agentSelect from './agentSelect'
     import editDialog from './dialog/changeInfo'
     import resetPassDialog from 'components/dialog/resetpass'
     import addSeatDialog from './dialog/addSeat'
     import rechargeDialog from './dialog/recharge'
+    import mselect from 'components/utils/select'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
             return {
                 list: [],
+                userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
                 user: '',
@@ -124,27 +132,39 @@
                     project: '',
                     seat: ''
                 },
-                authType: user.type,
-                agent: {
-                    id: '',
-                    name: ''
+                agent_id: '',
+                agent_name: '',
+                search_name:'',
+                search_customer:'',
+                search_agent:'',
+                search_status:'',
+                api: {
+                    agentSelect: API.customer_type_list,
+                    typeSelect: API.angent_list_all,
+                    statusSelect: {
+                        "0": "待审核",
+                        "1": "通过",
+                        "2": "未通过"
+                    }
                 }
             }
         },
-        computed: {
-            type: function () {
-                return this.$refs.typeSelect ? this.$refs.typeSelect.type.id : ''
-            },
-            status: function () {
-                return this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
+        watch: {
+            $route: function () {
+                this.search_name = this.$route.query.search_name
+                this.search_customer = this.$route.query.search_customer
+                this.search_agent = this.$route.query.search_agent
+                this.search_status = this.$route.query.search_status
+                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.agent_id = this.$route.query.agent_id
+                this.agent_name = this.$route.query.agent_name
+                this.refresh()
             }
         },
         components: {
             pages,
-            typeSelect,
-            statusSelect,
-            agentSelect,
             editDialog,
+            mselect,
             resetPassDialog,
             addSeatDialog,
             rechargeDialog
@@ -152,16 +172,15 @@
         methods: {
             refresh() {
                 let _this = this
-                let page = this.$route.params.page
-                let api = user.type == 1 ? API.customer_list_by_operate : API.customer_list
-                page = page ? page : 1
+                let api = this.userType == 1 ? API.customer_list_by_operate : API.customer_list
                 mAjax(this, {
                     url: api,
                     data: {
-                        page: page,
-                        company: _this.user,
-                        type: _this.type,
-                        audit_status: _this.status
+                        page: _this.currentPage,
+                        company: _this.search_name,
+                        type: _this.search_customer,
+                        audit_status: _this.search_status,
+                        superior_id: _this.agent_id
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -176,9 +195,7 @@
                             } else {
                                 _this.list = list.data
                             }
-
-                            _this.totalPage = Math.ceil(_this.list.total / _this.list.per_page)
-                            _this.currentPage = page
+                            _this.totalPage = Math.ceil(list.customer.total / list.customer.per_page)
                         } else {
                             _this.list = ''
                         }
@@ -186,8 +203,27 @@
                 })
             },
             jump(num) {
-                this.$router.replace('/customer/index/' + num)
-                this.refresh()
+                let obj = Object.assign({}, this.$route.query, { page: num })
+                this.$router.replace({
+                    name: this.$route.name,
+                    query: obj
+                })
+            },
+            search() {
+                let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
+                let search_customer = this.$refs.typeSelect ? this.$refs.typeSelect.selected.id : ''
+                let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
+                let query = Object.assign({}, this.$route.query, {
+                    search_name: this.search_name,
+                    search_customer: search_customer,
+                    search_agent: search_agent,
+                    search_status: search_status,
+                    page: 1
+                })
+                this.$router.replace({
+                    name: this.$route.name,
+                    query: query
+                })
             },
             showEditDialog(id) {
                 this.$refs.editDialog.$emit('show', id)
@@ -200,14 +236,6 @@
             },
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
-            },
-            chooseAgent(id,name){
-                console.log(id)
-                this.agent = {
-                    id:id,
-                    name:name
-                }
-                this.refresh()
             }
         },
         created: function () {

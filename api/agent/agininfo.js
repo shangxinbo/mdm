@@ -3,7 +3,7 @@ module.exports = function (req, res) {
         "id": 28,
         "company": "大森林伐木公司",  //公司名称
         "type": "商旅",    //类型
-        "audit_status": 0,  //客户状态
+        "audit_status": 1,  //客户状态
         "balance_alarm": 0,  //余额预警值
         "audit_advice": "",  //审批建议
         "legal": "李麻花",   //法人

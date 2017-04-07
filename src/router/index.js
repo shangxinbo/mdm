@@ -9,12 +9,15 @@ const operate_index = resolve => System.import('components/operate/index.vue')
 const agent_index = resolve => System.import('components/agent/index.vue')
 const customer_index = resolve => System.import('components/customer/index.vue')
 const customer_add = resolve => System.import('components/customer/add.vue')
+const customer_detail = resolve => System.import('components/customer/detail.vue')
+const customer_check = resolve => System.import('components/customer/check.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
 const seat = resolve => System.import('components/seat/index.vue')
 const project_list = resolve => System.import('components/project/index.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const call_index = resolve => System.import('components/call/index.vue')
+const outbound = resolve => System.import('components/seat/outbound.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
 const expense_seat = resolve => System.import('components/expense/seat.vue')
 const expense_balance = resolve => System.import('components/expense/balance.vue')
@@ -29,8 +32,10 @@ let mRouter = new Router({
             children: [
                 { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
                 { path: '/agent/index/:page?', name: 'agent_index', component: agent_index },
-                { path: '/customer/index/:page?', name: 'customer_index', component: customer_index },
-                { path: '/customer/add', name: 'customer_add', component: customer_add },
+                { path: '/customer/index/', name: 'customer_index', component: customer_index },
+                { path: '/customer/add/:id?', name: 'customer_add', component: customer_add },
+                { path: '/customer/detail/:id', name: 'customer_detail', component: customer_detail },
+                { path: '/customer/check/:id', name: 'customer_check', component: customer_check },
                 { path: '/user/myinfo', name: 'myinfo', component: myinfo },
                 { path: '/seat/index/:page?', name: 'seat', component: seat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
@@ -40,7 +45,9 @@ let mRouter = new Router({
                 { path: '/expense/project', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat', name: 'expense_seat', component: expense_seat },
                 { path: '/expense/balance', name: 'expense_balance', component: expense_balance },
-                { path: '/expense/doc', name: 'expense_doc', component: expense_doc }
+                { path: '/expense/doc', name: 'expense_doc', component: expense_doc },
+                { path: '/expense/balance', name: 'expense_balance', component: expense_balance },
+                { path: '/seat/outbound/:id/', name: 'outbound', component: outbound }
             ]
         },
         { path: '/error*', name: 'error', component: error },
