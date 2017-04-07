@@ -60,17 +60,48 @@
             }
         },
         created: function () {
+            let id = this.id
+            console.log(id)
+            let _this = this
             if (this.initlist) {
                 this.list = this.initlist
+                if (id) {
+                    for (let i in _this.list) {
+                        _this.selected = {
+                            id: i,
+                            name: _this.list[i]
+                        }
+                    }
+                }
             } else {
                 mAjax(this, {
                     url: this.api,
                     success: data => {
                         this.list = data.data
+                        if (id) {
+                            if (this.list instanceof Array) {
+                                this.list.find((value, index, arr) => {
+                                    if (value.code == id) {
+                                        _this.selected = {
+                                            id: value.code,
+                                            name: value.desc
+                                        }
+                                    }
+                                })
+                            } else {
+                                for (let i in _this.list) {
+                                    if (i == id) {
+                                        _this.selected = {
+                                            id: i,
+                                            name: _this.list[i]
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 })
             }
-
         },
         mounted: function () {
             let _this = this
