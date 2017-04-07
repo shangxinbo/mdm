@@ -15,7 +15,10 @@
                                 <p v-show="user_error" class="error">{{user_error}}</p>
                             </div>
                         </li>
-                        <typeSelect ref="typeSelect"></typeSelect>
+                        <li>
+                            <label class="name">客户类型</label>
+                            <mselect ref="typeSelect" :api="api.typeSelect"></mselect>
+                        </li>
                         <li>
                             <label class="name">公司名称</label>
                             <div class="input-warp">
@@ -129,7 +132,7 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import typeSelect from './typeSelect'
+    import mselect from 'components/utils/select'
     export default {
         data:function(){
             return {
@@ -152,7 +155,10 @@
                 location:'',
                 location_error:'',
                 self_addr:'',
-                self_addr_error:''
+                self_addr_error:'',
+                api:{
+                    typeSelect: API.angent_list_all
+                }
             }
         },
         computed:{
@@ -161,7 +167,7 @@
             }
         },
         components:{
-            typeSelect
+            mselect
         },
         methods:{
             submit(){
