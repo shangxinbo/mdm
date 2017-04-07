@@ -17,8 +17,7 @@
                         </li>
                         <li>
                             <label class="name">项目类型</label>
-                            <mselect ref="projectTypeSelect" :api="api.project_type"></mselect>
-                            <p v-if="projectType_error" class="error">{{projectType_error}}</p>
+                            <mselect ref="projectTypeSelect" :api="api.project_type" :error="projectType_error"></mselect>
                         </li>
                         <li>
                             <label class="name">人群地域</label>

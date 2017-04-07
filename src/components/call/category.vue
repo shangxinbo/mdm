@@ -4,12 +4,12 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp" v-if="userType==4">我的话务</div>
-            <div class="title-warp" v-else>{{customer_name?customer_name + '的话务':(agent_name?agent_name + '的话务':'话务管理')}}</div>
+            <div class="title-warp" v-if="userType==3"></div>
+            <div class="title-warp" v-else>{{customer_name?customer_name + '的话务':(agent_name?agent_name + '的话务':'我的话务')}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
-                        <li>
+                        <li v-if="userType==1">
                             <label class="name">项目</label>
                             <div class="input-warp">
                                 <input class="text" v-model="search_name" type="text">
@@ -18,10 +18,6 @@
                         <li v-if="!customer_id&&userType==1">
                             <label class="name">客户</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
-                        </li>
-                        <li v-if="!agent_id&&userType==1">
-                            <label class="name">代理</label>
-                            <mselect ref="agentSelect" :api="api.agentList" :id="search_agent"></mselect>
                         </li>
                         <li>
                             <label class="name">创建日期</label>
@@ -44,7 +40,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export" v-if="userType!=3">
+                <div class="data-export">
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
@@ -52,31 +48,6 @@
                         </li>
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="data-export" v-else>
-                    <ul>
-                        <li>
-                            <span class="t">参与坐席</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">拨通次数</span>
-                            <span class="num">{{sum.projectNumTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">拨通率</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-
-                        <li>
-                            <span class="t">通话时长</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">平均通话</span>
                             <span class="num">{{sum.projectStatusIngTotal}}</span>
                         </li>
                     </ul>
@@ -87,7 +58,8 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th>项目名称</th>
+                                <th v-if="userType==1">项目名称</th>
+                                <th v-else>参与坐席</th>
                                 <th v-if="!customer_id&&userType==1">客户名称</th>
                                 <th v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
                                 <th>外呼次数</th>
@@ -102,13 +74,13 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType!=3">{{item.name}}</span>
-                                    <router-link :to="'/call/cate/'+item.id+'/cate=project&name='+item.name" v-else>{{item.name}}</router-link>
+                                    <router-link :to="'/project/detail/'+item.id" v-else>{{item.name}}</router-link>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="'/call/cate/'+item.client_id+'/cate=custom&name='+item.client">{{item.client}}</router-link>
+                                    <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="!agent_id&&!customer_id&&userType==1">
-                                     <router-link :to="'/call/cate/'+item.agency_id+'/cate=agency&name='+item.agency">{{item.agency}}</router-link>
+                                    <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>

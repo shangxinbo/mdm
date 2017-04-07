@@ -13,6 +13,7 @@
                 </div>
             </div>
         </div>
+        <p v-if="error" class="error">{{error}}</p>
     </div>
 </template>
 <script>
@@ -29,7 +30,7 @@
                 show: false
             }
         },
-        props: ['api', 'id', 'initlist'],
+        props: ['api', 'id', 'initlist', 'error'],
         watch: {
             id: function (newVal, oldVal) {
                 if (!newVal) {
@@ -61,7 +62,6 @@
         },
         created: function () {
             let id = this.id
-            console.log(id)
             let _this = this
             if (this.initlist) {
                 this.list = this.initlist
