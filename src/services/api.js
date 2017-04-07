@@ -29,6 +29,9 @@ export default {
     expense_project_user: API_PRE + '/operate/charginuser',
     expense_project_agent: API_PRE + '/operate/chargingagent',
     expense_seat: API_PRE + '/operate/chargingseat',
+    project_type_list:API_PRE + '/project/type',
+    project_add: API_PRE + '/project/create',
     seat_list: API_PRE + '/project/seatlist',
     seat_binding: API_PRE + '/project/binding',
+    seat_tobind: API_PRE + '/project/bindingSeat'
 }

@@ -84,10 +84,10 @@
                             <span class="num">10</span>
                         </li>
                     </ul>
-                    <a href="client-add.html" class="btn blue btn-export">
+                    <router-link to="/project/add" class="btn blue btn-export">
                         <span>
                             <i class="icon add"></i>新建顶目</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <div class="data-warp">
@@ -136,7 +136,7 @@
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>
                                 <td v-else>
-                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">重新申请</router-link>
+                                    <router-link v-if="item.status==-1" :to="'/project/add/' + item.id">重新申请</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>

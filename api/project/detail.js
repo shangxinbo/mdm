@@ -17,7 +17,7 @@ module.exports = function (req, res) {
         "audit_status": 1,
         "audit_reason": "啦啦啦啦阿联",
         "auditor": 11,
-        "status": -3,
+        "status": 1,
         "clue_num": 1000,
         "clue_push_time": "2017-03-27 15:09:27",
         "created_clue_time": "2017-03-28 15:09:27",

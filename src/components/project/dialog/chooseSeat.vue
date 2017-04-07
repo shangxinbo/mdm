@@ -20,15 +20,15 @@
                     </div>
                 </div>
                 <div class="dialog-select">
-                    <div class="checkall">
-                        <i class="icon"></i>
+                    <div class="checkall" :class="{checked:checkedAllStatus}">
+                        <i class="icon" @click="toggleAll"></i>
                         <span>全选</span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="dialog-footer">
-            <button class="btn blue" type="button" @click="sure">确定</button>
+            <button class="btn" :class="{blue:checked.length>0,disabled:checked.length==0}" type="button" @click="sure">确定</button>
             <button class="btn" type="button" @click="close">取消</button>
         </div>
     </div>
@@ -47,17 +47,26 @@
                 error: ''
             }
         },
-        computed:{
-            seat:function(){
+        computed: {
+            seat: function () {
                 let arr = []
-                for(let i in this.list){
+                for (let i in this.list) {
                     arr.push({
-                        key:i,
-                        val:this.list[i],
-                        checked:this.checked.findIndex(n=>n==i)>=0
+                        key: i,
+                        val: this.list[i],
+                        checked: this.checked.findIndex(n => n == i) >= 0
                     })
                 }
                 return arr
+            },
+            checkedAllStatus: function () {
+                let all = true
+                this.seat.forEach(e => {
+                    if (!e.checked) {
+                        all = false
+                    }
+                })
+                return all
             }
         },
         methods: {
@@ -66,17 +75,15 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                if (!this.message) {
-                    this.error = '拒绝原因必填'
+                let _this = this
+                if (this.checked.length <= 0) {
                     return false
                 }
-                let _this = this
                 mAjax(this, {
-                    url: API.preject_audit,
+                    url: API.seat_tobind,
                     data: {
                         id: this.id,
-                        audit_result: 2,
-                        audit_reason: this.message
+                        seat_id: this.checked
                     },
                     success: data => {
                         if (data.code == 200) {
@@ -86,12 +93,23 @@
                     }
                 })
             },
-            toggleChecked(id){
-                let index = this.checked.findIndex(n=>n==id)
-                if(index>=0){
-                    this.checked.splice(index,1)
-                }else{
+            toggleChecked(id) {
+                let index = this.checked.findIndex(n => n == id)
+                if (index >= 0) {
+                    this.checked.splice(index, 1)
+                } else {
                     this.checked.push(id)
+                }
+            },
+            toggleAll() {
+                if (this.checkedAllStatus) {
+                    this.checked = []
+                } else {
+                    let arr = []
+                    for (let i in this.list) {
+                        arr.push(i)
+                    }
+                    this.checked = arr
                 }
             }
         },
@@ -113,14 +131,14 @@
                         id: id
                     },
                     success: data => {
-                        if(data.code==200){
+                        if (data.code == 200) {
                             _this.checked = data.data
                             _this.style = 'block'
                             _this.$store.commit('SHOW_LAYER')
                         }
                     }
                 })
-                
+
 
             })
         },
