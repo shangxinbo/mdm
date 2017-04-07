@@ -34,8 +34,8 @@ let mRouter = new Router({
                 { path: '/project/index/', name: 'project_list', component: project_list },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },
-                { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
-                { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
+                { path: '/expense/project', name: 'expense_project', component: expense_project },
+                { path: '/expense/seat', name: 'expense_seat', component: expense_seat },
                 { path: '/expense/balance', name: 'expense_balance', component: expense_balance }
             ]
         },
