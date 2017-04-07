@@ -95,7 +95,7 @@
                             </router-link>
                         </li>
                         <li :class="{active:path.startsWith('/expense/balance')}">
-                            <router-link to="/expense/balance">
+                            <router-link to="/expense/balance?type=in">
                                 <span>
                                     <i class="icon icon03-3"></i>余额管理</span>
                             </router-link>

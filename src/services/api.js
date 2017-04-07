@@ -1,8 +1,9 @@
-
 const API_PRE = process.env.NODE_ENV == 'production' ? '' : '/api'
 export default {
     login: API_PRE + '/user/login',
     logout: API_PRE + '/user/logout',
+    customer_info: API_PRE + '/customer/allinfo',
+    customer_alarm: API_PRE + '/customer/balancealarm',
     update_pass: API_PRE + '/user/modifypwd',
     operate_list: API_PRE + '/operation/list',
     agent_list: API_PRE + '/operation/aginuserinfo',
@@ -32,11 +33,13 @@ export default {
     expense_project_agent: API_PRE + '/operate/chargingagent',
     expense_seat: API_PRE + '/operate/chargingseat',
     expense_seat_agent: API_PRE + '/operate/chargingagentseat',
+    expense_balance_in: API_PRE + '/customer/recharge',
+    expense_balance_out: API_PRE + '/customer/consume',
     customer_seat: API_PRE + '/customer/chargingseat',
-    project_type_list:API_PRE + '/project/type',
+    project_type_list: API_PRE + '/project/type',
     project_add: API_PRE + '/project/create',
     seat_list: API_PRE + '/project/seatlist',
     seat_binding: API_PRE + '/project/binding',
-    seat_status : API_PRE + '/seat/status',
+    seat_status: API_PRE + '/seat/status',
     seat_tobind: API_PRE + '/project/bindingSeat'
 }
