@@ -18,6 +18,7 @@ const call_index = resolve => System.import('components/call/index.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
 const expense_seat = resolve => System.import('components/expense/seat.vue')
 const expense_balance = resolve => System.import('components/expense/balance.vue')
+const expense_doc = resolve => System.import('components/expense/doc.vue')
 
 let mRouter = new Router({
     routes: [
@@ -38,7 +39,8 @@ let mRouter = new Router({
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },
                 { path: '/expense/project', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat', name: 'expense_seat', component: expense_seat },
-                { path: '/expense/balance', name: 'expense_balance', component: expense_balance }
+                { path: '/expense/balance', name: 'expense_balance', component: expense_balance },
+                { path: '/expense/doc', name: 'expense_doc', component: expense_doc }
             ]
         },
         { path: '/error*', name: 'error', component: error },
