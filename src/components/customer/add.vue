@@ -18,6 +18,7 @@
                         <li>
                             <label class="name">客户类型</label>
                             <mselect ref="typeSelect" :api="api.typeSelect"></mselect>
+                            <p v-show="type_error" class="error">{{type_error}}</p>
                         </li>
                         <li>
                             <label class="name">公司名称</label>
@@ -53,28 +54,35 @@
                         <li>
                             <label class="name">营业执照</label>
                             <div class="input-warp">
-                                <div class="file-box">
-                                    <div class="inputbox ">
-                                        <span name="textfield" id="textfield" class="txt"></span>
+                                <p class="text" v-if="edit_licence">
+                                    <a :href="edit_licence" target="_blank">查看</a>
+                                    <a href="javascript:void(0)" @click="reUpload(1)">重新上传</a>
+                                </p>
+                                <div class="file-box" v-else>
+                                    <div class="inputbox">
+                                        <span name="textfield" id="textfield" class="txt">{{licence_name}}</span>
                                         <div class="mainbox">
                                             <span class="button1">上传文件</span>
-                                            <span class="button2">重新上传</span>
-                                            <input type="file" name="fileField" class="file" id="fileField" size="28">
+                                            <input type="file" class="file" accept=".jpg,.png,gif" multiple="false" size="28" @change="selectLicense">
                                         </div>
                                     </div>
+                                    <p v-show="licence_error" class="error">{{licence_error}}</p>
                                 </div>
                             </div>
                         </li>
                         <li>
                             <label class="name">其他资质</label>
                             <div class="input-warp">
-                                <div class="file-box">
+                                <p class="text" v-if="edit_qualification">
+                                    <a :href="edit_qualification" target="_blank">查看</a>
+                                    <a href="javascript:void(0)" @click="reUpload(2)">重新上传</a>
+                                </p>
+                                <div class="file-box" v-else>
                                     <div class="inputbox ">
-                                        <span name="textfield" class="txt"></span>
+                                        <span name="textfield" class="txt">{{qualification_name}}</span>
                                         <div class="mainbox">
                                             <span class="button1">上传文件</span>
-                                            <span class="button2">重新上传</span>
-                                            <input type="file" name="fileField" class="file" size="28" onchange="sa(this.value)">
+                                            <input type="file" class="file" accept=".jpg,.png,gif" multiple="false" size="28" @change="selectQualification">
                                         </div>
                                     </div>
                                 </div>
@@ -133,46 +141,226 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
+    import axios from 'axios'
     export default {
-        data:function(){
+        data: function () {
             return {
-                user:'',
-                user_error:'',
-                company:'',
-                company_error:'',
-                legal:'',
-                legal_error:'',
-                scope:'',
-                scope_error:'',
-                addr:'',
-                addr_error:'',
-                user_name:'',
-                user_name_error:'',
-                email:'',
-                email_error:'',
-                tel:'',
-                tel_error:'',
-                location:'',
-                location_error:'',
-                self_addr:'',
-                self_addr_error:'',
-                api:{
+                user: '',
+                user_error: '',
+                type_error: '',
+                company: '',
+                company_error: '',
+                legal: '',
+                legal_error: '',
+                scope: '',
+                scope_error: '',
+                addr: '',
+                addr_error: '',
+                user_name: '',
+                user_name_error: '',
+                email: '',
+                email_error: '',
+                tel: '',
+                tel_error: '',
+                location: '',
+                location_error: '',
+                self_addr: '',
+                self_addr_error: '',
+                licence: '',
+                licence_name: '',
+                licence_error: '',
+                qualification: '',
+                qualification_name: '',
+                qualification_error: '',
+                edit_licence: '',
+                edit_qualification: '',
+                api: {
                     typeSelect: API.angent_list_all
                 }
             }
         },
-        computed:{
-            type:function(){
+        computed: {
+            type: function () {
                 return this.$refs.typeSelect ? this.$refs.typeSelect.type.id : ''
             }
         },
-        components:{
+        components: {
             mselect
         },
-        methods:{
-            submit(){
-                //TODO add customer 
-                //API.customer_add
+        methods: {
+            reUpload(num) {
+                if (num == 1) {
+                    this.edit_licence = ''
+                } else {
+                    this.edit_qualification = ''
+                }
+            },
+            selectLicense(evt) {
+                let file = evt.target.files[0]
+                if (file.type.indexOf('image') < 0) {
+                    this.file_error = '请上传.png|.jpeg|.gif格式的图片'
+                    this.fileName = ''
+                    return false
+                }
+                if (file.size > 1024 * 1024 * 10) {
+                    this.file_error = '图片不能大于10M'
+                    this.fileName = ''
+                    return false
+                }
+                this.licence_name = file.name
+                this.licence = file
+            },
+            selectQualification(evt) {
+                let file = evt.target.files[0]
+                if (file.type.indexOf('image') < 0) {
+                    this.file_error = '请上传.png|.jpeg|.gif格式的图片'
+                    this.fileName = ''
+                    return false
+                }
+                if (file.size > 1024 * 1024 * 10) {
+                    this.file_error = '图片不能大于10M'
+                    this.fileName = ''
+                    return false
+                }
+                this.qualification_name = file.name
+                this.qualification = evt.target.files[0]
+            },
+            submit() {
+                let reg_user = /^[a-zA-Z0-9]{6,16}$/
+                if (!this.user) {
+                    this.user_error = '账号不能为空'
+                    return false
+                } else {
+                    if (reg_user.test(this.user)) {
+                        this.user_error = ''
+                    } else {
+                        this.user_error = '账号是英文数字6-16位组成'
+                        return false
+                    }
+                }
+                if (!this.$refs.typeSelect.selected.id) {
+                    this.type_error = '请选择客户类型'
+                    return false
+                } else {
+                    this.type_error = ''
+                }
+                if (!this.company) {
+                    this.company_error = '请填写公司名称'
+                    return false
+                } else {
+                    this.company_error = ''
+                }
+                if (!this.legal) {
+                    this.legal_error = '请填写法人'
+                    return false
+                } else {
+                    this.legal_error = ''
+                }
+                if (!this.scope) {
+                    this.scope_error = '请填写经营范围'
+                    return false
+                } else {
+                    this.scope_error = ''
+                }
+                if (!this.addr) {
+                    this.addr_error = '请填写办公地点'
+                    return false
+                } else {
+                    this.addr_error = ''
+                }
+                if (!this.edit_licence) {
+                    if (!this.licence) {
+                        this.licence_error = '请选择营业执照'
+                        return false
+                    } else {
+                        this.licence_error = ''
+                    }
+                }
+                if (!this.user_name) {
+                    this.user_name_error = '请填写姓名'
+                    return false
+                } else {
+                    this.user_name_error = ''
+                }
+                if (!this.email) {
+                    this.email_error = '请填写邮箱'
+                    return false
+                } else {
+                    this.email_error = ''
+                }
+                if (!this.tel) {
+                    this.tel_error = '请填写手机号'
+                    return false
+                } else {
+                    this.tel_error = ''
+                }
+                if (!this.location) {
+                    this.location_error = '请填写归属地'
+                    return false
+                } else {
+                    this.location_error = ''
+                }
+                if (!this.self_addr) {
+                    this.self_addr_error = '请填写所在位置'
+                    return false
+                } else {
+                    this.self_addr_error = ''
+                }
+                let _this = this
+                let id = this.$route.params.id
+                let api = API.customer_add
+                let data = new FormData()
+                if(id){
+                    data.append('id', this.id)
+                    api = API.customer_modify
+                }
+                data.append('user', this.user)
+                data.append('type', this.$refs.typeSelect.selected.id)
+                data.append('company', this.company)
+                data.append('legal', this.legal)
+                data.append('scope', this.scope)
+                data.append('store_addr', this.store_addr)
+                data.append('licence', this.licence)
+                data.append('qualification', this.qualification)
+                data.append('user_name', this.user_name)
+                data.append('mail', this.mail)
+                data.append('tel', this.tel)
+                data.append('location', this.location)
+                data.append('application_addr', this.application_addr)
+                axios.post(api, data).then(function (res) {
+                    if (res.status == 200 && res.data.code == 200) {
+                        let msg = _this.$route.query.id ? '修改成功' : '添加成功'
+                        _this.$router.push('/customer/index')
+                    }
+                }).catch(err => {
+                    _this.$refs.alert.$emit('show', '程序未知错误')
+                })
+            }
+        },
+        created: function () {
+            let id = this.$route.params.id
+            if (id) {
+                mAjax(this, {
+                    url: API.customer_detail,
+                    data: {
+                        id: id
+                    },
+                    success: data => {
+                        let detail = data.data
+                        this.user = detail.user
+                        this.company = detail.company
+                        this.legal = detail.legal
+                        this.scope = detail.scope
+                        this.addr = detail.addr
+                        this.user_name = detail.user_name
+                        this.email = detail.email
+                        this.tel = detail.tel
+                        this.location = detail.location
+                        this.self_addr = detail.self_addr
+                        this.edit_licence = detail.licence
+                        this.edit_qualification = detail.qualification
+                    }
+                })
             }
         }
     }
