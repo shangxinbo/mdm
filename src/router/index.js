@@ -44,7 +44,7 @@ let mRouter = new Router({
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },
-                { path: '/call/cate/:id/:cate?:name?', name: 'call_cate', component: call_cate },
+                { path: '/call/cate/:id/', name: 'call_cate', component: call_cate },
                 { path: '/call/client/:id/', name: 'call_client', component: call_client },
                 { path: '/call/project/:id/', name: 'call_project', component: call_project },
                 { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
