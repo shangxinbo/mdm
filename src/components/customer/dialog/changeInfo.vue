@@ -1,5 +1,5 @@
 <template>
-    <div class="dialog" :style="{'display':style,'margin-left':'-259px','margin-top':'-181px'}">
+    <div class="dialog" :style="{'display':style,'margin-left':'-259px','margin-top':'-280px'}">
         <a href="javascript:void(0);" class="icon dialog-close" title="关闭" @click="close"></a>
         <div class="dialog-header">
             <h4>修改联系信息</h4>

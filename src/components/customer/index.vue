@@ -14,7 +14,7 @@
                                 <input class="text" v-model="user" type="text">
                             </div>
                         </li>
-                        <li v-if="!agent_id">
+                        <li v-if="!agent_id&&userType==1">
                             <label class="name">所属代理</label>
                             <mselect ref="agentSelect" :api="api.agentSelect"></mselect>
                         </li>

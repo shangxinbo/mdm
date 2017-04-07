@@ -8,7 +8,7 @@ module.exports = function (req, res) {
         "user": '@name',
         "company": '@ctitle',
         "type": "汽车",
-        "client_status": 1,
+        "audit_status": 1,
         "balance_alarm": 0,
         "audit_advice": "",
         "balance":123,

@@ -17,15 +17,23 @@
                         <li>
                             <label class="name">客户状态</label>
                             <div class="input-warp">
-                                <p class="text">{{detail.client_status}}</p>
+                                <p class="text" v-if="detail.audit_status==2">审核失败</p>
+                                <p class="text" v-else-if="detail.audit_status==1">已通过</p>
+                                <p class="text" v-else>待审核</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="detail.audit_status==1">
                             <label class="name">余额</label>
                             <div class="input-warp">
                                 <p class="text">&yen; {{detail.balance}}</p>
                                 <p class="notice" v-if="detail.balance<=detail.balance_alarm">
                                     <i class="icon"></i>客户余额不足，请尽快联系客户进行充值，以免影响客户正常使用</p>
+                            </div>
+                        </li>
+                        <li v-if="detail.audit_status==2">
+                            <label class="name">未通过原因</label>
+                            <div class="input-warp">
+                                <p class="text red">{{detail.audit_advice}}</p>
                             </div>
                         </li>
                         <li>
@@ -76,8 +84,15 @@
                         </li>
                     </ul>
                 </form>
+                <div class="btn-warp" v-if="userType==2&&detail.audit_status==2">
+                    <router-link class="btn blue" :to="'/customer/add/'+ detail.id">重新申请</router-link>
+                </div>
                 <div class="data-card">
                     <div class="title">联系人信息</div>
+                    <a class="btn blue" v-if="userType==2&&detail.audit_status==1" href="javascript:void(0);" @click="showEditDialog">
+                        <span>
+                            <i class="icon edit"></i>修改</span>
+                    </a>
                     <dl>
                         <dt>{{detail.user_name}}</dt>
                         <dd>
@@ -90,12 +105,12 @@
                                 <i class="icon card2"></i>手&nbsp;&nbsp;机&nbsp;&nbsp;号</label>
                             <p class="text">{{detail.tel}}</p>
                         </dd>
-                        <dd>
+                        <dd v-if="detail.location">
                             <label class="name">
                                 <i class="icon card3"></i>归&nbsp;&nbsp;属&nbsp;&nbsp;地</label>
                             <p class="text">{{detail.location}}</p>
                         </dd>
-                        <dd>
+                        <dd v-if="detail.application_addr">
                             <label class="name">
                                 <i class="icon card4"></i>所在位置</label>
                             <p class="text">{{detail.application_addr}}</p>
@@ -104,48 +119,63 @@
                 </div>
             </div>
         </div>
+        <editDialog ref="editDialog"></editDialog>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
+    import editDialog from './dialog/changeInfo'
+    let user = JSON.parse(localStorage.getItem('user'))
     export default {
-        data:function(){
+        data: function () {
             return {
-                detail:{
-                    company:'',
-                    created_at:'',
-                    client_status:'',
-                    balance:'',
-                    balance_alarm:'',
-                    user:'',
-                    type:'',
-                    legal:'',
-                    scope:'',
-                    store_addr:'',
-                    licence:'',
-                    qualification:'',
-                    user_name:'',
-                    mail:'',
-                    tel:'',
-                    location:'',
-                    application_addr:''
-                }
+                detail: {
+                    id:'',
+                    company: '',
+                    created_at: '',
+                    balance: '',
+                    audit_status: '',
+                    balance_alarm: '',
+                    user: '',
+                    type: '',
+                    legal: '',
+                    scope: '',
+                    store_addr: '',
+                    licence: '',
+                    qualification: '',
+                    user_name: '',
+                    mail: '',
+                    tel: '',
+                    location: '',
+                    application_addr: ''
+                },
+                userType: user.type
             }
         },
-        created:function(){
+        components: {
+            editDialog
+        },
+        methods: {
+            showEditDialog() {
+                this.$refs.editDialog.$emit('show', this.$route.params.id)
+            },
+        },
+        created: function () {
             let id = this.$route.params.id
-            mAjax(this,{
-                url:API.customer_detail_by_operate,
-                data:{
-                    id:id
+            let api = this.userType == 1 ? API.customer_detail_by_operate : API.customer_detail
+            mAjax(this, {
+                url: api,
+                data: {
+                    id: id
                 },
-                success:data => {
-                    if(data.code==200){
+                success: data => {
+                    if (data.code == 200) {
                         this.detail = data.data
                     }
                 }
             })
         }
     }
+
 </script>
