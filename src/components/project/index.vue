@@ -4,7 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">{{customer_name?customer_name+ '的项目':(agent_name?agent_name + '的项目':'项目管理')}}</div>
+            <div class="title-warp">{{customer_name?customer_name + '的项目':(agent_name?agent_name + '的项目':'项目管理')}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -14,11 +14,11 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="!customer_id">
+                        <li v-if="!customer_id&&userType==1">
                             <label class="name">客户名称</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
                         </li>
-                        <li v-if="!agent_id&&!customer_id">
+                        <li v-if="!agent_id&&!customer_id&&userType==1">
                             <label class="name">所属代理</label>
                             <mselect ref="agentSelect" :api="api.agentList" :id="search_agent"></mselect>
                         </li>
@@ -47,7 +47,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export">
+                <div class="data-export" v-if="userType==1">
                     <ul>
                         <li>
                             <span class="t">项目数</span>
@@ -75,6 +75,20 @@
                         </li>
                     </ul>
                 </div>
+                <div class="data-export" v-else>
+                    <ul>
+                        <li>
+                            <span class="t">
+                                <a href="#">现有坐席</a>
+                            </span>
+                            <span class="num">10</span>
+                        </li>
+                    </ul>
+                    <a href="client-add.html" class="btn blue btn-export">
+                        <span>
+                            <i class="icon add"></i>新建顶目</span>
+                    </a>
+                </div>
             </div>
             <div class="data-warp">
                 <div class="data-table">
@@ -82,8 +96,8 @@
                         <tbody>
                             <tr>
                                 <th>项目名称</th>
-                                <th v-if="!customer_id">客户名称</th>
-                                <th v-if="!agent_id&&!customer_id">所属代理</th>
+                                <th v-if="!customer_id&&userType==1">客户名称</th>
+                                <th v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
                                 <th>类型</th>
                                 <th>创建日期</th>
                                 <th>状态</th>
@@ -100,10 +114,10 @@
                                 <td>
                                     <router-link :to="'/project/detail/'+item.id">{{item.name}}</router-link>
                                 </td>
-                                <td v-if="!customer_id">
+                                <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
-                                <td v-if="!agent_id&&!customer_id">
+                                <td v-if="!agent_id&&!customer_id&&userType==1">
                                     <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
                                 </td>
                                 <td>{{item.project_type}}</td>
@@ -116,10 +130,14 @@
                                 <td>{{item.call_time}}</td>
                                 <td>{{item.odd_time}}</td>
                                 <td>{{item.project_seat_num}}</td>
-                                <td>
+                                <td v-if="userType==1">
                                     <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
+                                </td>
+                                <td v-else>
+                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">重新申请</router-link>
+                                    <a v-if="item.status==1" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -131,6 +149,7 @@
         </div>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
+        <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
     </div>
 </template>
 <script>
@@ -141,10 +160,13 @@
     import datepicker from 'vuejs-datepicker'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
+    import chooseSeatDialog from './dialog/chooseSeat'
+    let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
             return {
                 list: [],
+                userType: user.type,
                 start_time: '',
                 end_time: '',
                 currentPage: 1,
@@ -199,7 +221,8 @@
             mselect,
             datepicker,
             confirm,
-            alert
+            alert,
+            chooseSeatDialog
         },
         methods: {
             refresh: function () {
@@ -262,7 +285,7 @@
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$refs.alert.$emit('show', '已成功暂停',function(){
+                                _this.$refs.alert.$emit('show', '已成功暂停', function () {
                                     _this.refresh()
                                 })
                             else
@@ -281,7 +304,7 @@
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$refs.alert.$emit('show', '已成功开启',function(){
+                                _this.$refs.alert.$emit('show', '已成功开启', function () {
                                     _this.refresh()
                                 })
                             else
@@ -289,6 +312,9 @@
                         }
                     })
                 })
+            },
+            assignSeat(id,name){
+                this.$refs.chooseSeatDialog.$emit('show',id,name)
             }
         },
         created: function () {

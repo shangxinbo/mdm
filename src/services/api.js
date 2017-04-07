@@ -28,5 +28,7 @@ export default {
     expense_project: API_PRE + '/operate/chargingproject',
     expense_project_user: API_PRE + '/operate/charginuser ',
     expense_project_agent: API_PRE + '/operate/chargingagent  ',
-    expense_seat: API_PRE + '/operate/chargingseat'
+    expense_seat: API_PRE + '/operate/chargingseat',
+    seat_list: API_PRE + '/project/seatlist',
+    seat_binding: API_PRE + '/project/binding',
 }
