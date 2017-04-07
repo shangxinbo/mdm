@@ -21,6 +21,7 @@
             <i class="icon login-icon"></i>
             <div class="quit">
                 <p title="Hi，hahaha">Hi，hahaha</p>
+                <a href="javascript:void(0);" onclick="getWindow('callSetting');" class="edit"><i class="icon icon06"></i><span>通话设置</span></a>
                 <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
                 <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
             </div>
@@ -317,6 +318,35 @@
 </div>
 <!-- 拨打详情查看弹窗 End -->
 <!-----------------------header下拉弹窗------------------------->
+<!-- 通话设置弹窗 -->
+<div class="dialog" id="callSetting">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>通话设置</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label class="w110">主机</label>
+                <div class="input-warp w240">
+                    <p class="text">101.222.333.222</p>
+                </div>
+            </li>
+            <li>
+                <label class="w110">客户端登录名</label>
+                <div class="input-warp w240">
+                    <p class="text">19156</p>
+                </div>
+            </li>
+            <li>
+                <label class="w110">客户端密码</label>
+                <div class="input-warp w240">
+                    <p class="text">WS56255</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
 <!-- 修改密码弹窗 -->
 <div class="dialog" id="editPassword">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
