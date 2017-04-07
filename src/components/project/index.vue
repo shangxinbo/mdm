@@ -207,6 +207,19 @@
         },
         watch: {
             $route: function () {
+                this.init()
+            }
+        },
+        components: {
+            pages,
+            mselect,
+            datepicker,
+            confirm,
+            alert,
+            chooseSeatDialog
+        },
+        methods: {
+            init() {
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent
@@ -219,17 +232,7 @@
                 this.customer_id = this.$route.query.customer_id
                 this.customer_name = this.$route.query.customer_name
                 this.refresh()
-            }
-        },
-        components: {
-            pages,
-            mselect,
-            datepicker,
-            confirm,
-            alert,
-            chooseSeatDialog
-        },
-        methods: {
+            },
             refresh: function () {
                 let _this = this
                 mAjax(this, {
@@ -323,7 +326,7 @@
             }
         },
         created: function () {
-            this.refresh()
+            this.init()
         }
     }
 

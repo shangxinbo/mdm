@@ -34,10 +34,10 @@ export default {
     expense_seat: API_PRE + '/operate/chargingseat',
     expense_seat_agent: API_PRE + '/operate/chargingagentseat',
     customer_seat: API_PRE + '/customer/chargingseat',
-    project_type_list:API_PRE + '/project/type',
+    project_type_list: API_PRE + '/project/type',
     project_add: API_PRE + '/project/create',
     seat_list: API_PRE + '/project/seatlist',
     seat_binding: API_PRE + '/project/binding',
-    seat_status : API_PRE + '/seat/status',
+    seat_status: API_PRE + '/seat/status',
     seat_tobind: API_PRE + '/project/bindingSeat'
 }

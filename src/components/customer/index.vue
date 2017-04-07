@@ -134,10 +134,10 @@
                 },
                 agent_id: '',
                 agent_name: '',
-                search_name:'',
-                search_customer:'',
-                search_agent:'',
-                search_status:'',
+                search_name: '',
+                search_customer: '',
+                search_agent: '',
+                search_status: '',
                 api: {
                     agentSelect: API.customer_type_list,
                     typeSelect: API.angent_list_all,
@@ -151,14 +151,7 @@
         },
         watch: {
             $route: function () {
-                this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status
-                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id
-                this.agent_name = this.$route.query.agent_name
-                this.refresh()
+                this.init()
             }
         },
         components: {
@@ -170,6 +163,16 @@
             rechargeDialog
         },
         methods: {
+            init() {
+                this.search_name = this.$route.query.search_name
+                this.search_customer = this.$route.query.search_customer
+                this.search_agent = this.$route.query.search_agent
+                this.search_status = this.$route.query.search_status
+                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.agent_id = this.$route.query.agent_id
+                this.agent_name = this.$route.query.agent_name
+                this.refresh()
+            },
             refresh() {
                 let _this = this
                 let api = this.userType == 1 ? API.customer_list_by_operate : API.customer_list
@@ -192,10 +195,11 @@
                                     seat: list.seat_num
                                 }
                                 _this.list = list.customer.data
+                                _this.totalPage = Math.ceil(list.customer.total / list.customer.per_page)
                             } else {
                                 _this.list = list.data
+                                _this.totalPage = Math.ceil(list.total / list.per_page)
                             }
-                            _this.totalPage = Math.ceil(list.customer.total / list.customer.per_page)
                         } else {
                             _this.list = ''
                         }
@@ -239,7 +243,7 @@
             }
         },
         created: function () {
-            this.refresh()
+            this.init()
         }
     }
 
