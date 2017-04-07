@@ -17,8 +17,7 @@
                         </li>
                         <li>
                             <label class="name">客户类型</label>
-                            <mselect ref="typeSelect" :api="api.typeSelect"></mselect>
-                            <p v-show="type_error" class="error">{{type_error}}</p>
+                            <mselect ref="typeSelect" :api="api.typeSelect" :error="type_error"></mselect>
                         </li>
                         <li>
                             <label class="name">公司名称</label>

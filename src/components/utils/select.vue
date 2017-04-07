@@ -30,7 +30,7 @@
                 show: false
             }
         },
-        props: ['api', 'id', 'initlist','error'],
+        props: ['api', 'id', 'initlist', 'error'],
         watch: {
             id: function (newVal, oldVal) {
                 if (!newVal) {
