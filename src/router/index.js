@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
+
 const login = resolve => System.import('components/users/login.vue')
 const layout = resolve => System.import('components/common/layout.vue')
 const error = resolve => System.import('components/common/error.vue')
@@ -54,7 +55,6 @@ let mRouter = new Router({
     ]
 })
 
-
 mRouter.beforeEach((to, from, next) => {
     const path = to.path
     const user = JSON.parse(localStorage.getItem('user'))
@@ -67,10 +67,6 @@ mRouter.beforeEach((to, from, next) => {
             next({ path: '/agent/index' })
         } else if (user.type == 2) {
             next({ path: '/customer/index' })
-        } else if (user.type == 3) {
-            next({ path: '/project/index' })
-        } else if (user.type == 4) {
-            next({ path: '/project/index' })
         } else {
             next({ path: '/project/index' })
         }
