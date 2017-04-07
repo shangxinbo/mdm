@@ -330,9 +330,7 @@
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
                         let msg = _this.$route.query.id ? '修改成功' : '添加成功'
-                        //_this.$refs.alert.$emit('show', msg, function () {
                         _this.$router.push('/customer/index')
-                        //})
                     }
                 }).catch(err => {
                     _this.$refs.alert.$emit('show', '程序未知错误')
