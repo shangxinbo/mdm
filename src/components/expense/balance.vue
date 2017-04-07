@@ -55,6 +55,7 @@
         watch: {
             $route: function () {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.type = this.$route.query.type ? this.$route.query.type : "in"
                 if (this.type == 'in') {
                     this.url = API.expense_balance_in
                 } else if (this.type == 'out') {
@@ -128,6 +129,7 @@
             }
         },
         created: function () {
+            this.currentPage = this.$route.query.page ? this.$route.query.page : 1
             this.type = this.$route.query.type ? this.$route.query.type : 'in'
             if (this.type == 'in') {
                 this.url = API.expense_balance_in
