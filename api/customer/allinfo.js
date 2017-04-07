@@ -5,11 +5,12 @@ module.exports = function (req, res) {
         "type": "商旅",    //类型
         "audit_status": 1,  //客户状态
         "balance_alarm": 0,  //余额预警值
+        "balance": '11',
         "audit_advice": "",  //审批建议
         "legal": "李麻花",   //法人
         "scope": "",     //经营范围
         "store_addr": "",//办公地点
-        "licence": "http://www.baidu.com",   //营业执照
+        "licence": "",   //营业执照
         "qualification": "",//其他资质
         "user_name": "光头强",//姓名
         "mail": "gunt@123.com",//邮箱

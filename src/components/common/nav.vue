@@ -89,13 +89,13 @@
                             </router-link>
                         </li>
                         <li :class="{active:path.startsWith('/expense/seat')}">
-                            <router-link to="/expense/seat">
+                            <router-link to="/expense/seat?type=user">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
                             </router-link>
                         </li>
                         <li :class="{active:path.startsWith('/expense/balance')}">
-                            <router-link to="/expense/balance">
+                            <router-link to="/expense/balance?type=in">
                                 <span>
                                     <i class="icon icon03-3"></i>余额管理</span>
                             </router-link>

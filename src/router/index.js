@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
+
 const login = resolve => System.import('components/users/login.vue')
 const layout = resolve => System.import('components/common/layout.vue')
 const error = resolve => System.import('components/common/error.vue')
@@ -24,6 +25,7 @@ const outbound = resolve => System.import('components/seat/outbound.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
 const expense_seat = resolve => System.import('components/expense/seat.vue')
 const expense_balance = resolve => System.import('components/expense/balance.vue')
+const expense_doc = resolve => System.import('components/expense/doc.vue')
 
 let mRouter = new Router({
     routes: [
@@ -35,7 +37,7 @@ let mRouter = new Router({
                 { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
                 { path: '/agent/index/:page?', name: 'agent_index', component: agent_index },
                 { path: '/customer/index/', name: 'customer_index', component: customer_index },
-                { path: '/customer/add', name: 'customer_add', component: customer_add },
+                { path: '/customer/add/:id?', name: 'customer_add', component: customer_add },
                 { path: '/customer/detail/:id', name: 'customer_detail', component: customer_detail },
                 { path: '/customer/check/:id', name: 'customer_check', component: customer_check },
                 { path: '/user/myinfo', name: 'myinfo', component: myinfo },
@@ -49,7 +51,7 @@ let mRouter = new Router({
                 { path: '/call/project/:id/', name: 'call_project', component: call_project },
                 { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
-                { path: '/expense/balance', name: 'expense_balance', component: expense_balance },
+                { path: '/expense/doc', name: 'expense_doc', component: expense_doc },
                 { path: '/seat/outbound/:id/', name: 'outbound', component: outbound }
             ]
         },
@@ -57,7 +59,6 @@ let mRouter = new Router({
         { path: '*', redirect: '/error?code=404' }
     ]
 })
-
 
 mRouter.beforeEach((to, from, next) => {
     const path = to.path
@@ -71,10 +72,6 @@ mRouter.beforeEach((to, from, next) => {
             next({ path: '/agent/index' })
         } else if (user.type == 2) {
             next({ path: '/customer/index' })
-        } else if (user.type == 3) {
-            next({ path: '/project/index' })
-        } else if (user.type == 4) {
-            next({ path: '/project/index' })
         } else {
             next({ path: '/project/index' })
         }

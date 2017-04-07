@@ -1,0 +1,56 @@
+<template>
+    <table cellspacing="0" cellpadding="0">
+        <tbody v-if="type=='in'">
+            <tr>
+                <th>充值日期</th>
+                <th>充值金额</th>
+                <th>充值前金额</th>
+                <th>充值后金额</th>
+            </tr>
+            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
+                <td>{{item.date}}</td>
+                <td>¥{{item.recharge_cost}}</td>
+                <td>¥{{item.recharge_before_balance}}</td>
+                <td>¥{{item.recharge_after_balance}}</td>
+            </tr>
+        </tbody>
+
+        <tbody v-if="type=='out'">
+            <tr>
+                <th>消费日期</th>
+                <th>消费类型</th>
+                <th>消费金额</th>
+                <th>消费前金额</th>
+                <th>消费后金额</th>
+            </tr>
+            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
+                <td>{{item.created_at}}</td>
+                <td>{{item.type}}</td>
+                <td>¥{{item.consume_amount}}</td>
+                <td>¥{{item.before_consume_amount}}</td>
+                <td>¥{{item.after_consume_amount}}</td>
+            </tr>
+        </tbody>
+
+        <confirm ref="confirm"></confirm>
+    </table>
+</template>
+<script>
+    import {mAjax} from 'src/services/functions'
+    import API from 'src/services/api'
+    import confirm from 'components/dialog/confirm'
+    let user = JSON.parse(localStorage.getItem('user'))
+    export default {
+        props: ['list', 'type'],
+        data: function () {
+            return {
+                userType: user.type,
+            }
+        },
+        components: {
+            confirm
+        },
+        methods: {}
+    }
+
+</script>

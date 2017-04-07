@@ -4,10 +4,7 @@ module.exports = function(req, res) {
     let param = req.body
     let page = param.page ? param.page : 1
     return Mock.mock({
-        "count": {
-            "num": "@int(0,100)", //开通数量
-            "cost": "@int(0,10000)" //开通费用
-        },
+        "count":"@int(0,100)", //开通数量
         "page": {
             "total": 100 //分页信息
         },
@@ -21,9 +18,6 @@ module.exports = function(req, res) {
             "stop_time": '@date("yyyy-MM-dd HH:mm:ss")', //失效日期
             "created_at": '@date("yyyy-MM-dd HH:mm:ss")',
             "updated_at": '@date("yyyy-MM-dd HH:mm:ss")',
-            "username": "@cname", //客户名称
-            "agency_id": "@int(0,100)", //所属代理id
-            "agency": "smallldaili", //所属代理
             "cost": 1200 //开通费用
         }]
     })
