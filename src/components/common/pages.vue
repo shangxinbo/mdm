@@ -36,8 +36,8 @@
             <a v-if="total>2" href="javascript:void(0);" :class="{active:current==3}" @click="goPage(3)">3</a>
             <a v-if="total>3" href="javascript:void(0);" :class="{active:current==4}" @click="goPage(4)">4</a>
             <a v-if="total>4" href="javascript:void(0);" :class="{active:current==5}" @click="goPage(5)">5</a>
-            <a v-if="total>5" href="javascript:void(0);" :class="{active:current==6}" @click="goPage(5)">6</a>
-            <a v-if="total>6" href="javascript:void(0);" :class="{active:current==7}" @click="goPage(5)">7</a>
+            <a v-if="total>5" href="javascript:void(0);" :class="{active:current==6}" @click="goPage(6)">6</a>
+            <a v-if="total>6" href="javascript:void(0);" :class="{active:current==7}" @click="goPage(7)">7</a>
         </template>
         <a class="next" href="javascript:void(0);" v-show="current<total" @click="goPage(parseInt(current)+1)">下一页</a>
     </div>
