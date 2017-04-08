@@ -243,7 +243,8 @@
                     name: this.$route.name,
                     query: query
                 })
-            },
+            }
+        },
         created: function () {
             this.init()
         }
