@@ -23,6 +23,7 @@ module.exports = function (req, res) {
                     "type": '@ctitle',
                     "agent_name": "@cname",    //代理名词
                     "audit_status": '@int(0,2)',
+                    "audit_advice":"@ctitle",
                     "balance": "@int(0,100)",
                     "superior_id": "@int(0,100)",   //代理id
                     "conduct_project":"@int(0,100)",
