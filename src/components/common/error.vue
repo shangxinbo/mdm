@@ -1,27 +1,31 @@
 <template>
     <div class="warp" style="width:100%;padding:0">
-    <div class="main">
-        <div class="data-errors">
-            <div class="data-error">
-                <p class="num"><span>{{code}}</span></p>
-                <p class="tips">{{msg}}</p>
-            </div>
-            <p class="bg"><img :src="bg"></p>
-            <div class="data-search">
-                <a href="/">
-                    <button class="btn green" type="button">返回首页</button>
-                </a>
+        <div class="main">
+            <div class="data-errors">
+                <div class="data-error">
+                    <p class="num">
+                        <span>{{code}}</span>
+                    </p>
+                    <p class="tips">{{msg}}</p>
+                </div>
+                <p class="bg">
+                    <img :src="bg">
+                </p>
+                <div class="data-search">
+                    <router-link to="/">
+                        <button class="btn green" type="button">返回首页</button>
+                    </router-link>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </template>
 <script>
     import bg from 'assets/img/error-bg.jpg'
     export default {
-        data:function(){
+        data: function () {
             return {
-                bg:bg
+                bg: bg
             }
         },
         computed: {

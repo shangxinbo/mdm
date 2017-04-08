@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-    import { mAjax} from 'src/services/functions'
+    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {
@@ -52,7 +52,10 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$router.replace('/project/index')
+                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                            _this.$router.replace('/project/index')  //TODO 刷新页面
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
@@ -65,9 +68,8 @@
                 _this.message = ''
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
-
             })
-        },
+        }
     }
 
 </script>

@@ -88,7 +88,10 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$router.replace('/project/index')
+                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                            _this.$router.replace('/project/index') //TODO 刷新页面
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
@@ -120,6 +123,8 @@
                 success: data => {
                     if (data.code == 200)
                         _this.list = data.data
+                    else
+                        _this.$store.commit('SHOW_TOAST', data.message)
                 }
             })
             this.$on('show', function (id, name) {
@@ -135,13 +140,13 @@
                             _this.checked = data.data
                             _this.style = 'block'
                             _this.$store.commit('SHOW_LAYER')
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
-
-
             })
-        },
+        }
     }
 
 </script>

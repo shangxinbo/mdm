@@ -109,20 +109,20 @@
                     if (!reg.test(this.name)) {
                         this.name_error = '项目名称由文字和数字4-20位组成'
                         return false
-                    }else{
+                    } else {
                         this.name_error = ''
                     }
                 }
                 if (!projectType) {
                     this.projectType_error = '请选择项目类型'
                     return false
-                }else{
+                } else {
                     this.projectType_error = ''
                 }
                 if (!this.region) {
                     this.region_error = '请填写人群地域'
                     return false
-                }else{
+                } else {
                     this.region_error = ''
                 }
                 if (!this.expectClue) {
@@ -132,14 +132,14 @@
                     if (isNaN(this.expectClue)) {
                         this.expectClue_error = '线索量需要是数字'
                         return false
-                    }else{
+                    } else {
                         this.expectClue_error = ''
                     }
                 }
                 if (!this.expectTime) {
                     this.expectTime_error = '请选择预计开始时间'
                     return false
-                }else{
+                } else {
                     this.expectTime_error = ''
                 }
                 let _this = this
@@ -158,28 +158,32 @@
                             _this.$refs.alert.$emit('show', '新建成功', function () {
                                 _this.$router.replace('/project/index')
                             })
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
             }
         },
-        created:function(){
+        created: function () {
             let id = this.$route.params.id
             let _this = this
-            if(id){
-                mAjax(this,{
-                    url:API.project_detail,
-                    data:{
-                        id:id
+            if (id) {
+                mAjax(this, {
+                    url: API.project_detail,
+                    data: {
+                        id: id
                     },
-                    success:data =>{
-                        if(data.code==200){
+                    success: data => {
+                        if (data.code == 200) {
                             let detail = data.data
                             _this.name = detail.name
                             _this.region = detail.region
                             _this.expectClue = detail.expect_clue_num
                             _this.expectTime = detail.expect_begin_date
                             _this.content = detail.desc
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })

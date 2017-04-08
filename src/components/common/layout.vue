@@ -1,3 +1,6 @@
+<style lang="less">
+    @import '../../assets/less/data-cloud.less';
+</style>
 <template>
     <div>
         <mheader></mheader>

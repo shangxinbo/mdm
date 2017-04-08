@@ -147,7 +147,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p v-else>暂无数据</p>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
@@ -241,8 +241,8 @@
                         nums: 10,
                         page: _this.currentPage,
                         search_project_name: _this.search_name,
-                        search_client_id: _this.search_customer,
-                        search_agency_id: _this.search_agent,
+                        search_client_id: _this.customer_id?_this.customer_id:_this.search_customer,
+                        search_agency_id: this.agent_id ? this.agent_id : _this.search_agent,
                         search_project_status: _this.search_status,
                         search_project_begin_time: _this.search_start_time,
                         search_project_end_time: _this.search_end_time
@@ -269,8 +269,9 @@
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
+                let search_name = this.search_name
                 let query = Object.assign({}, this.$route.query, {
-                    search_name: this.search_name,
+                    search_name: search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
                     search_status: search_status,

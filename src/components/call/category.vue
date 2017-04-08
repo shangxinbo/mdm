@@ -118,7 +118,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p v-else>暂无数据</p>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
@@ -215,7 +215,11 @@
                             _this.sum = data.data.count
                             _this.totalPage = Math.ceil(data.data.page.total / 10)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$refs.alert.$emit('show',data.message)
+                            _this.list = ''
+                            _this.sum  = {}
+                            _this.totalPage = 1
+                            //_this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
