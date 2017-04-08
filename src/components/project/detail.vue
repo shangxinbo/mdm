@@ -62,13 +62,13 @@
                                 <p class="text">{{detail.project_status}}</p>
                             </div>
                         </li>
-                        <li class="both" v-if="detail.status==-1">
+                        <li class="both" v-if="detail.audit_status==0">
                             <label class="name">未通过原因</label>
                             <div class="input-warp">
                                 <p class="text red">{{detail.audit_reason}}</p>
                             </div>
                         </li>
-                        <template v-if="detail.status==1||detail.status==2||detail.status==3">
+                        <template v-if="detail.audit_status==1">
                             <li class="both">
                                 <label class="name">线索量</label>
                                 <div class="input-warp">
@@ -112,18 +112,18 @@
                                 </div>
                             </li>
                         </template>
-                        <li v-if="detail.status==-1&&userType==3">
+                        <li v-if="detail.audit_status==2&&userType==3">
                             <div class="input-warp">
                                 <a class="btn blue" href="client-afresh.html">重新申请</a>
                             </div>
                         </li>
                     </ul>
                 </form>
-                <div class="btn-warp" v-if="detail.status==-3&&userType==1">
+                <div class="btn-warp" v-if="detail.audit_status==0&&userType==1">
                     <a class="btn blue" href="javascript:void(0);" @click="accept(detail.id)">通过</a>
                     <a class="btn red" href="javascript:void(0);" @click="refuse(detail.id)">拒绝</a>
                 </div>
-                <div class="btn-warp" v-if="detail.status==1&&userType==3">
+                <div class="btn-warp" v-if="detail.audit_status==1&&userType==3">
                     <button class="btn blue" type="button" @click="assignSeat(detail.id,detail.name)">分配坐席</button>
                 </div>
 
@@ -149,7 +149,7 @@
                 userType: user.type,
                 detail: {
                     id: '',
-                    status: 1,
+                    audit_status: 1,
                     name: '',
                     client_name: '',
                     agency: '',
