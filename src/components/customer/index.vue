@@ -82,7 +82,12 @@
                                 <td>{{item.type}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td v-if="item.audit_status==1">通过</td>
-                                <td v-else-if="item.audit_status==2" class="red">未通过</td>
+                                <td v-else-if="item.audit_status==2">未通过
+                                    <span class="notice" @mouseover="showReason" @mouseout="hideReason">
+                                        <i class="icon tips"></i>
+                                        <em>{{item.audit_advice}}</em>
+                                    </span>
+                                </td>
                                 <td v-else>待审核</td>
                                 <td v-if="userType==1">{{item.conduct_project}}</td>
                                 <td v-if="userType==1">{{item.seat_num}}</td>
@@ -244,6 +249,12 @@
             },
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
+            },
+            showReason(evt){
+                evt.currentTarget.querySelector('em').style.display = 'block'
+            },
+            hideReason(evt){
+                evt.currentTarget.querySelector('em').style.display = 'none'
             }
         },
         created: function () {
