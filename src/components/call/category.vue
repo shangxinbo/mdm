@@ -239,6 +239,8 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.head = data.data.data
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
