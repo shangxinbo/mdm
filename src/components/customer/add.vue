@@ -83,6 +83,7 @@
                                             <span class="button1">上传文件</span>
                                             <input type="file" class="file" accept=".jpg,.png,gif" multiple="false" size="28" @change="selectQualification">
                                         </div>
+                                        <p v-show="qualification_error" class="error">{{qualification_error}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -134,13 +135,21 @@
                 </form>
             </div>
         </div>
+        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
+    import { mAjax, isRealPhone, isEmail } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
+    import alert from 'components/dialog/alert'
     import axios from 'axios'
+    function scrollTop(todo,num) {
+        if (todo){
+            let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
+            window.scrollBy(0, offset)
+        }
+    }
     export default {
         data: function () {
             return {
@@ -183,8 +192,51 @@
                 return this.$refs.typeSelect ? this.$refs.typeSelect.type.id : ''
             }
         },
+        watch: {
+            user_error(newVal, oldVal) {
+                scrollTop(newVal,0)
+            },
+            type_error(newVal, oldVal) {
+                scrollTop(newVal,1)
+            },
+            company_error(newVal, oldVal) {
+                console.log(newVal)
+                scrollTop(newVal,2)
+            },
+            legal_error(newVal, oldVal) {
+                scrollTop(newVal,3)
+            },
+            scope_error(newVal, oldVal) {
+                scrollTop(newVal,4)
+            },
+            addr_error(newVal, oldVal) {
+                scrollTop(newVal,5)
+            },
+            licence_error(newVal, oldVal) {
+                scrollTop(newVal,6)
+            },
+            qualification_error(newVal, oldVal) {
+                scrollTop(newVal,7)
+            },
+            user_name_error(newVal, oldVal) {
+                scrollTop(newVal,8)
+            },
+            email_error(newVal, oldVal) {
+                scrollTop(newVal,9)
+            },
+            tel_error(newVal, oldVal) {
+                scrollTop(newVal,10)
+            },
+            location_error(newVal, oldVal) {
+                scrollTop(newVal,11)
+            },
+            self_addr_error(newVal, oldVal) {
+                scrollTop(newVal,12)
+            }
+        },
         components: {
-            mselect
+            mselect,
+            alert
         },
         methods: {
             reUpload(num) {
@@ -285,13 +337,23 @@
                     this.email_error = '请填写邮箱'
                     return false
                 } else {
-                    this.email_error = ''
+                    if (isEmail(this.email)) {
+                        this.email_error = ''
+                    } else {
+                        this.email_error = '邮箱格式不正确'
+                        return false
+                    }
                 }
                 if (!this.tel) {
                     this.tel_error = '请填写手机号'
                     return false
                 } else {
-                    this.tel_error = ''
+                    if (isRealPhone(this.tel)) {
+                        this.tel_error = ''
+                    } else {
+                        this.tel_error = '请填写真实的手机号'
+                        return false
+                    }
                 }
                 if (!this.location) {
                     this.location_error = '请填写归属地'
@@ -309,7 +371,7 @@
                 let id = this.$route.params.id
                 let api = API.customer_add
                 let data = new FormData()
-                if(id){
+                if (id) {
                     data.append('id', this.id)
                     api = API.customer_modify
                 }
@@ -329,7 +391,9 @@
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
                         let msg = _this.$route.query.id ? '修改成功' : '添加成功'
-                        _this.$router.push('/customer/index')
+                        _this.$refs.alert.$emit('show', msg, () => {
+                            _this.$router.push('/customer/index')
+                        })
                     }
                 }).catch(err => {
                     _this.$refs.alert.$emit('show', '程序未知错误')
@@ -338,6 +402,7 @@
         },
         created: function () {
             let id = this.$route.params.id
+            let _this = this
             if (id) {
                 mAjax(this, {
                     url: API.customer_detail,
@@ -345,19 +410,23 @@
                         id: id
                     },
                     success: data => {
-                        let detail = data.data
-                        this.user = detail.user
-                        this.company = detail.company
-                        this.legal = detail.legal
-                        this.scope = detail.scope
-                        this.addr = detail.addr
-                        this.user_name = detail.user_name
-                        this.email = detail.email
-                        this.tel = detail.tel
-                        this.location = detail.location
-                        this.self_addr = detail.self_addr
-                        this.edit_licence = detail.licence
-                        this.edit_qualification = detail.qualification
+                        if (data.code == 200) {
+                            let detail = data.data
+                            _this.user = detail.user
+                            _this.company = detail.company
+                            _this.legal = detail.legal
+                            _this.scope = detail.scope
+                            _this.addr = detail.addr
+                            _this.user_name = detail.user_name
+                            _this.email = detail.email
+                            _this.tel = detail.tel
+                            _this.location = detail.location
+                            _this.self_addr = detail.self_addr
+                            _this.edit_licence = detail.licence
+                            _this.edit_qualification = detail.qualification
+                        } else {
+                            _this.$refs.alert.$emit('show', data.message)
+                        }
                     }
                 })
             }
