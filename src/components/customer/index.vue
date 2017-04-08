@@ -202,6 +202,8 @@
                             }
                         } else {
                             _this.list = ''
+                            _this.totalPage = 1
+                            _this.$store.commit('SHOW_TOAST',data.message)
                         }
                     }
                 })

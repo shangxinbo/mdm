@@ -126,7 +126,7 @@
                 <div class="btn-warp" v-if="detail.status==1&&userType==3">
                     <button class="btn blue" type="button" @click="assignSeat(detail.id,detail.name)">分配坐席</button>
                 </div>
-                
+
             </div>
         </div>
         <alert ref="alert"></alert>
@@ -192,6 +192,8 @@
                                 _this.$refs.alert.$emit('show', '已完成审核', function () {
                                     _this.$router.replace('/project/index')
                                 })
+                            } else {
+                                _this.$store.commit('SHOW_TOAST', data.message)
                             }
                         }
                     })
@@ -200,8 +202,8 @@
             refuse(id) {
                 this.$refs.refuseDialog.$emit('show', id)
             },
-            assignSeat(id,name){
-                this.$refs.chooseSeatDialog.$emit('show',id,name)
+            assignSeat(id, name) {
+                this.$refs.chooseSeatDialog.$emit('show', id, name)
             }
         },
         created: function () {
@@ -214,6 +216,8 @@
                 success: data => {
                     if (data.code == 200) {
                         this.detail = data.data
+                    } else {
+                        this.$store.commit('SHOW_TOAST', data.message)
                     }
                 }
             })

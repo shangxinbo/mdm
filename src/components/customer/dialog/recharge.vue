@@ -70,8 +70,9 @@
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '充值成功')
+                            _this.$router.replace('/customer/index') //TODO 刷新页面
                         } else {
-                            //TODO  修改失败
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     },
                     error: err => {

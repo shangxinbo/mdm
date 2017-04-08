@@ -147,7 +147,7 @@
                             _this.$store.commit('SHOW_TOAST', '修改信息成功')
                             _this.$router.replace('/customer/index')
                         }else{
-                            //TODO  修改失败
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     },
                     error: err => {

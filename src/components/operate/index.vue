@@ -87,6 +87,7 @@
                             _this.currentPage = page
                         } else {
                             _this.list = ''
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
