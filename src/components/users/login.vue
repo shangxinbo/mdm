@@ -38,28 +38,22 @@
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
     export default {
-        data:() =>{
+        data: () => {
             return {
-                logo : logo,
+                logo: logo,
                 username: '',
                 password: '',
                 error: ''
-            } 
+            }
         },
-        components:{
+        components: {
             mfooter
         },
         methods: {
             submit: function () {
-                let reg = /^[a-zA-z0-9]{6,16}$/
                 if (!this.username) {
                     this.error = "请输入您的用户名!"
                     return false
-                } else {
-                    if (!reg.test(this.username)) {
-                        this.error = '用户名需是大小写英文字符和数字6~16位组成'
-                        return false
-                    }
                 }
                 if (!this.password) {
                     this.error = "请输入您的密码!"
@@ -77,8 +71,8 @@
                             this.error = ''
                             localStorage.setItem('user', JSON.stringify(data.data))
                             vm.$router.push('/')
-                                
-                        }else{
+
+                        } else {
                             vm.error = data.message
                         }
                     },
@@ -89,4 +83,5 @@
             }
         }
     }
+
 </script>
