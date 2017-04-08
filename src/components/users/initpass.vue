@@ -10,7 +10,7 @@
                 </a>
             </h1>
         </div>
-        <div class="warp">
+        <div class="warp" @keyup.enter="submit">
             <div class="main">
                 <div class="title-warp">修改密码</div>
                 <div class="data-detail">
