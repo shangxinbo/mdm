@@ -80,7 +80,7 @@
                     <ul>
                         <li>
                             <span class="t">
-                                <a href="#">现有坐席</a>
+                                <router-link to="/user/myseat">现有坐席</router-link>
                             </span>
                             <span class="num">10</span>
                         </li>

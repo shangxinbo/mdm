@@ -3,7 +3,7 @@
         <ul class="header-content">
             <li @click.stop="slideDown" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>
-                <div class="quit">
+                <div class="quit" @click.stop>
                     <p :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
                     <router-link to="/agent/index" class="my" v-if="type==1">
                         <i class="icon icon05"></i>
@@ -73,10 +73,11 @@
                 this.$store.commit('SHOW_CHANGEPASS')
             }
         },
-        mounted: function () {
+        created: function () {
             let _this = this
             Vue.nextTick(function () {
                 document.addEventListener('click', function () {
+                    console.log(234)
                     _this.slideUp()
                 })
             })
