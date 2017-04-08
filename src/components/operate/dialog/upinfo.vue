@@ -128,9 +128,14 @@
                     url: api,
                     data: data,
                     success: data => {
-                        _this.close()
-                        let msg = _this.edit ? '修改信息成功' : '新建账号成功'
-                        _this.$store.commit('SHOW_TOAST', msg)
+                        if (data.code == 200) {
+                            _this.close()
+                            let msg = _this.edit ? '修改信息成功' : '新建账号成功'
+                            _this.$store.commit('SHOW_TOAST', msg)
+                        }else{
+                            //todo
+                        }
+
                     },
                     error: err => {
                         console.log(err)
