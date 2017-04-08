@@ -46,11 +46,12 @@
                             </div>
                         </li>
                         <li>
-                            <label class="name">短信文本
+                            <label class="name">详细描述
                                 <br/>（选填）</label>
                             <div class="input-warp">
                                 <textarea v-model="content"></textarea>
-                                <p class="tips block">最多输入600个字符，已经输入0个字符</p>
+                                <p class="tips block">最多输入600个字符，已经输入{{inputWord}}个字符</p>
+                                <p v-if="content_error" class="error">{{content_error}}</p>
                             </div>
                         </li>
                         <li>
@@ -84,6 +85,7 @@
                 expectTime: '',
                 expectTime_error: '',
                 content: '',
+                content_error:'',
                 api: {
                     project_type: API.project_type_list
                 },
@@ -91,6 +93,11 @@
                     to: new Date(2017, 0, 1),
                     from: new Date()
                 }
+            }
+        },
+        computed:{
+            inputWord:function(){
+                return this.content.length
             }
         },
         components: {
@@ -141,6 +148,10 @@
                     return false
                 } else {
                     this.expectTime_error = ''
+                }
+                if (this.content&&this.content.length>600) {
+                    this.content_error = '详细描述不能超过600字'
+                    return false
                 }
                 let _this = this
                 mAjax(this, {
