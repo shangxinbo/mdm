@@ -17,11 +17,11 @@
                 <div class="cutover">
                     <div class="data-table cutover-tab01" v-if="type=='in'">
                         <dataTable ref="table" :list="list" :type="type" v-if="list.length>0"></dataTable>
-                        <p v-else>暂无数据</p>
+                        <p class="no-data" v-else>暂无数据</p>
                     </div>
                     <div class="data-table cutover-tab02" v-if="type=='out'">
                         <dataTable ref="table" :list="list" :type="type" v-if="list.length>0"></dataTable>
-                        <p v-else>暂无数据</p>
+                        <p class="no-data" v-else>暂无数据</p>
                     </div>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>

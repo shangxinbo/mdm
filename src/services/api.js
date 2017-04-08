@@ -47,6 +47,7 @@ export default {
     seat_binding: API_PRE + '/project/binding',
     seat_status: API_PRE + '/seat/status',
     seat_tobind: API_PRE + '/project/bindingSeat',
-    call_list: API_PRE + '/teltraffic/list',
-    call_cate: API_PRE + '/teltraffic/category',
+    call_list : API_PRE + '/teltraffic/list',
+    call_cate : API_PRE + '/teltraffic/category',
+    call_head : API_PRE + '/teltraffic/head'
 }

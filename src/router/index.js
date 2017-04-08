@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const login = resolve => System.import('components/users/login.vue')
+const initpass = resolve => System.import('components/users/initpass.vue')
 const layout = resolve => System.import('components/common/layout.vue')
 const error = resolve => System.import('components/common/error.vue')
 const operate_index = resolve => System.import('components/operate/index.vue')
@@ -28,6 +29,7 @@ const expense_doc = resolve => System.import('components/expense/doc.vue')
 let mRouter = new Router({
     routes: [
         { path: '/login', name: 'login', component: login },
+        { path: '/initpass', name: 'initpass', component: initpass },
         {
             path: '/',
             component: layout,

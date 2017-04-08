@@ -4,7 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp" v-if="userType==3"></div>
+            <div class="title-warp" v-if="userType==5"></div>
             <div class="title-warp" v-else>{{customer_name?customer_name + '的话务':(agent_name?agent_name + '的话务':'我的话务')}}</div>
             <div class="data-property">
                 <form>
@@ -40,15 +40,40 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export">
+                 <div class="data-export" v-if="userType == 3&&head.length>0">
+                     <ul>
+                        <li>
+                            <span class="t">参与坐席</span>
+                            <span class="num">{{head.seat_num}}</span>
+                        </li>
+                        <li>
+                            <span class="t">拨通次数</span>
+                            <span class="num">{{head.effect_call_times}}</span>
+                        </li>
+                        <li>
+                            <span class="t">拨通率</span>
+                            <span class="num">{{head.effect_call_rate}}</span>
+                        </li>
+
+                        <li>
+                            <span class="t">通话时长</span>
+                            <span class="num">{{head.charge_time}}</span>
+                        </li>
+                        <li>
+                            <span class="t">平均通话</span>
+                            <span class="num">{{head.avg_time}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="data-export" v-else>
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
-                            <span class="num">{{sum.projectNumTotal}}</span>
+                            <span class="num">{{head.effect_call_times}}</span>
                         </li>
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
+                            <span class="num">{{head.charge_time}}</span>
                         </li>
                     </ul>
                 </div>
@@ -73,8 +98,8 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <span v-if="userType!=3">{{item.name}}</span>
-                                    <router-link :to="'/project/detail/'+item.id" v-else>{{item.name}}</router-link>
+                                    <span v-if="userType !=3">{{item.name}}</span>
+                                    <span v-else>{{item.work_num}}</span>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -93,7 +118,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p v-else>暂无数据</p>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
@@ -115,6 +140,7 @@
         data: function () {
             return {
                 list: [],
+                head :[],
                 userType: user.type,
                 start_time: '',
                 end_time: '',
@@ -137,15 +163,7 @@
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.customer_type_list,
-                    statusList: API.project_status
-                },
-                sum: {
-                    projectNumTotal: '',
-                    projectStatusIngTotal: '',
-                    clueNumTotal: '',
-                    oddNumTotal: '',
-                    connectNumTotal: '',
-                    clueValidPercent: ''
+                    statusList: API.project_status,
                 }
             }
         },
@@ -175,11 +193,12 @@
                 this.customer_id = this.$route.query.customer_id
                 this.customer_name = this.$route.query.customer_name
                 this.refresh()
+                this.heads()
             },
             refresh: function () {
                 let _this = this
                 mAjax(this, {
-                    url: API.call_list,
+                    url: API.call_cate,
                     data: {
                         nums: 10,
                         page: _this.currentPage,
@@ -201,6 +220,25 @@
                             _this.sum  = {}
                             _this.totalPage = 1
                             //_this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+            },
+            heads : function () {
+                let _this = this
+                mAjax(this, {
+                    url: API.call_head,
+                    data: {
+                        search_project_name: _this.search_name,
+                        search_client_id: _this.search_customer,
+                        search_agent_id: _this.search_agent,
+                        search_project_status: _this.search_status,
+                        search_project_begin_time: _this.search_start_time,
+                        search_project_end_time: _this.search_end_time
+                    },
+                    success: (data) => {
+                        if (data.code == 200) {
+                            _this.head = data.data.data
                         }
                     }
                 })
@@ -233,8 +271,6 @@
         },
         created: function () {
             this.init()
-
-            this.refresh()
         }
     }
 

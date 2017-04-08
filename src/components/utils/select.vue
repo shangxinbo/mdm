@@ -67,9 +67,11 @@
                 this.list = this.initlist
                 if (id) {
                     for (let i in _this.list) {
-                        _this.selected = {
-                            id: i,
-                            name: _this.list[i]
+                        if (i == id) {
+                            _this.selected = {
+                                id: i,
+                                name: _this.list[i]
+                            }
                         }
                     }
                 }

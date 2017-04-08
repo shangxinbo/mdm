@@ -14,7 +14,7 @@ module.exports = function (req, res) {
         "type": 1,
         "total_start_time": "",
         "last_pause_time": null,
-        "audit_status": 1,
+        "audit_status": 0,
         "audit_reason": "啦啦啦啦阿联",
         "auditor": 11,
         "status": 1,

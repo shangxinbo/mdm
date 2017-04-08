@@ -10,22 +10,22 @@
                     <label>原密码</label>
                     <div class="input-warp">
                         <input class="text" type="password" v-model="oldpass">
+                        <p v-show="old_error" class="error">{{old_error}}</p>
                     </div>
-                    <p v-show="old_error" class="error">{{old_error}}</p>
                 </li>
                 <li>
                     <label>新密码</label>
                     <div class="input-warp">
                         <input class="text" type="password" v-model="newpass">
+                        <p v-show="new_error" class="error">{{new_error}}</p>
                     </div>
-                    <p v-show="new_error" class="error">{{new_error}}</p>
                 </li>
                 <li>
                     <label>确认密码</label>
                     <div class="input-warp">
                         <input class="text" type="password" v-model="repeat">
+                        <p v-show="repeat_error" class="error">{{repeat_error}}</p>
                     </div>
-                    <p v-show="repeat_error" class="error">{{repeat_error}}</p>
                 </li>
             </ul>
         </div>
@@ -56,7 +56,7 @@
         },
         watch: {
             style: function (newVal, oldVal) {
-                if (newVal=='block') {
+                if (newVal == 'block') {
                     this.oldpass = ''
                     this.old_error = ''
                     this.newpass = ''
@@ -75,9 +75,11 @@
             sure: function () {
                 let reg = /^[a-zA-Z0-9]{6,18}$/
                 if (!this.oldpass) {
-                    this.old_error = '请填写新密码'
+                    this.old_error = '请填写旧密码'
                     return false
-                } 
+                }else{
+                    this.old_error = ''
+                }
                 if (!this.newpass) {
                     this.new_error = '请填写新密码'
                     return false
@@ -99,13 +101,17 @@
                 mAjax(this, {
                     url: API.update_pass,
                     data: {
-                        oigrin_pwd: this.old,
+                        oigrin_pwd: this.oldpass,
                         new_pwd: this.newpass,
                         confirm_pwd: this.repeat
                     },
                     success: data => {
-                        _this.close()
-                        _this.$store.commit('SHOW_TOAST', '修改密码成功')
+                        if (data.code == 200) {
+                            _this.close()
+                            _this.$store.commit('SHOW_TOAST', '修改密码成功')
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
+                        }
                     },
                     error: err => {
                         console.log(err)
