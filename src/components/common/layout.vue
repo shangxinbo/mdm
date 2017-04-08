@@ -9,6 +9,7 @@
         <mfooter></mfooter>
         <toast></toast>
         <changeMyPass></changeMyPass>
+        <balanceAlert v-if="userType==3"></balanceAlert>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -20,7 +21,14 @@
     import alert from 'components/dialog/alert'
     import confirm from 'components/dialog/confirm'
     import changeMyPass from 'components/dialog/changeMyPass'
+    import balanceAlert from 'components/customer/dialog/balanceAlert'
+    let user = JSON.parse(localStorage.getItem('user'))
     export default {
+        data:function(){
+            return {
+                userType:user.type
+            }
+        },
         computed:{
             layer:function(){
                 return this.$store.state.showLayer
@@ -31,7 +39,8 @@
             mfooter,
             mnav,
             toast,
-            changeMyPass
+            changeMyPass,
+            balanceAlert
         }
     }
 </script>
