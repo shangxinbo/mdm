@@ -77,11 +77,11 @@
                     </router-link>
                 </li>
                 <li :class="{active:path.startsWith('/expense')}">
-                    <a>
+                    <router-link to="/expense/project">
                         <span>
                             <i class="icon icon03"></i>计费管理</span>
-                    </a>
-                    <ul>
+                    </router-link>
+                    <ul v-show="path.startsWith('/expense')">
                         <li :class="{active:path.startsWith('/expense/project')}">
                             <router-link to="/expense/project">
                                 <span>
