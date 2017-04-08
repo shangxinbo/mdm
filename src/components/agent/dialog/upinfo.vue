@@ -14,7 +14,7 @@
                         <input class="text disabled" type="text" v-model='user' disabled="disabled"
                                v-if="type=='update'">
                     </div>
-                    <p v-show="user_error" class="error" v-if="type=='create'">{{user_error}}</p>
+                    <p v-show="user_error" class="error">{{user_error}}</p>
                 </li>
                 <li>
                     <label>代理名称</label>
@@ -97,6 +97,16 @@
         },
         methods: {
             close: function () {
+                this.style = 'none'
+                this.type = 'create'
+                this.id = ''
+                this.user = ''
+                this.name = ''
+                this.username = ''
+                this.email = ''
+                this.tel = ''
+                this.addr = ''
+                this.self_addr = ''
                 this.user_error = ''
                 this.name_error = ''
                 this.username_error = ''
@@ -108,7 +118,7 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                if (this.tyep == 'create') {
+                if (this.type == 'create') {
                     //@todo 唯一性验证
                     let reg_user = /^[a-zA-Z0-9]{6,16}$/
                     if (!this.user) {
@@ -118,20 +128,20 @@
                         if (reg_user.test(this.user)) {
                             this.user_error = ''
                         } else {
-                            this.user_error = '代理账号由大小写拼音以及数字组成6~66位'
+                            this.user_error = '代理账号由大小写拼音以及数字组成6~16位'
                             return false
                         }
                     }
                 }
                 let reg_name = /^[\u4e00-\u9fa5]{2,20}$/
                 if (!this.name) {
-                    this.name_error = '请填写2、	代理名称'
+                    this.name_error = '请填写代理名称'
                     return false
                 } else {
                     if (reg_name.test(this.name)) {
                         this.name_error = ''
                     } else {
-                        this.name_error = '2、	代理名称由汉字组成2~20位'
+                        this.name_error = '代理名称由汉字组成2~20位'
                         return false
                     }
                 }
