@@ -44,40 +44,15 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export" v-if="userType!=3">
+                <div class="data-export">
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
-                            <span class="num">{{sum.projectNumTotal}}</span>
+                            <span class="num">{{head.effect_call_times}}</span>
                         </li>
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="data-export" v-else>
-                    <ul>
-                        <li>
-                            <span class="t">参与坐席</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">拨通次数</span>
-                            <span class="num">{{sum.projectNumTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">拨通率</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-
-                        <li>
-                            <span class="t">通话时长</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">平均通话</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
+                            <span class="num">{{head.charge_time}}</span>
                         </li>
                     </ul>
                 </div>
@@ -101,8 +76,8 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <span v-if="userType!=3">{{item.name}}</span>
-                                    <router-link :to="'/call/cate/'+item.id+'/cate=project&name='+item.name" v-else>{{item.name}}</router-link>
+                                    <span v-if="userType !=3">{{item.name}}</span>
+                                    <router-link :to="{path : '/call/cate/'+item.id,query : {customer_id:item.id,customer_name:item.name}}" v-else>{{item.name}}</router-link>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{path : '/call/cate/'+item.client_id,query : {customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -143,6 +118,7 @@
         data: function () {
             return {
                 list: [],
+                head :[],
                 userType: user.type,
                 start_time: '',
                 end_time: '',
@@ -179,6 +155,18 @@
         },
         watch: {
             $route: function () {
+                this.init()
+            }
+        },
+        components: {
+            pages,
+            mselect,
+            datepicker,
+            confirm,
+            alert,
+        },
+        methods: {
+            init : function () {
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent
@@ -191,16 +179,8 @@
                 this.customer_id = this.$route.query.customer_id
                 this.customer_name = this.$route.query.customer_name
                 this.refresh()
-            }
-        },
-        components: {
-            pages,
-            mselect,
-            datepicker,
-            confirm,
-            alert,
-        },
-        methods: {
+                this.heads()
+            },
             refresh: function () {
                 let _this = this
                 mAjax(this, {
@@ -222,6 +202,25 @@
                             _this.totalPage = Math.ceil(data.data.page.total / 10)
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+            },
+            heads : function () {
+                let _this = this
+                mAjax(this, {
+                    url: API.call_head,
+                    data: {
+                        search_project_name: _this.search_name,
+                        search_client_id: _this.search_customer,
+                        search_agent_id: _this.search_agent,
+                        search_project_status: _this.search_status,
+                        search_project_begin_time: _this.search_start_time,
+                        search_project_end_time: _this.search_end_time
+                    },
+                    success: (data) => {
+                        if (data.code == 200) {
+                            _this.head = data.data.data
                         }
                     }
                 })
@@ -272,7 +271,7 @@
             }
         },
         created: function () {
-            this.refresh()
+            this.init()
         }
     }
 
