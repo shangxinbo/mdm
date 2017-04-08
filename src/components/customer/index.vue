@@ -11,25 +11,26 @@
                         <li>
                             <label class="name">客户名称</label>
                             <div class="input-warp">
-                                <input class="text" v-model="user" type="text">
+                                <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
                         <li v-if="!agent_id&&userType==1">
                             <label class="name">所属代理</label>
-                            <mselect ref="agentSelect" :api="api.agentSelect"></mselect>
+                            <mselect ref="agentSelect" :api="api.agentSelect" :id="search_agent"></mselect>
                         </li>
                         <li>
                             <label class="name">客户类型</label>
-                            <mselect ref="typeSelect" :api="api.typeSelect"></mselect>
+                            <mselect ref="typeSelect" :api="api.typeSelect" :id="search_customer"></mselect>
                         </li>
                         <li>
                             <label class="name">客户状态</label>
-                            <mselect ref="statusSelect" :initlist="api.statusSelect"></mselect>
+                            <mselect ref="statusSelect" :initlist="api.statusSelect" :id="search_status"></mselect>
                         </li>
                         <li>
                             <button class="btn blue" type="button" @click="search()">
                                 <span>
-                                    <i class="icon search"></i>查询</span>
+                                    <i class="icon search"></i>查询
+                                </span>
                             </button>
                         </li>
                     </ul>
@@ -127,7 +128,6 @@
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
-                user: '',
                 sum: {
                     customer: '',
                     project: '',
@@ -140,8 +140,8 @@
                 search_agent: '',
                 search_status: '',
                 api: {
-                    agentSelect: API.customer_type_list,
-                    typeSelect: API.angent_list_all,
+                    agentSelect: API.angent_list_all,
+                    typeSelect: API.customer_type_list,
                     statusSelect: {
                         "0": "待审核",
                         "1": "通过",
@@ -151,7 +151,7 @@
             }
         },
         watch: {
-            $route: function () {
+            $route: function (newVal, oldVal) {
                 this.init()
             }
         },
@@ -184,7 +184,7 @@
                         company: _this.search_name,
                         type: _this.search_customer,
                         audit_status: _this.search_status,
-                        superior_id: _this.agent_id
+                        superior_id: _this.agent_id ? _this.agent_id : _this.search_agent
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -204,7 +204,7 @@
                         } else {
                             _this.list = ''
                             _this.totalPage = 1
-                            _this.$store.commit('SHOW_TOAST',data.message)
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
@@ -220,8 +220,9 @@
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_customer = this.$refs.typeSelect ? this.$refs.typeSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
+                let search_name = this.search_name
                 let query = Object.assign({}, this.$route.query, {
-                    search_name: this.search_name,
+                    search_name: search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
                     search_status: search_status,
