@@ -77,7 +77,6 @@
             let _this = this
             Vue.nextTick(function () {
                 document.addEventListener('click', function () {
-                    console.log(234)
                     _this.slideUp()
                 })
             })
