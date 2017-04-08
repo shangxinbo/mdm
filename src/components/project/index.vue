@@ -226,6 +226,8 @@
                 this.search_status = this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
+                this.start_time = this.$route.query.search_start_time
+                this.end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
@@ -241,7 +243,7 @@
                         nums: 10,
                         page: _this.currentPage,
                         search_project_name: _this.search_name,
-                        search_client_id: _this.customer_id?_this.customer_id:_this.search_customer,
+                        search_client_id: _this.customer_id ? _this.customer_id : _this.search_customer,
                         search_agency_id: this.agent_id ? this.agent_id : _this.search_agent,
                         search_project_status: _this.search_status,
                         search_project_begin_time: _this.search_start_time,
@@ -270,13 +272,16 @@
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
                 let search_name = this.search_name
+                let start_time = typeof(this.start_time)=='string' ? this.start_time : dateFormat(this.start_time)
+                let end_time = typeof(this.end_time)=='string' ? this.end_time : dateFormat(this.end_time)
+                
                 let query = Object.assign({}, this.$route.query, {
                     search_name: search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
                     search_status: search_status,
-                    search_start_time: dateFormat(this.start_time),
-                    search_end_time: dateFormat(this.end_time),
+                    search_start_time: start_time,
+                    search_end_time: end_time,
                     page: 1
                 })
                 this.$router.replace({

@@ -131,6 +131,8 @@
                 this.search_status = this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
+                this.start_time = this.$route.query.search_start_time
+                this.end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.refresh()
             }
@@ -175,11 +177,13 @@
             },
             search() {
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
+                let start_time = typeof(this.start_time)=='string' ? this.start_time : dateFormat(this.start_time)
+                let end_time = typeof(this.end_time)=='string' ? this.end_time : dateFormat(this.end_time)
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_status: search_status,
-                    search_start_time: dateFormat(this.start_time),
-                    search_end_time: dateFormat(this.end_time),
+                    search_start_time: start_time,
+                    search_end_time: end_time,
                     page: 1
                 })
                 this.$router.replace({
