@@ -47,6 +47,7 @@ let mRouter = new Router({
                 { path: '/call/cate/:id/', name: 'call_cate', component: call_cate },
                 { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
+                { path: '/expense/balance/:page?', name: 'expense_balance', component: expense_balance },
                 { path: '/expense/doc', name: 'expense_doc', component: expense_doc },
                 { path: '/seat/outbound/:id/', name: 'outbound', component: outbound }
             ]
