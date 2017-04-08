@@ -9,7 +9,11 @@
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
                     </router-link>
-                    <router-link to="/user/myinfo" class="my" v-if="type==3||type==2">
+                    <router-link to="/user/myself" class="my" v-if="type==3">
+                        <i class="icon icon03"></i>
+                        <span>我的账号</span>
+                    </router-link>
+                    <router-link to="/user/myinfo" class="my" v-if="type==2">
                         <i class="icon icon03"></i>
                         <span>我的账号</span>
                     </router-link>

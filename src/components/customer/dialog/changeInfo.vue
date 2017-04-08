@@ -16,36 +16,36 @@
                     <label>姓名</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="username" value="alinea">
+                        <p v-show="username_error" class="error">{{username_error}}</p>
                     </div>
-                    <p v-show="username_error" class="error">{{username_error}}</p>
                 </li>
                 <li>
                     <label>邮箱</label>
                     <div class="input-warp">
                         <input class="text" type="email" v-model="email">
+                        <p v-show="email_error" class="error">{{email_error}}</p>
                     </div>
-                    <p v-show="email_error" class="error">{{email_error}}</p>
                 </li>
                 <li>
                     <label>手机号</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="tel">
+                        <p v-show="tel_error" class="error">{{tel_error}}</p>
                     </div>
-                    <p v-show="tel_error" class="error">{{tel_error}}</p>
                 </li>
                 <li>
                     <label>归属地</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="addr">
+                        <p v-show="addr_error" class="error">{{addr_error}}</p>
                     </div>
-                    <p v-show="addr_error" class="error">{{addr_error}}</p>
                 </li>
                 <li>
                     <label>所在位置</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="self_addr">
+                        <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                     </div>
-                    <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                 </li>
             </ul>
         </div>
@@ -145,8 +145,14 @@
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '修改信息成功')
-                            _this.$router.replace('/customer/index')
-                        }else{
+                            let user = JSON.parse(localStorage.getItem('user'))
+                            if (user.type == 3) {
+                                _this.$router.push('/project/index')
+                            } else {
+                                _this.$router.replace('/customer/index')
+                            }
+
+                        } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     },
