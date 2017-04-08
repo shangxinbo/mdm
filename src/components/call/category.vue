@@ -40,7 +40,7 @@
                         </li>
                     </ul>
                 </form>
-                 <div class="data-export" v-if="userType == 3&&head.length>0">
+                 <div class="data-export" v-if="userType ==3&&head.length>0">
                      <ul>
                         <li>
                             <span class="t">参与坐席</span>
@@ -180,7 +180,7 @@
             alert,
         },
         methods: {
-            init() {
+            init : function() {
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent

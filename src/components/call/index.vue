@@ -5,7 +5,7 @@
     <div class="warp">
         <div class="main">
             <div class="title-warp" v-if="userType==4">我的话务</div>
-            <div class="title-warp" v-else>{{customer_name?customer_name + '的话务':(agent_name?agent_name + '的话务':'话务管理')}}</div>
+            <div class="title-warp" v-else>话务管理</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export">
+                <div class="data-export" v-if="head.length>0">
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
@@ -55,6 +55,8 @@
                             <span class="num">{{head.charge_time}}</span>
                         </li>
                     </ul>
+                </div>
+                <div v-else>
                 </div>
             </div>
             <div class="data-warp">
@@ -142,14 +144,6 @@
                     customerList: API.customer_list_all,
                     agentList: API.customer_type_list,
                     statusList: API.project_status
-                },
-                sum: {
-                    projectNumTotal: '',
-                    projectStatusIngTotal: '',
-                    clueNumTotal: '',
-                    oddNumTotal: '',
-                    connectNumTotal: '',
-                    clueValidPercent: ''
                 }
             }
         },
@@ -250,26 +244,6 @@
                     query: query
                 })
             },
-            stop(id) {
-                let _this = this
-                this.$refs.confirm.$emit('show', '是否要暂停该项目', function () {
-                    mAjax(_this, {
-                        url: API.project_stop,
-                        data: {
-                            id: id
-                        },
-                        success: data => {
-                            if (data.code == 200)
-                                _this.$refs.alert.$emit('show', '已成功暂停', function () {
-                                    _this.refresh()
-                                })
-                            else
-                                _this.$store.commit('SHOW_TOAST', data.message)
-                        }
-                    })
-                })
-            }
-        },
         created: function () {
             this.init()
         }
