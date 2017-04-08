@@ -10,29 +10,29 @@
                     <label>账号</label>
                     <div class="input-warp">
                         <input class="text disabled" :class="{disabled:edit}" type="text" v-model="user" :disabled="edit?true:false">
-                    </div>
-                    <p v-show="user_error" class="error">{{user_error}}</p>
+                        <p v-show="user_error" class="error">{{user_error}}</p>
+                    </div> 
                 </li>
                 <li>
                     <label>姓名</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="username">
-                    </div>
-                    <p v-show="username_error" class="error">{{username_error}}</p>
+                        <p v-show="username_error" class="error">{{username_error}}</p>
+                    </div> 
                 </li>
                 <li>
                     <label>邮箱</label>
                     <div class="input-warp">
                         <input class="text" type="email" v-model="email">
+                        <p v-show="email_error" class="error">{{email_error}}</p>
                     </div>
-                    <p v-show="email_error" class="error">{{email_error}}</p>
                 </li>
                 <li>
                     <label>手机号</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="tel">
+                        <p v-show="tel_error" class="error">{{tel_error}}</p>
                     </div>
-                    <p v-show="tel_error" class="error">{{tel_error}}</p>
                 </li>
             </ul>
         </div>
@@ -122,8 +122,8 @@
                 }
                 let _this = this
                 let api = this.edit ? API.update_operate : API.create_operate
-                let data = this.edit ? { id: this.id, user_name: this.username, email: this.email, tel: this.tel } :
-                    { user: this.user, user_name: this.username, email: this.email, tel: this.tel }
+                let data = this.edit ? { id: this.id, user_name: this.username, mail: this.email, tel: this.tel } :
+                    { user: this.user, user_name: this.username, mail: this.email, tel: this.tel }
                 mAjax(this, {
                     url: api,
                     data: data,
@@ -132,10 +132,10 @@
                             _this.close()
                             let msg = _this.edit ? '修改信息成功' : '新建账号成功'
                             _this.$store.commit('SHOW_TOAST', msg)
-                        }else{
-                            //todo
+                            _this.$router.replace('/operate/index')  //TODO 刷新页面
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
-
                     },
                     error: err => {
                         console.log(err)

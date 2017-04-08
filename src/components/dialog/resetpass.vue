@@ -16,15 +16,15 @@
                     <label>新密码</label>
                     <div class="input-warp">
                         <input class="text" type="password" v-model="newpass" />
+                        <p v-show="newpass_error" class="error">{{newpass_error}}</p>
                     </div>
-                    <p v-show="newpass_error" class="error">{{newpass_error}}</p>
                 </li>
                 <li>
                     <label>确认密码</label>
                     <div class="input-warp">
                         <input class="text" type="password" v-model="repass" />
+                        <p v-show="repass_error" class="error">{{repass_error}}</p>
                     </div>
-                    <p v-show="repass_error" class="error">{{repass_error}}</p>
                 </li>
             </ul>
         </div>

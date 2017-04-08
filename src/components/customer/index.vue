@@ -58,7 +58,7 @@
             </div>
             <div class="data-warp">
                 <div class="data-table">
-                    <table cellspacing="0" cellpadding="0">
+                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
                                 <th>客户名称</th>
@@ -99,6 +99,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>

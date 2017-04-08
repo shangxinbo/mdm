@@ -70,8 +70,11 @@
                         if (data.code == 200) {
                             this.error = ''
                             localStorage.setItem('user', JSON.stringify(data.data))
-                            vm.$router.push('/')
-
+                            if (data.data.modify_status) {
+                                vm.$router.replace('/')
+                            }else{
+                                vm.$router.push('/initpass')
+                            }
                         } else {
                             vm.error = data.message
                         }

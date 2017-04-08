@@ -147,7 +147,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <p v-else>暂无数据</p>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>

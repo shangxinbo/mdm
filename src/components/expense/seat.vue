@@ -71,7 +71,7 @@
             <div class="data-warp">
                 <div class="data-table">
                     <dataTable ref="table" :list="list" :type="type" v-if="list.length>0"></dataTable>
-                    <p v-else>暂无数据</p>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
