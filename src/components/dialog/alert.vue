@@ -1,6 +1,5 @@
 <template>
     <div class="dialog" :style="{display:style,'margin-left':offsetLeft,'margin-top':offsetTop}">
-        <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
         <div class="dialog-body">
             <div class="pop-default">
                 <p>
