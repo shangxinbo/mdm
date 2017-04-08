@@ -41,6 +41,7 @@ export default {
     expense_balance_in: API_PRE + '/customer/recharge',
     expense_balance_out: API_PRE + '/customer/consume',
     customer_seat: API_PRE + '/customer/chargingseat',
+    customer_my_seat_list: API_PRE + '/customer/seat',
     project_type_list: API_PRE + '/project/type',
     project_add: API_PRE + '/project/create',
     seat_list: API_PRE + '/project/seatlist',

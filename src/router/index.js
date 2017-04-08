@@ -15,6 +15,7 @@ const customer_detail = resolve => System.import('components/customer/detail.vue
 const customer_check = resolve => System.import('components/customer/check.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
 const myself = resolve => System.import('components/users/customer_my.vue')
+const myseat = resolve => System.import('components/users/myseat.vue')
 const seat = resolve => System.import('components/seat/index.vue')
 const project_list = resolve => System.import('components/project/index.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
@@ -43,6 +44,7 @@ let mRouter = new Router({
                 { path: '/customer/check/:id', name: 'customer_check', component: customer_check },
                 { path: '/user/myinfo', name: 'myinfo', component: myinfo },
                 { path: '/user/myself', name: 'myself', component: myself },
+                { path: '/user/myseat', name: 'myseat', component: myseat },
                 { path: '/seat/index/:page?', name: 'seat', component: seat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },

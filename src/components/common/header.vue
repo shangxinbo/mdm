@@ -17,10 +17,10 @@
                         <i class="icon icon03"></i>
                         <span>我的账号</span>
                     </router-link>
-                    <a href="client-myseat.html" class="my" v-if="type==3">
+                    <router-link to="/user/myseat" class="my" v-if="type==3">
                         <i class="icon icon04"></i>
                         <span>我的坐席</span>
-                    </a>
+                    </router-link>
                     <a href="javascript:void(0);" @click.stop="showChangeMyPassDialog()" class="edit">
                         <i class="icon icon01"></i>
                         <span>修改密码</span>

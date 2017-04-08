@@ -31,7 +31,6 @@
         },
         created:function(){
             let balanceAlert = sessionStorage.getItem('balanceAlert')
-            console.log(balanceAlert)
             let _this = this
             if(!balanceAlert){
                 mAjax(this,{
