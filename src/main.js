@@ -6,6 +6,19 @@ import vueResource from 'vue-resource'
 import store from './vuex/store'
 import router from './router'
 
+import webSocktDebugSwf from 'assets/js/WebSocketMain.swf'
+
+window.WEB_SOCKET_SWF_LOCATION = webSocktDebugSwf
+window.WEB_SOCKET_DEBUG = true
+
+import 'assets/js/swfobject'
+import 'assets/js/base64'
+import 'assets/js/web_socket'
+import 'assets/js/json2'
+import 'assets/js/mycomm.agent'
+
+window.mycomm_agent = new window.MyCommAgent()
+
 Vue.use(vueResource)
 Vue.config.productionTip = false
 

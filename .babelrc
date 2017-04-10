@@ -3,6 +3,9 @@
     ["env", { "modules": false }],
     "stage-2"
   ],
+  "ignore": [
+    "./src/assets/js/*.js"
+  ],
   "plugins": ["transform-runtime"],
   "comments": false,
   "env": {

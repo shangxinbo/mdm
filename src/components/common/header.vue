@@ -21,6 +21,10 @@
                         <i class="icon icon04"></i>
                         <span>我的坐席</span>
                     </router-link>
+                    <a href="javascript:void(0)" class="edit" v-if="type==4" @click.stop="showCallSet()">
+                        <i class="icon icon06"></i>
+                        <span>通话设置</span>
+                    </a>
                     <a href="javascript:void(0);" @click.stop="showChangeMyPassDialog()" class="edit">
                         <i class="icon icon01"></i>
                         <span>修改密码</span>
@@ -71,6 +75,10 @@
             showChangeMyPassDialog() {
                 this.slideUp()
                 this.$store.commit('SHOW_CHANGEPASS')
+            },
+            showCallSet(){
+                this.slideUp()
+                this.$store.commit('SHOW_CALL_SET')
             }
         },
         created: function () {
