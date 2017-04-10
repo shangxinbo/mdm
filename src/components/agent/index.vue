@@ -30,17 +30,17 @@
                             <th>操作</th>
                         </tr>
                         <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                            <td>{{item.id}}</td>
                             <td>{{item.user}}</td>
-                            <td>{{item.nickname}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.user_name}}</td>
                             <td>{{item.mail}}</td>
                             <td>{{item.tel}}</td>
                             <td>{{item.regoin}}</td>
                             <td>{{item.application_addr}}</td>
                             <td>{{item.created_at}}</td>
                             <td>
-                                <a href="javascript:void(0);" @click="showUpdateDialog">修改信息</a>
-                                <a href="javascript:void(0);" @click="showPassDialog">重置密码</a>
+                                <a href="javascript:void(0);" @click="showUpdateDialog(item.id)">修改信息</a>
+                                <a href="javascript:void(0);" @click="showPassDialog(item.id,item.user)">重置密码</a>
                             </td>
                         </tr>
                         </tbody>
@@ -103,11 +103,11 @@
             showCreateDialog(){
                 this.$refs.changeInfo.$emit('show')
             },
-            showUpdateDialog(){
-                this.$refs.changeInfo.$emit('show', user.id)
+            showUpdateDialog(uid){
+                this.$refs.changeInfo.$emit('show', uid)
             },
-            showPassDialog(){
-                this.$refs.changePwd.$emit('show', user.id,user.user)
+            showPassDialog(uid, uname){
+                this.$refs.changePwd.$emit('show', uid, uname)
             }
         },
         created: function () {
