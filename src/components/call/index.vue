@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export" v-if="head.length>0">
+                <div class="data-export" v-if="head">
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
@@ -56,7 +56,7 @@
                         </li>
                     </ul>
                 </div>
-                <div v-else>
+                <div class="data-export" v-else>
                 </div>
             </div>
             <div class="data-warp">
