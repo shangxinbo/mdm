@@ -99,7 +99,7 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType !=3">{{item.name}}</span>
-                                    <span v-else>{{item.work_num}}</span>
+                                    <span v-else>{{index}}</span>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -141,6 +141,7 @@
             return {
                 list: [],
                 head :[],
+                category : '',
                 userType: user.type,
                 start_time: '',
                 end_time: '',
@@ -201,6 +202,7 @@
                     url: API.call_cate,
                     data: {
                         nums: 10,
+                        category : _this.category,
                         page: _this.currentPage,
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
@@ -229,6 +231,7 @@
                 mAjax(this, {
                     url: API.call_head,
                     data: {
+                        category : _this.category,
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
                         search_agent_id: _this.search_agent,
@@ -263,7 +266,8 @@
                     search_status: search_status,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
-                    page: 1
+                    page: 1,
+                    category : user.type == 3 ? 3 :(search_agent ? 1:2)
                 })
                 this.$router.replace({
                     name: this.$route.name,
