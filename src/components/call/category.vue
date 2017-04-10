@@ -99,7 +99,7 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType !=3">{{item.name}}</span>
-                                    <span v-else>{{item.work_num}}</span>
+                                    <span v-else>{{index}}</span>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -141,6 +141,7 @@
             return {
                 list: [],
                 head :[],
+                category : '',
                 userType: user.type,
                 start_time: '',
                 end_time: '',
@@ -149,7 +150,6 @@
                 search_name: '',
                 search_customer: '',
                 search_agent: '',
-                search_status: '',
                 search_start_time: '',
                 search_end_time: '',
                 agent_id: '',
@@ -163,7 +163,6 @@
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.customer_type_list,
-                    statusList: API.project_status,
                 }
             }
         },
@@ -184,7 +183,6 @@
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
@@ -201,11 +199,11 @@
                     url: API.call_cate,
                     data: {
                         nums: 10,
+                        category : _this.category,
                         page: _this.currentPage,
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
                         search_agency_id: _this.search_agent,
-                        search_project_status: _this.search_status,
                         search_project_begin_time: _this.search_start_time,
                         search_project_end_time: _this.search_end_time
                     },
@@ -229,10 +227,10 @@
                 mAjax(this, {
                     url: API.call_head,
                     data: {
+                        category : _this.category,
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
                         search_agent_id: _this.search_agent,
-                        search_project_status: _this.search_status,
                         search_project_begin_time: _this.search_start_time,
                         search_project_end_time: _this.search_end_time
                     },
@@ -255,15 +253,14 @@
             search() {
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
-                let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
-                    search_status: search_status,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
-                    page: 1
+                    page: 1,
+                    category : user.type == 3 ? 3 :(search_agent ? 1:2)
                 })
                 this.$router.replace({
                     name: this.$route.name,
