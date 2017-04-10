@@ -18,6 +18,7 @@ const myself = resolve => System.import('components/users/customer_my.vue')
 const myseat = resolve => System.import('components/users/myseat.vue')
 const seat = resolve => System.import('components/seat/index.vue')
 const project_list = resolve => System.import('components/project/index.vue')
+const project_call_list = resolve => System.import('components/project/calllist.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const call_index = resolve => System.import('components/call/index.vue')
@@ -47,6 +48,7 @@ let mRouter = new Router({
                 { path: '/user/myseat', name: 'myseat', component: myseat },
                 { path: '/seat/index/:page?', name: 'seat', component: seat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
+                { path: '/project/call/', name: 'project_call_list', component: project_call_list },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/call/index/:page?', name: 'call_index', component: call_index },

@@ -138,7 +138,7 @@
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>
                                 <td v-else-if="userType==4">
-                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">外呼</router-link>
+                                    <router-link v-if="item.status==-1" :to="'/project/call/?id='+ item.id +'&projectName=' + item.name ">外呼</router-link>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.status==-1" :to="'/project/add/' + item.id">重新申请</router-link>
