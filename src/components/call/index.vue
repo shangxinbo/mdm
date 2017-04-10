@@ -129,7 +129,6 @@
                 search_name: '',
                 search_customer: '',
                 search_agent: '',
-                search_status: '',
                 search_start_time: '',
                 search_end_time: '',
                 agent_id: '',
@@ -143,7 +142,6 @@
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.customer_type_list,
-                    statusList: API.project_status
                 }
             }
         },
@@ -164,7 +162,6 @@
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
@@ -185,7 +182,6 @@
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
                         search_agency_id: _this.search_agent,
-                        search_project_status: _this.search_status,
                         search_project_begin_time: _this.search_start_time,
                         search_project_end_time: _this.search_end_time
                     },
@@ -208,7 +204,6 @@
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
                         search_agent_id: _this.search_agent,
-                        search_project_status: _this.search_status,
                         search_project_begin_time: _this.search_start_time,
                         search_project_end_time: _this.search_end_time
                     },
@@ -231,12 +226,10 @@
             search() {
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
-                let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
-                    search_status: search_status,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
                     page: 1
