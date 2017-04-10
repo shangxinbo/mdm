@@ -228,6 +228,22 @@
                 window.mycomm_agent.on_dial_f = function (evt) {
                     _this.$store.commit('SHOW_TOAST',evt.params.err_des)
                 }
+                let uuid = ''
+                window.mycomm_agent.on_agent_service_start = function(queue,session_uuid,joined_time,call_number,user_data){
+                    uuid = session_uuid
+                    mAjax(_this,{
+                        url:API.save_call_uuid,
+                        data:{
+                            call_uuid:uuid,
+                            phone:call_number,
+                            project_id:_this.project.id
+                        },
+                        success:data=>{
+                            console.log('已拨通')
+                        }
+                    })
+                }
+                //window.mycomm_agent.on_agent_service_start = function(queue,session_uuid,)
                 window.mycomm_agent.dial(tel, 'support','My User Data')
             },
             view(id){
