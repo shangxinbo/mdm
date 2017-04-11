@@ -85,7 +85,7 @@
                                     <router-link :to="{path : '/call/cate',query : {customer_id:item.client_id,customer_name:item.client_name,search_agent_id:item.client_id}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="!agent_id&&!customer_id&&userType==1">
-                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name,search_agent_id:item.agency.id}}">{{item.agency_name}}</router-link>
+                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name,search_agent_id:item.agency_id}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -177,7 +177,6 @@
                 mAjax(this, {
                     url: API.call_list,
                     data: {
-                        nums: 10,
                         page: _this.currentPage,
                         search_project_name: _this.search_name,
                         search_client_id: _this.search_customer,
