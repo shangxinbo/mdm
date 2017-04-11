@@ -99,13 +99,10 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType !=3">{{item.name}}</span>
-                                    <span v-else>{{index}}</span>
+                                    <span v-else>{{item.seat_id}}</span>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
-                                </td>
-                                <td v-if="!agent_id&&!customer_id&&userType==1">
-                                    <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -210,7 +207,7 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            _this.totalPage = Math.ceil(data.data.page.total / 10)
+                            _this.totalPage = data.data.page
                         } else {
                             _this.$refs.alert.$emit('show',data.message)
                             _this.list = ''

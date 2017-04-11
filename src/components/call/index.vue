@@ -79,13 +79,13 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType !=3">{{item.name}}</span>
-                                    <router-link :to="{path : '/call/cate/'+item.id,query : {customer_id:item.id,customer_name:item.name}}" v-else>{{item.name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.id,customer_name:item.name}}" v-else>{{item.name}}</router-link>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="{path : '/call/cate/'+item.client_id,query : {customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                                    <router-link :to="{path : '/call/cate/',query : {customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="!agent_id&&!customer_id&&userType==1">
-                                     <router-link :to="{ path : '/call/cate/'+item.agent_id,query : {agent_id:item.agent_id,agent_name:item.agent_name}}">{{item.agent_name}}</router-link>
+                                     <router-link :to="{ path : '/call/cate/',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -188,8 +188,7 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            _this.sum = data.data.count
-                            _this.totalPage = Math.ceil(data.data.page.total / 10)
+                            _this.totalPage = data.data.page
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }

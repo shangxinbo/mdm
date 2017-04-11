@@ -10,6 +10,7 @@ module.exports = function (req, res) {
                 "id": '@natural',
                 "name": "@ctitle",
                 "client_name": "@cname",
+                "client_id" : "@int(0,100)",
                 "agency_id": "@int(0,100)",
                 "agency_name" : "@cname",
                 "call_times": "@int(0,1000)",
