@@ -5,7 +5,8 @@
     <div class="warp">
         <div class="main">
             <div class="title-warp" v-if="userType==5"></div>
-            <div class="title-warp" v-else>{{client_name?client_name + '的话务':(agent_name?'代理' + agent_name + '的话务':'我的话务')}}</div>
+            <div class="title-warp" v-else>{{client_name?client_name + '的话务':(agent_name?'代理' + agent_name + '的话务':'我的话务')}}
+            </div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
