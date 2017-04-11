@@ -138,7 +138,7 @@
             return {
                 list: [],
                 head :[],
-                category : user.type == 3 ? 3 :(search_agent ? 1:2),
+                category : user.type == 3 ? 3 :(agent_id ? 1:2),
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
