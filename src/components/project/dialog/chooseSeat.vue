@@ -89,7 +89,6 @@
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
-                            _this.$router.replace('/project/index') //TODO 刷新页面
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
@@ -124,7 +123,7 @@
                     if (data.code == 200)
                         _this.list = data.data
                     else
-                        _this.$store.commit('SHOW_TOAST', data.message)
+                        _this.list = {}
                 }
             })
             this.$on('show', function (id, name) {
