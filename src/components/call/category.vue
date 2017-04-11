@@ -102,7 +102,7 @@
                                     <span v-else>{{item.seat_id}}</span>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="{path : '/call/cate',query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query:{customer_id:item.client_id,customer_name:item.client_name,search_client_id:itme.clent_id}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
