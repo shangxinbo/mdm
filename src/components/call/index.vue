@@ -79,13 +79,13 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType !=3">{{item.name}}</span>
-                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.id,customer_name:item.name}}" v-else>{{item.name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.id,customer_name:item.name,search_project_id:item.id}}" v-else>{{item.name}}</router-link>
                                 </td>
                                 <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.client_id,customer_name:item.client_name,search_agent_id:item.client_id}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="!agent_id&&!customer_id&&userType==1">
-                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
+                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name,search_agent_id:item.agency.id}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
