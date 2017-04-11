@@ -81,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <doCallDialog ref="doCallDialog"></doCallDialog>
+        <doCallDialog ref="doCallDialog" :uuid="uuid"></doCallDialog>
         <callViewDialog ref="callViewDialog" @callThis="call"></callViewDialog>
     </div>
 </template>
@@ -118,7 +118,8 @@
                     to: new Date(2017, 0, 1),
                     from: new Date()
                 },
-                list: []
+                list: [],
+                uuid:''
             }
         },
         components: {
@@ -211,43 +212,70 @@
                     name: this.$route.name,
                     query: Object.assign({}, this.$route.query, {
                         clue_status: num,
-                        is_dial:'',
-                        dial_status:'',
-                        tel:'',
-                        start_time:'',
-                        end_time:'',
+                        is_dial: '',
+                        dial_status: '',
+                        tel: '',
+                        start_time: '',
+                        end_time: '',
                         page: 1
                     })
                 })
             },
-            call(id,tel){
+            call(id, tel) {
                 let _this = this
+                let uuid = ''
                 window.mycomm_agent.on_dial_s = function (evt) {
-                    _this.$store.commit('SHOW_TOAST','拨通中……',-1)
+                    _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
                 }
                 window.mycomm_agent.on_dial_f = function (evt) {
-                    _this.$store.commit('SHOW_TOAST',evt.params.err_des)
+                    _this.$store.commit('SHOW_TOAST', evt.params.err_des)
                 }
-                let uuid = ''
-                window.mycomm_agent.on_agent_service_start = function(queue,session_uuid,joined_time,call_number,user_data){
-                    uuid = session_uuid
-                    mAjax(_this,{
-                        url:API.save_call_uuid,
-                        data:{
-                            call_uuid:uuid,
-                            phone:call_number,
-                            project_id:_this.project.id
+
+                //用户接通
+                window.mycomm_agent.on_user_answer = function (evt) {
+                    console.log('on_user_answer')
+                }
+                //用户接通后挂断
+                window.mycomm_agent.on_agent_ext_hangup = function (evt) {
+                    console.log('on_agent_ext_hangup')
+                    window.mycomm_agent.wrap_up(0)
+                }
+                //拨打失败
+                window.mycomm_agent.on_agent_dialout_fail = function (evt) {
+                    console.log('on_agent_dialout_fail')
+                }
+                //外呼成功
+                window.mycomm_agent.on_agent_dialout_succ = function (evt) {
+                    console.log('on_agent_dialout_succ')
+                }
+                //拨通后响铃
+                window.mycomm_agent.on_agent_ext_ringing = function (evt) {
+                    console.log('on_agent_ext_ringing')
+                }
+                window.mycomm_agent.on_stop_three_way_fail = function (evt) {
+                    console.log('on_call_agent_fail')
+                }
+
+                window.mycomm_agent.on_agent_dial_start = function (evt) {
+                    _this.uuid = evt.params.channel_uuid
+                    mAjax(_this, {
+                        url: API.save_call_uuid,
+                        data: {
+                            call_uuid: _this.uuid,
+                            phone: evt.params.dest_number,
+                            project_id: _this.project.id
                         },
-                        success:data=>{
-                            console.log('已拨通')
+                        success: data => {
+                            console.log('已经记录任务')
                         }
                     })
                 }
-                //window.mycomm_agent.on_agent_service_start = function(queue,session_uuid,)
-                window.mycomm_agent.dial(tel, 'support','My User Data')
+
+                window.mycomm_agent.wrap_up(0)
+                window.mycomm_agent.dial(tel, 'fuck', 'you')
             },
-            view(id){
-                this.$refs.callViewDialog.$emit('show',id,this.project.name)
+            view(id) {
+                this.$refs.callViewDialog.$emit('show', id, this.project.name)
             },
         },
         created: function () {

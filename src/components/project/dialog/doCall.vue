@@ -75,6 +75,7 @@
                 error: ''
             }
         },
+        props:['uuid'],
         components: {
             selectInDialog
         },
@@ -97,6 +98,16 @@
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
+
+                            mAjax(this, {
+                                url: API.add_call_job,
+                                data: {
+                                    call_uuid: _this.uuid
+                                },
+                                success: data => {
+                                    console.log('拨叫任务处理完毕')
+                                }
+                            })
                             //_this.$router.replace('/project/index')  //TODO 刷新页面
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)

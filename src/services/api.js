@@ -55,5 +55,6 @@ export default {
     call_cate: API_PRE + '/teltraffic/category',
     call_head: API_PRE + '/teltraffic/head',
     get_seat_sign: API_PRE + '/callCenter/getSignInData',
-    save_call_uuid:API_PRE + '/callCenter/saveCallUuid'
+    save_call_uuid:API_PRE + '/callCenter/saveCallUuid',
+    add_call_job:API_PRE + '/callCenter/addJob'
 }
