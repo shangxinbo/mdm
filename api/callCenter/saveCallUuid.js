@@ -1,4 +1,4 @@
-module.export = function () {
+module.exports = function () {
     return {
         "work_number": 6,
         "extend_num": 8001, 
