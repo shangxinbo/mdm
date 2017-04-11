@@ -35,6 +35,7 @@
                         setTimeout(() => {
                             this.$store.commit('HIDE_TOAST')
                             this.$store.commit('HIDE_LAYER')
+                            window.location.reload()
                         }, this.during)
                     }
                 }
