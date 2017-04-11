@@ -4,25 +4,14 @@ module.exports = function (req, res) {
     let param = req.body
     let page = param.page ? param.page : 1
     return Mock.mock({
-        "count": {
-            "projectNumTotal": "@int(0,100)",
-            "projectStatusIngTotal": "@int(0,100)",
-            "clueNumTotal": "@int(1000,10000)",
-            "oddNumTotal": "@int(1000,10000)",
-            "connectNumTotal": "@int(1000,10000)",
-            "clueValidPercent": "@int(1000,10000)"
-        },
-        "page": {
-            "total": 100
-        },
+        "page": 10,
         "data|10": [
             {
                 "id": '@natural',
                 "name": "@ctitle",
-                "client_id":'@natural',
                 "client_name": "@cname",
-                "agent_id": "@int(0,100)",
-                "agent_name" : "@cname",
+                "agency_id": "@int(0,100)",
+                "agency_name" : "@cname",
                 "call_times": "@int(0,1000)",
                 "effect_call_times" : "@int(0,1000)",
                 "charge_time" : "@int(0,1000)",

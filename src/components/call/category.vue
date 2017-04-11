@@ -210,7 +210,6 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            _this.sum = data.data.count
                             _this.totalPage = Math.ceil(data.data.page.total / 10)
                         } else {
                             _this.$refs.alert.$emit('show',data.message)
