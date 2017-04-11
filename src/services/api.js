@@ -53,7 +53,7 @@ export default {
     seat_tobind: API_PRE + '/project/bindingSeat',
     call_list: API_PRE + '/teltraffic/list',
     call_cate: API_PRE + '/teltraffic/category',
-    call_head: API_PRE + '/teltraffic/head',
+    call_head: API_PRE + '/teltraffic/heads',
     get_seat_sign: API_PRE + '/callCenter/getSignInData',
     save_call_uuid:API_PRE + '/callCenter/saveCallUuid',
     add_call_job:API_PRE + '/callCenter/addJob'

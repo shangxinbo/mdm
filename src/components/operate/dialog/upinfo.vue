@@ -132,7 +132,6 @@
                             _this.close()
                             let msg = _this.edit ? '修改信息成功' : '新建账号成功'
                             _this.$store.commit('SHOW_TOAST', msg)
-                            _this.$router.replace('/operate/index')  //TODO 刷新页面
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }

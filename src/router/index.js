@@ -35,7 +35,7 @@ let mRouter = new Router({
             path: '/',
             component: layout,
             children: [
-                { path: '/operate/index/:page?', name: 'operate_index', component: operate_index },
+                { path: '/operate/index', name: 'operate_index', component: operate_index },
                 { path: '/agent/index/:page?', name: 'agent_index', component: agent_index },
                 { path: '/customer/index/', name: 'customer_index', component: customer_index },
                 { path: '/customer/add/:id?', name: 'customer_add', component: customer_add },

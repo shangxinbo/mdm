@@ -8,7 +8,7 @@
         <ul>
             <template v-if="type==0">
                 <li class="active">
-                    <router-link to="/users/list/">
+                    <router-link to="/operate/index">
                         <i class="icon icon01"></i>
                         <span>运营管理</span>
                     </router-link>

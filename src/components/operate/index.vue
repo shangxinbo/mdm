@@ -67,24 +67,28 @@
             updateInfoDialog,
             changePassDialog
         },
+        watch: {
+            $route: function () {
+                this.init()
+            }
+        },
         methods: {
+            init() {
+                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.refresh()
+            },
             refresh() {
                 let _this = this
-                let page = this.$route.params.page
-                page = page ? page : 1
                 mAjax(this, {
                     url: API.operate_list,
                     data: {
-                        page: page,
-                        customer_name: _this.customer_name,
-                        project_name: _this.project_name
+                        page: this.currentPage
                     },
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
                             _this.list = list.data
                             _this.totalPage = Math.ceil(list.total / list.per_page)
-                            _this.currentPage = page
                         } else {
                             _this.list = ''
                             _this.$store.commit('SHOW_TOAST', data.message)
@@ -93,8 +97,11 @@
                 })
             },
             jump(num) {
-                this.$router.replace('/operate/index/' + num)
-                this.refresh()
+                let obj = Object.assign({}, this.$route.query, { page: num })
+                this.$router.replace({
+                    name: this.$route.name,
+                    query: obj
+                })
             },
             showResetPassDialog(id, user) {
                 this.$refs.resetpass.$emit('show', id, user)
@@ -107,7 +114,7 @@
             }
         },
         created: function () {
-            this.refresh()
+            this.init()
         }
     }
 
