@@ -68,7 +68,7 @@
                                 <p class="text red">{{detail.audit_reason}}</p>
                             </div>
                         </li>
-                        <template v-if="detail.audit_status==1">
+                        <template v-if="detail.status==1">
                             <li class="both">
                                 <label class="name">线索量</label>
                                 <div class="input-warp">

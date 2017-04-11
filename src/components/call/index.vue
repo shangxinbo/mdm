@@ -141,7 +141,7 @@
                 },
                 api: {
                     customerList: API.customer_list_all,
-                    agentList: API.customer_type_list,
+                    agentList: API.angent_list_all,
                 }
             }
         },
@@ -189,7 +189,8 @@
                             _this.list = data.data.data
                             _this.totalPage = data.data.page
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.list = []
+                            _this.totalPage = 1
                         }
                     }
                 })
@@ -209,7 +210,7 @@
                         if (data.code == 200) {
                             _this.head = data.data.data
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.head = []
                         }
                     }
                 })

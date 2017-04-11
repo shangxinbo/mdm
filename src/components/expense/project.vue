@@ -114,7 +114,7 @@
                 },
                 api: {
                     customerList: API.customer_list_all,
-                    agentList: API.customer_type_list,
+                    agentList: API.angent_list_all,
                     statusList: API.project_status
                 },
                 sum: {

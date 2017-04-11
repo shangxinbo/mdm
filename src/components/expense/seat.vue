@@ -111,7 +111,7 @@
                     from: new Date()
                 },
                 api: {
-                    agentList: API.customer_type_list,
+                    agentList: API.angent_list_all,
                 },
                 count: '',
                 price: '0',
