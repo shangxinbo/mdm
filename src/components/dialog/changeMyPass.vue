@@ -110,7 +110,7 @@
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '修改密码成功')
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.repeat_error = data.message
                         }
                     },
                     error: err => {
