@@ -21,6 +21,7 @@ export default {
     customer_add: API_PRE + '/agent/add',
     customer_modify: API_PRE + '/agent/modify',
     customer_detail: API_PRE + '/agent/agininfo',
+    agent_my_info: API_PRE + '/agent/info',
     customer_detail_by_operate: API_PRE + '/operate/agentinfo',
     customer_edit: API_PRE + '/agent/modifyinfo',
     customer_check: API_PRE + '/operate/examine',

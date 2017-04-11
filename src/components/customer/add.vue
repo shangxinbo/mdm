@@ -183,7 +183,7 @@
                 edit_licence: '',
                 edit_qualification: '',
                 api: {
-                    typeSelect: API.angent_list_all
+                    typeSelect: API.customer_type_list
                 }
             }
         },

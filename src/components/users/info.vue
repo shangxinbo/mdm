@@ -88,7 +88,7 @@
         created: function () {
             let _this = this
             mAjax(_this, {
-                url: API.customer_detail,
+                url: API.agent_my_info,
                 data: {
                     id: user.id
                 },
