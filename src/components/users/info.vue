@@ -17,7 +17,7 @@
                         <li>
                             <label class="name">代理名称</label>
                             <div class="input-warp">
-                                <p class="text">{{username}}</p>
+                                <p class="text">{{name}}</p>
                             </div>
                         </li>
                         <li>
@@ -63,13 +63,14 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import changeInfo from 'components/customer/dialog/changeInfo'
+    import changeInfo from './dialog/changeInfo'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
             return {
                 user: '',
                 id: user.id,
+                name:'',
                 username: '',
                 email: '',
                 tel: '',
@@ -82,7 +83,7 @@
         },
         methods:{
             showChangeInfo(){
-                this.$refs.changeInfo.$emit('show',user.id)
+                this.$refs.changeInfo.$emit('show',this.$data)
             }
         },
         created: function () {
@@ -94,6 +95,7 @@
                 },
                 success: data => {
                     _this.user = data.data.user
+                    _this.name = data.data.name
                     _this.username = data.data.user_name
                     _this.email = data.data.mail
                     _this.tel = data.data.tel
