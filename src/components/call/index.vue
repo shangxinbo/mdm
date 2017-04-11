@@ -27,11 +27,11 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -122,8 +122,6 @@
                 list: [],  
                 head :[],
                 userType: user.type,
-                start_time: '',
-                end_time: '',
                 currentPage: 1,
                 totalPage: 1,
                 search_name: '',
@@ -211,8 +209,8 @@
                     search_name: this.search_name,
                     search_client_id: search_client_id,
                     search_agent_id: search_agent_id,
-                    search_start_time: dateFormat(this.start_time),
-                    search_end_time: dateFormat(this.end_time),
+                    search_start_time: dateFormat(this.search_start_time),
+                    search_end_time: dateFormat(this.search_end_time),
                     page: 1
                 })
                 this.$router.replace({

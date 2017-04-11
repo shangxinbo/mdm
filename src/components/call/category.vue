@@ -220,6 +220,7 @@
                         search_name: _this.search_name,
                         search_client_id: _this.search_client_id,
                         search_agent_id: _this.search_agent_id,
+                        search_project_id : _this.search_project_id,
                         search_start_time: _this.search_start_time,
                         search_end_time: _this.search_end_time
                     },
