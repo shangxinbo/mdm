@@ -11,52 +11,51 @@
                     <label>账号</label>
                     <div class="input-warp">
                         <input class="text disabled" type="text" v-model='user' v-if="type=='create'">
-                        <input class="text disabled" type="text" v-model='user' disabled="disabled"
-                               v-if="type=='update'">
+                        <input class="text disabled" type="text" v-model='user' disabled="disabled" v-if="type=='update'">
+                        <p v-show="user_error" class="error">{{user_error}}</p>
                     </div>
-                    <p v-show="user_error" class="error">{{user_error}}</p>
                 </li>
                 <li>
                     <label>代理名称</label>
                     <div class="input-warp">
                         <input class="text disabled" type="text" v-model='name'>
+                        <p v-show="name_error" class="error">{{name_error}}</p>
                     </div>
-                    <p v-show="name_error" class="error">{{name_error}}</p>
                 </li>
                 <li>
                     <label>联系人姓名</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model='username'>
+                        <p v-show="username_error" class="error">{{username_error}}</p>
                     </div>
-                    <p v-show="username_error" class="error">{{username_error}}</p>
                 </li>
                 <li>
                     <label>邮箱</label>
                     <div class="input-warp">
                         <input class="text" type="email" v-model='email'>
+                        <p v-show="email_error" class="error">{{email_error}}</p>
                     </div>
-                    <p v-show="email_error" class="error">{{email_error}}</p>
                 </li>
                 <li>
                     <label>手机号</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model='tel'>
+                        <p v-show="tel_error" class="error">{{tel_error}}</p>
                     </div>
-                    <p v-show="tel_error" class="error">{{tel_error}}</p>
                 </li>
                 <li>
                     <label>归属地</label>
                     <div class="input-warp">
                         <input class="text disabled" type="text" v-model='addr'>
+                        <p v-show="addr_error" class="error">{{addr_error}}</p>
                     </div>
-                    <p v-show="addr_error" class="error">{{addr_error}}</p>
                 </li>
                 <li>
                     <label>所在位置</label>
                     <div class="input-warp">
                         <input class="text disabled" type="text" v-model='self_addr'>
+                        <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                     </div>
-                    <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                 </li>
             </ul>
         </div>

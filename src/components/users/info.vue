@@ -97,7 +97,7 @@
                     _this.username = data.data.user_name
                     _this.email = data.data.mail
                     _this.tel = data.data.tel
-                    _this.addr = data.data.store_addr
+                    _this.addr = data.data.regoin
                     _this.self_addr = data.data.application_addr
                 }
             })
