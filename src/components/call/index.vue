@@ -127,8 +127,8 @@
                 search_name: null,
                 search_client_id: null,
                 search_agent_id: null ,
-                search_start_time : '',
-                search_end_time: '',
+                search_start_time : null,
+                search_end_time: null,
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
