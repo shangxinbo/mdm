@@ -90,8 +90,7 @@
                     project_type: API.project_type_list
                 },
                 datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
+                    to: new Date()
                 }
             }
         },
@@ -170,7 +169,7 @@
                                 _this.$router.replace('/project/index')
                             })
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.content_error = data.message
                         }
                     }
                 })
@@ -193,8 +192,6 @@
                             _this.expectClue = detail.expect_clue_num
                             _this.expectTime = detail.expect_begin_date
                             _this.content = detail.desc
-                        } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
