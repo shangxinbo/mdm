@@ -138,7 +138,6 @@
             return {
                 list: [],
                 head :[],
-                category : user.type == 3 ? 3 :(agent_id ? 1:2),
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
@@ -156,6 +155,7 @@
                     to: new Date(2017, 0, 1),
                     from: new Date()
                 },
+                category : user.type == 3 ? 3 :(this.agent_id ? 1:2),
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.customer_type_list,
