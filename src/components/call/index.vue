@@ -15,13 +15,13 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="!client_id&&userType==1">
+                        <li v-if="userType==1">
                             <label class="name">客户</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
+                            <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
                         </li>
-                        <li v-if="!agent_id&&userType==1">
+                        <li v-if="userType==1">
                             <label class="name">代理</label>
-                            <mselect ref="agentSelect" :api="api.agentList" :id="search_agent"></mselect>
+                            <mselect ref="agentSelect" :api="api.agentList" :id="search_agent_id"></mselect>
                         </li>
                         <li>
                             <label class="name">创建日期</label>
@@ -65,8 +65,8 @@
                         <tbody>
                             <tr>
                                 <th>项目名称</th>
-                                <th v-if="!client_id&&userType==1">客户名称</th>
-                                <th v-if="!agent_id&&!client_id&&userType==1">所属代理</th>
+                                <th v-if="userType==1">客户名称</th>
+                                <th v-if="userType==1">所属代理</th>
                                 <th>外呼次数</th>
                                 <th>拨通次数</th>
                                 <th>拨通率</th>
@@ -81,10 +81,10 @@
                                     <span v-if="userType !=3">{{item.name}}</span>
                                     <router-link :to="{path : '/call/cate',query : {project_id:item.id}}" v-else>{{item.name}}</router-link>
                                 </td>
-                                <td v-if="!client_id&&userType==1">
+                                <td v-if="userType==1">
                                     <router-link :to="{path : '/call/cate',query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
-                                <td v-if="!agent_id&&!client_id&&userType==1">
+                                <td v-if="userType==1">
                                      <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
@@ -155,12 +155,7 @@
         },
         methods: {
             init : function () {
-                this.search_name = this.$route.query.search_name
-                this.search_start_time = this.$route.query.search_start_time
-                this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.search_agent_id = this.$route.query.agent_id
-                this.search_client_id = this.$route.query.client_id
                 this.refresh()
                 this.heads()
             },
