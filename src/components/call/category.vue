@@ -191,7 +191,7 @@
                     url: API.call_cate,
                     data: {
                         search_agent_id: this.agent_id ,
-                        search_client_id : this.customer_id ,
+                        search_client_id : this.client_id ,
                         search_project_id : this.search_project_id ,
                         category : _this.category,
                         page: _this.currentPage,
