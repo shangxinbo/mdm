@@ -5,7 +5,7 @@
     <div class="warp">
         <div class="main">
             <div class="title-warp" v-if="userType==5"></div>
-            <div class="title-warp" v-else>{{customer_name?customer_name + '的话务':(agent_name?'代理' + agent_name + '的话务':'我的话务')}}</div>
+            <div class="title-warp" v-else>{{client_name?client_name + '的话务':(agent_name?'代理' + agent_name + '的话务':'我的话务')}}</div>
             <div class="data-property">
                 <form>
                     <ul class="data-text">
@@ -15,7 +15,7 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="!customer_id&&userType==1">
+                        <li v-if="!client_id&&userType==1">
                             <label class="name">客户</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
                         </li>
@@ -85,8 +85,8 @@
                             <tr>
                                 <th v-if="userType==1">项目名称</th>
                                 <th v-else>参与坐席</th>
-                                <th v-if="!customer_id&&userType==1">客户名称</th>
-                                <th v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
+                                <th v-if="!client_id&&userType==1">客户名称</th>
+                                <th v-if="!agent_id&&!client_id&&userType==1">所属代理</th>
                                 <th>外呼次数</th>
                                 <th>拨通次数</th>
                                 <th>拨通率</th>
@@ -101,8 +101,8 @@
                                     <span v-if="userType !=3">{{item.name}}</span>
                                     <span v-else>{{item.seat_id}}</span>
                                 </td>
-                                <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="{path : '/call/cate',query:{customer_id:item.client_id,customer_name:item.client_name,search_client_id:itme.clent_id}}">{{item.client_name}}</router-link>
+                                <td v-if="!client_id&&userType==1">
+                                    <router-link :to="{path : '/call/cate',query:{client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -138,21 +138,20 @@
             return {
                 list: [],
                 head :[],
-                category : '',
+                category : user.type == 3 ? 3 :(search_agent ? 1:2),
                 userType: user.type,
-                start_time: '',
-                end_time: '',
                 currentPage: 1,
                 totalPage: 1,
                 search_name: '',
-                search_customer: '',
-                search_agent: '',
+                client_name : '',
+                client_id : '',
+                agent_id : '',
+                agent_name : '',
                 search_start_time: '',
                 search_end_time: '',
-                agent_id: '',
-                agent_name: '',
-                customer_id: '',
-                customer_name: '',
+                search_agent_id: '',
+                search_client_id : '',
+                search_project_id : '' ,
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -177,16 +176,12 @@
         },
         methods: {
             init : function() {
-                this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent
-                this.search_start_time = this.$route.query.search_start_time
-                this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
-                this.customer_id = this.$route.query.customer_id
-                this.customer_name = this.$route.query.customer_name
+                this.client_id = this.$route.query.client_id
+                this.client_name = this.$route.query.client_name
+                this.search_project_id = this.$route.query.project_id
                 this.refresh()
                 this.heads()
             },
@@ -195,14 +190,11 @@
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
-                        nums: 10,
+                        search_agent_id: this.agent_id ,
+                        search_client_id : this.client_id ,
+                        search_project_id : this.search_project_id ,
                         category : _this.category,
                         page: _this.currentPage,
-                        search_project_name: _this.search_name,
-                        search_client_id: _this.search_customer,
-                        search_agency_id: _this.search_agent,
-                        search_project_begin_time: _this.search_start_time,
-                        search_project_end_time: _this.search_end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -224,11 +216,11 @@
                     url: API.call_head,
                     data: {
                         category : _this.category,
-                        search_project_name: _this.search_name,
-                        search_client_id: _this.search_customer,
-                        search_agent_id: _this.search_agent,
-                        search_project_begin_time: _this.search_start_time,
-                        search_project_end_time: _this.search_end_time
+                        search_name: _this.search_name,
+                        search_client_id: _this.search_client_id,
+                        search_agent_id: _this.search_agent_id,
+                        search_start_time: _this.search_start_time,
+                        search_end_time: _this.search_end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -247,16 +239,17 @@
                 })
             },
             search() {
-                let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
-                let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
+                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
+                let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
-                    search_customer: search_customer,
-                    search_agent: search_agent,
+                    search_client_id: this.search_client_id,
+                    search_agent_id: this.search_agent_id,
+                    search_project_id : this.search_project_id,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
                     page: 1,
-                    category : user.type == 3 ? 3 :(search_agent ? 1:2)
+                    category : this.category,
                 })
                 this.$router.replace({
                     name: this.$route.name,

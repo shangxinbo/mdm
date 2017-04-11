@@ -15,7 +15,7 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="!customer_id&&userType==1">
+                        <li v-if="!client_id&&userType==1">
                             <label class="name">客户</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
                         </li>
@@ -65,8 +65,8 @@
                         <tbody>
                             <tr>
                                 <th>项目名称</th>
-                                <th v-if="!customer_id&&userType==1">客户名称</th>
-                                <th v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
+                                <th v-if="!client_id&&userType==1">客户名称</th>
+                                <th v-if="!agent_id&&!client_id&&userType==1">所属代理</th>
                                 <th>外呼次数</th>
                                 <th>拨通次数</th>
                                 <th>拨通率</th>
@@ -79,13 +79,13 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <span v-if="userType !=3">{{item.name}}</span>
-                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.id,customer_name:item.name,search_project_id:item.id}}" v-else>{{item.name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : {project_id:item.id}}" v-else>{{item.name}}</router-link>
                                 </td>
-                                <td v-if="!customer_id&&userType==1">
-                                    <router-link :to="{path : '/call/cate',query : {customer_id:item.client_id,customer_name:item.client_name,search_agent_id:item.client_id}}">{{item.client_name}}</router-link>
+                                <td v-if="!client_id&&userType==1">
+                                    <router-link :to="{path : '/call/cate',query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
-                                <td v-if="!agent_id&&!customer_id&&userType==1">
-                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name,search_agent_id:item.agency_id}}">{{item.agency_name}}</router-link>
+                                <td v-if="!agent_id&&!client_id&&userType==1">
+                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -119,7 +119,7 @@
     export default {
         data: function () {
             return {
-                list: [],
+                list: [],  
                 head :[],
                 userType: user.type,
                 start_time: '',
@@ -127,14 +127,10 @@
                 currentPage: 1,
                 totalPage: 1,
                 search_name: '',
-                search_customer: '',
-                search_agent: '',
+                search_client_id: '',
+                search_agent_id: '',
                 search_start_time: '',
                 search_end_time: '',
-                agent_id: '',
-                agent_name: '',
-                customer_id: '',
-                customer_name: '',
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -160,15 +156,11 @@
         methods: {
             init : function () {
                 this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id
-                this.agent_name = this.$route.query.agent_name
-                this.customer_id = this.$route.query.customer_id
-                this.customer_name = this.$route.query.customer_name
+                this.search_agent_id = this.$route.query.agent_id
+                this.search_client_id = this.$route.query.client_id
                 this.refresh()
                 this.heads()
             },
@@ -178,11 +170,6 @@
                     url: API.call_list,
                     data: {
                         page: _this.currentPage,
-                        search_project_name: _this.search_name,
-                        search_client_id: _this.search_customer,
-                        search_agency_id: _this.search_agent,
-                        search_project_begin_time: _this.search_start_time,
-                        search_project_end_time: _this.search_end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -201,10 +188,10 @@
                     url: API.call_head,
                     data: {
                         search_project_name: _this.search_name,
-                        search_client_id: _this.search_customer,
-                        search_agent_id: _this.search_agent,
-                        search_project_begin_time: _this.search_start_time,
-                        search_project_end_time: _this.search_end_time
+                        search_client_id: _this.search_client_id,
+                        search_agent_id: _this.search_agent_id,
+                        search_start_time: _this.search_start_time,
+                        search_end_time: _this.search_end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -223,12 +210,12 @@
                 })
             },
             search() {
-                let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
-                let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
+                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
+                let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
-                    search_customer: search_customer,
-                    search_agent: search_agent,
+                    search_client_id: search_client_id,
+                    search_agent_id: search_agent_id,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
                     page: 1
