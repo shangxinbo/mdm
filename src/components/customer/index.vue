@@ -93,7 +93,7 @@
                                 <td v-if="userType==1">{{item.seat_num}}</td>
                                 <td>¥{{item.balance}}</td>
                                 <td v-if="userType==1">
-                                    <router-link v-if="item.audit_status==2" :to="'/customer/check/' + item.id">审核</router-link>
+                                    <router-link v-if="item.audit_status==0" :to="'/customer/check/' + item.id">审核</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num)">开通坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
                                 </td>

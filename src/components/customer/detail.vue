@@ -66,7 +66,7 @@
                                 <p class="text">{{detail.store_addr}}</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="detail.licence">
                             <label class="name">营业执照</label>
                             <div class="input-warp">
                                 <p class="text">
@@ -74,7 +74,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="detail.licence">
                             <label class="name">其他资质</label>
                             <div class="input-warp">
                                 <p class="text">
