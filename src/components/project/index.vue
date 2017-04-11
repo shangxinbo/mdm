@@ -255,7 +255,7 @@
                             _this.sum = data.data.count
                             _this.totalPage = Math.ceil(data.data.page.total / 10)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$refs.alert.$emit('show', data.message)
                         }
                     }
                 })
