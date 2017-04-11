@@ -115,7 +115,7 @@
                 }
             }
         },
-        created: function () {
+        updated: function () {
             let _this = this
             mAjax(this, {
                 url: API.seat_list,
