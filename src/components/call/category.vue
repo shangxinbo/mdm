@@ -17,17 +17,17 @@
                         </li>
                         <li v-if="!client_id&&userType==1">
                             <label class="name">客户</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
+                            <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
                         </li>
                         <li>
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>

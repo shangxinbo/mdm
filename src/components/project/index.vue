@@ -17,7 +17,7 @@
                         </li>
                         <li v-if="!customer_id&&userType==1">
                             <label class="name">客户名称</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
+                            <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
                         </li>
                         <li v-if="!agent_id&&!customer_id&&userType==1">
                             <label class="name">所属代理</label>
