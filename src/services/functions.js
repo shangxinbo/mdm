@@ -1,24 +1,19 @@
 
 export const mAjax = (vm, options) => {
     vm.$http.post(options.url, options.data).then(function (data) {
-        if (data.status == 200 && data.data.code == 200) {
-            options.success(data.body)
-        } else if (data.status == 404 || data.data.code == 404) {
-            vm.$router.replace('/error?code=404')
-        } else if (data.status == 403 || data.data.code == 403) {
-            vm.$router.replace('/error?code=403')
-        } else if (data.status == 500 || data.data.code == 500) {
-            vm.$router.replace('/error?code=500')
-        } else if (data.data.code == 10018) {
-            vm.$router.replace('/login')
-        } else if (data.data.code == 10003) {
-            vm.$router.replace('/initpass')
-        } else {
-            if (data.status == 200) {
-                vm.$router.replace('/error?code=' + data.data.code + '&msg=' + data.data.message)
+        if (data.status == 200) {
+            let body = data.data
+            if (body.code == 404 || body.code == 403 || body.code == 500) {
+                vm.$router.replace('/error?code=' + body.code)
+            } else if (body.code == 10018) {
+                vm.$router.replace('/login')
+            } else if (data.data.code == 10003) {
+                vm.$router.replace('/initpass')
             } else {
-                vm.$router.replace('/error?code=' + data.status + '&msg=' + data.statusText)
+                options.success(body)
             }
+        } else {
+            vm.$router.replace('/error?code=' + data.status + '&msg=' + data.statusText)
         }
     }, options.error)
 }
@@ -217,8 +212,8 @@ export const random = (max, min) => {
 
 export const dateFormat = (date) => {
     if (date instanceof Date) {
-        return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate()
-    }else{
+        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    } else {
         return ''
-    }   
+    }
 }
