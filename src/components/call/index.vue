@@ -162,6 +162,11 @@
                 mAjax(this, {
                     url: API.call_list,
                     data: {
+                        search_name: this.search_name,
+                        search_client_id: _this.search_client_id,
+                        search_agent_id: _this.search_agent_id,
+                        search_start_time: dateFormat(_this.search_start_time),
+                        search_end_time: dateFormat(_this.search_end_time),
                         page: _this.currentPage,
                     },
                     success: (data) => {
