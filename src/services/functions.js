@@ -5,7 +5,7 @@ export const mAjax = (vm, options) => {
             let body = data.data
             if (body.code == 404 || body.code == 403 || body.code == 500) {
                 vm.$router.replace('/error?code=' + body.code)
-            } else if (body.code == 10018) {
+            } else if (body.code == 10001) {
                 vm.$router.replace('/login')
             } else if (data.data.code == 10003) {
                 vm.$router.replace('/initpass')
