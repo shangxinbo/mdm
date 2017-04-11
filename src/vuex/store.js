@@ -6,8 +6,13 @@ Vue.use(Vuex)
 
 const state = {
     showLayer: false,
-    toast:'',    //msg string
-    changeMypassDialogShow:false
+    toast:{
+        msg:'',   //msg string
+        during:1000
+    },   
+    changeMypassDialogShow:false,
+    callInfo:null,
+    showCallSet:false
 }
 
 const mutations = {
@@ -19,11 +24,14 @@ const mutations = {
     HIDE_LAYER(state) {
         state.showLayer = false
     },
-    SHOW_TOAST(state,msg) {
-        state.toast = msg
+    SHOW_TOAST(state,msg,during) {
+        state.toast = {
+            msg:msg,
+            during:during?during:1000
+        }
     },
     HIDE_TOAST(state) {
-        state.toast = ''
+        state.toast = {}
     },
     SHOW_CHANGEPASS(state) {
         state.changeMypassDialogShow = true
@@ -31,6 +39,15 @@ const mutations = {
     HIDE_CHANGEPASS(state) {
         state.changeMypassDialogShow = false
     },
+    SHOW_CALL_SET(state){
+        state.showCallSet = true
+    },
+    HIDE_CALL_SET(state){
+        state.showCallSet = false
+    },
+    RESET_CALLINFO(state,opt){
+        state.callInfo = opt
+    }
 }
 
 export default new Vuex.Store({

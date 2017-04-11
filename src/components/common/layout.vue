@@ -9,6 +9,7 @@
         <mfooter></mfooter>
         <toast></toast>
         <changeMyPass></changeMyPass>
+        <callSet></callSet>
         <balanceAlert v-if="userType==3"></balanceAlert>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
@@ -22,6 +23,7 @@
     import confirm from 'components/dialog/confirm'
     import changeMyPass from 'components/dialog/changeMyPass'
     import balanceAlert from 'components/customer/dialog/balanceAlert'
+    import callSet from 'components/dialog/callSet'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data:function(){
@@ -40,7 +42,8 @@
             mnav,
             toast,
             changeMyPass,
-            balanceAlert
+            balanceAlert,
+            callSet
         }
     }
 </script>

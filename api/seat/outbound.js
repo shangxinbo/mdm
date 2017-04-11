@@ -17,11 +17,11 @@ module.exports = function (req, res) {
                 "id": '@natural',
                 "project_id": '@natural',
                 "seat_id":'@natural',
-                "telephone": '@natural',
+                "telephone": '18612119498',
                 "distribution_date": '@date("yyyy-MM-dd HH:mm:ss")',
                 "is_dial": '@int(0,1)',
                 "dial_status": '@int(0,8)',
-                "telephone_crypt": '@natural'
+                "telephone_crypt": '186****9498'
             }
         ]
     })

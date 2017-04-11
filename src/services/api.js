@@ -46,12 +46,14 @@ export default {
     project_add: API_PRE + '/project/create',
     project_call_list: API_PRE + '/seat/outbound',
     project_call_modify: API_PRE + '/seat/modify',
-    project_clue_info:API_PRE+ '/seat/clueinfo', 
+    project_clue_info: API_PRE + '/seat/clueinfo',
     seat_list: API_PRE + '/project/seatlist',
     seat_binding: API_PRE + '/project/binding',
     seat_status: API_PRE + '/seat/status',
     seat_tobind: API_PRE + '/project/bindingSeat',
-    call_list : API_PRE + '/teltraffic/list',
-    call_cate : API_PRE + '/teltraffic/category',
-    call_head : API_PRE + '/teltraffic/head'
+    call_list: API_PRE + '/teltraffic/list',
+    call_cate: API_PRE + '/teltraffic/category',
+    call_head: API_PRE + '/teltraffic/head',
+    get_seat_sign: API_PRE + '/callCenter/getSignInData',
+    save_call_uuid:API_PRE + '/callCenter/saveCallUuid'
 }

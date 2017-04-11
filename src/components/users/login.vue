@@ -72,9 +72,31 @@
                             localStorage.setItem('user', JSON.stringify(data.data))
                             if (data.data.modify_status) {
                                 vm.$router.replace('/')
-                            }else{
+
+                                //坐席登录外呼中心
+                                if (data.data.type == 4) {
+                                    mAjax(vm, {
+                                        url: API.get_seat_sign,
+                                        success: data => {
+                                            let info = data.data
+                                            window.mycomm_agent.on_login_s = function (evt) {
+                                                console.log(info)
+                                                vm.$store.commit('RESET_CALLINFO', info)
+                                            }
+                                            window.mycomm_agent.on_login_f = function (evt) {
+                                                vm.$store.commit('SHOW_TOAST', '登录外呼平台异常：' + evt.params.err_desc)
+                                            }
+                                            window.mycomm_agent.login(info.cti_server, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                        },
+                                        error: err => {
+                                            vm.error = data.message
+                                        }
+                                    })
+                                }
+                            } else {
                                 vm.$router.push('/initpass')
                             }
+
                         } else {
                             vm.error = data.message
                         }

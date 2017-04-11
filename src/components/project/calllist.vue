@@ -65,7 +65,7 @@
                                     <td v-if="!clue_status">{{item.is_dial==1?'已拨打':'未拨打'}}</td>
                                     <td>{{item.dial_status | toResultText}}</td>
                                     <td>
-                                        <a href="javascript:void(0);" @click="call(item.id,item.telephone_crypt)">
+                                        <a href="javascript:void(0);" @click="call(item.id,item.telephone)">
                                             <span class="notice">
                                                 <i class="icon phone"></i>
                                             </span>拨打
@@ -221,7 +221,30 @@
                 })
             },
             call(id,tel){
-                this.$refs.doCallDialog.$emit('show',id,tel,this.project.name)
+                let _this = this
+                window.mycomm_agent.on_dial_s = function (evt) {
+                    _this.$store.commit('SHOW_TOAST','拨通中……',-1)
+                }
+                window.mycomm_agent.on_dial_f = function (evt) {
+                    _this.$store.commit('SHOW_TOAST',evt.params.err_des)
+                }
+                let uuid = ''
+                window.mycomm_agent.on_agent_service_start = function(queue,session_uuid,joined_time,call_number,user_data){
+                    uuid = session_uuid
+                    mAjax(_this,{
+                        url:API.save_call_uuid,
+                        data:{
+                            call_uuid:uuid,
+                            phone:call_number,
+                            project_id:_this.project.id
+                        },
+                        success:data=>{
+                            console.log('已拨通')
+                        }
+                    })
+                }
+                //window.mycomm_agent.on_agent_service_start = function(queue,session_uuid,)
+                window.mycomm_agent.dial(tel, 'support','My User Data')
             },
             view(id){
                 this.$refs.callViewDialog.$emit('show',id,this.project.name)

@@ -15,24 +15,28 @@
     export default {
         data: function () {
             return {
-                during: 1000,
-                offsetLeft:'0px',
-                offsetTop:'0px'
+                offsetLeft: '0px',
+                offsetTop: '0px'
             }
         },
         computed: {
-            msg: function(){
-                return this.$store.state.toast
+            msg: function () {
+                return this.$store.state.toast.msg
+            },
+            during: function () {
+                return this.$store.state.toast.during
             }
         },
-        watch:{
-            msg:function(newVal,oldVal){
-                if(!oldVal&&newVal){
+        watch: {
+            msg: function (newVal, oldVal) {
+                if (!oldVal && newVal) {
                     this.$store.commit('SHOW_LAYER')
-                    setTimeout(() => {
-                        this.$store.commit('HIDE_TOAST')
-                        this.$store.commit('HIDE_LAYER')
-                    }, this.during)
+                    if (this.during > 0) {
+                        setTimeout(() => {
+                            this.$store.commit('HIDE_TOAST')
+                            this.$store.commit('HIDE_LAYER')
+                        }, this.during)
+                    }
                 }
             }
         },
