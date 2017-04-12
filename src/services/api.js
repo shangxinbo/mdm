@@ -1,5 +1,4 @@
-//const API_PRE = process.env.NODE_ENV == 'production' ? '' : '/api'
-const API_PRE = process.env.NODE_ENV == 'production' ? '' : ''
+const API_PRE = process.env.NODE_ENV == 'production' ? '' : '/api'
 export default {
     login: API_PRE + '/user/login',
     logout: API_PRE + '/user/logout',
