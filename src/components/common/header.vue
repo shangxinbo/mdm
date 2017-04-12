@@ -4,7 +4,8 @@
             <li @click.stop="slideDown" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>
                 <div class="quit" @click.stop>
-                    <p :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
+                    <p v-if="type==4" :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
+                    <p v-else :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
                     <router-link to="/agent/index" class="my" v-if="type==1">
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
@@ -47,6 +48,7 @@
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 username: user.user_name,
+                user:user.user,
                 show: false,
                 type: user.type
             }
