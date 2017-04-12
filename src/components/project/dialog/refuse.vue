@@ -46,7 +46,7 @@
                     url: API.preject_audit,
                     data: {
                         id: this.id,
-                        audit_result: 2,
+                        audit_result: -3,
                         audit_reason: this.message
                     },
                     success: data => {

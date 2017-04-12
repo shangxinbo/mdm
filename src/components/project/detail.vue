@@ -185,7 +185,7 @@
                         url: API.preject_audit,
                         data: {
                             id: id,
-                            audit_result: 1
+                            audit_result: -2
                         },
                         success: data => {
                             if (data.code == 200) {
