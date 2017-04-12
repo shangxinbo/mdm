@@ -96,7 +96,7 @@
                             this.exist_seat = data.data.exist_seat
                             this.expire_seat = data.data.expire_seat
                             this.list = data.data.seat.data
-                            this.totalPage = Math.ceil(data.data.seat.total / 10)
+                            this.totalPage = Math.ceil(data.data.seat.total / data.data.seat.per_page)
                         } else {
                             this.$store.commit('SHOW_TOAST', data.message)
                         }

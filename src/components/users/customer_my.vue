@@ -94,14 +94,14 @@
                 </div>
             </div>
         </div>
-        <editDialog ref="editDialog"></editDialog>
+        <editDialog ref="editDialog" :id="detail.id" :username="detail.user_name" :email="detail.mail" :tel="detail.tel" :addr="detail.store_addr" :self_addr="detail.location"></editDialog>
         <alert ref="alert"></alert>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import editDialog from 'components/customer/dialog/changeInfo'
+    import editDialog from './dialog/changeInfoByCustomer'
     import alert from 'components/dialog/alert'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
@@ -136,7 +136,7 @@
         },
         methods: {
             showEditDialog() {
-                this.$refs.editDialog.$emit('show', this.$route.params.id)
+                this.$refs.editDialog.$emit('show')
             }
         },
         created: function () {

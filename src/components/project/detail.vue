@@ -8,13 +8,13 @@
             <div class="data-detail">
                 <form>
                     <ul class="data-text data-view">
-                        <li>
+                        <li v-if="userType!=3">
                             <label class="name">客户名称</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.client_name}}</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="userType!=3">
                             <label class="name">所属代理</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.agency}}</p>
@@ -68,7 +68,7 @@
                                 <p class="text red">{{detail.audit_reason}}</p>
                             </div>
                         </li>
-                        <template v-if="detail.status==1">
+                        <template v-if="detail.status==1&&detail.audit_status>0">
                             <li class="both">
                                 <label class="name">线索量</label>
                                 <div class="input-warp">
@@ -119,7 +119,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="btn-warp" v-if="detail.audit_status==0&&userType==1">
+                <div class="btn-warp" v-if="detail.audit_status==-1&&userType==1">
                     <a class="btn blue" href="javascript:void(0);" @click="accept(detail.id)">通过</a>
                     <a class="btn red" href="javascript:void(0);" @click="refuse(detail.id)">拒绝</a>
                 </div>
@@ -185,7 +185,7 @@
                         url: API.preject_audit,
                         data: {
                             id: id,
-                            audit_result: 1
+                            audit_result: -2
                         },
                         success: data => {
                             if (data.code == 200) {
