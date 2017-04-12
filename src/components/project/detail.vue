@@ -8,13 +8,13 @@
             <div class="data-detail">
                 <form>
                     <ul class="data-text data-view">
-                        <li>
+                        <li v-if="userType!=3">
                             <label class="name">客户名称</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.client_name}}</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="userType!=3">
                             <label class="name">所属代理</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.agency}}</p>
@@ -68,7 +68,7 @@
                                 <p class="text red">{{detail.audit_reason}}</p>
                             </div>
                         </li>
-                        <template v-if="detail.status==1">
+                        <template v-if="detail.status==1&&detail.audit_status>0">
                             <li class="both">
                                 <label class="name">线索量</label>
                                 <div class="input-warp">
