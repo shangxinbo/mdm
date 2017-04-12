@@ -11,14 +11,14 @@
                     <div class="input-warp">
                         <input class="text disabled" :class="{disabled:edit}" type="text" v-model="user" :disabled="edit?true:false">
                         <p v-show="user_error" class="error">{{user_error}}</p>
-                    </div> 
+                    </div>
                 </li>
                 <li>
                     <label>姓名</label>
                     <div class="input-warp">
                         <input class="text" type="text" v-model="username">
                         <p v-show="username_error" class="error">{{username_error}}</p>
-                    </div> 
+                    </div>
                 </li>
                 <li>
                     <label>邮箱</label>
