@@ -14,7 +14,7 @@
                             <span class="num">{{expire_seat}}</span>
                         </li>
                     </ul>
-                    <a href="#" class="btn-a btn-export">坐席计费记录</a>
+                    <router-link to="/expense/seat?type=user" class="btn-a btn-export">坐席计费记录</router-link>
                 </div>
             </div>
             <div class="data-warp">
