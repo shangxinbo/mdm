@@ -384,7 +384,7 @@
                 data.append('licence', this.licence)
                 data.append('qualification', this.qualification)
                 data.append('user_name', this.user_name)
-                data.append('mail', this.mail)
+                data.append('mail', this.email)
                 data.append('tel', this.tel)
                 data.append('location', this.location)
                 data.append('application_addr', this.self_addr)
