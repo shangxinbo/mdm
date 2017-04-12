@@ -173,7 +173,6 @@
                 mAjax(this, {
                     url: _this.url,
                     data: {
-                        nums: 10,
                         page: _this.currentPage,
                         name: _this.search_name ? _this.search_name : '',
                         uid: _this.search_customer ? _this.search_customer : '',
@@ -189,7 +188,7 @@
                                 clue_charging: data.data.clue_charging,
                                 call_charging: data.data.call_charging
                             }
-                            _this.totalPage = Math.ceil(data.data.charging.total / 10)
+                            _this.totalPage = Math.ceil(data.data.charging.total / data.data.charging.per_page)
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
