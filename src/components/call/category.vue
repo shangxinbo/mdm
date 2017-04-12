@@ -229,7 +229,7 @@
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.head = data.data.data.data
+                            _this.head = data.data.data
                         } else {
                             _this.head = []
                         }
