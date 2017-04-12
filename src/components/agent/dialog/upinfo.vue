@@ -118,7 +118,6 @@
             },
             sure: function () {
                 if (this.type == 'create') {
-                    //@todo 唯一性验证
                     let reg_user = /^[a-zA-Z0-9]{6,16}$/
                     if (!this.user) {
                         this.user_error = '请填写代理账号'
@@ -201,7 +200,6 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
                             let msg = ''
                             if (_this.type == 'create') {
                                 msg = '添加代理成功'
@@ -210,6 +208,8 @@
                             } else {
                                 msg = 'ok'
                             }
+                            console.log(msg)
+                            _this.close()
                             _this.$store.commit('SHOW_TOAST', msg)
                             _this.$router.replace('/agent/index')
                         } else {
@@ -224,6 +224,7 @@
         },
         created: function () {
             let _this = this
+
             this.$on('show', function (id) {
                 _this.type = 'create'
                 _this.url = API.operate_addagent
@@ -249,7 +250,6 @@
                 }
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
-
             })
         },
     }

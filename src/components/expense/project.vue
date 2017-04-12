@@ -125,30 +125,7 @@
         },
         watch: {
             $route: function () {
-                this.agent_id = this.$route.query.agent_id
-                this.agent_name = this.$route.query.agent_name
-                this.customer_id = this.$route.query.customer_id
-                this.customer_name = this.$route.query.customer_name
-
-                this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status
-                this.search_start_time = this.$route.query.start_time
-                this.search_end_time = this.$route.query.end_time
-                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-
-                if (this.agent_id && this.agent_name) {
-                    this.type = 'agent'
-                    this.url = API.expense_project_agent
-                } else if (this.customer_id && this.customer_name) {
-                    this.type = 'user'
-                    this.url = API.expense_project_user
-                } else {
-                    this.type = 'all'
-                    this.url = API.expense_project
-                }
-                this.refresh()
+                this.init()
             }
         },
         components: {
@@ -157,8 +134,11 @@
             datepicker,
             dataTable
         },
+        created: function () {
+            this.init()
+        },
         methods: {
-            init() {
+            init:function () {
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent
@@ -170,6 +150,22 @@
                 this.agent_name = this.$route.query.agent_name
                 this.customer_id = this.$route.query.customer_id
                 this.customer_name = this.$route.query.customer_name
+                this.type = this.$route.query.type ? this.$route.query.type : 'all'
+
+                if (this.agent_id && this.agent_name) {
+                    this.type = 'agent'
+                    this.url = API.expense_project_agent
+                    this.search_agent = this.agent_id
+                } else if (this.customer_id && this.customer_name) {
+                    this.type = 'user'
+                    this.url = API.expense_project_user
+                    this.search_customer = this.customer_id
+                } else if (this.type == 'customer') {
+                    this.url = API.customer_expense_project
+                } else {
+                    this.type = 'all'
+                    this.url = API.expense_project
+                }
                 this.refresh()
             },
             refresh: function () {
@@ -179,12 +175,12 @@
                     data: {
                         nums: 10,
                         page: _this.currentPage,
-                        name: _this.search_name,
-                        uid: _this.search_customer,
-                        superior_id: _this.search_agent,
-                        status: _this.search_status,
-                        created_at_start: _this.start_time,
-                        created_at_end: _this.end_time
+                        name: _this.search_name ? _this.search_name : '',
+                        uid: _this.search_customer ? _this.search_customer : '',
+                        superior_id: _this.search_agent ? _this.search_agent : '',
+                        status: _this.search_status ? _this.search_status : '',
+                        created_at_start: _this.start_time ? _this.start_time : '',
+                        created_at_end: _this.end_time ? _this.end_time : ''
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -225,9 +221,6 @@
                     query: obj
                 })
             },
-        },
-        created: function () {
-            this.init()
         }
     }
 

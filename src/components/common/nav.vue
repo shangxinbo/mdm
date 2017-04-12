@@ -83,13 +83,13 @@
                     </router-link>
                     <ul v-show="path.startsWith('/expense')">
                         <li :class="{active:path.startsWith('/expense/project')}">
-                            <router-link to="/expense/project">
+                            <router-link to="/expense/project?type=customer">
                                 <span>
                                     <i class="icon icon03-1"></i>项目计费</span>
                             </router-link>
                         </li>
                         <li :class="{active:path.startsWith('/expense/seat')}">
-                            <router-link to="/expense/seat?type=user">
+                            <router-link to="/expense/seat?type=customer">
                                 <span>
                                     <i class="icon icon03-2"></i>坐席计费</span>
                             </router-link>

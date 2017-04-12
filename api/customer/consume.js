@@ -15,9 +15,9 @@ module.exports = function (req, res) {
         "data|10": [{
             "created_at": '@date("yyyy-MM-dd HH:mm:ss")',  //消费日期
             "type": '消费类型',
-            "consume_amount": "@int(0,100)",   //消费金额
-            "before_consume_amount": "@int(0,100)", //消费金额
-            "after_consume_amount": "@int(0,100)"   //消费前金额
+            "consume_money": "@int(0,100)",   //消费金额
+            "before_consume_money": "@int(0,100)", //消费金额
+            "after_consume_money": "@int(0,100)"   //消费前金额
         }]
     })
 }

@@ -26,9 +26,9 @@
             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                 <td>{{item.created_at}}</td>
                 <td>{{item.type}}</td>
-                <td>¥{{item.consume_amount}}</td>
-                <td>¥{{item.before_consume_amount}}</td>
-                <td>¥{{item.after_consume_amount}}</td>
+                <td>¥{{item.consume_money}}</td>
+                <td>¥{{item.before_consume_money}}</td>
+                <td>¥{{item.after_consume_money}}</td>
             </tr>
         </tbody>
 

@@ -13,7 +13,7 @@
             </tr>
             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                 <td v-if="userType!=3">
-                    {{item.username}}
+                    <router-link :to="{query:{customer_id:item.client_id,customer_name:item.username}}">{{item.username}}</router-link>
                 </td>
                 <td v-if="type=='all'&&userType!=3">
                     <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>

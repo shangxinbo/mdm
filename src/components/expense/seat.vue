@@ -6,13 +6,9 @@
         <div class="main">
             <div class="title-warp" v-if="userType==3">
                 坐席计费
-
-
             </div>
             <div class="title-warp" v-if="userType==1">
-                {{agent_name ? agent_name + '的坐席计费' : '坐席计费'}}
-
-
+                {{customer_name ? customer_name + '的坐席计费' : (agent_name ? agent_name + '的坐席计费' : '坐席计费')}}
             </div>
             <div class="data-property">
                 <form>
@@ -106,6 +102,8 @@
                 end_time: '',
                 agent_id: '',
                 agent_name: '',
+                customer_id: '',
+                customer_name: '',
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -123,25 +121,8 @@
         },
         watch: {
             $route: function () {
-                this.agent_id = this.$route.query.agent_id
-                this.agent_name = this.$route.query.agent_name
+                this.init()
 
-                this.search_name = this.$route.query.search_name
-                this.search_agent = this.$route.query.search_agent
-                this.search_start_time = this.$route.query.start_time
-                this.search_end_time = this.$route.query.end_time
-                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-
-                if (this.agent_id && this.agent_name) {
-                    this.type = 'agent'
-                    this.url = API.expense_seat_agent
-                }else if(this.type == 'user'){
-                    this.url = API.customer_seat
-                } else {
-                    this.type = 'all'
-                    this.url = API.expense_seat
-                }
-                this.refresh()
             }
         },
         components: {
@@ -159,6 +140,23 @@
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
+                this.customer_id = this.$route.query.customer_id
+                this.customer_name = this.$route.query.customer_name
+                this.type = this.$route.query.type ? this.$route.query.type : 'all'
+
+                if (this.agent_id && this.agent_name) {
+                    this.type = 'agent'
+                    this.url = API.expense_seat_agent
+                } else if (this.customer_id && this.customer_name) {
+                    this.type = 'user'
+                    this.url = API.expense_seat
+                    this.search_customer = this.customer_id
+                } else if (this.type == 'customer') {
+                    this.url = API.customer_seat
+                } else {
+                    this.type = 'all'
+                    this.url = API.expense_seat
+                }
                 this.refresh()
             },
             refresh: function () {
@@ -168,9 +166,10 @@
                     data: {
                         nums: 10,
                         page: _this.currentPage,
-                        username: _this.search_name,
-                        superior_id: _this.search_agent,
-                        agency_id: _this.search_agent,
+                        uid: _this.search_customer,
+                        username: _this.search_name ? _this.search_name : '',
+                        superior_id: _this.search_agent ? _this.search_agent : '',
+                        agency_id: _this.search_agent ? _this.search_agent : '',
                         created_at_start: _this.start_time,
                         created_at_end: _this.end_time,
                     },
@@ -179,9 +178,9 @@
                             _this.list = data.data.data
                             _this.sum = data.data.count
                             _this.count = data.data.count
-                            if(data.data.data){
+                            if (data.data.data) {
                                 _this.price = data.data.data[0]['price']
-                            }else{
+                            } else {
                                 _this.price = 0
                             }
                             _this.totalPage = Math.ceil(data.data.page.total / 10)
@@ -214,12 +213,6 @@
             }
         },
         created: function () {
-            this.type = this.$route.query.type ? this.$route.query.type : 'all'
-            if (this.type == 'user') {
-                this.url = API.customer_seat
-            } else {
-                this.url = API.expense_seat
-            }
             this.init()
         }
     }
