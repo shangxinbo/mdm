@@ -115,7 +115,7 @@
                 }
             }
         },
-        updated: function () {
+        created: function () {
             let _this = this
             mAjax(this, {
                 url: API.seat_list,
@@ -129,6 +129,7 @@
             this.$on('show', function (id, name) {
                 _this.id = id
                 _this.name = name
+                console.log(123)
                 mAjax(_this, {
                     url: API.seat_binding,
                     data: {
