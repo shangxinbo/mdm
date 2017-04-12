@@ -178,11 +178,14 @@
         methods: {
             init : function() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id
-                this.agent_name = this.$route.query.agent_name
-                this.client_id = this.$route.query.client_id
-                this.client_name = this.$route.query.client_name
-                this.search_project_id = this.$route.query.project_id
+                this.agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : null
+                this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : null 
+                this.client_id = this.$route.query.client_id ? this.$route.query.client_id : null
+                this.client_name = this.$route.query.client_name ? this.$route.query.client_name : null 
+                this.project_id = this.$route.query.project_id ? this.$route.query.project_id : null
+                this.search_client_id = this.client_id
+                this.search_agent_id = this.agent_id
+                this.search_project_id = this.project_id
                 this.refresh()
                 this.heads()
             },
@@ -192,8 +195,8 @@
                     url: API.call_cate,
                     data: {
                         search_name : _this.search_name,
-                        search_agent_id: _this.agent_id ,
-                        search_client_id : _this.client_id ,
+                        search_agent_id: _this.search_agent_id ,
+                        search_client_id : _this.search_client_id ,
                         search_project_id : _this.search_project_id ,
                         search_start_time: _this.search_start_time,
                         search_end_time: _this.search_end_time,
