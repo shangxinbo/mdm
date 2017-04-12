@@ -17,7 +17,7 @@
                         </li>
                         <li v-if="!customer_id&&userType==1">
                             <label class="name">客户名称</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
+                            <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
                         </li>
                         <li v-if="!agent_id&&!customer_id&&userType==1">
                             <label class="name">所属代理</label>
@@ -133,7 +133,7 @@
                                 <td>{{item.odd_time?item.odd_time:'--'}}</td>
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
                                 <td v-if="userType==1">
-                                    <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">审核</router-link>
+                                    <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>

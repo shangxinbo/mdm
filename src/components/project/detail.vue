@@ -119,7 +119,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="btn-warp" v-if="detail.audit_status==0&&userType==1">
+                <div class="btn-warp" v-if="detail.audit_status==-1&&userType==1">
                     <a class="btn blue" href="javascript:void(0);" @click="accept(detail.id)">通过</a>
                     <a class="btn red" href="javascript:void(0);" @click="refuse(detail.id)">拒绝</a>
                 </div>
