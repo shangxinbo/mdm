@@ -10,6 +10,7 @@
         <toast></toast>
         <changeMyPass></changeMyPass>
         <callSet></callSet>
+        <alert ref="alert"></alert>
         <balanceAlert v-if="userType==3"></balanceAlert>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
@@ -43,6 +44,7 @@
             mfooter,
             mnav,
             toast,
+            alert,
             changeMyPass,
             balanceAlert,
             callSet
@@ -59,7 +61,7 @@
                             _this.$store.commit('RESET_CALLINFO', info)
                         }
                         window.mycomm_agent.on_login_f = function (evt) {
-                            _this.$store.commit('SHOW_TOAST', '登录外呼平台异常：' + evt.params.err_desc)
+                            _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能咱不能使用')
                         }
                         window.mycomm_agent.set_wrap_up_time(0)
                         window.mycomm_agent.login(info.cti_server, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
