@@ -82,7 +82,7 @@
                             <span class="t">
                                 <router-link to="/user/myseat">现有坐席</router-link>
                             </span>
-                            <span class="num">10</span>
+                            <span class="num">{{seat_num}}</span>
                         </li>
                     </ul>
                     <router-link to="/project/add" class="btn blue btn-export">
@@ -126,12 +126,12 @@
                                 <td>{{item.created_at}}</td>
                                 <td>{{item.project_status}}</td>
                                 <td>{{item.clue_num}}</td>
-                                <td>{{item.clue_odd_num}}</td>
-                                <td>{{item.clue_connect_num}}</td>
-                                <td>{{item.clue_valid_percent}}%</td>
-                                <td>{{item.call_time}}</td>
-                                <td>{{item.odd_time}}</td>
-                                <td v-if="userType!=4">{{item.project_seat_num}}</td>
+                                <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
+                                <td>{{item.clue_connect_num?item.clue_connect_num:'--'}}</td>
+                                <td>{{item.clue_valid_percent?item.clue_valid_percent + '%':'--'}}</td>
+                                <td>{{item.call_time?item.call_time:'--'}}</td>
+                                <td>{{item.odd_time?item.odd_time:'--'}}</td>
+                                <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
@@ -202,7 +202,8 @@
                     oddNumTotal: '',
                     connectNumTotal: '',
                     clueValidPercent: ''
-                }
+                },
+                seat_num: 0
             }
         },
         watch: {
@@ -272,9 +273,9 @@
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
                 let search_name = this.search_name
-                let start_time = typeof(this.start_time)=='string' ? this.start_time : dateFormat(this.start_time)
-                let end_time = typeof(this.end_time)=='string' ? this.end_time : dateFormat(this.end_time)
-                
+                let start_time = typeof (this.start_time) == 'string' ? this.start_time : dateFormat(this.start_time)
+                let end_time = typeof (this.end_time) == 'string' ? this.end_time : dateFormat(this.end_time)
+
                 let query = Object.assign({}, this.$route.query, {
                     search_name: search_name,
                     search_customer: search_customer,
@@ -333,6 +334,22 @@
         },
         created: function () {
             this.init()
+            if (this.userType == 3) {
+                mAjax(this, {
+                    url: API.customer_my_seat_list,
+                    data: {
+                        page: 1
+                    },
+                    success: data => {
+                        if (data.code == 200) {
+                            this.seat_num = data.data.exist_seat
+                        } else {
+                            this.seat_num = 0
+                        }
+                    }
+                })
+            }
+
         }
     }
 

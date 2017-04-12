@@ -22,7 +22,6 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th>坐席名称</th>
                                 <th>坐席账号</th>
                                 <th>坐席状态</th>
                                 <th>开通日期</th>
@@ -31,7 +30,6 @@
                                 <th>操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2,disabled:item.status==2}">
-                                <td>{{item.user_name}}</td>
                                 <td>{{item.user}}</td>
                                 <td>{{item.status==1?'有效':'失效'}}</td>
                                 <td>{{item.created_at}}</td>
