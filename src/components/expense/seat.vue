@@ -48,11 +48,8 @@
                 </form>
                 <div class="data-export">
                     <ul>
-                        <li v-if="userType!=3">
+                        <li>
                             <span class="t">开通数量</span><span class="num">{{sum.num}}</span>
-                        </li>
-                        <li v-if="userType==3">
-                            <span class="t">开通数量</span><span class="num">{{count}}</span>
                         </li>
                         <li v-if="userType!=3">
                             <span class="t">开通费用</span><span class="num">&yen;{{sum.cost}}</span>
@@ -112,11 +109,10 @@
                 api: {
                     agentList: API.angent_list_all,
                 },
-                count: '',
                 price: '0',
                 sum: {
-                    num: '',
-                    cost: ''
+                    num: "0",
+                    cost: "0"
                 }
             }
         },
@@ -155,7 +151,7 @@
                     this.url_count = API.expense_seat_count
                     this.search_customer = this.customer_id
                 } else if (this.type == 'customer') {
-                    this.url = API.customer_expense_project
+                    this.url = API.customer_seat
                     this.url_count = API.customer_seat_count
                 } else {
                     this.type = 'all'
@@ -181,12 +177,23 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            if (data.data.data.data) {
-                                _this.price = data.data.data[0]['price']
-                            } else {
-                                _this.price = 0
-                            }
                             _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+            },
+            //客户详情--坐席单价
+            getCustomerInfo: function () {
+                let _this = this
+                mAjax(this, {
+                    url: API.customer_info,
+                    data: {},
+                    success: (data) => {
+                        if (data.code == 200) {
+                            _this.customerInfo = data.data
+                            _this.price = data.data.seat_price
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
@@ -241,6 +248,7 @@
             }
         },
         created: function () {
+            this.getCustomerInfo()
             this.init()
         }
     }
