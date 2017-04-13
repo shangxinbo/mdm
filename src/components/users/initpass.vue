@@ -90,7 +90,10 @@
                     this.new_error = '请填写新密码'
                     return false
                 } else {
-                    if (reg.test(this.newpass)) {
+                    if(this.newpass == this.oldpass){
+                        this.new_error = '新密码与旧密码不能相同'
+                        return false
+                    }else if (reg.test(this.newpass)) {
                         this.new_error = ''
                         if (this.repeat == this.newpass) {
                             this.repeat_error = ''

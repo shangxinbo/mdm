@@ -136,6 +136,11 @@
         },
         created: function () {
             this.init()
+            let _this = this
+            document.onkeyup = function(evt){
+                if(evt.keyCode==13)
+                    _this.search()
+            }
         },
         methods: {
             init:function () {
@@ -219,7 +224,7 @@
                     name: this.$route.name,
                     query: obj
                 })
-            },
+            }
         }
     }
 
