@@ -27,21 +27,19 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh"
-                                                format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh"
-                                                format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
                         <li>
                             <button class="btn blue" type="button" @click="search">
-                            <span>
-                                <i class="icon search"></i>查询
-                            </span>
+                                <span>
+                                    <i class="icon search"></i>查询
+                                </span>
                             </button>
                         </li>
                     </ul>
@@ -49,14 +47,19 @@
                 <div class="data-export">
                     <ul>
                         <li>
-                            <span class="t">开通数量</span><span class="num">{{sum.num?sum.num:0}}</span>
+                            <span class="t">开通数量</span>
+                            <span class="num">{{sum.num?sum.num:0}}</span>
                         </li>
                         <li v-if="userType!=3">
-                            <span class="t">开通费用</span><span class="num">&yen;{{sum.cost?sum.cost:0}}</span>
+                            <span class="t">开通费用</span>
+                            <span class="num">&yen;{{sum.cost?sum.cost:0}}</span>
                         </li>
                     </ul>
                     <div class="add-explain" v-if="userType==3">
-                        <span class="t">坐席单价</span><span class="num"><em>&yen;</em>{{price?price:0}}</span><span>每月</span>
+                        <span class="t">坐席单价</span>
+                        <span class="num">
+                            <em>&yen;</em>{{price?price:0}}</span>
+                        <span>每月</span>
                         <router-link to="/expense/doc">收费说明</router-link>
                     </div>
                 </div>
@@ -74,7 +77,7 @@
 
 
 <script>
-    import {mAjax, dateFormat} from 'src/services/functions'
+    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import mselect from 'components/utils/select'
@@ -215,7 +218,7 @@
                 })
             },
             jump(num) {
-                let obj = Object.assign({}, this.$route.query, {page: num})
+                let obj = Object.assign({}, this.$route.query, { page: num })
                 this.$router.replace({
                     name: this.$route.name,
                     query: obj
@@ -250,8 +253,8 @@
         created: function () {
             this.init()
             let _this = this
-            document.onkeyup = function(evt){
-                if(evt.keyCode==13)
+            document.onkeyup = function (evt) {
+                if (evt.keyCode == 13)
                     _this.search()
             }
             this.getCustomerInfo()
