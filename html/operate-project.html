@@ -184,7 +184,7 @@
         </div>
     </div>
     <div class="dialog-footer">
-        <button class="btn blue" type="button">确定</button>
+        <button class="btn blue" type="button" onclick="getWindow('submitPause','tips-succ');">确定</button>
         <button class="btn" type="button" onclick="hideDialog('projectPause');">取消</button>
     </div>
 </div>
@@ -197,8 +197,24 @@
         </div>
     </div>
     <div class="dialog-footer">
-        <button class="btn blue" type="button">确定</button>
+        <button class="btn blue" type="button" onclick="getWindow('submitOpen','tips-succ');">确定</button>
         <button class="btn" type="button" onclick="hideDialog('projectStart');">取消</button>
+    </div>
+</div>
+<!-- 项目已暂停弹窗-->
+<div class="dialog tips-succ" id="submitPause">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>项目已暂停</span></p>
+        </div>
+    </div>
+</div>
+<!-- 项目已开启弹窗-->
+<div class="dialog tips-succ" id="submitOpen">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>项目已开启</span></p>
+        </div>
     </div>
 </div>
 <!-----------------------header下拉弹窗------------------------->

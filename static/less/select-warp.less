@@ -11,6 +11,9 @@
     cursor: pointer;
     .user-select();
     position: relative;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     &:before{
       display: block;
       content: '';
@@ -31,7 +34,7 @@
     left: 0;
     top: 30px;
     height: 300px;
-    z-index: 2;
+    z-index: 3;
   }
   ul{
     padding: 10px 0;
