@@ -1,0 +1,59 @@
+@import (reference) "base.less";
+@import "data-property.less"; // 数据属性信息
+@import "data-total.less"; // 数据统计条
+//---------------------------------------------- 数据概览 ------------------------------------------------------
+.main{
+  .icon{
+    .flo();
+    background: url('@{url}/data-icon.png') no-repeat;
+  }
+  .data-property{
+    .account{
+      width: 100%;
+      display: inline-block;
+      li{
+        padding: 0;
+        float: left;
+        width: 50%;
+        .t{
+          width: 140px;
+          text-align: left;
+          span{
+            padding-left: 30px;
+          }
+        }
+        .p{
+          padding-left: 120px;
+        }
+        &:nth-child(even){
+          .t{
+            width: 120px;
+          }
+          .p{
+            padding-left: 100px;
+          }
+        }
+      }
+    }
+  }
+  .data-cont{
+    padding: 80px 40px 30px;
+    .section-total{
+      height: 134px;
+      border: none;
+      .left{
+        width: 58%;
+        li{
+          width: 33%;
+        }
+      }
+      .side{
+        width: 38%;
+        li{
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+//---------------------------------------------- 数据概览 End ------------------------------------------------

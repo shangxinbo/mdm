@@ -1,0 +1,414 @@
+@import (reference) "base.less";
+@import "page.less"; // 数据统计条
+@import "check-down-up.less"; // 展开收起
+////---------------------------------------------- 数据概览 ------------------------------------------------------
+.data-code{
+  text-align: right;
+  font-size: 14px;
+  padding-bottom: 10px;
+  color: @grayColor;
+}
+.data-table{
+  position: relative;
+  table{
+    border: 1px solid #e4e5e7;
+    background-color:#f5f6f8;
+    width: 100%;
+    th,td{
+      font-size: 14px;
+      text-align: center;
+      padding: 15px 5px;
+    }
+    .w80{
+      width: 80px;
+    }
+    .w100{
+      width: 100px;
+    }
+    .w160{
+      width: 160px;
+    }
+    .w120{
+      width: 120px;
+    }
+    .w190{
+      width: 190px;
+    }
+    .w200{
+      width: 200px;
+    }
+    .w290{
+      width: 290px;
+    }
+    td{
+      a{
+        color: @greenColor;
+        margin:0 10px;
+        display: inline-block;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+    th{
+      background: #e8eaec;
+      color:#656565;
+      font-weight: normal;
+    }
+    .tr2{
+      td{
+        background: @grayColor;
+      }
+    }
+    &.tab1{
+      th,td{
+        border-bottom: 1px solid #e4e5e7;
+        padding: 20px 5px;
+      }
+      th{
+        text-align: right;
+        background-color:#f5f6f8;
+      }
+      td{
+        text-align: left;
+        font-size: 16px;
+      }
+    }
+    &.tab2,&.tab3{
+      th{
+        border-bottom: 1px solid @whiteColor;
+      }
+      td{
+        text-align: center;
+        border-bottom: 1px solid #e4e5e7;
+      }
+    }
+    &.tab2{
+      th{
+        padding: 15px 10px;
+        line-height: 20px;
+      }
+      td{
+        padding: 10px 20px;
+        span{
+          display: block;
+          padding: 5px 0;
+        }
+      }
+    }
+    &.tab3{
+      td{
+        &.td3{
+          text-align: left;
+          padding: 15px 50px;
+          border-left: 1px solid #e4e5e7;
+          border-right: 1px solid #e4e5e7;
+          .bar{
+            background: #f28787;
+            height: 13px;
+            display: inline-block;
+          }
+        }
+        span{
+          em{
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            padding-right:5px;
+          }
+          &.nofound{
+            color: @greenText;
+          }
+        }
+        &.mode{
+          width: 170px;
+          span{
+            display: block;
+            font-size: 16px;
+            padding-bottom: 25px;
+          }
+        }
+      }
+    }
+    &.tab4{
+      td{
+        border-bottom: 1px solid #e4e5e7;
+      }
+    }
+    &.tab8{
+      span{
+        padding: 0 5px;
+      }
+    }
+  }
+}
+.report-warp{
+  padding-bottom: 70px;
+}
+.footer{
+  p{
+    margin: 0;
+  }
+}
+.main{
+  .report-title{
+    img{
+      width: 100%;
+    }
+  }
+  .report-check-warp{
+    .title{
+      font-size: 24px;
+    }
+    .section{
+      dt,dd{
+        span{
+          text-align: center;
+          display: inline-block;
+          font-size: 16px;
+          &.name{
+            width: 75%;
+          }
+          &.mode {
+            width: 24%;
+            font-weight: 400;
+            .high {
+              color:@redColor;
+            }
+            .low {
+              color:@greenText;
+            }
+          }
+        }
+      }
+      dt{
+        padding: 0;
+        span{
+          &.mode {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+  .data-property{
+    padding: 40px 40px 10px;
+    .title{
+      font-size: 24px;
+      padding-bottom: 25px;
+      text-align: center;
+    }
+    position: relative;
+    li{
+      margin-bottom: 25px;
+      font-size: 14px;
+      height: 19px;
+      line-height: 19px;
+      color: @grayColor;
+      div{
+        display: inline-block;
+        float: left;
+      }
+      .t{
+        position: relative;
+        text-align: right;
+        padding-right: 5px;
+        span{
+          color: #7B7B7B;
+        }
+      }
+      .p{
+        em{
+          display: inline-block;
+          color: #7B7B7B;
+        }
+        span{
+          padding: 0 15px;
+        }
+      }
+    }
+    .apply{
+      display: inline-block;
+      li{
+        width: 25%;
+        float: left;
+        &.w75{
+          width: 75%;
+        }
+        .t{
+          width: 110px;
+        }
+      }
+    }
+  }
+  .data-cont{
+    padding: 40px 40px 10px;
+    .title{
+      font-size: 18px;
+      padding-bottom: 25px;
+      position: relative;
+    }
+    .section{
+      border: 1px solid #e4e5e7;
+      background: #f5f6f8;
+      padding: 30px 50px;
+      margin-bottom: 20px;
+      position: relative;
+      &.section1{
+        .chart2,.chart22{
+          display: none;
+        }
+      }
+      .chart-warp{
+        width: 100%;
+        span{
+          border-radius: 0;
+        }
+      }
+      .chart1,.chart2,.chart21,.chart22{
+        height: 600px;
+      }
+      .chart3{
+        height: 450px;
+      }
+      .chart4,.chart5{
+        height: 620px;
+        margin-bottom: 20px;
+      }
+      .chart-parallel{
+        position:relative;
+        height: 450px;
+        margin-top: 30px;
+      }
+      .chart6{
+        position: absolute;
+        height: 450px;
+        width: 50%;
+        left: 0;
+      }
+      .chart7{
+        position: absolute;
+        height: 450px;
+        width: 50%;
+        right: 0;
+      }
+      .chart8{
+        height: 600px;
+      }
+      .nav{
+        text-align: center;
+        a{
+          display: inline-block;
+          padding: 0 15px;
+          height: 32px;
+          line-height: 32px;
+          margin: 0 25px;
+          font-size: 16px;
+          color: @grayColor;
+          border-radius: 5px;
+          position: relative;
+          &:before {
+            display: none;
+            content: '';
+            width: 0;
+            height: 0;
+            font-size: 0;
+            line-height: 0;
+            overflow: hidden;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #7f64c2;
+            border-bottom: 8px solid transparent;
+            position: absolute;
+            left: 50%;
+            bottom: -15px;
+            margin-left: -8px;
+          }
+          &.active{
+            background: #7f64c2;
+            color: @whiteColor;
+            &:before {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    &.data-map{
+      padding: 0;
+      .section{
+        background: #392F75;
+        border: none;
+        .title{
+          font-size: 24px;
+          color: @whiteColor;
+          text-align: center;
+          padding: 20px 0 30px;
+        }
+        .info{
+          background: #463F7F;
+          height: 48px;
+          text-align: center;
+          margin-bottom: 40px;
+          p{
+            height: 48px;
+            line-height: 48px;
+            display: inline-block;
+            padding: 0 30px;
+            span{
+              color: @whiteColor;
+            }
+            .t{
+                font-size: 14px;
+            }
+            .p{
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      .data-table{
+        .t{
+          font-size: 18px;
+          color: @whiteColor;
+          padding-bottom: 20px;
+        }
+        table{
+          color: @whiteColor;
+          border: 1px solid #392F75;
+          th{
+            background: #463F7F;
+            color: @whiteColor;
+          }
+          td{
+            background-color: #392F75;
+          }
+        }
+      }
+    }
+    &.data-fenxian{
+      .title{
+        text-align: center;
+        font-size: 24px;
+      }
+      .section{
+        background: @whiteColor;
+        border: none;
+        padding: 0;
+      }
+    }
+    &.data-shibie{
+      padding: 0;
+      .section{
+        background: #332B69;
+        border: none;
+        .title{
+          font-size: 18px;
+          color: @whiteColor;
+          padding: 0 0 30px;
+        }
+      }
+    }
+  }
+}
+//---------------------------------------------- 数据概览 End ------------------------------------------------

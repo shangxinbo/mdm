@@ -1,102 +1,46 @@
 @import (reference) "base.less";
-.check-warp .icon,.btn .icon,.radio-warp .icon{
+.check-warp .icon,.btn .icon{
   .flo();
   background: url('@{url}/dialog-icon.png') no-repeat 0 0;
 }
 input,textarea {
   width: 100%;
-  background-color: @whiteColor;
-  border: 1px solid @inputborder;
+  background-color: #F8F8FA;
+  border: 1px solid #D9D7E5;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  color: @grayColor;
+  color: @blackColor;
   font: 14px/18px "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei";
 }
 input{
   &.text {
-    height: 30px;
-    line-height: 28px\9;
+    height: 41px;
+    line-height: 39px\9;
     padding: 0 10px;
-    min-width: 150px;
-    max-width: 300px;
   }
-  &.long {
-    max-width: 60%;
-  }
-  &.date{
-    height: 30px;
-    line-height: 28px\9;
-    padding:0 40px 0 10px;
-    width: 140px;
-  }
-  &.radio{
-    .wh(20px);
-    vertical-align: top;
-  }
-  &:disabled{
-    background-color: @disabledBg;
-  }
-}
-textarea{
-  height: 118px;
-  padding: 8px 10px;
-  line-height: 26px;
 }
 .calendar-warp {
   position: relative;
   &:before {
     display: block;
     content: '';
-    width: 16px;
-    height: 15px;
+    width: 19px;
+    height: 18px;
     position: absolute;
-    right: 7px;
-    top: 50%;
-    margin-top: -7px;
+    right: 12px;
+    top: 12px;
     z-index: 1;
     background: url('@{url}/dialog-icon.png') no-repeat 0 0;
-    background-position: -55px 0;
+    background-position: -54px 0;
   }
   input {
+    padding-right: 40px;
     position: relative;
     z-index: 0;
     cursor: pointer;
     &.text {
       float: left;
-    }
-  }
-}
-.date-warp{
-  .calendar-warp{
-    float: left;
-  }
-  .or{
-    float: left;
-    display: inline-block;
-    padding: 0 10px;
-    font-size: 14px;
-    height: 30px;
-    line-height: 30px;
-    text-align: center;
-    color: @grayColor;
-  }
-}
-.radio-warp{
-  cursor: pointer;
-  .radio{
-    display: none;
-  }
-  .icon{
-    .wh(20px);
-    display: inline-block;
-    vertical-align: top;
-    background-position: -79px -54px;
-    margin-right: 10px;
-  }
-  &.radio-active{
-    .icon{
-      background-position: -58px -54px;
     }
   }
 }
@@ -106,7 +50,6 @@ textarea{
     float: left;
     height: 43px;
     overflow: hidden;
-    min-width: 25%;
     p {
       display: inline-block;
       height: 43px;
@@ -119,7 +62,6 @@ textarea{
         overflow: hidden;
         text-overflow:ellipsis;
         white-space:nowrap;
-        color: @grayColor;
       }
     }
     .icon {
@@ -137,73 +79,96 @@ textarea{
   }
 }
 .btn{
-  display: block;
+  display: inline-block;
   background-color: #FFF;
-  border: 1px solid #d8dde5;
+  border: 1px solid #acaeba;
   border-radius: 30px;
   color: @grayColor;
-  font-size: 14px;
-  line-height: 28px;
+  margin: 0 10px;
+  font-size: 18px;
+  line-height: 43px;
+  text-align: center;
   position: relative;
   font-family: @YaHei;
   cursor: pointer;
-  min-width: 88px;
-  margin: 0 auto;
-  text-align: center;
   &:hover{
   }
   &.disabled{
     background-color: #EDECF5;
     border-color: #EDECF5;
     color: #8b8da6;
-  }
-  &.blue{
-    background-color: @blueColor;
-    color: @whiteColor;
-    border-color: @blueColor;
-    &:hover{
-      background-color: lighten(@blueColor,3%); //亮度增加 3%
+    cursor: auto;
+    i{
+      &.search{
+        background-position: -76px -101px;
+      }
     }
   }
-  &.red{
-    background-color: @redColor;
+  &.green{
+    background-color: @greenColor;
     color: @whiteColor;
-    border-color: @redColor;
+    border-color: @greenColor;
     &:hover{
-      background-color: lighten(@redColor,3%); //亮度增加 3%
+      background-color: lighten(@greenColor,3%); //亮度增加 3%
     }
   }
   span{
     padding-left: 20px;
-    position: relative;
-    display: inline-block;
-    margin: 0 15px;
   }
   i{
     position: absolute;
     display: inline-block;
     top: 50%;
-    left:0;
-    .wh(13px);
-    margin-top: -6px;
+    left:50%;
     &.search{
-      background-position: -73px 0;
-    }
-    &.icon-export{
-      background-position: -87px 0;
-    }
-    &.add{
-      background-position: -115px 0;
-    }
-    &.edit{
-      background-position: -101px 0;
+      width: 20px;
+      height: 21px;
+      background-position: -76px 0;
+      margin-top: -11px;
+      margin-left:-40px;
     }
   }
 }
-.sms-push,.news-qual,.news-account{
-  .btn{
-    width: 117px;
-    margin: 10px 20px 0 0;
-    display: inline-block;
+.data-search{
+  height: 33px;
+  padding: 40px 40px 20px;
+  .icon{
+    .flo();
+    background: url('@{url}/dialog-icon.png') no-repeat 0 0;
+  }
+  .search{
+    float: left;
+    height: 33px;
+    width: 200px;
+    position: relative;
+    input{
+      padding: 0 40px 0 20px;
+      border-radius: 30px;
+      background: @whiteColor;
+      &.text{
+        height: 33px;
+        line-height: 31px\9;
+      }
+    }
+    .button{
+      position: absolute;
+      width: 40px;
+      height: 33px;
+      background:none;
+      top: 0;
+      right: 0;
+      border: none;
+      cursor: pointer;
+      border-top-right-radius:30px;
+      border-bottom-right-radius: 30px;
+      .icon{
+        .wh(15px);
+        background-position: -75px -55px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -7px 0 0 -7px;
+      }
+    }
   }
 }

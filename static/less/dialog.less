@@ -1,4 +1,5 @@
 @import (reference) "base.less";
+@import "input.less";
 
 #shadowLayer{
   .wh();
@@ -21,56 +22,27 @@
   .icon{
     .flo();
     background: url('@{url}/dialog-icon.png') no-repeat 0 0;
-    &.phone{
-      .flo();
-      background-position: -101px -54px;
-      width: 12px;
-      height: 18px;
-      margin-top: -9px;
-    }
-  }
-  .data-textarea{
-    font-size: 14px;
-    position: relative;
-    padding-bottom: 30px;
-    margin-top: -10px;
-    span{
-      color: @grayColor2;
-    }
-    textarea{
-      margin: 0 10px;
-      vertical-align: top;
-      width: 320px;
-      max-width: none;
-    }
-  }
-  p{
-    &.error {
-      clear: both;
-      font-size: 14px;
-      color: @redColor;
-      padding: 8px 0 0 70px;
-    }
   }
 }
 .dialog-close{
-  .wh(24px);
+  .wh(51px);
   border-radius: 50%;
+  background-position: 0 0;
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: -25px;
+  right: -25px;
   .transition(transform,300ms,linear);
   &:hover{
     .transform(rotate(180deg));
   }
 }
 .dialog-header{
-  padding: 30px 30px 20px;
+  padding: 20px 30px;
   height: 24px;
   h4{
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
-    color: @grayColor;
+    color: @blackColor;
     span{
       padding: 0 8px;
     }
@@ -93,21 +65,16 @@
   }
   .scroll-content{
     padding-right: 0;
+    margin-right: 20px;
   }
 }
 .dialog-footer{
-  padding: 10px 0 40px;
+  padding: 20px 0 40px;
   text-align: center;
   font-size: 0;
-  position: relative;
   .btn{
-    display: inline-block;
-    margin: 0 10px;
-    line-height: 36px;
-    border: 2px solid @blueColor;
-    font-size: 16px;
-    min-width: 100px;
-    color: @blueColor;
+    width: 140px;
+    height: 45px;
     &:hover{
       box-shadow:none;
     }
@@ -116,55 +83,36 @@
 .query-warp{
   width: 100%;
   &>li{
-    padding-bottom: 25px;
-    min-height: 41px;
+    margin-bottom: 25px;
+    width: 470px;
+    height: 43px;
     &.check120{
       height: 120px;
     }
     label{
       float: left;
       width: 80px;
-      height: 41px;
+      height: 43px;
       padding-right: 15px;
       font-size: 14px;
-      line-height: 41px;
+      line-height: 43px;
       text-align: right;
-      color: @grayColor2;
-      &.w110{
-        width: 110px;
-      }
-      em{
-        &.tips{
-          position: relative;
-          top: -10px;
-        }
-      }
+    }
+    .or{
+      float: left;
+      font-size: 16px;
+      line-height: 43px;
+      display: inline-block;
+      width: 35px;
+      text-align: center;
     }
     p{
-      &.text {
-        font-size: 16px;
-        line-height: 41px;
-        color: @grayColor;
-        display: inline-block;
-      }
-      a{
-        color: @blueColor;
-      }
       &.error {
+        padding-left: 95px;
         clear: both;
         font-size: 14px;
-        color: @redColor;
-        padding: 8px 0;
-      }
-      &.tips{
-        font-size: 14px;
-        color: @tipsText;
-        line-height: 41px;
-        display: inline-block;
-        &.block{
-          display: block;
-          padding: 0;
-        }
+        color: #E94D6A;
+        padding-top: 8px;
       }
     }
     .calendar-warp {
@@ -173,54 +121,8 @@
     }
     .input-warp{
       float: left;
-      width: 340px;
+      width: 375px;
       position: relative;
-      input{
-        &.text {
-          height: 41px;
-          line-height: 39px\9;
-        }
-      }
-      &.w240{
-        width: 240px;
-      }
-    }
-    &.li-notice{
-      padding-bottom: 50px;
-    }
-    .notice .icon,.notice:before{
-      .flo();
-      background: url('@{url}/data-icon.png') no-repeat 0 0;
-    }
-    .notice{
-      color: @redColor;
-      font-size: 12px;
-      line-height: 32px;
-      display: inline-block;
-      padding: 0 15px 0 38px;
-      background-color: #fffae5;
-      border: 1px solid #f0ebd5;
-      position: relative;
-      margin-top: 10px;
-      i{
-        .wh(17px);
-        display: inline-block;
-        position: absolute;
-        top:7px;
-        left: 12px;
-      }
-      &:before{
-        display: block;
-        content: '';
-        width: 11px;
-        height: 6px;
-        .flo();
-        position: absolute;
-        left: 40px;
-        top: -6px;
-        .flo();
-        background-position: -34px -13px;
-      }
     }
     .select-warp {
       float: left;
@@ -247,126 +149,205 @@
         }
       }
     }
-    &.w50{
-      float: left;
-      .input-warp{
-        width: auto;
-        min-width: 120px;
-        p{
-          white-space:nowrap;
-        }
-      }
-    }
-    &.w100{
-      clear: both;
-    }
-    &.cl{
-      display: inline-block;
-    }
-    .radio-warp{
-      .icon{
-        vertical-align: middle;
-        position: relative;
-        top:-2px;
-      }
-      .radioname{
-        font-size: 16px;
-        color: @grayColor;
-      }
-    }
-    .dial-select{
-      width: 120px;
-      padding-top: 6px;
-      .select-ul{
-        top: 36px;
-      }
-    }
-
   }
 }
-.error-warp{
-  text-align: center;
-  padding-bottom: 10px;
+.select-warp {
+  position: relative;
   p{
+    background-color: #F8F8FA;
+    border: 1px solid #D9D7E5;
+    height: 41px;
+    padding: 0 35px 0 10px;
     font-size: 14px;
-    &.error{
-      color: @redColor;
-      padding: 0;
+    line-height: 41px;
+    cursor: pointer;
+    .user-select();
+    position: relative;
+    &:before{
+      display: block;
+      content: '';
+      width: 15px;
+      height: 9px;
+      .flo();
+      background: data-uri('@{url}/select-icon03.png') no-repeat 0 0;
+      position: absolute;
+      right: 14px;
+      top: 17px;
     }
   }
-}
-.dialog-allocation{
-  width: 500px;
-  padding-bottom: 20px;
-  .title{
-    font-size: 16px;
-    padding-bottom: 10px;
-    color: @grayColor;
+  .select-ul{
+    width: 100%;
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 50px;
+    height: 150px;
+    z-index: 2;
   }
-}
-.pop-manager{
-  padding: 70px 60px;
-  text-align: center;
-  p{
-    font-size: 20px;
+  ul{
+    padding: 10px 0;
+    background-color: #F2F1F9;
+  }
+  &.select-open{
+    p{
+      &:before{
+        .transform(rotate(180deg));
+      }
+    }
+    .select-ul{
+      display: block;
+    }
+  }
+  li{
+    height: 28px;
+    padding: 0 20px;
+    margin-top: 2px;
+    font-size: 14px;
+    line-height: 27px;
     color: @grayColor;
+    cursor: pointer;
+    &:first-child{
+      margin-top: 0;
+    }
+    &:hover{
+      background-color: lighten(#d5d9e5,3%);
+    }
   }
 }
 .pop-default{
-  padding: 40px 50px;
+  padding: 60px 10px 20px;
   text-align: center;
-  &.nop10{
-    padding-bottom: 10px;
-  }
   p{
     font-size: 18px;
-    color: @grayColor;
-    padding: 30px 0 10px;
     a{
-      color: @greenText;
+      color: @greenColor;
       display: inline-block;
       padding: 0 5px;
     }
-    &.title{
-      font-size: 20px;
-      padding: 15px 0;
-      position: relative;
-      .icon{
-        .wh(30px);
-        display: inline-block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        &.succ{
-          background-position: 0 -24px;
-        }
-        &.fail{
-          background-position: -30px -72px;
-        }
-        &.tips{
-          background-position: -31px -24px;
+  }
+}
+.dialog-left{
+  i{
+    &.score{
+      display: inline-block;
+      margin-left: 15px;
+      width: 41px;
+      height: 24px;
+      line-height: 24px;
+      font-size: 16px;
+      border-radius: 20px;
+      text-align: center;
+      color: @whiteColor;
+    }
+    &.score1{
+      background-color: #ef6262;
+    }
+    &.score2{
+      background-color: #ef8662;
+    }
+    &.score3{
+      background-color: #efa462;
+    }
+
+    &.score4{
+      background-color: #a6a6a6;
+    }
+  }
+}
+.dialog-tabwap{
+  .w820 {
+    width: 820px;
+  }
+  .w900 {
+    width: 900px;
+    max-height: 400px;
+  }
+  table{
+    font-size: 14px;
+    color: #363636;
+    border: 1px solid #e3e5eb;
+    border-width: 1px 1px 0;
+    th,td{
+      border-bottom: 1px solid #e3e5eb;
+    }
+    th{
+      text-align: right;
+      font-weight: normal;
+      background: #f6f6f6;
+      color: #333;
+    }
+    &.dialog-table,&.score-table{
+      width: 800px;
+      th{
+        padding:10px 20px 10px 10px;
+      }
+      td{
+        width:220px;
+        padding:10px 0 10px 20px;
+      }
+    }
+    &.score-table{
+      th{
+        width: 170px;
+        padding:10px;
+      }
+    }
+    &.edu-table{
+      width: 880px;
+      th{
+        padding:10px;
+        width: 90px;
+      }
+      td{
+        padding:10px;
+        max-width: 160px;
+        &.picture{
+          text-align: center;
+          max-width: none;
+          width: 112px;
+          img{
+            width: 112px;
+          }
         }
       }
-      span{
-        padding-left:40px;
-        display: inline-block;
-        position: relative;
-        line-height: 30px;
-        text-align: left;
+      .bg{
+        th,td{
+          background: #f6f6f6;
+        }
       }
     }
   }
 }
-
 .dialog-select{
-  padding-top: 30px;
-  .checkall{
+  .data-table{
+    width: 740px;
+    .w160{
+      position: relative;
+    }
+    .select-warp {
+      position: absolute;
+      top:8px;
+      right: 10px;
+      width: 80%;
+      p{
+        height: 33px;
+        line-height: 33px;
+        &:before{
+          top: 13px;
+        }
+      }
+      .select-ul{
+        top: 35px;
+      }
+    }
+  }
+  .data-table,.checkall{
     .icon {
       .wh(17px);
       display: inline-block;
       background-position: 0 -55px;
     }
-    &.checked{
+    .checked,&.checked{
       .icon{
         background-position: -19px -55px;
       }
@@ -376,6 +357,7 @@
     font-size: 14px;
     height: 17px;
     line-height: 17px;
+    margin:15px 0 0 16px;
     display: inline-block;
     cursor: pointer;
     span{
