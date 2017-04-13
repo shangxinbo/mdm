@@ -85,7 +85,7 @@
                                     <router-link :to="{path : '/call/cate',query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="userType==1">
-                                     <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
+                                    <router-link :to="{ path : '/call/cate',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -119,15 +119,15 @@
     export default {
         data: function () {
             return {
-                list: [],  
-                head :[],
+                list: [],
+                head: [],
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
                 search_name: null,
                 search_client_id: null,
-                search_agent_id: null ,
-                search_start_time : null,
+                search_agent_id: null,
+                search_start_time: null,
                 search_end_time: null,
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
@@ -152,11 +152,11 @@
             alert,
         },
         methods: {
-            init : function () {
+            init: function () {
                 let agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : null
-                let client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : null 
+                let client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : null
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.search_client_id = client_id 
+                this.search_client_id = client_id
                 this.search_agent_id = agent_id
                 this.refresh()
                 this.heads()
@@ -184,7 +184,7 @@
                     }
                 })
             },
-            heads : function () {
+            heads: function () {
                 let _this = this
                 mAjax(this, {
                     url: API.call_head,
@@ -230,6 +230,11 @@
         },
         created: function () {
             this.init()
+            let _this = this
+            document.onkeyup = function (evt) {
+                if (evt.keyCode == 13)
+                    _this.search()
+            }
         }
     }
 

@@ -93,21 +93,21 @@
                                     <input type="radio" name="sendMode" class="radio" id="sendBatch" value="sendBatch" checked="checked">
                                     <i class="icon"></i>
                                     <span class="radioname">通过</span>
-                                    <ul class="data-in">
+                                    <ul class="data-in" v-show="option==1">
                                         <li>
                                             <span>线索单价</span>
                                             <input class="text" v-model="clue_price" type="text">
-                                            <span>/条</span>
+                                            <span>元/条</span>
                                         </li>
                                         <li>
                                             <span>话费单价</span>
                                             <input class="text" v-model="call_price" type="text">
-                                            <span>/分钟</span>
+                                            <span>元/分钟</span>
                                         </li>
                                         <li>
                                             <span>坐席单价</span>
                                             <input class="text" v-model="seat_price" type="text">
-                                            <span>/个/月</span>
+                                            <span>元/个/月</span>
                                         </li>
                                     </ul>
                                     <p v-if="price_error" class="error">{{price_error}}</p>

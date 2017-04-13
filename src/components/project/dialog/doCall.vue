@@ -42,7 +42,7 @@
                     </div>
                 </li>
                 <li class="cl">
-                    <label>备注说明</label>
+                    <label>备注说明<em class="tips">（选填）</em></label>
                     <div class="input-warp">
                         <textarea v-model="des"></textarea>
                     </div>
