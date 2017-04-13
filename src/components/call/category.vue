@@ -41,7 +41,7 @@
                         </li>
                     </ul>
                 </form>
-                 <div class="data-export" v-if="userType ==3&&head.length>0">
+                 <div class="data-export" v-if="userType ==3&&head.seat_num">
                      <ul>
                         <li>
                             <span class="t">参与坐席</span>
@@ -67,16 +67,20 @@
                     </ul>
                 </div>
                 <div class="data-export" v-else>
-                    <ul>
-                        <li>
-                            <span class="t">拨通次数</span>
-                            <span class="num">{{head.effect_call_times}}</span>
-                        </li>
-                        <li>
-                            <span class="t">通话时长</span>
-                            <span class="num">{{head.charge_time}}</span>
-                        </li>
-                    </ul>
+                    <div v-if="head.effect_call_times">
+                        <ul>
+                            <li>
+                                <span class="t">拨通次数</span>
+                                <span class="num">{{head.effect_call_times}}</span>
+                            </li>
+                            <li>
+                                <span class="t">通话时长</span>
+                                <span class="num">{{head.charge_time}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div v-else>
+                    </div>
                 </div>
             </div>
             <div class="data-warp">
