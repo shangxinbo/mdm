@@ -6,11 +6,9 @@
         <div class="main">
             <div class="title-warp" v-if="userType==3">
                 坐席计费
-
             </div>
             <div class="title-warp" v-if="userType==1">
                 {{customer_name ? customer_name + '的坐席计费' : (agent_name ? agent_name + '的坐席计费' : '坐席计费')}}
-
             </div>
             <div class="data-property">
                 <form>
@@ -96,6 +94,7 @@
                 totalPage: 1,
                 type: 'all',
                 url: API.expense_seat,
+                url_count: API.expense_seat_count,
                 search_name: '',
                 search_agent: '',
                 search_start_time: '',
@@ -149,17 +148,22 @@
                 if (this.agent_id && this.agent_name) {
                     this.type = 'agent'
                     this.url = API.expense_seat
+                    this.url_count = API.expense_seat_count
                 } else if (this.customer_id && this.customer_name) {
                     this.type = 'user'
                     this.url = API.expense_seat
+                    this.url_count = API.expense_seat_count
                     this.search_customer = this.customer_id
                 } else if (this.type == 'customer') {
                     this.url = API.customer_expense_project
+                    this.url_count = API.customer_seat_count
                 } else {
                     this.type = 'all'
                     this.url = API.expense_seat
+                    this.url_count = API.expense_seat_count
                 }
                 this.refresh()
+                this.getcount()
             },
             refresh: function () {
                 let _this = this
@@ -176,17 +180,13 @@
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.list = data.data.data.data
-                            _this.sum = {
-                                num: data.data.seat_num,
-                                cost: data.data.seat_price
-                            }
+                            _this.list = data.data.data
                             if (data.data.data.data) {
-                                _this.price = data.data.data.data[0]['price']
+                                _this.price = data.data.data[0]['price']
                             } else {
                                 _this.price = 0
                             }
-                            _this.totalPage = Math.ceil(data.data.data.total / data.data.data.per_page)
+                            _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
@@ -213,6 +213,31 @@
                     name: this.$route.name,
                     query: obj
                 })
+            },
+            getcount: function () {
+                let _this = this
+                mAjax(this, {
+                    url: _this.url_count,
+                    data: {
+                        uid: _this.search_customer,
+                        company: _this.search_name ? _this.search_name : '',
+                        superior_id: _this.search_agent ? _this.search_agent : '',
+                        created_at_start: _this.start_time,
+                        created_at_end: _this.end_time,
+                    },
+                    success: (data) => {
+                        if (data.code == 200) {
+                            _this.sum = {
+                                num: data.data.seat_num,
+                                cost: data.data.seat_price
+                            }
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+
+
             }
         },
         created: function () {
