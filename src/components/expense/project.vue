@@ -36,12 +36,12 @@
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
                                     <datepicker input-class="date" :disabled="datepicker_disabled" language="zh"
-                                                format="yyyy.MM.dd" v-model="start_time"></datepicker>
+                                                format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
                                     <datepicker input-class="date" :disabled="datepicker_disabled" language="zh"
-                                                format="yyyy.MM.dd" v-model="end_time"></datepicker>
+                                                format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -102,8 +102,6 @@
                 search_status: '',
                 search_start_time: '',
                 search_end_time: '',
-                start_time: '',
-                end_time: '',
                 agent_id: '',
                 agent_name: '',
                 customer_id: '',
@@ -178,8 +176,8 @@
                         uid: _this.search_customer ? _this.search_customer : '',
                         superior_id: _this.search_agent ? _this.search_agent : '',
                         status: _this.search_status ? _this.search_status : '',
-                        created_at_start: _this.start_time ? _this.start_time : '',
-                        created_at_end: _this.end_time ? _this.end_time : ''
+                        created_at_start: _this.search_start_time ? _this.search_start_time : '',
+                        created_at_end: _this.search_end_time ? _this.search_end_time : ''
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -199,13 +197,15 @@
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
+                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
+                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
                     search_status: search_status,
-                    search_start_time: dateFormat(this.start_time),
-                    search_end_time: dateFormat(this.end_time),
+                    search_start_time: start_time,
+                    search_end_time: end_time,
                     page: 1
                 })
                 this.$router.replace({
