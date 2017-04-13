@@ -83,7 +83,7 @@
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            _this.totalPage = Math.ceil(data.data.total / 10)
+                            _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }

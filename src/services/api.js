@@ -39,11 +39,13 @@ export default {
     expense_project_user: API_PRE + '/operate/charginuser',
     expense_project_agent: API_PRE + '/operate/chargingagent',
     expense_seat: API_PRE + '/operate/chargingseat',
+    expense_seat_count: API_PRE + '/operate/chargingseatcount',
     expense_seat_agent: API_PRE + '/operate/chargingagentseat',
     expense_balance_in: API_PRE + '/customer/recharge',
     expense_balance_out: API_PRE + '/customer/consume',
     customer_expense_project: API_PRE + '/customer/chargingproject',
     customer_seat: API_PRE + '/customer/chargingseat',
+    customer_seat_count: API_PRE + '/customer/chargingseatcount',
     customer_my_seat_list: API_PRE + '/customer/seat',
     project_type_list: API_PRE + '/project/type',
     project_add: API_PRE + '/project/create',
@@ -58,6 +60,6 @@ export default {
     call_cate: API_PRE + '/teltraffic/category',
     call_head: API_PRE + '/teltraffic/heads',
     get_seat_sign: API_PRE + '/callCenter/getSignInData',
-    save_call_uuid:API_PRE + '/callCenter/saveCallUuid',
-    add_call_job:API_PRE + '/callCenter/addJob'
+    save_call_uuid: API_PRE + '/callCenter/saveCallUuid',
+    add_call_job: API_PRE + '/callCenter/addJob'
 }
