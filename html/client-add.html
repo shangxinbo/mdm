@@ -104,7 +104,7 @@
                     </li>
                     <li>
                         <div class="input-warp">
-                            <button class="btn blue" type="button">提交</button>
+                            <button class="btn blue" type="button" onclick="getWindow('submitSucc');">提交</button>
                         </div>
                     </li>
                 </ul>
@@ -113,6 +113,14 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 项目申请已提交审核弹窗-->
+<div class="dialog tips-succ" id="submitSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>项目申请已提交审核</span></p>
+        </div>
+    </div>
+</div>
 <!-----------------------header下拉弹窗------------------------->
 <!-- 修改密码弹窗 -->
 <div class="dialog" id="editPassword">

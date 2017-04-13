@@ -136,7 +136,7 @@
         </div>
     </div>
     <div class="dialog-footer">
-        <button class="btn blue" type="button">确定</button>
+        <button class="btn blue" type="button" onclick="getWindow('submitSucc');">确定</button>
         <button class="btn" type="button" onclick="hideDialog('projectOpen');">取消</button>
     </div>
 </div>
@@ -153,8 +153,16 @@
         </div>
     </div>
     <div class="dialog-footer">
-        <button class="btn blue" type="button">确定</button>
+        <button class="btn blue" type="button" onclick="getWindow('submitSucc');">确定</button>
         <button class="btn" type="button" onclick="hideDialog('projectRefuse');">取消</button>
+    </div>
+</div>
+<!-- 审核结果提交成功弹窗-->
+<div class="dialog tips-succ" id="submitSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>审核结果提交成功</span></p>
+        </div>
     </div>
 </div>
 <!-----------------------header下拉弹窗------------------------->

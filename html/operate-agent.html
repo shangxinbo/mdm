@@ -58,7 +58,7 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>代理账号</th><th>代理名称</th><th>姓名</th><th>邮箱</th><th>手机号</th><th>归属地</th><th>所在位置</th><th>创建日期</th><th>操作</th></tr>
+                    <tr><th>代理账号</th><th>代理名称</th><th>姓名</th><th>邮箱</th><th>手机号</th><th>归属地</th><th class="w250">所在位置</th><th>创建日期</th><th>操作</th></tr>
                     <tr><td>CCCWWW1</td><td>代理1</td><td>张三</td><td>zhangsan@133.com</td><td>13811146397</td><td>北京</td><td>北京市西城区西直门内大街33号</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
                     <tr class="tr2"><td>CCCWWW1</td><td>代理1</td><td>张三</td><td>zhangsan@133.com</td><td>13811146397</td><td>北京</td><td>北京市西城区西直门内大街33号</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
                     <tr><td>CCCWWW1</td><td>代理1</td><td>张三</td><td>zhangsan@133.com</td><td>13811146397</td><td>北京</td><td>北京市西城区西直门内大街33号</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
@@ -167,7 +167,7 @@
         </ul>
     </div>
     <div class="dialog-footer">
-        <a class="btn blue" href="javascript:void(0);">确定</a>
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('submitSucc','tips-succ');">确定</a>
         <a class="btn" href="javascript:void(0);" onclick="hideDialog('agentNew');">取消</a>
     </div>
 </div>
@@ -195,6 +195,7 @@
                 <label>联系人姓名</label>
                 <div class="input-warp">
                     <input class="text" type="text" value="张三">
+                    <p class="error">请填写姓名</p>
                 </div>
             </li>
             <li>
@@ -241,6 +242,14 @@
     <div class="dialog-body">
         <div class="pop-default">
             <p class="title"><span><i class="icon succ"></i>密码重置成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 新建代理成功弹窗-->
+<div class="dialog tips-succ" id="submitSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>新建代理成功</span></p>
         </div>
     </div>
 </div>
