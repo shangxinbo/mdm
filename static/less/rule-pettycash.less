@@ -1,0 +1,60 @@
+@import (reference) "base.less";
+@import "check-down-up.less"; // 展开收起
+
+//---------------------------------------------- 规则配置 ------------------------------------------------------
+.rule-warp{
+  .tips{
+    position: relative;
+    font-size: 18px;
+    height: 28px;
+    line-height: 28px;
+    color: @violetColor;
+    padding:16px 20px 16px 60px;
+    background-color: #fff9cf;
+    margin: 25px 0 5px;
+    .icon{
+      .flo();
+      background: url('@{url}/dialog-icon.png') no-repeat;
+    }
+    .icon{
+      position: absolute;
+      .wh(28px);
+      left: 20px;
+      top: 50%;
+      margin-top: -14px;
+      background-position: -67px -72px;
+    }
+  }
+  .section-title{
+    .name{
+      font-size: 16px;
+      padding: 25px 0 20px;
+      display: block;
+      em{
+        background-color: #c7c9d5;
+        font-size: 14px;
+        color: @whiteColor;
+        height: 20px;
+        line-height: 20px;
+        display: inline-block;
+        padding: 0 10px;
+        border-radius: 10px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .section{
+    margin: 0 35px 10px;
+    width: auto;
+    dd{
+      li{
+        span{
+          &.name{
+            width: 70%;
+          }
+        }
+      }
+    }
+  }
+}
+//---------------------------------------------- 规则配置 End ------------------------------------------------

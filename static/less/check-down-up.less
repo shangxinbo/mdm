@@ -1,0 +1,139 @@
+@import (reference) "base.less";
+.icon,.section dt:before{
+  .flo();
+  background: url('@{url}/dialog-icon.png') no-repeat 0 0;
+}
+.report-check-warp{
+  padding: 15px 40px 10px;
+  .title{
+    font-size: 18px;
+    padding-bottom: 25px;
+    text-align: center;
+  }
+  .section{
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    dt{
+      cursor: pointer;
+      background: #e7e7f1;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 25px;
+      font-size: 16px;
+      position: relative;
+      color: @grayColor;
+      .name{
+         em{
+           background-color: #b9bcca;
+           font-size: 14px;
+           color: @whiteColor;
+           height: 20px;
+           line-height: 20px;
+           display: inline-block;
+           padding: 0 10px;
+           border-radius: 10px;
+           margin-left: 10px;
+         }
+       }
+      .open{
+        position: absolute;
+        right: 0;
+        height: 20px;
+        top: 50%;
+        margin-top: -9px;
+        margin-right: 60px;
+        text-align: right;
+        line-height: 20px;
+        font-size: 14px;
+        color: @greenText;
+        em{
+          background-color: @greenColor;
+          color: @whiteColor;
+          height: 20px;
+          line-height: 20px;
+          display: inline-block;
+          padding: 0 10px;
+          border-radius: 10px;
+          margin-left: 10px;
+        }
+      }
+      &:before {
+        display: block;
+        content: '';
+        width: 16px;
+        height: 10px;
+        font-size: 0;
+        line-height: 0;
+        overflow: hidden;
+        background-position:-29px -87px;
+        position: absolute;
+        right: 25px;
+        top: 50%;
+        margin-top: -5px;
+      }
+    }
+    dd{
+      background: #f8f8fc;
+      display: none;
+      li{
+        border-top: 1px solid #E4E2EE;
+        margin: 0 25px;
+        padding:18px 0;
+        &:first-child{
+          border: none;
+        }
+        span{
+          display: inline-block;
+          text-align: center;
+          font-size: 14px;
+          color: @grayColor;
+          &.num{
+            width: 25%;
+          }
+          &.mode{
+            width: 23%;
+            color: #8b8b8b;
+            .icon{
+              display: none;
+              .wh(15px);
+              background-position: -39px -55px;
+              position: absolute;
+              margin-right: 5px;
+              top: 0;
+              left: 0;
+            }
+            em{
+              padding-left: 22px;
+              display: inline-block;
+              position: relative;
+            }
+          }
+          &.name{
+            width: 50%;
+          }
+        }
+        &.checked{
+          span{
+            &.mode{
+              color: @grayColor;
+              .icon{
+                display: inline-block;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.active{
+      dt{
+        &:before {
+          background-position:-29px -77px;
+        }
+      }
+      dd{
+        display: block;
+      }
+    }
+  }
+}
