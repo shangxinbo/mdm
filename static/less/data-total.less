@@ -1,0 +1,209 @@
+@import (reference) "base.less";
+
+//---------------------------------------------- 数据统计条（数据概览，账号信息） ------------------------------------------------------
+
+.section-total{
+  .icon{
+    .flo();
+    background: url('@{url}/data-icon.png') no-repeat;
+  }
+  height: 134px;
+  border-bottom: 1px solid @lineColor1;
+  .left{
+    height: 134px;
+    float: left;
+    position: relative;
+    &:before{
+      display: block;
+      content: '';
+      width: 1px;
+      height: 50px;
+      .flo();
+      background:#E7E6EF;
+      position: absolute;
+      top: 50%;
+      right:0;
+      margin-top: -25px;
+    }
+    li{
+      float: left;
+      display: inline-block;
+      height: 84px;
+      margin-top: 25px;
+      position: relative;
+      color: @violetColor;
+      em{
+        font-size: 28px;
+        display: block;
+        padding:12px 0 8px;
+        overflow: hidden;
+      }
+      span{
+        font-size: 16px;
+        display: block;
+      }
+    }
+  }
+  @keyframes rotate{
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(-360deg);}
+  }
+  .side{
+    float: right;
+    height: 132px;
+
+    .icon{
+      position: absolute;
+      left: 0;
+      top: 12px;
+      z-index: 2;
+    }
+    .icon-bg{
+      .wh(58px);
+      z-index: 1;
+      background-position:-29px 0;
+      .animation(rotate,10s,linear,0ms,infinite,normal);
+    }
+    .icon1{
+      .wh(19px);
+      background-position:0 -62px;
+      left: 20px;
+      top: 32px;
+    }
+    .icon2{
+      width: 27px;
+      height: 22px;
+      background-position:0 -87px;
+      left: 18px;
+      top: 31px;
+    }
+    .icon3{
+      .wh(19px);
+      background-position:0 -115px;
+      left: 20px;
+      top: 32px;
+    }
+    .icon4{
+      .wh(24px);
+      background-position:0 -169px;
+      left: 18px;
+      top: 29px;
+    }
+    .icon5{
+      width: 25px;
+      height: 23px;
+      background-position:0 -198px;
+      left: 17px;
+      top: 29px;
+    }
+    li{
+      float: left;
+      height: 84px;
+      margin-top: 24px;
+      position: relative;
+      color: @violetColor;
+      div{
+        width: 120px;
+        margin: 0 auto;
+        padding-left: 60px;
+        font-size: 16px;
+        position: relative;
+      }
+      em{
+        font-size: 28px;
+        display: block;
+        padding:12px 0 8px;
+      }
+    }
+  }
+}
+@media (max-width: 1440px){
+  .section-total{
+    .left,.side{
+      li{
+        em{
+          font-size: 26px;
+          padding-top: 14px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1366px){
+  .section-total{
+    .left{
+      li{
+        em{
+          font-size: 22px;
+          padding-top: 16px;
+        }
+        span{
+          font-size: 14px;
+        }
+      }
+    }
+    .side{
+      li{
+        div{
+          font-size: 14px;
+        }
+        em{
+          font-size: 22px;
+          padding-top: 16px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1200px){
+  .section-total{
+    .left{
+      li{
+        em{
+          font-size: 20px;
+          padding-top: 18px;
+        }
+        span{
+          font-size: 12px;
+        }
+      }
+    }
+    .side{
+      li{
+        div{
+          font-size: 12px;
+        }
+        em{
+          font-size: 20px;
+          padding-top: 18px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1024px){
+  .section-total{
+    .left{
+      li{
+        em{
+          font-size: 16px;
+          padding-top: 20px;
+        }
+        span{
+          font-size: 12px;
+        }
+      }
+    }
+    .side{
+      li{
+        div{
+          font-size: 12px;
+        }
+        em{
+          font-size: 16px;
+          padding-top: 20px;
+        }
+      }
+    }
+  }
+}
