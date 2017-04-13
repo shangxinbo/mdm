@@ -1,4 +1,3 @@
-
 export const mAjax = (vm, options) => {
     vm.$http.post(options.url, options.data).then(function (data) {
         if (data.status == 200) {
@@ -19,19 +18,21 @@ export const mAjax = (vm, options) => {
 }
 
 export const setCookie = (name, value, end, path, domain, secure) => {
-    if (!name) { return false }
+    if (!name) {
+        return false
+    }
     let expires = ""
     if (end) {
         switch (end.constructor) {
-        case Number:
-            expires = end === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + end
-            break
-        case String:
-            expires = "; expires=" + end
-            break
-        case Date:
-            expires = "; expires=" + end.toUTCString()
-            break
+            case Number:
+                expires = end === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + end
+                break
+            case String:
+                expires = "; expires=" + end
+                break
+            case Date:
+                expires = "; expires=" + end.toUTCString()
+                break
         }
     }
     document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value)
@@ -49,14 +50,18 @@ export const getCookie = (name) => {
 
 export const delCookie = (name, path, domain) => {
     let hasName = (new RegExp("(?:^|;\\s*)" + encodeURIComponent(name).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie)
-    if (!name || !hasName) { return false }
+    if (!name || !hasName) {
+        return false
+    }
     document.cookie = encodeURIComponent(name) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (domain ? "; domain=" + domain : "") + (path ? "; path=" + path : "")
     return true
 }
 
 export const listCookie = () => {
     let aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/)
-    for (let nIdx = 0; nIdx < aKeys.length; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]) }
+    for (let nIdx = 0; nIdx < aKeys.length; nIdx++) {
+        aKeys[nIdx] = decodeURIComponent(aKeys[nIdx])
+    }
     return aKeys
 }
 
@@ -217,3 +222,30 @@ export const dateFormat = (date) => {
         return ''
     }
 }
+
+export const codeToName = (code) => {
+    switch (code) {
+        case -3:
+            return '未通过'
+            break
+        case -1:
+            return '待审核'
+            break
+        case 0:
+            return '准备中'
+            break
+        case 1:
+            return '进行中'
+            break
+        case 2:
+            return '已暂停'
+            break
+        case 3:
+            return '已结束'
+            break
+        default:
+            return '暂无'
+    }
+}
+
+
