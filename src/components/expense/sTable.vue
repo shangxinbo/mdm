@@ -2,7 +2,7 @@
     <table cellspacing="0" cellpadding="0">
         <tbody>
             <tr>
-                <th v-if="type!='customer'&&userType!=3">客户名称</th>
+                <th v-if="(type=='all'||type=='agent')&&userType!=3">客户名称</th>
                 <th v-if="type=='all'&&userType!=3">所属代理</th>
                 <th>开通坐席数</th>
                 <th v-if="userType!=3">坐席单价</th>
@@ -12,8 +12,8 @@
                 <th>失效日期</th>
             </tr>
             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                <td v-if="type!='customer'&&userType!=3">
-                    <router-link :to="{query:{customer_id:item.id,customer_name:item.company}}">{{item.company}}</router-link>
+                <td v-if="(type=='all'||type=='agent')&&userType!=3">
+                    <router-link :to="{query:{customer_id:item.client_id,customer_name:item.company}}">{{item.company}}</router-link>
                 </td>
                 <td v-if="type=='all'&&userType!=3">
                     <router-link :to="{query:{agent_id:item.superior_id,agent_name:item.name}}">{{item.name}}</router-link>
