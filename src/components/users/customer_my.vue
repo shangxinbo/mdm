@@ -64,7 +64,7 @@
                 </form>
                 <div class="data-card">
                     <div class="title">联系人信息</div>
-                    <a class="btn blue"href="javascript:void(0);" @click="showEditDialog">
+                    <a class="btn blue" href="javascript:void(0);" @click="showEditDialog">
                         <span>
                             <i class="icon edit"></i>修改</span>
                     </a>
@@ -94,7 +94,8 @@
                 </div>
             </div>
         </div>
-        <editDialog ref="editDialog" :id="detail.id" :username="detail.user_name" :email="detail.mail" :tel="detail.tel" :addr="detail.store_addr" :self_addr="detail.location"></editDialog>
+        <editDialog ref="editDialog" :id="detail.id" :username="detail.user_name" :email="detail.mail" :tel="detail.tel" :addr="detail.store_addr"
+            :self_addr="detail.location"></editDialog>
         <alert ref="alert"></alert>
     </div>
 </template>
@@ -140,13 +141,8 @@
             }
         },
         created: function () {
-            let id = this.$route.params.id
-            let api = this.userType == 1 ? API.customer_detail_by_operate : API.customer_info
             mAjax(this, {
-                url: api,
-                data: {
-                    id: id
-                },
+                url: API.customer_info,
                 success: data => {
                     if (data.code == 200) {
                         this.detail = data.data
