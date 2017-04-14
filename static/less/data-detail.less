@@ -177,7 +177,6 @@
   }
   .data-view{
     &>li{
-      padding:7px 0;
       .name {
         color: @grayColor2;
       }
@@ -197,17 +196,18 @@
   .license{
     position: absolute;
     right: 0;
-    top: 0;
+    top:0;
     width: 500px;
     text-align: center;
     z-index: 2;
+    overflow: hidden;
     .t{
       font-size: 14px;
       padding-bottom: 10px;
       display: block;
     }
     img{
-      width: 100%;
+      height: 350px;
     }
   }
 }
