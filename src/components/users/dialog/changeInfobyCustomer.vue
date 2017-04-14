@@ -37,7 +37,7 @@
                 <li>
                     <label>所在位置</label>
                     <div class="input-warp">
-                        <input class="text" type="text" v-model="self_addr">
+                        <input class="text" type="text" v-model="selfaddr">
                         <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                     </div>
                 </li>
@@ -64,7 +64,7 @@
                 self_addr_error: ''
             }
         },
-        props:['id','username','email','tel','addr','self_addr'],
+        props:['id','username','email','tel','addr','selfaddr'],
         methods: {
             close: function () {
                 this.username_error = ''
@@ -114,7 +114,7 @@
                     this.addr_error = '请填写归属地'
                     return false
                 }
-                if (!this.self_addr) {
+                if (!this.selfaddr) {
                     this.self_addr_error = '请填写所在位置'
                     return false
                 }
@@ -127,7 +127,7 @@
                         mail: this.email,
                         tel: this.tel,
                         regoin: this.addr,
-                        application_addr: this.self_addr
+                        application_addr: this.selfaddr
                     },
                     success: data => {
                         if (data.code == 200) {
