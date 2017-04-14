@@ -10,7 +10,7 @@
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
                     </router-link>
-                    <router-link to="/user/myself" class="my" v-if="type==3">
+                    <router-link to="/user/cusmy" class="my" v-if="type==3">
                         <i class="icon icon03"></i>
                         <span>我的账号</span>
                     </router-link>

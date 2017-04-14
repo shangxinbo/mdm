@@ -197,7 +197,11 @@
                         if (data.code == 200) {
                             _this.list = data.data.data
                             _this.totalPage = Math.ceil(data.data.total / 10)
-                        } else {
+                        } else if(data.code==10005){
+                            _this.$refs.alert.$emit('show', data.message,function(){
+                                _this.$router.replace('/')
+                            })
+                        }else {
                             _this.$refs.alert.$emit('show', data.message)
                         }
                     }

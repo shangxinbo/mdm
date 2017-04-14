@@ -33,7 +33,7 @@
         props: ['api', 'id', 'initlist', 'error'],
         watch: {
             id: function (newVal, oldVal) {
-                if (newVal!='') {
+                if (newVal=='') {
                     this.selected = {
                         id: '',
                         name: '全部'
@@ -81,10 +81,11 @@
             }
         },
         created: function () {
-            let id = this.id
             let _this = this
             if (this.initlist) {
                 this.list = this.initlist
+                let id = this.id
+                if(!id) return false
                 for (let i in this.list) {
                     if (i == id) {
                         this.selected = {
@@ -98,6 +99,8 @@
                     url: this.api,
                     success: data => {
                         this.list = data.data
+                        let id = this.id
+                        if(!id) return false
                         if (this.list instanceof Array) {
                             this.list.find((value, index, arr) => {
                                 if (value.code == id) {
