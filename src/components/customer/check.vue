@@ -8,7 +8,9 @@
             <div class="data-detail examine">
                 <div class="license">
                     <span class="t">营业执照</span>
-                    <img :src="detail.licence">
+                    <a :href="detail.licence" target="_blank">
+                        <img :src="detail.licence">
+                    </a>
                 </div>
                 <ul class="data-text data-view">
                     <li>
