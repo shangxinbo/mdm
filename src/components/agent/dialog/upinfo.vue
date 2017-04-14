@@ -180,10 +180,14 @@
                 if (!this.addr) {
                     this.addr_error = '请填写归属地'
                     return false
+                }else{
+                    this.addr_error = ''
                 }
                 if (!this.self_addr) {
                     this.self_addr_error = '请填写所在位置'
                     return false
+                }else{
+                    this.self_addr_error = ''
                 }
                 let _this = this
                 mAjax(this, {
