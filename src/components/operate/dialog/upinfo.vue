@@ -144,6 +144,7 @@
         },
         created: function () {
             let _this = this
+            
             this.$on('edit', function (id, user, username, email, tel) {
                 _this.style = 'block'
                 _this.user = user ? user : ''
@@ -152,6 +153,10 @@
                 _this.tel = tel ? tel : ''
                 _this.id = id
                 _this.edit = true
+                _this.user_error = ''
+                _this.username_error = ''
+                _this.email_error = ''
+                _this.tel_error = ''
                 _this.$store.commit('SHOW_LAYER')
             })
             this.$on('create', function () {
@@ -161,6 +166,10 @@
                 _this.email = ''
                 _this.tel = ''
                 _this.edit = false
+                _this.user_error = ''
+                _this.username_error = ''
+                _this.email_error = ''
+                _this.tel_error = ''
                 _this.$store.commit('SHOW_LAYER')
             })
         }

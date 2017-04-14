@@ -38,6 +38,26 @@
                         id: '',
                         name: '全部'
                     }
+                } else {
+                    if (this.list instanceof Array) {
+                        this.list.find((value, index, arr) => {
+                            if (value.code == newVal) {
+                                this.selected = {
+                                    id: value.code,
+                                    name: value.desc
+                                }
+                            }
+                        })
+                    } else {
+                        for (let i in this.list) {
+                            if (i == newVal) {
+                                this.selected = {
+                                    id: i,
+                                    name: this.list[i]
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },
@@ -65,42 +85,11 @@
             let _this = this
             if (this.initlist) {
                 this.list = this.initlist
-                if (id) {
-                    for (let i in _this.list) {
-                        if (i == id) {
-                            _this.selected = {
-                                id: i,
-                                name: _this.list[i]
-                            }
-                        }
-                    }
-                }
             } else {
                 mAjax(this, {
                     url: this.api,
                     success: data => {
                         this.list = data.data
-                        if (id) {
-                            if (this.list instanceof Array) {
-                                this.list.find((value, index, arr) => {
-                                    if (value.code == id) {
-                                        _this.selected = {
-                                            id: value.code,
-                                            name: value.desc
-                                        }
-                                    }
-                                })
-                            } else {
-                                for (let i in _this.list) {
-                                    if (i == id) {
-                                        _this.selected = {
-                                            id: i,
-                                            name: _this.list[i]
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
                 })
             }

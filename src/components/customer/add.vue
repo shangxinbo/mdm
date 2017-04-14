@@ -1,6 +1,3 @@
-<style lang="less">
-    @import '../../assets/less/data-cloud.less';
-</style>
 <template>
     <div class="warp">
         <div class="main">
@@ -17,7 +14,7 @@
                         </li>
                         <li>
                             <label class="name">客户类型</label>
-                            <mselect ref="typeSelect" :api="api.typeSelect" :error="type_error"></mselect>
+                            <mselect ref="typeSelect" :api="api.typeSelect" :id="type" :error="type_error"></mselect>
                         </li>
                         <li>
                             <label class="name">公司名称</label>
@@ -155,6 +152,7 @@
             return {
                 user: '',
                 user_error: '',
+                type:'',
                 type_error: '',
                 company: '',
                 company_error: '',
@@ -185,11 +183,6 @@
                 api: {
                     typeSelect: API.customer_type_list
                 }
-            }
-        },
-        computed: {
-            type: function () {
-                return this.$refs.typeSelect ? this.$refs.typeSelect.type.id : ''
             }
         },
         watch: {
@@ -372,7 +365,7 @@
                 let api = API.customer_add
                 let data = new FormData()
                 if (id) {
-                    data.append('id', this.id)
+                    data.append('id',id)
                     api = API.customer_modify
                 }
                 data.append('user', this.user)
@@ -413,15 +406,16 @@
                         if (data.code == 200) {
                             let detail = data.data
                             _this.user = detail.user
+                            _this.type = detail.type
                             _this.company = detail.company
                             _this.legal = detail.legal
                             _this.scope = detail.scope
-                            _this.addr = detail.addr
+                            _this.addr = detail.store_addr
                             _this.user_name = detail.user_name
-                            _this.email = detail.email
+                            _this.email = detail.mail
                             _this.tel = detail.tel
                             _this.location = detail.location
-                            _this.self_addr = detail.self_addr
+                            _this.self_addr = detail.application_addr
                             _this.edit_licence = detail.licence
                             _this.edit_qualification = detail.qualification
                         } else {
