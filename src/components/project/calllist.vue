@@ -191,12 +191,13 @@
                         is_dial: _this.is_dial,
                         dial_status: _this.dial_status,
                         created_at_start: _this.start_time,
-                        created_at_end: _this.start_time
+                        created_at_end: _this.start_time,
+                        page:_this.currentPage
                     },
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
-                            _this.totalPage = Math.ceil(data.data.total / 10)
+                            _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else if(data.code==10005){
                             _this.$refs.alert.$emit('show', data.message,function(){
                                 _this.$router.replace('/')
