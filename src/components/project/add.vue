@@ -39,7 +39,7 @@
                             <label class="name">预计开始时间</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="expectTime"></datepicker>
+                                    <datepicker input-class="date" style="z-index:-1" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="expectTime"></datepicker>
                                 </div>
                                 <p class="tips">未拨打的数据，三天后自动回收</p>
                                 <p v-if="expectTime_error" class="error">{{expectTime_error}}</p>

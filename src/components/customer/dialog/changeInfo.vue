@@ -7,7 +7,7 @@
         <div class="dialog-body">
             <ul class="query-warp">
                 <li>
-                    <label>客户名称</label>
+                    <label>账号</label>
                     <div class="input-warp">
                         <input class="text disabled" type="text" :value="user" disabled="disabled">
                     </div>
