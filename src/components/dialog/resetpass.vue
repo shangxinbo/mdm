@@ -37,16 +37,17 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
+    import REGULAR from 'src/services/reg'
     export default {
         data: function () {
             return {
                 style: 'none',
                 user: '',
                 id: '',
-                newpass:'',
-                newpass_error:'',
-                repass:'',
-                repass_error:''
+                newpass: '',
+                newpass_error: '',
+                repass: '',
+                repass_error: ''
             }
         },
         methods: {
@@ -59,20 +60,22 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                let reg = /^[a-zA-Z0-9]{6,18}$/
-                if(!this.newpass){
+                if (!this.newpass) {
                     this.newpass_error = '请填写新密码'
                     return false
-                }else{
-                    if(reg.test(this.newpass)){
+                } else {
+                    if (REGULAR.password.patten1.test(this.newpass)
+                        && REGULAR.password.patten2.test(this.newpass)
+                        && REGULAR.password.patten3.test(this.newpass)
+                        && REGULAR.password.patten4.test(this.newpass)) {
                         this.newpass_error = ''
-                        if(this.repass==this.newpass){
+                        if (this.repass == this.newpass) {
                             this.repass_error = ''
-                        }else{
+                        } else {
                             this.repass_error = '两次密码不同'
                             return false
                         }
-                    }else{
+                    } else {
                         this.newpass_error = '密码需是英文大小写加数字6~18位'
                         return false
                     }
@@ -80,14 +83,14 @@
                 let _this = this
                 mAjax(this, {
                     url: API.reset_operate_pass,
-                    data:{
-                        id:this.id,
-                        new_pwd:this.newpass,
-                        confirm_pwd:this.repass
+                    data: {
+                        id: this.id,
+                        new_pwd: this.newpass,
+                        confirm_pwd: this.repass
                     },
                     success: data => {
                         _this.close()
-                        _this.$store.commit('SHOW_TOAST','密码重置成功')
+                        _this.$store.commit('SHOW_TOAST', '密码重置成功')
                     },
                     error: err => {
                         console.log(err)
