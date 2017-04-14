@@ -387,6 +387,8 @@
                         _this.$refs.alert.$emit('show', msg, () => {
                             _this.$router.push('/customer/index')
                         })
+                    }else{
+                        _this.self_addr_error = res.data.message
                     }
                 }).catch(err => {
                     _this.$refs.alert.$emit('show', '程序未知错误')

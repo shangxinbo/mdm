@@ -45,7 +45,7 @@
                         <li>
                             <label class="name">客户类型</label>
                             <div class="input-warp">
-                                <p class="text">{{detail.type}}</p>
+                                <p class="text">{{detail.type_name}}</p>
                             </div>
                         </li>
                         <li>
@@ -74,7 +74,7 @@
                                 </p>
                             </div>
                         </li>
-                        <li v-if="detail.licence">
+                        <li v-if="detail.qualification">
                             <label class="name">其他资质</label>
                             <div class="input-warp">
                                 <p class="text">
@@ -140,7 +140,7 @@
                     audit_status: '',
                     balance_alarm: '',
                     user: '',
-                    type: '',
+                    type_name: '',
                     legal: '',
                     scope: '',
                     store_addr: '',
