@@ -33,8 +33,8 @@
                                 <td>{{item.user}}</td>
                                 <td>{{item.status==1?'有效':'失效'}}</td>
                                 <td>{{item.created_at}}</td>
-                                <td>{{item.created_at}}</td>
                                 <td>{{item.open_month}}</td>
+                                <td>{{item.expire_time}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
                                 </td>

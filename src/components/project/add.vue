@@ -17,7 +17,7 @@
                         </li>
                         <li>
                             <label class="name">项目类型</label>
-                            <mselect ref="projectTypeSelect" :api="api.project_type" :error="projectType_error"></mselect>
+                            <mselect ref="projectTypeSelect" :api="api.project_type" :id="type" :error="projectType_error"></mselect>
                         </li>
                         <li>
                             <label class="name">人群地域</label>
@@ -77,6 +77,7 @@
             return {
                 name: '',
                 name_error: '',
+                type:'',
                 projectType_error: '',
                 region: '',
                 region_error: '',
@@ -188,6 +189,7 @@
                         if (data.code == 200) {
                             let detail = data.data
                             _this.name = detail.name
+                            _this.type = detail.type
                             _this.region = detail.region
                             _this.expectClue = detail.expect_clue_num
                             _this.expectTime = detail.expect_begin_date

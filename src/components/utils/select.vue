@@ -33,7 +33,7 @@
         props: ['api', 'id', 'initlist', 'error'],
         watch: {
             id: function (newVal, oldVal) {
-                if (!newVal) {
+                if (newVal!='') {
                     this.selected = {
                         id: '',
                         name: '全部'
@@ -85,11 +85,38 @@
             let _this = this
             if (this.initlist) {
                 this.list = this.initlist
+                for (let i in this.list) {
+                    if (i == id) {
+                        this.selected = {
+                            id: i,
+                            name: this.list[i]
+                        }
+                    }
+                }
             } else {
                 mAjax(this, {
                     url: this.api,
                     success: data => {
                         this.list = data.data
+                        if (this.list instanceof Array) {
+                            this.list.find((value, index, arr) => {
+                                if (value.code == id) {
+                                    this.selected = {
+                                        id: value.code,
+                                        name: value.desc
+                                    }
+                                }
+                            })
+                        } else {
+                            for (let i in this.list) {
+                                if (i == id) {
+                                    this.selected = {
+                                        id: i,
+                                        name: this.list[i]
+                                    }
+                                }
+                            }
+                        }
                     }
                 })
             }
