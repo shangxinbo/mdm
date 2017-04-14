@@ -133,7 +133,7 @@
                             let msg = _this.edit ? '修改信息成功' : '新建账号成功'
                             _this.$store.commit('SHOW_TOAST', msg)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.tel_error = data.message
                         }
                     },
                     error: err => {
@@ -144,7 +144,7 @@
         },
         created: function () {
             let _this = this
-            
+
             this.$on('edit', function (id, user, username, email, tel) {
                 _this.style = 'block'
                 _this.user = user ? user : ''
