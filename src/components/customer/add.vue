@@ -8,7 +8,7 @@
                         <li>
                             <label class="name">账号</label>
                             <div class="input-warp">
-                                <input class="text" v-model="user" type="text">
+                                <input class="text" :disabled="id" v-model="user" type="text">
                                 <p v-show="user_error" class="error">{{user_error}}</p>
                             </div>
                         </li>
@@ -141,8 +141,8 @@
     import mselect from 'components/utils/select'
     import alert from 'components/dialog/alert'
     import axios from 'axios'
-    function scrollTop(todo,num) {
-        if (todo){
+    function scrollTop(todo, num) {
+        if (todo) {
             let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
             window.scrollBy(0, offset)
         }
@@ -152,7 +152,7 @@
             return {
                 user: '',
                 user_error: '',
-                type:'',
+                type: '',
                 type_error: '',
                 company: '',
                 company_error: '',
@@ -185,46 +185,51 @@
                 }
             }
         },
+        computed: {
+            id: function () {
+                return this.$route.params.id
+            }
+        },
         watch: {
             user_error(newVal, oldVal) {
-                scrollTop(newVal,0)
+                scrollTop(newVal, 0)
             },
             type_error(newVal, oldVal) {
-                scrollTop(newVal,1)
+                scrollTop(newVal, 1)
             },
             company_error(newVal, oldVal) {
                 console.log(newVal)
-                scrollTop(newVal,2)
+                scrollTop(newVal, 2)
             },
             legal_error(newVal, oldVal) {
-                scrollTop(newVal,3)
+                scrollTop(newVal, 3)
             },
             scope_error(newVal, oldVal) {
-                scrollTop(newVal,4)
+                scrollTop(newVal, 4)
             },
             addr_error(newVal, oldVal) {
-                scrollTop(newVal,5)
+                scrollTop(newVal, 5)
             },
             licence_error(newVal, oldVal) {
-                scrollTop(newVal,6)
+                scrollTop(newVal, 6)
             },
             qualification_error(newVal, oldVal) {
-                scrollTop(newVal,7)
+                scrollTop(newVal, 7)
             },
             user_name_error(newVal, oldVal) {
-                scrollTop(newVal,8)
+                scrollTop(newVal, 8)
             },
             email_error(newVal, oldVal) {
-                scrollTop(newVal,9)
+                scrollTop(newVal, 9)
             },
             tel_error(newVal, oldVal) {
-                scrollTop(newVal,10)
+                scrollTop(newVal, 10)
             },
             location_error(newVal, oldVal) {
-                scrollTop(newVal,11)
+                scrollTop(newVal, 11)
             },
             self_addr_error(newVal, oldVal) {
-                scrollTop(newVal,12)
+                scrollTop(newVal, 12)
             }
         },
         components: {
@@ -361,14 +366,14 @@
                     this.self_addr_error = ''
                 }
                 let _this = this
-                let id = this.$route.params.id
                 let api = API.customer_add
                 let data = new FormData()
-                if (id) {
-                    data.append('id',id)
+                if (this.id) {
+                    data.append('id', this.id)
                     api = API.customer_modify
+                } else {
+                    data.append('user', this.user)
                 }
-                data.append('user', this.user)
                 data.append('type', this.$refs.typeSelect.selected.id)
                 data.append('company', this.company)
                 data.append('legal', this.legal)
@@ -387,7 +392,7 @@
                         _this.$refs.alert.$emit('show', msg, () => {
                             _this.$router.push('/customer/index')
                         })
-                    }else{
+                    } else {
                         _this.self_addr_error = res.data.message
                     }
                 }).catch(err => {
