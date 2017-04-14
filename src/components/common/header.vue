@@ -78,7 +78,7 @@
                     url: API.logout,
                     success: function (data) {
                         localStorage.removeItem('user')
-                        _this.$router.push('/login')
+                        window.location.reload()
                     },
                     error: function (err) {
                         _this.error = err
