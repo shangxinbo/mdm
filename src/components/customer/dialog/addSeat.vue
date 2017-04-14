@@ -60,6 +60,13 @@
                     if (isNaN(this.add)) {
                         this.add_error = '输入不合法'
                         return false
+                    }else{
+                        if(this.add<=0){
+                            this.add_error = '新开坐席数量应大于0'
+                            return false
+                        }else{
+                            this.add_error = ''
+                        }
                     }
                 }
                 let _this = this
