@@ -22,7 +22,7 @@
                     <li>
                         <label class="name">客户类型</label>
                         <div class="input-warp">
-                            <p class="text">{{detail.type}}</p>
+                            <p class="text">{{detail.type_name}}</p>
                         </div>
                     </li>
                     <li class="li-bg">
@@ -152,7 +152,7 @@
                     balance: '',
                     balance_alarm: '',
                     user: '',
-                    type: '',
+                    type_name: '',
                     legal: '',
                     scope: '',
                     store_addr: '',
