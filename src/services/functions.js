@@ -8,7 +8,9 @@ export const mAjax = (vm, options) => {
                 vm.$router.replace('/login')
             } else if (data.data.code == 10003) {
                 vm.$router.replace('/initpass')
-            } else {
+            } else if (data.data.code == 10005) {
+                vm.$router.replace('/error?code=403')
+            }else {
                 options.success(body)
             }
         } else {

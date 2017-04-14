@@ -83,6 +83,7 @@
         </div>
         <doCallDialog ref="doCallDialog" :uuid="uuid"></doCallDialog>
         <callViewDialog ref="callViewDialog" @callThis="call"></callViewDialog>
+        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
@@ -91,6 +92,7 @@
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
     import pages from 'components/common/pages'
+    import alert from 'components/dialog/alert'
     import doCallDialog from './dialog/doCall'
     import callViewDialog from './dialog/callView'
     import callResultConf from './callResultConf'
@@ -126,6 +128,7 @@
             mselect,
             datepicker,
             pages,
+            alert,
             doCallDialog,
             callViewDialog
         },
@@ -195,7 +198,7 @@
                             _this.list = data.data.data
                             _this.totalPage = Math.ceil(data.data.total / 10)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$refs.alert.$emit('show', data.message)
                         }
                     }
                 })
