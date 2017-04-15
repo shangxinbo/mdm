@@ -59,15 +59,46 @@
                         </li>
                     </ul>
                 </form>
-                
+                <div class="data-card">
+                    <div class="title">联系人信息</div>
+                    <a class="btn blue" href="javascript:void(0);" @click="showEditDialog">
+                        <span>
+                            <i class="icon edit"></i>修改</span>
+                    </a>
+                    <dl>
+                        <dt>{{detail.user_name}}</dt>
+                        <dd>
+                            <label class="name">
+                                <i class="icon card1"></i>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</label>
+                            <p class="text">{{detail.mail}}</p>
+                        </dd>
+                        <dd>
+                            <label class="name">
+                                <i class="icon card2"></i>手&nbsp;&nbsp;机&nbsp;&nbsp;号</label>
+                            <p class="text">{{detail.tel}}</p>
+                        </dd>
+                        <dd v-if="detail.location">
+                            <label class="name">
+                                <i class="icon card3"></i>归&nbsp;&nbsp;属&nbsp;&nbsp;地</label>
+                            <p class="text">{{detail.location}}</p>
+                        </dd>
+                        <dd v-if="detail.application_addr">
+                            <label class="name">
+                                <i class="icon card4"></i>所在位置</label>
+                            <p class="text">{{detail.application_addr}}</p>
+                        </dd>
+                    </dl>
+                </div>
             </div>
         </div>
+        <editDialog ref="editDialog" :id="detail.id" :username="detail.user_name" :email="detail.mail" :tel="detail.tel" :addr="detail.store_addr"
+            :selfaddr="detail.location"></editDialog>
         <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
+    import { mAjax } from 'src/services/functions'
     import editDialog from './dialog/changeInfoByCustomer'
     import alert from 'components/dialog/alert'
     let user = JSON.parse(localStorage.getItem('user'))
