@@ -117,14 +117,17 @@
   width: 100%;
   &>li{
     min-height: 60px;
+    position: relative;
+    padding-left: 95px;
     &.check120{
       height: 120px;
     }
-    label{
-      float: left;
+    &>label{
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 80px;
       height: 41px;
-      padding-right: 15px;
       font-size: 14px;
       line-height: 41px;
       text-align: right;
@@ -168,7 +171,6 @@
       float: left;
     }
     .input-warp{
-      float: left;
       width: 340px;
       position: relative;
       input{
@@ -261,6 +263,11 @@
       display: inline-block;
     }
     .radio-warp{
+      line-height: 41px;
+      padding-right: 15px;
+      height: 41px;
+      font-size: 14px;
+      float: left;
       .icon{
         vertical-align: middle;
         position: relative;
