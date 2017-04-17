@@ -24,7 +24,7 @@
                             <mselect ref="agentSelect" :api="api.agentList" :id="search_agent"></mselect>
                         </li>
                         <li>
-                            <label class="name">创建日期</label>
+                            <label class="name">开通日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
                                     <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
