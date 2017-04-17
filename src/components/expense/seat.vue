@@ -31,7 +31,7 @@
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -105,10 +105,6 @@
                 agent_name: '',
                 customer_id: '',
                 customer_name: '',
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
                 api: {
                     agentList: API.angent_list_all,
                 },
@@ -118,6 +114,30 @@
                     cost: "0"
                 }
             }
+        },
+        computed: {
+            datepicker_disabled:function () {
+                let end = this.search_end_time?this.search_end_time:''
+                if(end) {
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date(end)
+                    }
+                }else{
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date()
+                    }
+                }
+
+            },
+            datepicker_disabled2: function () {
+                let start = this.search_start_time
+                return  {
+                    to: new Date(start),
+                    from: new Date()
+                }
+            },
         },
         watch: {
             $route: function () {
