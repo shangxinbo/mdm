@@ -227,22 +227,16 @@ export const codeToName = (code) => {
     switch (code) {
         case -3:
             return '未通过'
-            break
         case -1:
             return '待审核'
-            break
         case 0:
             return '准备中'
-            break
         case 1:
             return '进行中'
-            break
         case 2:
             return '已暂停'
-            break
         case 3:
             return '已结束'
-            break
         default:
             return '暂无'
     }

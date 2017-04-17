@@ -1,95 +1,12 @@
-<style lang="less">
-    @import '../../assets/less/data-cloud.less';
-</style>
 <template>
     <div class="warp">
         <div class="main">
             <div class="title-warp" v-if="userType==4">我的项目</div>
-            <div class="title-warp" v-else>{{customer_name?customer_name + '的项目':(agent_name?agent_name + '的项目':'项目管理')}}</div>
+            <div class="title-warp" v-else>{{ customer_name ? customer_name + '的项目' : (agent_name?agent_name + '的项目':'项目管理') }}</div>
             <div class="data-property">
-                <form>
-                    <ul class="data-text">
-                        <li>
-                            <label class="name">项目名称</label>
-                            <div class="input-warp">
-                                <input class="text" v-model="search_name" type="text">
-                            </div>
-                        </li>
-                        <li v-if="!customer_id&&userType==1">
-                            <label class="name">客户名称</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_customer"></mselect>
-                        </li>
-                        <li v-if="!agent_id&&!customer_id&&userType==1">
-                            <label class="name">所属代理</label>
-                            <mselect ref="agentSelect" :api="api.agentList" :id="search_agent"></mselect>
-                        </li>
-                        <li>
-                            <label class="name">项目状态</label>
-                            <mselect ref="statusSelect" :api="api.statusList" :id="search_status"></mselect>
-                        </li>
-                        <li>
-                            <label class="name">创建日期</label>
-                            <div class="input-warp date-warp">
-                                <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy-MM-dd" :value="start_time" @selected="setStartTime"></datepicker>
-                                </div>
-                                <em class="or">至</em>
-                                <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy-MM-dd" :value="end_time" @selected="setEndTime"></datepicker>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button class="btn blue" type="button" @click="search">
-                                <span>
-                                    <i class="icon search"></i>查询
-                                </span>
-                            </button>
-                        </li>
-                    </ul>
-                </form>
-                <div class="data-export" v-if="userType==1">
-                    <ul>
-                        <li>
-                            <span class="t">项目数</span>
-                            <span class="num">{{sum.projectNumTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">进行中项目</span>
-                            <span class="num">{{sum.projectStatusIngTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">线索量</span>
-                            <span class="num">{{sum.clueNumTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">剩余线索</span>
-                            <span class="num">{{sum.oddNumTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">拨通线索</span>
-                            <span class="num">{{sum.connectNumTotal}}</span>
-                        </li>
-                        <li>
-                            <span class="t">有效率</span>
-                            <span class="num">{{sum.clueValidPercent}}%</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="data-export" v-if="userType==3">
-                    <ul>
-                        <li>
-                            <span class="t">
-                                <router-link to="/user/myseat">现有坐席</router-link>
-                            </span>
-                            <span class="num">{{seat_num}}</span>
-                        </li>
-                    </ul>
-                    <router-link to="/project/add" class="btn blue btn-export">
-                        <span>
-                            <i class="icon add"></i>新建顶目</span>
-                    </router-link>
-                </div>
+                <searchForm :userType="userType" @submit="search"></searchForm>
+                <dataSum v-if="userType==1" :data="sum"></dataSum>
+                <seatData v-if="userType==3"></seatData>
             </div>
             <div class="data-warp">
                 <div class="data-table">
@@ -149,7 +66,7 @@
                     </table>
                     <p class="no-data" v-else>暂无数据</p>
                 </div>
-                <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
+                <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
         <confirm ref="confirm"></confirm>
@@ -161,80 +78,31 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import mselect from 'components/utils/select'
-    import datepicker from 'vuejs-datepicker'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     import chooseSeatDialog from './dialog/chooseSeat'
+    import searchForm from './searchForm'
+    import dataSum from './dataSum'
+    import seatData from './seat'
+
     let user = JSON.parse(localStorage.getItem('user'))
+
     export default {
-        data: function () {
+        data() {
             return {
                 list: [],
                 userType: user.type,
-                start_time: '',
-                end_time: '',
                 currentPage: 1,
                 totalPage: 1,
-                search_name: '',
-                search_customer: '',
-                search_agent: '',
-                search_status: '',
-                search_start_time: '',
-                search_end_time: '',
                 agent_id: '',
                 agent_name: '',
                 customer_id: '',
                 customer_name: '',
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
-                api: {
-                    customerList: API.customer_list_all,
-                    agentList: API.angent_list_all,
-                    statusList: API.project_status
-                },
-                sum: {
-                    projectNumTotal: '',
-                    projectStatusIngTotal: '',
-                    clueNumTotal: '',
-                    oddNumTotal: '',
-                    connectNumTotal: '',
-                    clueValidPercent: ''
-                },
-                seat_num: 0
+                sum: {}
             }
-        },
-        watch: {
-            $route: function () {
-                this.init()
-            }
-        },
-        components: {
-            pages,
-            mselect,
-            datepicker,
-            confirm,
-            alert,
-            chooseSeatDialog
         },
         methods: {
-            setStartTime(value){
-                this.search_start_time = dateFormat(value)
-            },
-            setEndTime(value){
-                this.search_end_time = dateFormat(value)
-            },
             init() {
-                this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status
-                this.search_start_time = this.$route.query.search_start_time
-                this.search_end_time = this.$route.query.search_end_time
-                this.start_time = this.$route.query.search_start_time
-                this.end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
@@ -243,52 +111,42 @@
                 this.refresh()
             },
             refresh() {
-                let _this = this
+                let projectName = this.$route.query.projectName
+                let customerId = this.$route.query.customerId
+                let agentId = this.$route.query.agentId
+                let statusId = this.$route.query.statusId
+                let startTime = this.$route.query.startTime
+                let endTime = this.$route.query.endTime
                 mAjax(this, {
                     url: API.project_list,
                     data: {
                         nums: 10,
-                        page: _this.currentPage,
-                        search_project_name: _this.search_name,
-                        search_client_id: _this.customer_id ? _this.customer_id : _this.search_customer,
-                        search_agency_id: this.agent_id ? this.agent_id : _this.search_agent,
-                        search_project_status: _this.search_status,
-                        search_project_begin_time: _this.search_start_time,
-                        search_project_end_time: _this.search_end_time
+                        page: this.currentPage,
+                        search_project_name: projectName ? projectName : '',
+                        search_client_id: this.customer_id ? this.customer_id : customerId,
+                        search_agency_id: this.agent_id ? this.agent_id : agentId,
+                        search_project_status: statusId ? statusId : '',
+                        search_project_begin_time: startTime ? startTime : '',
+                        search_project_end_time: endTime ? endTime : ''
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.list = data.data.data
-                            _this.sum = data.data.count
-                            _this.totalPage = Math.ceil(data.data.page.total / 10)
+                            this.list = data.data.data
+                            this.sum = data.data.count
+                            this.totalPage = Math.ceil(data.data.page.total / 10)
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            this.$refs.alert.$emit('show', data.message)
                         }
                     }
                 })
             },
-            jump(num) {
-                let obj = Object.assign({}, this.$route.query, { page: num })
-                this.$router.replace({
-                    name: this.$route.name,
-                    query: obj
-                })
-            },
-            search() {
-                let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
-                let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
-                let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
-                let search_name = this.search_name
-
-                let query = Object.assign({}, this.$route.query, {
-                    search_name: search_name,
-                    search_customer: search_customer,
-                    search_agent: search_agent,
-                    search_status: search_status,
-                    search_start_time: this.search_start_time,
-                    search_end_time: this.search_end_time,
-                    page: 1
-                })
+            search(param) {
+                let query
+                if (!isNaN(param)) {
+                    query = Object.assign({}, this.$route.query, { page: param })
+                } else {
+                    query = Object.assign({}, this.$route.query, param, { page: 1 })
+                }
                 this.$router.replace({
                     name: this.$route.name,
                     query: query
@@ -338,26 +196,25 @@
         },
         created() {
             this.init()
-            if (this.userType == 3) {
-                mAjax(this, {
-                    url: API.customer_my_seat_list,
-                    data: {
-                        page: 1
-                    },
-                    success: data => {
-                        if (data.code == 200) {
-                            this.seat_num = data.data.exist_seat
-                        } else {
-                            this.seat_num = 0
-                        }
-                    }
-                })
-            }
             let _this = this
-            document.onkeyup = function(evt){
-                if(evt.keyCode==13)
+            document.onkeyup = function (evt) {
+                if (evt.keyCode == 13)
                     _this.search()
             }
+        },
+        watch: {
+            $route: function () {
+                this.init()
+            }
+        },
+        components: {
+            pages,
+            confirm,
+            alert,
+            chooseSeatDialog,
+            searchForm,
+            dataSum,
+            seatData
         }
     }
 

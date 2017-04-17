@@ -28,11 +28,11 @@
                                 <label class="name">分配日期</label>
                                 <div class="input-warp date-warp">
                                     <div class="calendar-warp w45">
-                                        <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="start_time"></datepicker>
+                                        <datepicker addClass="date" :init="start_time" :weeks="weeks" :months="months" :buttons="buttons" :max="max_start" @change="setStartTime"></datepicker>
                                     </div>
                                     <em class="or">至</em>
                                     <div class="calendar-warp w45">
-                                        <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="end_time"></datepicker>
+                                        <datepicker addClass="date" :init="end_time" :weeks="weeks" :months="months" :buttons="buttons" :min="min_end" @change="setEndTime"></datepicker>
                                     </div>
                                 </div>
                             </li>
@@ -90,7 +90,7 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import datepicker from 'vuejs-datepicker'
+    import datepicker from 'components/utils/datepicker'
     import pages from 'components/common/pages'
     import alert from 'components/dialog/alert'
     import doCallDialog from './dialog/doCall'
@@ -116,12 +116,16 @@
                 dial_status: '',
                 start_time: '',
                 end_time: '',
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
+                max_start:'',
+                min_end:'',
                 list: [],
-                uuid:''
+                uuid:'',
+                weeks: ['一', '二', '三', '四', '五', '六', '日'],
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                buttons: {
+                    ok: '确认',
+                    cancel:'取消'
+                }
             }
         },
         components: {
@@ -147,6 +151,14 @@
             }
         },
         methods: {
+            setStartTime(value){
+                this.start_time = value
+                this.min_end = value
+            },
+            setEndTime(value){
+                this.end_time = value
+                this.max_start = value
+            },
             init() {
                 this.project = {
                     id: this.$route.query.id,
@@ -159,20 +171,20 @@
                 this.dial_status = this.$route.query.dial_status
                 this.start_time = this.$route.query.start_time
                 this.end_time = this.$route.query.end_time
+                this.max_start = this.end_time
+                this.min_end = this.start_time
                 this.render()
             },
             search() {
                 let is_dial = this.$refs.callStatusSelect ? this.$refs.callStatusSelect.selected.id : ''
                 let dial_status = this.$refs.callResultSelect ? this.$refs.callResultSelect.selected.id : ''
                 let tel = this.tel
-                let start_time = typeof (this.start_time) == 'string' ? this.start_time : dateFormat(this.start_time)
-                let end_time = typeof (this.end_time) == 'string' ? this.end_time : dateFormat(this.end_time)
                 let query = Object.assign({}, this.$route.query, {
                     is_dial,
                     dial_status,
                     tel,
-                    start_time,
-                    end_time,
+                    start_time:this.start_time,
+                    end_time:this.end_time,
                     page: 1
                 })
                 this.$router.replace({

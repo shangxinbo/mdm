@@ -25,7 +25,7 @@
             </td>
             <td>{{item.type}}</td>
             <td>{{item.created_at}}</td>
-            <td>{{item.status | fiterCode}}</td>
+            <td>{{item.status_name}}</td>
             <td>¥{{item.clue_charging}}</td>
             <td>¥{{item.call_charging}}</td>
         </tr>
