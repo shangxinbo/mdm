@@ -31,11 +31,11 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy-MM-dd" :value="start_time" @selected="setStartTime"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy-MM-dd" :value="end_time" @selected="setEndTime"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -220,6 +220,12 @@
             chooseSeatDialog
         },
         methods: {
+            setStartTime(value){
+                this.search_start_time = dateFormat(value)
+            },
+            setEndTime(value){
+                this.search_end_time = dateFormat(value)
+            },
             init() {
                 this.search_name = this.$route.query.search_name
                 this.search_customer = this.$route.query.search_customer
@@ -236,7 +242,7 @@
                 this.customer_name = this.$route.query.customer_name
                 this.refresh()
             },
-            refresh: function () {
+            refresh() {
                 let _this = this
                 mAjax(this, {
                     url: API.project_list,
@@ -273,16 +279,14 @@
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
                 let search_name = this.search_name
-                let start_time = typeof (this.start_time) == 'string' ? this.start_time : dateFormat(this.start_time)
-                let end_time = typeof (this.end_time) == 'string' ? this.end_time : dateFormat(this.end_time)
 
                 let query = Object.assign({}, this.$route.query, {
                     search_name: search_name,
                     search_customer: search_customer,
                     search_agent: search_agent,
                     search_status: search_status,
-                    search_start_time: start_time,
-                    search_end_time: end_time,
+                    search_start_time: this.search_start_time,
+                    search_end_time: this.search_end_time,
                     page: 1
                 })
                 this.$router.replace({
@@ -332,7 +336,7 @@
                 this.$refs.chooseSeatDialog.$emit('show', id, name)
             }
         },
-        created: function () {
+        created() {
             this.init()
             if (this.userType == 3) {
                 mAjax(this, {
