@@ -7,45 +7,7 @@
                 <a href="javascript:void(0);" :class="{active:clue_status}" @click="tab(1)">已完成</a>
             </div>
             <div class="data-property">
-                <form>
-                    <div class="cutover">
-                        <ul class="data-text cutover-tab01">
-                            <li>
-                                <label class="name">手机号</label>
-                                <div class="input-warp">
-                                    <input class="text" type="text" v-model="tel">
-                                </div>
-                            </li>
-                            <li>
-                                <label class="name">拨打状态</label>
-                                <mselect ref="callStatusSelect" :initlist="call_status" :id="is_dial"></mselect>
-                            </li>
-                            <li>
-                                <label class="name">拨打结果</label>
-                                <mselect ref="callResultSelect" :initlist="call_result_list" :id="dial_status"></mselect>
-                            </li>
-                            <li>
-                                <label class="name">分配日期</label>
-                                <div class="input-warp date-warp">
-                                    <div class="calendar-warp w45">
-                                        <datepicker addClass="date" :init="start_time" :weeks="weeks" :months="months" :buttons="buttons" :max="max_start" @change="setStartTime"></datepicker>
-                                    </div>
-                                    <em class="or">至</em>
-                                    <div class="calendar-warp w45">
-                                        <datepicker addClass="date" :init="end_time" :weeks="weeks" :months="months" :buttons="buttons" :min="min_end" @change="setEndTime"></datepicker>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <button class="btn blue" type="button" @click="search">
-                                    <span>
-                                        <i class="icon search"></i>查询
-                                    </span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </form>
+                <searchForm @submit="search"></searchForm>
             </div>
             <div class="data-warp">
                 <div class="cutover">
@@ -77,7 +39,7 @@
                         </table>
                         <p v-else class="no-data">暂无数据</p>
                     </div>
-                    <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
+                    <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
                 </div>
             </div>
         </div>
@@ -95,6 +57,7 @@
     import alert from 'components/dialog/alert'
     import doCallDialog from './dialog/doCall'
     import callViewDialog from './dialog/callView'
+    import searchForm from './calllistForm'
     import callResultConf from './callResultConf'
     export default {
         data: () => {
@@ -106,26 +69,8 @@
                 currentPage: 1,
                 totalPage: 1,
                 clue_status: '',
-                tel: '',
-                call_status: {
-                    "0": '未拨打',
-                    "1": '已拨打'
-                },
-                is_dial: '',
-                call_result_list: callResultConf,
-                dial_status: '',
-                start_time: '',
-                end_time: '',
-                max_start:'',
-                min_end:'',
                 list: [],
-                uuid:'',
-                weeks: ['一', '二', '三', '四', '五', '六', '日'],
-                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
-                buttons: {
-                    ok: '确认',
-                    cancel:'取消'
-                }
+                uuid:''
             }
         },
         components: {
@@ -134,7 +79,8 @@
             pages,
             alert,
             doCallDialog,
-            callViewDialog
+            callViewDialog,
+            searchForm
         },
         watch: {
             $route: function () {
@@ -151,14 +97,6 @@
             }
         },
         methods: {
-            setStartTime(value){
-                this.start_time = value
-                this.min_end = value
-            },
-            setEndTime(value){
-                this.end_time = value
-                this.max_start = value
-            },
             init() {
                 this.project = {
                     id: this.$route.query.id,
@@ -166,27 +104,15 @@
                 }
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.clue_status = this.$route.query.clue_status ? this.$route.query.clue_status : 0
-                this.tel = this.$route.query.tel
-                this.is_dial = this.$route.query.is_dial
-                this.dial_status = this.$route.query.dial_status
-                this.start_time = this.$route.query.start_time
-                this.end_time = this.$route.query.end_time
-                this.max_start = this.end_time
-                this.min_end = this.start_time
                 this.render()
             },
-            search() {
-                let is_dial = this.$refs.callStatusSelect ? this.$refs.callStatusSelect.selected.id : ''
-                let dial_status = this.$refs.callResultSelect ? this.$refs.callResultSelect.selected.id : ''
-                let tel = this.tel
-                let query = Object.assign({}, this.$route.query, {
-                    is_dial,
-                    dial_status,
-                    tel,
-                    start_time:this.start_time,
-                    end_time:this.end_time,
-                    page: 1
-                })
+            search(param) {
+                let query
+                if (!isNaN(param)) {
+                    query = Object.assign({}, this.$route.query, { page: param })
+                } else {
+                    query = Object.assign({}, this.$route.query, param, { page: 1 })
+                }
                 this.$router.replace({
                     name: this.$route.name,
                     query: query
@@ -199,11 +125,11 @@
                     data: {
                         id: this.project.id,
                         clue_status: _this.clue_status,
-                        phone: _this.tel,
-                        is_dial: _this.is_dial,
-                        dial_status: _this.dial_status,
-                        created_at_start: _this.start_time,
-                        created_at_end: _this.start_time,
+                        phone: _this.$route.query.tel,
+                        is_dial: _this.$route.query.isDial,
+                        dial_status: _this.$route.query.dialStatus,
+                        created_at_start: _this.$route.query.startTime,
+                        created_at_end: _this.$route.query.endTime,
                         page:_this.currentPage
                     },
                     success: (data) => {
@@ -220,23 +146,16 @@
                     }
                 })
             },
-            jump(num) {
-                let obj = Object.assign({}, this.$route.query, { page: num })
-                this.$router.replace({
-                    name: this.$route.name,
-                    query: obj
-                })
-            },
             tab(num) {
                 this.$router.replace({
                     name: this.$route.name,
                     query: Object.assign({}, this.$route.query, {
                         clue_status: num,
-                        is_dial: '',
-                        dial_status: '',
+                        isDial: '',
+                        dialStatus: '',
                         tel: '',
-                        start_time: '',
-                        end_time: '',
+                        startTime: '',
+                        endTime: '',
                         page: 1
                     })
                 })
@@ -296,9 +215,9 @@
             },
             view(id) {
                 this.$refs.callViewDialog.$emit('show', id, this.project.name)
-            },
+            }
         },
-        created: function () {
+        created() {
             this.init()
         }
     }
