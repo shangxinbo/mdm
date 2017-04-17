@@ -33,10 +33,11 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import confirm from 'components/dialog/confirm'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         props: ['list','type'],
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,
             }
