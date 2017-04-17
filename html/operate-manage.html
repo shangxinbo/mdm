@@ -134,9 +134,9 @@
                     <tr><th>客户名称</th><th>所属代理</th><th>类型</th><th>创建日期</th><th>状态</th><th>进行中项目</th><th>现有坐席</th><th>余额</th><th>操作</th></tr>
                     <tr><td><a href="#">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td><a href="operate-manage-examine.html">审核</a></td></tr>
                     <tr class="tr2"><td><a href="#">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td class="red">&yen;888.88<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
-                    <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">总代</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
-                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td class="red">&yen;888.88<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">总代</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
                     <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
                     <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
                     <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
@@ -199,6 +199,62 @@
     </div>
 </div>
 <!-- 成功弹窗 End -->
+<!-- 激活坐席弹窗 -->
+<div class="dialog" id="activateSeat">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>激活坐席</h4>
+    </div>
+    <div class="dialog-body">
+        <div class="dialog-activate">
+            <div class="title">中国电信失效坐席</div>
+            <div class="data-table">
+                <table cellspacing="0" cellpadding="0">
+                    <tr><th class="w50"></th><th>坐席名称</th><th>坐席账号</th><th class="w160">开通日期</th><th class="w160">失效日期</th></tr>
+                </table>
+            </div>
+            <div class="scroll-warp scrollBar w640">
+                <div class="data-table check-warp">
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr class="checked"><td class="w50"><i class="icon"></i></td><td class="w110">坐席1</td><td>XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        <tr class="tr2"><td class="w50"><i class="icon"></i></td><td class="w110">坐席1</td><td>XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        <tr><td class="w50"><i class="icon"></i></td><td class="w110">坐席1</td><td>XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        <tr class="tr2"><td class="w50"><i class="icon"></i></td><td class="w110">坐席1</td><td>XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="dialog-select">
+                <div class="checkall"><i class="icon"></i><span>全选</span></div>
+            </div>
+            <ul class="activate-state">
+                <li>
+                    <span>续费后失效日期</span>
+                    <p class="text">2017-06-14</p>
+                </li>
+                <li>
+                    <span>激活费用</span>
+                    <p class="text">¥400</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="error-warp"><p class="error">客户余额不足，请尽快联系客户充值</p></div>
+    <div class="dialog-footer">
+        <!--<button class="btn disabled" type="button"  disabled="disabled" >激活</button>--><!--不可用状态-->
+        <button class="btn blue" type="button" onclick="getWindow('activateSeatSucc','tips-succ');">激活</button>
+        <button class="btn" type="button" onclick="hideDialog('activateSeat');">取消</button>
+    </div>
+</div>
+<!-- 坐席激活弹窗-->
+<div class="dialog tips-succ" id="activateSeatSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>坐席激活成功</span></p>
+        </div>
+    </div>
+</div>
 <!-- 充值弹窗 -->
 <div class="dialog" id="recharge">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
