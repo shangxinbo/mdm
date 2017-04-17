@@ -51,7 +51,6 @@ const mutations = {
 }
 
 export default new Vuex.Store({
-    strict:true,
     state,
     mutations
 })
