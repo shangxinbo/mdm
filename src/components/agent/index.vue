@@ -60,7 +60,6 @@
     import pages from 'components/common/pages'
     import updateInfoDialog from './dialog/upinfo'
     import changePassDialog from 'src/components/dialog/resetpass'
-    let user = JSON.parse(localStorage.getItem('user'))
     export default {
         data: function () {
             return {

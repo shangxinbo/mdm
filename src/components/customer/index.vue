@@ -75,9 +75,10 @@
     import rechargeDialog from './dialog/recharge'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data() {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
                 userType: user.type,
