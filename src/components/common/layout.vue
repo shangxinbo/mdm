@@ -53,7 +53,7 @@
         created: function () {
             let _this = this
             //坐席登录外呼中心 start
-            if (user.type == 4) {
+            if (this.userType == 4) {
                 mAjax(_this, {
                     url: API.get_seat_sign,
                     success: data => {
