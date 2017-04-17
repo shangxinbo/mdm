@@ -110,7 +110,7 @@
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
-                            if (user.type == 1) {
+                            if (this.userType == 1) {
                                 this.sum = {
                                     customer: list.customer_num,
                                     project: list.conduct_project,
