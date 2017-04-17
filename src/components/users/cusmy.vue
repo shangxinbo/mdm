@@ -97,9 +97,9 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import editDialog from './dialog/changeInfoByCustomer'
+    import { mAjax } from 'src/services/functions'
+    import editDialog from './dialog/changeCusInfo'
     import alert from 'components/dialog/alert'
     let user = JSON.parse(localStorage.getItem('user'))
     export default {
