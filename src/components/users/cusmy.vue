@@ -91,8 +91,7 @@
                 </div>
             </div>
         </div>
-        <editDialog ref="editDialog" :id="detail.id" :username="detail.user_name" :email="detail.mail" :tel="detail.tel" :addr="detail.store_addr"
-            :selfaddr="detail.location"></editDialog>
+        <editDialog ref="editDialog"></editDialog>
         <alert ref="alert"></alert>
     </div>
 </template>
@@ -134,7 +133,8 @@
         },
         methods: {
             showEditDialog() {
-                this.$refs.editDialog.$emit('show')
+                let _this = this
+                this.$refs.editDialog.$emit('show',_this.detail)
             }
         },
         created: function () {

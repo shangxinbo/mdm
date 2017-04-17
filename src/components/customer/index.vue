@@ -4,7 +4,7 @@
             <div class="title-warp">{{ agent_name ? agent_name + '的客户' : '客户管理' }}</div>
             <div class="data-property">
                 <searchForm :userType="userType" @submit="search" />
-                <dataSum :data="sum" :userType="userType"></dataSum>
+                <dataSum :data="sum" :userType="userType" v-if="list.length>0"></dataSum>
             </div>
             <div class="data-warp">
                 <div class="data-table">

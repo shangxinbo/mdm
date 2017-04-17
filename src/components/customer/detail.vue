@@ -17,7 +17,7 @@
                         <li>
                             <label class="name">客户状态</label>
                             <div class="input-warp">
-                                <p class="text" v-if="detail.audit_status==2">审核失败</p>
+                                <p class="text" v-if="detail.audit_status==2">未通过</p>
                                 <p class="text" v-else-if="detail.audit_status==1">已通过</p>
                                 <p class="text" v-else>待审核</p>
                             </div>

@@ -62,13 +62,13 @@
                                 <p class="text">{{detail.project_status}}</p>
                             </div>
                         </li>
-                        <li class="both" v-if="detail.audit_status==0">
+                        <li class="both" v-if="detail.audit_status==-3">
                             <label class="name">未通过原因</label>
                             <div class="input-warp">
                                 <p class="text red">{{detail.audit_reason}}</p>
                             </div>
                         </li>
-                        <template v-if="detail.status==1&&detail.audit_status>0">
+                        <template v-if="detail.status==1&&detail.audit_status==-2">
                             <li class="both">
                                 <label class="name">线索量</label>
                                 <div class="input-warp">
