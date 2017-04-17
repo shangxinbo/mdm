@@ -64,9 +64,10 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import changeInfo from './dialog/changeInfo'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 user: '',
                 id: user.id,
@@ -91,7 +92,7 @@
             mAjax(_this, {
                 url: API.agent_my_info,
                 data: {
-                    id: user.id
+                    id: this.id
                 },
                 success: data => {
                     _this.user = data.data.user

@@ -52,7 +52,6 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import datepicker from 'components/utils/datepicker'
     import pages from 'components/common/pages'
     import alert from 'components/dialog/alert'
     import doCallDialog from './dialog/doCall'
@@ -75,7 +74,6 @@
         },
         components: {
             mselect,
-            datepicker,
             pages,
             alert,
             doCallDialog,
