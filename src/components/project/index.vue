@@ -241,6 +241,8 @@
                 this.search_end_time = this.$route.query.search_end_time
                 this.start_time = this.$route.query.search_start_time?this.$route.query.search_start_time:''
                 this.end_time = this.$route.query.search_end_time?this.$route.query.search_end_time:''
+                this.max_start = this.end_time
+                this.min_end = this.start_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
