@@ -16,7 +16,7 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="!client_id&&userType==1">
+                        <li v-if="!search_client_id&&userType==1">
                             <label class="name">客户</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
                         </li>
@@ -90,8 +90,8 @@
                             <tr>
                                 <th v-if="userType==1">项目名称</th>
                                 <th v-else>参与坐席</th>
-                                <th v-if="!client_id&&userType==1">客户名称</th>
-                                <th v-if="!agent_id&&!client_id&&userType==1">所属代理</th>
+                                <th v-if="!search_client_id&&userType==1">客户名称</th>
+                                <th v-if="!search_agent_id&&!search_client_id&&userType==1">所属代理</th>
                                 <th>外呼次数</th>
                                 <th>拨通次数</th>
                                 <th>拨通率</th>
@@ -106,8 +106,8 @@
                                     <span v-if="userType !=3">{{item.name}}</span>
                                     <span v-else>{{item.seat_id}}</span>
                                 </td>
-                                <td v-if="!client_id&&userType==1">
-                                    <router-link :to="{path : '/call/cate',query:{client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
+                                <td v-if="!search_client_id&&userType==1">
+                                    <router-link :to="{path : '/call/cate',query:{search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -148,8 +148,6 @@
                 totalPage: 1,
                 search_name: null,
                 client_name : '',
-                client_id : '',
-                agent_id : '',
                 agent_name : '',
                 search_start_time: null,
                 search_end_time: null,
@@ -163,7 +161,6 @@
                 category : '',
                 api: {
                     customerList: API.customer_list_all,
-                    agentList: API.customer_type_list,
                 }
             }
         },
@@ -182,15 +179,12 @@
         methods: {
             init : function() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : null
+                this.search_agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : null
                 this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : null 
-                this.client_id = this.$route.query.client_id ? this.$route.query.client_id : null
+                this.search_client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : null
                 this.client_name = this.$route.query.client_name ? this.$route.query.client_name : null 
-                this.project_id = this.$route.query.project_id ? this.$route.query.project_id : null
-                this.search_client_id =  this.client_id
-                this.search_agent_id = this.agent_id
-                this.search_project_id = this.project_id
-                this.category = this.userType == 3 ? 1 :(this.agent_id ? 2:3)
+                this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : null
+                this.category = this.userType == 3 ? 1 :(this.search_agent_id ? 2:3)
                 this.refresh()
                 this.heads()
             },
@@ -249,12 +243,11 @@
                 })
             },
             search() {
-                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
-                let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
+                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : this.search_client_id
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_client_id: search_client_id,
-                    search_agent_id: search_agent_id,
+                    search_agent_id: this.search_agent_id,
                     search_project_id : this.search_project_id,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
