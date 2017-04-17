@@ -160,7 +160,7 @@
                     to: new Date(2017, 0, 1),
                     from: new Date()
                 },
-                category : user.type == 3 ? 1 :(this.search_agent_id ? 2:3),
+                category : '',
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.customer_type_list,
@@ -190,6 +190,7 @@
                 this.search_client_id = this.client_id
                 this.search_agent_id = this.agent_id
                 this.search_project_id = this.project_id
+                this.category = this.userType == 3 ? 1 :(this.agent_id ? 2:3)
                 this.refresh()
                 this.heads()
             },
