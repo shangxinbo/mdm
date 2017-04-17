@@ -31,11 +31,11 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy-MM-dd" :value="start_time" @selected="setStartTime"></datepicker>
+                                    <datepicker addClass="date" :init="start_time" :weeks="weeks" :months="months" :buttons="buttons" :max="max_start" @change="setStartTime"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy-MM-dd" :value="end_time" @selected="setEndTime"></datepicker>
+                                    <datepicker addClass="date" :init="end_time" :weeks="weeks" :months="months" :buttons="buttons" :min="min_end" @change="setEndTime"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -162,7 +162,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import mselect from 'components/utils/select'
-    import datepicker from 'vuejs-datepicker'
+    import datepicker from 'components/utils/datepicker'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     import chooseSeatDialog from './dialog/chooseSeat'
@@ -174,6 +174,8 @@
                 userType: user.type,
                 start_time: '',
                 end_time: '',
+                max_start:'',
+                min_end:'',
                 currentPage: 1,
                 totalPage: 1,
                 search_name: '',
@@ -186,10 +188,6 @@
                 agent_name: '',
                 customer_id: '',
                 customer_name: '',
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.angent_list_all,
@@ -203,7 +201,13 @@
                     connectNumTotal: '',
                     clueValidPercent: ''
                 },
-                seat_num: 0
+                seat_num: 0,
+                weeks: ['一', '二', '三', '四', '五', '六', '日'],
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                buttons: {
+                    ok: '确认',
+                    cancel:'取消'
+                }
             }
         },
         watch: {
@@ -221,10 +225,12 @@
         },
         methods: {
             setStartTime(value){
-                this.search_start_time = dateFormat(value)
+                this.search_start_time = value
+                this.min_end = value
             },
             setEndTime(value){
-                this.search_end_time = dateFormat(value)
+                this.search_end_time = value
+                this.max_start = value
             },
             init() {
                 this.search_name = this.$route.query.search_name
@@ -233,8 +239,8 @@
                 this.search_status = this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
-                this.start_time = this.$route.query.search_start_time
-                this.end_time = this.$route.query.search_end_time
+                this.start_time = this.$route.query.search_start_time?this.$route.query.search_start_time:''
+                this.end_time = this.$route.query.search_end_time?this.$route.query.search_end_time:''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
@@ -279,7 +285,7 @@
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
                 let search_name = this.search_name
-
+ 
                 let query = Object.assign({}, this.$route.query, {
                     search_name: search_name,
                     search_customer: search_customer,
