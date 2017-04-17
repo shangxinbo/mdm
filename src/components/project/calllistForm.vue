@@ -3,12 +3,6 @@
         <div class="cutover">
             <ul class="data-text cutover-tab01">
                 <li>
-                    <label class="name">手机号</label>
-                    <div class="input-warp">
-                        <input class="text" type="text" v-model="tel">
-                    </div>
-                </li>
-                <li>
                     <label class="name">拨打状态</label>
                     <mselect ref="callStatusSelect" :initlist="statusList" :id="isDial"></mselect>
                 </li>
@@ -54,7 +48,6 @@
                     "1": '已拨打'
                 },
                 resultList: callResultConf,
-                tel: '',
                 isDial: '',
                 dialStatus: '',
                 startTime: '',
@@ -84,7 +77,6 @@
         },
         methods: {
             init() {
-                this.tel = this.$route.query.tel ? this.$route.query.tel : ''
                 this.isDial = this.$route.query.isDial ? this.$route.query.isDial : ''
                 this.dialStatus = this.$route.query.dialStatus ? this.$route.query.dialStatus : ''
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
@@ -103,7 +95,6 @@
             submit() {
                 console.log(2134)
                 this.$emit('submit', {
-                    tel: this.tel,
                     isDial: this.$refs.callStatusSelect.selected.id,
                     dialStatus: this.$refs.callResultSelect.selected.id,
                     startTime:this.startTime,
