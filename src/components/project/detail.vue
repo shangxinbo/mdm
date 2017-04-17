@@ -142,9 +142,10 @@
     import alert from 'components/dialog/alert'
     import refuseDialog from './dialog/refuse'
     import chooseSeatDialog from './dialog/chooseSeat'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,
                 detail: {

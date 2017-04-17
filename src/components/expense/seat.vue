@@ -84,9 +84,10 @@
     import datepicker from 'vuejs-datepicker'
     import dataTable from './sTable'
     import router from 'src/router'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,
                 list: [],
