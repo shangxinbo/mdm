@@ -16,7 +16,7 @@
                                 <input class="text" v-model="search_name" type="text">
                             </div>
                         </li>
-                        <li v-if="!search_client_id&&userType==1">
+                        <li v-if="category==2&&userType==1">
                             <label class="name">客户</label>
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
                         </li>
@@ -90,8 +90,7 @@
                             <tr>
                                 <th v-if="userType==1">项目名称</th>
                                 <th v-else>参与坐席</th>
-                                <th v-if="!search_client_id&&userType==1">客户名称</th>
-                                <th v-if="!search_agent_id&&!search_client_id&&userType==1">所属代理</th>
+                                <th v-if="category==2&&userType==1">客户名称</th>
                                 <th>外呼次数</th>
                                 <th>拨通次数</th>
                                 <th>拨通率</th>
@@ -106,7 +105,7 @@
                                     <span v-if="userType !=3">{{item.name}}</span>
                                     <span v-else>{{item.seat_id}}</span>
                                 </td>
-                                <td v-if="!search_client_id&&userType==1">
+                                <td v-if="category==2&&userType==1">
                                     <router-link :to="{path : '/call/cate',query:{search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
@@ -249,8 +248,8 @@
                     search_client_id: search_client_id,
                     search_agent_id: this.search_agent_id,
                     search_project_id : this.search_project_id,
-                    search_start_time: dateFormat(this.start_time),
-                    search_end_time: dateFormat(this.end_time),
+                    search_start_time: dateFormat(this.search_start_time),
+                    search_end_time: dateFormat(this.search_end_time),
                     page: 1,
                     category : this.category,
                 })
