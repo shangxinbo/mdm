@@ -85,10 +85,9 @@
     import dataSum from './dataSum'
     import seatData from './seat'
 
-    let user = JSON.parse(localStorage.getItem('user'))
-
     export default {
         data() {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
                 userType: user.type,

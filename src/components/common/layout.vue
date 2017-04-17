@@ -27,9 +27,10 @@
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type
             }

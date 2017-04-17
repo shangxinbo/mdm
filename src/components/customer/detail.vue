@@ -128,9 +128,10 @@
     import API from 'src/services/api'
     import editDialog from './dialog/changeInfo'
     import alert from 'components/dialog/alert'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 detail: {
                     id: '',
