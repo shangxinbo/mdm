@@ -25,6 +25,7 @@ export default {
     agent_modify_myinfo: API_PRE + '/agent/modifyself',
     customer_detail_by_operate: API_PRE + '/operate/agentinfo',
     customer_edit: API_PRE + '/agent/modifyinfo',
+    customer_upself:API_PRE + '/customer/modify',
     customer_check: API_PRE + '/operate/examine',
     angent_list_all: API_PRE + '/operate/agent',
     add_seat: API_PRE + '/operate/seatmodify',

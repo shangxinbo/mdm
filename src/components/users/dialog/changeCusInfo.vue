@@ -57,6 +57,12 @@
         data: function () {
             return {
                 style: 'none',
+                id:'',
+                username:'',
+                email:'',
+                tel:'',
+                addr:'',
+                selfaddr:'',
                 username_error: '',
                 email_error: '',
                 tel_error: '',
@@ -64,7 +70,6 @@
                 self_addr_error: ''
             }
         },
-        props:['id','username','email','tel','addr','selfaddr'],
         methods: {
             close: function () {
                 this.username_error = ''
@@ -120,13 +125,13 @@
                 }
                 let _this = this
                 mAjax(this, {
-                    url: API.customer_edit,
+                    url: API.customer_upself,
                     data: {
                         id: this.id,
                         user_name: this.username,
                         mail: this.email,
                         tel: this.tel,
-                        regoin: this.addr,
+                        location: this.addr,
                         application_addr: this.selfaddr
                     },
                     success: data => {
@@ -145,8 +150,15 @@
         },
         created: function () {
             let _this = this
-            this.$on('show', function () {
+            this.$on('show', function (obj) {
+                console.log(obj.id)
                 _this.style = 'block'
+                _this.id = obj.id
+                _this.username = obj.user_name
+                _this.email = obj.mail
+                _this.tel = obj.tel
+                _this.addr = obj.location
+                _this.selfaddr = obj.application_addr
                 _this.$store.commit('SHOW_LAYER')      
             })
         },
