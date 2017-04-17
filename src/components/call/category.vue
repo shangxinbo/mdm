@@ -187,7 +187,7 @@
                 this.client_id = this.$route.query.client_id ? this.$route.query.client_id : null
                 this.client_name = this.$route.query.client_name ? this.$route.query.client_name : null 
                 this.project_id = this.$route.query.project_id ? this.$route.query.project_id : null
-                this.search_client_id = this.client_id
+                this.search_client_id =  this.$route.query.search_client_id ? this.$route.query.search_client_id : null
                 this.search_agent_id = this.agent_id
                 this.search_project_id = this.project_id
                 this.category = this.userType == 3 ? 1 :(this.agent_id ? 2:3)
@@ -253,8 +253,8 @@
                 let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
-                    search_client_id: this.search_client_id,
-                    search_agent_id: this.search_agent_id,
+                    search_client_id: search_client_id,
+                    search_agent_id: search_agent_id,
                     search_project_id : this.search_project_id,
                     search_start_time: dateFormat(this.start_time),
                     search_end_time: dateFormat(this.end_time),
