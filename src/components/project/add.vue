@@ -72,9 +72,10 @@
     export default {
         data: function () {
             return {
+                id: '',
                 name: '',
                 name_error: '',
-                type:'',
+                type: '',
                 projectType_error: '',
                 region: '',
                 region_error: '',
@@ -83,7 +84,7 @@
                 expectTime: '',
                 expectTime_error: '',
                 content: '',
-                content_error:'',
+                content_error: '',
                 api: {
                     project_type: API.project_type_list
                 },
@@ -92,8 +93,8 @@
                 }
             }
         },
-        computed:{
-            inputWord:function(){
+        computed: {
+            inputWord: function () {
                 return this.content.length
             }
         },
@@ -146,24 +147,31 @@
                 } else {
                     this.expectTime_error = ''
                 }
-                if (this.content&&this.content.length>600) {
+                if (this.content && this.content.length > 600) {
                     this.content_error = '详细描述不能超过600字'
                     return false
                 }
                 let _this = this
+                let api = API.project_add
+                let data = {
+                    name: this.name,
+                    type: projectType,
+                    region: this.region,
+                    expect_clue_num: this.expectClue,
+                    expect_begin_time: dateFormat(this.expectTime),
+                    desc: this.content
+                }
+                if(this.id){
+                    api = API.project_recheck
+                    data.id= this.id
+                }
+
                 mAjax(this, {
-                    url: API.project_add,
-                    data: {
-                        name: this.name,
-                        type: projectType,
-                        region: this.region,
-                        expect_clue_num: this.expectClue,
-                        expect_begin_time: dateFormat(this.expectTime),
-                        desc: this.content
-                    },
+                    url: api,
+                    data: data,
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', '新建成功', function () {
+                            _this.$refs.alert.$emit('show', _this.id ?'重新申请成功':'新建成功', function () {
                                 _this.$router.replace('/project/index')
                             })
                         } else {
@@ -177,6 +185,7 @@
             let id = this.$route.params.id
             let _this = this
             if (id) {
+                this.id = id
                 mAjax(this, {
                     url: API.project_detail,
                     data: {
