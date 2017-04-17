@@ -123,7 +123,6 @@
                     data: {
                         id: this.project.id,
                         clue_status: _this.clue_status,
-                        phone: _this.$route.query.tel,
                         is_dial: _this.$route.query.isDial,
                         dial_status: _this.$route.query.dialStatus,
                         created_at_start: _this.$route.query.startTime,
@@ -151,7 +150,6 @@
                         clue_status: num,
                         isDial: '',
                         dialStatus: '',
-                        tel: '',
                         startTime: '',
                         endTime: '',
                         page: 1
