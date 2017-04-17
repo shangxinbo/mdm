@@ -196,8 +196,8 @@
                         search_agent_id: _this.search_agent_id ,
                         search_client_id : _this.search_client_id ,
                         search_project_id : _this.search_project_id ,
-                        search_start_time: _this.search_start_time,
-                        search_end_time: _this.search_end_time,
+                        search_start_time: dateFormat(_this.search_start_time),
+                        search_end_time: dateFormat(_this.search_end_time),
                         category : _this.category,
                         page: _this.currentPage,
                     },
@@ -222,8 +222,8 @@
                         search_client_id: _this.search_client_id,
                         search_agent_id: _this.search_agent_id,
                         search_project_id : _this.search_project_id,
-                        search_start_time: _this.search_start_time,
-                        search_end_time: _this.search_end_time
+                        search_start_time: dateFormat(_this.search_start_time),
+                        search_end_time: dateFormat(_this.search_end_time)
                     },
                     success: (data) => {
                         if (data.code == 200) {
