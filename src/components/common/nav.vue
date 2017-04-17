@@ -77,7 +77,7 @@
                     </router-link>
                 </li>
                 <li :class="{active:path.startsWith('/expense')}">
-                    <router-link to="/expense/project">
+                    <router-link to="/expense/project?type=customer">
                         <span>
                             <i class="icon icon03"></i>计费管理</span>
                     </router-link>
