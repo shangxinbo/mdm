@@ -535,9 +535,9 @@
             showDay(time) {
                 let currentMoment
                 if (time === undefined || !Date.parse(time)) {
-                    currentMoment = moment()
+                    let now = moment().format(this.format)
+                    currentMoment = moment(now)
                 } else {
-
                     currentMoment = moment(time, this.format)
                 }
 
@@ -627,7 +627,6 @@
                 return n < 10 ? '0' + n : n
             },
             doDisabled(days) {
-                console.log(this.max)
                 if (this.min || this.max) {
                     days.forEach((val, index) => {
                         if (this.min && val.moment.isBefore(this.min)) { //TODO 如果this max和format不同

@@ -52,9 +52,10 @@
                     <li>
                         <label class="name">其他资质</label>
                         <div class="input-warp">
-                            <p class="text">
+                            <p class="text" v-if="detail.qualification">
                                 <a :href="detail.qualification" target="_blank">查看</a>
                             </p>
+                            <p class="text" v-else>--</p>
                         </div>
                     </li>
                 </ul>
@@ -182,6 +183,7 @@
             },
             submit() {
                 if (this.option == 1) {
+                    this.reason_error = ''
                     if (!this.clue_price) {
                         this.price_error = '线索单价必填'
                         return false
@@ -200,6 +202,7 @@
                         }
                     }
                 } else {
+                    this.price_error = ''
                     if (!this.reason) {
                         this.reason_error = '请填写拒绝原因'
                         return false

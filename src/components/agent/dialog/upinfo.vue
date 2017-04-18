@@ -217,7 +217,7 @@
                             _this.$store.commit('SHOW_TOAST', msg)
                             _this.$router.replace('/agent/index')
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.self_addr_error = data.message
                         }
                     },
                     error: err => {

@@ -11,7 +11,7 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th>客户名称</th>
+                                <th width="20%">客户名称</th>
                                 <th v-if="userType==1&&!agent_id">所属代理</th>
                                 <th>类型</th>
                                 <th>创建日期</th>

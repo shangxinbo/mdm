@@ -5,7 +5,7 @@
             <div class="title-warp" v-else>{{ customer_name ? customer_name + '的项目' : (agent_name?agent_name + '的项目':'项目管理') }}</div>
             <div class="data-property">
                 <searchForm :userType="userType" @submit="search"></searchForm>
-                <dataSum v-if="userType==1" :data="sum"></dataSum>
+                <dataSum v-if="userType==1&&list.length>0" :data="sum"></dataSum>
                 <seatData v-if="userType==3"></seatData>
             </div>
             <div class="data-warp">
@@ -124,7 +124,7 @@
                         search_project_name: projectName ? projectName : '',
                         search_client_id: this.customer_id ? this.customer_id : customerId,
                         search_agency_id: this.agent_id ? this.agent_id : agentId,
-                        search_project_status: statusId ? statusId : '',
+                        search_project_status: statusId,
                         search_project_begin_time: startTime ? startTime : '',
                         search_project_end_time: endTime ? endTime : ''
                     },
