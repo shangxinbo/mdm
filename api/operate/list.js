@@ -28,6 +28,8 @@ module.exports = function (req, res) {
                     "superior_id": "@int(0,100)",   //代理id
                     "conduct_project":"@int(0,100)",
                     "seat_num":"@int(0,10)",
+                    "expire_seat_num":"@int(0,1)",
+                    "seat_price":"200",
                     "created_at": '@date("yyyy-MM-dd HH:mm:ss")'
                 }
             ]

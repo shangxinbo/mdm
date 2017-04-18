@@ -32,7 +32,7 @@
                 <li>
                     <label>邮箱</label>
                     <div class="input-warp">
-                        <input class="text" type="email" v-model='email'>
+                        <input class="text" type="text" v-model='email'>
                         <p v-show="email_error" class="error">{{email_error}}</p>
                     </div>
                 </li>
