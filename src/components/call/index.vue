@@ -125,11 +125,6 @@
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
-                search_name: null,
-                search_client_id: null,
-                search_agent_id: null,
-                search_start_time: '',
-                search_end_time: '',
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -156,8 +151,8 @@
             init: function () {
                 this.search_client_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : ''
                 this.search_agent_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : ''
-                this.search_end_time = this.$route.query.search_end_time
-                this.search_start_time = this.$route.query.search_start_time
+                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
+                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
                 this.search_name = this.$route.query.search_name ? this.$route.query.search_name : ''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.refresh()
@@ -172,8 +167,8 @@
                         search_name: _this.search_name ? _this.search_name : null ,
                         search_client_id: _this.search_client_id ? _this.search_client_id : null,
                         search_agent_id: _this.search_agent_id ? _this.search_agent_id : null,
-                        search_start_time: _this.search_start_time ? _this.search_start_time : null,
-                        search_end_time: _this.search_end_time ? _this.search_end_time : null,
+                        search_start_time: _this.search_start_time ? dateFormat(_this.search_start_time) : null,
+                        search_end_time: _this.search_end_time ? dateFormat(_this.search_end_time) : null,
                         page: _this.currentPage,
                     },
                     success: (data) => {
@@ -195,8 +190,8 @@
                         search_name: _this.search_name ? _this.search_name :null,
                         search_client_id:  _this.search_client_id ? _this.search_client_id : null,
                         search_agent_id: _this.search_agent_id ? _this.search_agent_id :null,
-                        search_start_time: _this.search_start_time ? _this.search_start_time : null,
-                        search_end_time: _this.search_end_time ? _this.search_end_time : null
+                        search_start_time: _this.search_start_time ? dateFormat(_this.search_start_time) : null,
+                        search_end_time: _this.search_end_time ? dateFormat(_this.search_end_time) : null
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -221,8 +216,8 @@
                     search_name: this.search_name,
                     search_client_id: search_client_id,
                     search_agent_id: search_agent_id,
-                    search_start_time: dateFormat(this.search_start_time),
-                    search_end_time: dateFormat(this.search_end_time),
+                    search_start_time: this.search_start_time,
+                    search_end_time: this.search_end_time,
                     page: 1
                 })
                 this.$router.replace({
