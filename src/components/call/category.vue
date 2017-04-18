@@ -154,6 +154,7 @@
                 search_agent_id: null,
                 search_client_id : null,
                 search_project_id : null,
+                day : 60 * 60 * 24 * 1000,
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -190,6 +191,7 @@
             },
             refresh: function () {
                 let _this = this
+                let nDate =_this.search_end_time ? new Date(_this.search_end_time.getTime()+ _this.day) :null
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
@@ -198,7 +200,7 @@
                         search_client_id : _this.search_client_id ,
                         search_project_id : _this.search_project_id ,
                         search_start_time: dateFormat(_this.search_start_time),
-                        search_end_time: dateFormat(_this.search_end_time),
+                        search_end_time: dateFormat(nDate),
                         category : _this.category,
                         page: _this.currentPage,
                     },
@@ -215,6 +217,7 @@
             },
             heads : function () {
                 let _this = this
+                let nDate =_this.search_end_time ? new Date(_this.search_end_time.getTime()+ _this.day) :null
                 mAjax(this, {
                     url: API.call_head,
                     data: {
@@ -224,7 +227,7 @@
                         search_agent_id: _this.search_agent_id,
                         search_project_id : _this.search_project_id,
                         search_start_time: dateFormat(_this.search_start_time),
-                        search_end_time: dateFormat(_this.search_end_time)
+                        search_end_time: dateFormat(nDate)
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -244,13 +247,14 @@
             },
             search() {
                 let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : this.search_client_id
+                let nDate = this.search_end_time ? new Date( this.search_end_time.getTime()+  this.day) :null
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_client_id: search_client_id,
                     search_agent_id: this.search_agent_id,
                     search_project_id : this.search_project_id,
                     search_start_time: dateFormat(this.search_start_time),
-                    search_end_time: dateFormat(this.search_end_time),
+                    search_end_time: dateFormat(nDate),
                     page: 1,
                     category : this.category,
                 })
