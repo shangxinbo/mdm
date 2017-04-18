@@ -20,10 +20,7 @@
                 </li>
                 <li>
                     <label>新开坐席</label>
-                    <div class="input-warp">
-                        <input class="text" type="text" v-model="add">
-                        <p v-if="add_error" class="error">{{add_error}}</p>
-                    </div>
+                    <mselect ref="seatNumSelect" addClass="seat-select" :initlist="numList" hideAll="true" id="1"></mselect>
                 </li>
             </ul>
         </div>
@@ -36,6 +33,7 @@
 <script>
     import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
+    import mselect from 'components/utils/select'
 
     export default {
         data: function () {
@@ -44,7 +42,19 @@
                 company: '',
                 seat: '',
                 add: '',
-                add_error: ''
+                add_error: '',
+                numList:{
+                    "1":"1",
+                    "2":"2",
+                    "3":"3",
+                    "4":"4",
+                    "5":"5",
+                    "6":"6",
+                    "7":"7",
+                    "8":"8",
+                    "9":"9",
+                    "10":"10"
+                }
             }
         },
         methods: {
@@ -53,28 +63,12 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                if (!this.add) {
-                    this.add_error = '新开坐席不能为空'
-                    return false
-                } else {
-                    if (isNaN(this.add)) {
-                        this.add_error = '输入不合法'
-                        return false
-                    }else{
-                        if(this.add<=0){
-                            this.add_error = '新开坐席数量应大于0'
-                            return false
-                        }else{
-                            this.add_error = ''
-                        }
-                    }
-                }
                 let _this = this
                 mAjax(this, {
                     url: API.add_seat,
                     data: {
                         id: this.id,
-                        new_seat_num: this.add
+                        new_seat_num: this.$refs.seatNumSelect.selected.id
                     },
                     success: data => {
                         if (data.code == 200) {
@@ -104,6 +98,9 @@
 
             })
         },
+        components:{
+            mselect
+        }
     }
 
 </script>

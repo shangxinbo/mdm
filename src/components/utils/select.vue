@@ -1,13 +1,13 @@
 <template>
     <div class="input-warp">
-        <div class="select-warp" :class="{'select-open':show}">
+        <div class="select-warp" :class="[{'select-open':show}, addClass]">
             <p class="all" @click.stop="showSelect">
                 <span>{{selected.name}}</span>
             </p>
             <div class="select-ul">
                 <div class="scroll-warp scrollBar" style="overflow-y:auto">
                     <ul>
-                        <li @click.stop="change('','全部')">全部</li>
+                        <li @click.stop="change('','全部')" v-if="!hideAll">全部</li>
                         <li v-for="(item,index) in list" @click.stop="change(index,item)">{{item.desc?item.desc:item}}</li>
                     </ul>
                 </div>
@@ -30,7 +30,7 @@
                 show: false
             }
         },
-        props: ['api', 'id', 'initlist', 'error'],
+        props: ['api', 'id', 'initlist', 'error', 'addClass','hideAll'],
         watch: {
             id: function (newVal, oldVal) {
                 if (newVal=='') {
