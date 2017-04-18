@@ -43,7 +43,8 @@
                                 <td>¥{{item.balance}}</td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.audit_status==0" :to="'/customer/check/' + item.id">审核</router-link>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num)">开通坐席</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num,item.seat_price)">开坐席</a>
+                                    <a v-if="item.audit_status==1&&item.expire_seat_num>0" href="javascript:void(0);" @click="showActiveSeatDialog(item.id,item.company,item.seat_price)">激活坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
                                 </td>
                                 <td v-else>
@@ -62,6 +63,7 @@
         <editDialog ref="editDialog"></editDialog>
         <resetPassDialog ref="resetPassDialog"></resetPassDialog>
         <addSeatDialog ref="addSeatDialog"></addSeatDialog>
+        <activeSeatDialog ref="activeSeatDialog"></activeSeatDialog>
         <rechargeDialog ref="rechargeDialog"></rechargeDialog>
     </div>
 </template>
@@ -72,10 +74,11 @@
     import editDialog from './dialog/changeInfo'
     import resetPassDialog from 'components/dialog/resetpass'
     import addSeatDialog from './dialog/addSeat'
+    import activeSeatDialog from './dialog/activeSeat'
     import rechargeDialog from './dialog/recharge'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
-    
+
     export default {
         data() {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -147,8 +150,11 @@
             showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
             },
-            showAddSeatDialog(id, company, seat) {
-                this.$refs.addSeatDialog.$emit('show', id, company, seat)
+            showAddSeatDialog(id, company, seat, price) {
+                this.$refs.addSeatDialog.$emit('show', id, company, seat, price)
+            },
+            showActiveSeatDialog(id, company, price) {
+                this.$refs.activeSeatDialog.$emit('show', id, company, price)
             },
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
@@ -180,6 +186,7 @@
             dataSum,
             resetPassDialog,
             addSeatDialog,
+            activeSeatDialog,
             rechargeDialog
         },
     }

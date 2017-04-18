@@ -23,7 +23,7 @@
                 <li>
                     <label>邮箱</label>
                     <div class="input-warp">
-                        <input class="text" type="email" v-model="email">
+                        <input class="text" type="text" v-model="email">
                         <p v-show="email_error" class="error">{{email_error}}</p>
                     </div>
                 </li>
@@ -74,17 +74,18 @@
             },
             sure: function () {
                 let reg_username = /^[\u4e00-\u9fa5]{2,6}$/
+                let cansub = true
                 if (!this.edit) {
                     if (this.user) {
                         if (REG.username.test(this.user)) {
                             this.user_error = ''
                         } else {
                             this.user_error = '账号是中英文数字组成4~10位'
-                            return false
+                            cansub = false
                         }
                     } else {
                         this.user_error = '请填写账号'
-                        return false
+                        cansub = false
                     }
                 }
                 if (this.username) {
@@ -92,34 +93,37 @@
                         this.username_error = ''
                     } else {
                         this.username_error = '姓名需要是中文2~6位'
-                        return false
+                        cansub = false
                     }
                 } else {
                     this.username_error = '请填写姓名'
-                    return false
+                    cansub = false
                 }
                 if (this.email) {
                     if (isEmail(this.email)) {
                         this.email_error = ''
                     } else {
                         this.email_error = '邮箱格式不正确'
-                        return false
+                        cansub = false
                     }
                 } else {
                     this.email_error = '请填写邮箱'
-                    return false
+                    cansub = false
                 }
                 if (this.tel) {
                     if (isRealPhone(this.tel)) {
                         this.tel_error = ''
                     } else {
                         this.tel_error = '请填写真实的手机号'
-                        return false
+                        cansub = false
                     }
                 } else {
                     this.tel_error = '请填写手机号'
-                    return false
+                    cansub = false
                 }
+                
+                if(cansub==false) return false
+
                 let _this = this
                 let api = this.edit ? API.update_operate : API.create_operate
                 let data = this.edit ? { id: this.id, user_name: this.username, mail: this.email, tel: this.tel } :

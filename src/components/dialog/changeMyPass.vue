@@ -38,6 +38,7 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
+    import REGULAR from 'src/services/reg'
     export default {
         data: function () {
             return {
@@ -84,7 +85,10 @@
                     this.new_error = '请填写新密码'
                     return false
                 } else {
-                    if (reg.test(this.newpass)) {
+                    if (REGULAR.password.patten1.test(this.newpass)
+                        && REGULAR.password.patten2.test(this.newpass)
+                        && REGULAR.password.patten3.test(this.newpass)
+                        && REGULAR.password.patten4.test(this.newpass)) {
                         this.new_error = ''
                         if (this.repeat == this.newpass) {
                             this.repeat_error = ''
@@ -93,7 +97,7 @@
                             return false
                         }
                     } else {
-                        this.new_error = '密码需是英文大小写加数字6~18位'
+                        this.new_error = '密码需是英文大小写加数字6~16位'
                         return false
                     }
                 }
