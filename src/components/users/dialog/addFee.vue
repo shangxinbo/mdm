@@ -15,13 +15,13 @@
                 <li>
                     <label>开通日期</label>
                     <div class="input-warp">
-                        <p class="text">{{detail.expire_time}}</p>
+                        <p class="text">{{detail.created_at}}</p>
                     </div>
                 </li>
                 <li>
                     <label>失效日期</label>
                     <div class="input-warp">
-                        <p class="text">{{detail.created_at}}</p>
+                        <p class="text">{{detail.expire_time}}</p>
                     </div>
                 </li>
             </ul>
