@@ -66,20 +66,22 @@
                                 <p class="text">{{detail.store_addr}}</p>
                             </div>
                         </li>
-                        <li v-if="detail.licence">
+                        <li>
                             <label class="name">营业执照</label>
                             <div class="input-warp">
-                                <p class="text">
+                                <p class="text" v-if="detail.licence">
                                     <a :href="detail.licence" target="_blank">查看</a>
                                 </p>
+                                <p class="text" v-else>--</p>
                             </div>
                         </li>
-                        <li v-if="detail.qualification">
+                        <li>
                             <label class="name">其他资质</label>
                             <div class="input-warp">
-                                <p class="text">
+                                <p class="text" v-if="detail.qualification">
                                     <a :href="detail.qualification" target="_blank">查看</a>
                                 </p>
+                                <p class="text" v-else>--</p>
                             </div>
                         </li>
                     </ul>
