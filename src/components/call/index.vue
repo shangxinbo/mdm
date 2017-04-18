@@ -189,7 +189,7 @@
                 mAjax(this, {
                     url: API.call_head,
                     data: {
-                        search_project_name: _this.search_name,
+                        search_name: _this.search_name,
                         search_client_id: _this.search_client_id,
                         search_agent_id: _this.search_agent_id,
                         search_start_time: dateFormat(_this.search_start_time),
