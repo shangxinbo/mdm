@@ -38,7 +38,7 @@
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
     import dataTable from './bTable'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -114,7 +114,7 @@
                     data: {},
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.alarm = data.data.waring
+                            _this.alarm = data.data.warning
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
