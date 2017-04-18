@@ -76,7 +76,7 @@
                             return false
                         }
                     } else {
-                        this.newpass_error = '密码需是英文大小写加数字6~18位'
+                        this.newpass_error = '密码需是英文大小写加数字6~16位'
                         return false
                     }
                 }

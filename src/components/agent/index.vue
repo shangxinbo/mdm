@@ -59,7 +59,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import updateInfoDialog from './dialog/upinfo'
-    import changePassDialog from 'src/components/dialog/resetpass'
+    import changePassDialog from 'components/dialog/resetpass'
     export default {
         data: function () {
             return {
