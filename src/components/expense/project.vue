@@ -54,7 +54,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export">
+                <div class="data-export" v-if="list.length>0">
                     <ul>
                         <li>
                             <span class="t">线索计费</span><span class="num">¥{{sum.clue_charging}}</span>
@@ -86,7 +86,7 @@
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
     import dataTable from './pTable'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -164,9 +164,9 @@
         methods: {
             init:function () {
                 this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status
+                this.search_customer = this.$route.query.search_customer?this.$route.query.search_customer:''
+                this.search_agent = this.$route.query.search_agent?this.$route.query.search_agent:''
+                this.search_status = this.$route.query.search_status?this.$route.query.search_status:''
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
