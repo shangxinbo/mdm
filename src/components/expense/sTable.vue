@@ -8,7 +8,6 @@
                 <th v-if="userType!=3">坐席单价</th>
                 <th>开通费用</th>
                 <th>开通日期</th>
-                <th>开通月数</th>
                 <th>失效日期</th>
             </tr>
             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
@@ -22,7 +21,6 @@
                 <td v-if="userType!=3">¥{{item.price}}/月</td>
                 <td>¥{{item.cost}}</td>
                 <td>{{item.ask_time}}</td>
-                <td>{{item.months}}</td>
                 <td>{{item.stop_time}}</td>
             </tr>
         </tbody>

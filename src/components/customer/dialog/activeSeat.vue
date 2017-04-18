@@ -11,7 +11,6 @@
                     <table cellspacing="0" cellpadding="0">
                         <tr>
                             <th class="w50"></th>
-                            <th>坐席名称</th>
                             <th>坐席账号</th>
                             <th class="w160">开通日期</th>
                             <th class="w160">失效日期</th>
@@ -26,7 +25,6 @@
                                     <td class="w50">
                                         <i class="icon" @click="checkThis(item)"></i>
                                     </td>
-                                    <td class="w110">{{item.user_name}}</td>
                                     <td>{{item.user}}</td>
                                     <td class="w160">{{item.created_at}}</td>
                                     <td class="w160">{{item.expire_time}}</td>
