@@ -45,6 +45,7 @@
 <script>
     import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
+    import REG from 'src/services/reg'
     export default {
         data: function () {
             return {
@@ -72,14 +73,13 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                let reg_user = /^[a-zA-Z0-9]{6,16}$/
                 let reg_username = /^[\u4e00-\u9fa5]{2,6}$/
                 if (!this.edit) {
                     if (this.user) {
-                        if (reg_user.test(this.user)) {
+                        if (REG.username.test(this.user)) {
                             this.user_error = ''
                         } else {
-                            this.user_error = '账号需要是英文大小写及数字组成6~16位'
+                            this.user_error = '账号是中英文数字组成4~10位'
                             return false
                         }
                     } else {

@@ -49,7 +49,7 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import updateInfoDialog from 'components/operate/dialog/upinfo'
+    import updateInfoDialog from './dialog/upinfo'
     import changePassDialog from 'components/dialog/resetpass'
     export default {
         data: function () {

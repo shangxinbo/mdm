@@ -141,6 +141,7 @@
     import mselect from 'components/utils/select'
     import alert from 'components/dialog/alert'
     import axios from 'axios'
+    import REG from 'src/services/reg'
     function scrollTop(todo, num) {
         if (todo) {
             let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
@@ -275,15 +276,14 @@
                 this.qualification = evt.target.files[0]
             },
             submit() {
-                let reg_user = /^[a-zA-Z0-9]{6,16}$/
                 if (!this.user) {
                     this.user_error = '账号不能为空'
                     return false
                 } else {
-                    if (reg_user.test(this.user)) {
+                    if (REG.username.test(this.user)) {
                         this.user_error = ''
                     } else {
-                        this.user_error = '账号是英文数字6-16位组成'
+                        this.user_error = '账号是中英文数字组成4~10位'
                         return false
                     }
                 }
