@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export">
+                <div class="data-export" v-if="list.length>0">
                     <ul>
                         <li>
                             <span class="t">开通数量</span>
@@ -84,7 +84,7 @@
     import datepicker from 'vuejs-datepicker'
     import dataTable from './sTable'
     import router from 'src/router'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -155,7 +155,7 @@
             init() {
                 this.search_name = this.$route.query.search_name
                 this.search_customer = ''
-                this.search_agent = this.$route.query.search_agent
+                this.search_agent = this.$route.query.search_agent?this.$route.query.search_agent:''
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
@@ -182,8 +182,6 @@
                     this.type = 'all'
                     this.url = API.expense_seat
                     this.url_count = API.expense_seat_count
-                    this.search_customer = this.customer_id  //重置
-                    this.search_agent = this.agent_id    //重置
                 }
                 this.refresh()
                 this.getcount()
