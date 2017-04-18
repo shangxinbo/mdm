@@ -155,11 +155,9 @@
         },
         methods: {
             init: function () {
-                let agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : null
-                let client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : null
+                this.search_client_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : null
+                this.search_agent_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : null
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.search_client_id = client_id
-                this.search_agent_id = agent_id
                 this.refresh()
                 this.heads()
             },
