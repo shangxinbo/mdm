@@ -130,7 +130,6 @@
                 search_agent_id: null,
                 search_start_time: '',
                 search_end_time: '',
-                day : 60*60*24*1000,
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -218,14 +217,12 @@
             search() {
                 let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
-                let _end_time = this.search_end_time
-                let nDate = _end_time ? new Date(_end_time.getTime()+ this.day) :''
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_client_id: search_client_id,
                     search_agent_id: search_agent_id,
                     search_start_time: dateFormat(this.search_start_time),
-                    search_end_time: dateFormat(nDate),
+                    search_end_time: dateFormat(this.search_end_time),
                     page: 1
                 })
                 this.$router.replace({
