@@ -146,14 +146,8 @@
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
-                search_name: null,
                 client_name : '',
                 agent_name : '',
-                search_start_time: '',
-                search_end_time: '',
-                search_agent_id: null,
-                search_client_id : null,
-                search_project_id : null,
                 datepicker_disabled: {
                     to: new Date(2017, 0, 1),
                     from: new Date()
@@ -184,8 +178,8 @@
                 this.search_client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : ''
                 this.client_name = this.$route.query.client_name ? this.$route.query.client_name : '' 
                 this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : ''
-                this.search_end_time = this.$route.query.search_end_time
-                this.search_start_time = this.$route.query.search_start_time
+                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
+                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
                 this.category = this.userType == 3 ? 1 :(this.search_agent_id ? 2:3)
                 this.refresh()
                 this.heads()
@@ -199,8 +193,8 @@
                         search_agent_id: _this.search_agent_id ? _this.search_agent_id : null ,
                         search_client_id : _this.search_client_id ? _this.search_client_id :null ,
                         search_project_id : _this.search_project_id ? _this.search_project_id : null ,
-                        search_start_time: _this.search_start_time ? _this.search_start_time :null,
-                        search_end_time: _this.search_end_time ? _this.search_end_time :null,
+                        search_start_time: dateFormat(_this.search_start_time),
+                        search_end_time: dateFormat(_this.search_end_time),
                         category : _this.category,
                         page: _this.currentPage,
                     },
@@ -225,8 +219,8 @@
                         search_client_id: _this.search_client_id ? _this.search_client_id :null,
                         search_agent_id: _this.search_agent_id ? _this.search_agent_id :null,
                         search_project_id : _this.search_project_id ? _this.search_project_id :null,
-                        search_start_time: _this.search_start_time ? _this.search_start_time :null,
-                        search_end_time: _this.search_end_time ? _this.search_end_time : null
+                        search_start_time: dateFormat(_this.search_start_time),
+                        search_end_time: dateFormat(_this.search_end_time)
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -251,8 +245,8 @@
                     search_client_id: search_client_id,
                     search_agent_id: this.search_agent_id,
                     search_project_id : this.search_project_id,
-                    search_start_time: dateFormat(this.search_start_time),
-                    search_end_time: dateFormat(this.search_end_time),
+                    search_start_time: this.search_start_time,
+                    search_end_time: this.search_end_time,
                     page: 1,
                     category : this.category,
                 })
