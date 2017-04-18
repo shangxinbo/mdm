@@ -42,11 +42,11 @@
                                 <td>{{item.project_type}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}</td>
-                                <td>{{item.clue_num}}</td>
+                                <td>{{item.status==1||item.status==3 ? item.clue_num:'--'}}</td>
                                 <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
                                 <td>{{item.clue_connect_num?item.clue_connect_num:'--'}}</td>
                                 <td>{{item.clue_valid_percent?item.clue_valid_percent + '%':'--'}}</td>
-                                <td>{{item.call_time?item.call_time:'--'}}</td>
+                                <td>{{item.call_time&&(item.status==1||item.status==3) ? item.call_time:'--'}}</td>
                                 <td>{{item.odd_time?item.odd_time:'--'}}</td>
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
                                 <td v-if="userType==1">

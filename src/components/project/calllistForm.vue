@@ -18,7 +18,7 @@
                         </div>
                         <em class="or">至</em>
                         <div class="calendar-warp w45">
-                            <datepicker addClass="date" :init="endTime" :weeks="weeks" :months="months" :buttons="buttons" :min="minEnd" @change="setEndTime"></datepicker>
+                            <datepicker addClass="date" :init="endTime" :weeks="weeks" :months="months" :buttons="buttons" :min="minEnd" :max="maxEnd" @change="setEndTime"></datepicker>
                         </div>
                     </div>
                 </li>
@@ -39,9 +39,11 @@
     import mselect from 'components/utils/select'
     import datepicker from 'components/utils/datepicker'
     import callResultConf from './callResultConf'
+    import moment from 'moment'
 
     export default {
         data() {
+            let now = moment().format('YYYY-MM-DD')
             return {
                 statusList: {
                     "0": '未拨打',
@@ -52,8 +54,9 @@
                 dialStatus: '',
                 startTime: '',
                 endTime: '',
-                maxStart: '',
+                maxStart: now,
                 minEnd: '',
+                maxEnd:now,
                 weeks: ['一', '二', '三', '四', '五', '六', '日'],
                 months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
                 buttons: {

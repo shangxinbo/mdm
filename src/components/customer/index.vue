@@ -3,7 +3,7 @@
         <div class="main">
             <div class="title-warp">{{ agent_name ? agent_name + '的客户' : '客户管理' }}</div>
             <div class="data-property">
-                <searchForm :userType="userType" @submit="search" />
+                <searchForm ref="searchForm" :userType="userType" @submit="search" />
                 <dataSum :data="sum" :userType="userType" v-if="list.length>0"></dataSum>
             </div>
             <div class="data-warp">
@@ -168,11 +168,6 @@
         },
         created() {
             this.init()
-            let _this = this
-            document.onkeyup = function (evt) {
-                if (evt.keyCode == 13)
-                    _this.search()
-            }
         },
         watch: {
             $route: function (newVal, oldVal) {
