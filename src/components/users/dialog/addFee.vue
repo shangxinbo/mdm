@@ -7,12 +7,6 @@
         <div class="dialog-body renewal-warp">
             <ul class="query-warp">
                 <li>
-                    <label>坐席名称</label>
-                    <div class="input-warp">
-                        <p class="text">{{detail.user_name}}</p>
-                    </div>
-                </li>
-                <li>
                     <label>坐席账号</label>
                     <div class="input-warp">
                         <p class="text">{{detail.user}}</p>
