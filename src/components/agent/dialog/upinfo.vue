@@ -70,6 +70,7 @@
 <script>
     import {mAjax, isEmail, isRealPhone} from 'src/services/functions'
     import API from 'src/services/api'
+    import REG from 'src/services/reg'
 
     export default {
         data: function () {
@@ -118,15 +119,14 @@
             },
             sure: function () {
                 if (this.type == 'create') {
-                    let reg_user = /^[a-zA-Z0-9]{6,16}$/
                     if (!this.user) {
                         this.user_error = '请填写代理账号'
                         return false
                     } else {
-                        if (reg_user.test(this.user)) {
+                        if (REG.username.test(this.user)) {
                             this.user_error = ''
                         } else {
-                            this.user_error = '代理账号由大小写拼音以及数字组成6~16位'
+                            this.user_error = '账号是中英文数字组成4~10位'
                             return false
                         }
                     }
