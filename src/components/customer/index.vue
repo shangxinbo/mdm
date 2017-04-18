@@ -75,9 +75,10 @@
     import rechargeDialog from './dialog/recharge'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data() {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
                 userType: user.type,
@@ -109,7 +110,7 @@
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
-                            if (user.type == 1) {
+                            if (this.userType == 1) {
                                 this.sum = {
                                     customer: list.customer_num,
                                     project: list.conduct_project,

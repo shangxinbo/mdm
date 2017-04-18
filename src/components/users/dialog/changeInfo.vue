@@ -15,14 +15,14 @@
                 <li>
                     <label>代理名称</label>
                     <div class="input-warp">
-                        <input class="text" type="text" v-model="name" value="alinea">
+                        <input class="text" type="text" v-model="name">
                         <p v-show="username_error" class="error">{{name_error}}</p>
                     </div>
                 </li>
                 <li>
                     <label>联系人姓名</label>
                     <div class="input-warp">
-                        <input class="text" type="email" v-model="username">
+                        <input class="text" type="text" v-model="username">
                         <p v-show="username_error" class="error">{{username_error}}</p>
                     </div>
                 </li>

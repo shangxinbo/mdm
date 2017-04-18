@@ -136,9 +136,10 @@
     import datepicker from 'vuejs-datepicker'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
                 head :[],

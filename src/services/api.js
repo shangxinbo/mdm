@@ -36,6 +36,7 @@ export default {
     project_start: API_PRE + '/project/start',
     project_detail: API_PRE + '/project/detail',
     preject_audit: API_PRE + '/project/audit',
+    project_recheck: API_PRE + '/project/againaudit',
     expense_project: API_PRE + '/operate/chargingproject',
     expense_project_user: API_PRE + '/operate/charginuser',
     expense_project_agent: API_PRE + '/operate/chargingagent',

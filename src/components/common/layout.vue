@@ -27,9 +27,10 @@
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type
             }
@@ -52,7 +53,7 @@
         created: function () {
             let _this = this
             //坐席登录外呼中心 start
-            if (user.type == 4) {
+            if (this.userType == 4) {
                 mAjax(_this, {
                     url: API.get_seat_sign,
                     success: data => {

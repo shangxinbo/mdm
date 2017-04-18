@@ -52,7 +52,6 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import datepicker from 'components/utils/datepicker'
     import pages from 'components/common/pages'
     import alert from 'components/dialog/alert'
     import doCallDialog from './dialog/doCall'
@@ -75,7 +74,6 @@
         },
         components: {
             mselect,
-            datepicker,
             pages,
             alert,
             doCallDialog,
@@ -125,7 +123,6 @@
                     data: {
                         id: this.project.id,
                         clue_status: _this.clue_status,
-                        phone: _this.$route.query.tel,
                         is_dial: _this.$route.query.isDial,
                         dial_status: _this.$route.query.dialStatus,
                         created_at_start: _this.$route.query.startTime,
@@ -153,7 +150,6 @@
                         clue_status: num,
                         isDial: '',
                         dialStatus: '',
-                        tel: '',
                         startTime: '',
                         endTime: '',
                         page: 1

@@ -13,7 +13,7 @@
             <div class="data-property">
                 <form>
                     <ul class="data-text">
-                        <li v-if="type!='customer'&&userType!=3">
+                        <li v-if="(type=='all'||type=='agent')&&userType!=3">
                             <label class="name">客户名称</label>
                             <div class="input-warp">
                                 <input class="text" v-model="search_name" type="text">
@@ -31,7 +31,7 @@
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -84,9 +84,10 @@
     import datepicker from 'vuejs-datepicker'
     import dataTable from './sTable'
     import router from 'src/router'
-    let user = JSON.parse(localStorage.getItem('user'))
+    
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,
                 list: [],
@@ -96,6 +97,7 @@
                 url: API.expense_seat,
                 url_count: API.expense_seat_count,
                 search_name: '',
+                search_customer:'',
                 search_agent: '',
                 search_start_time: '',
                 search_end_time: '',
@@ -103,10 +105,6 @@
                 agent_name: '',
                 customer_id: '',
                 customer_name: '',
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
                 api: {
                     agentList: API.angent_list_all,
                 },
@@ -116,6 +114,30 @@
                     cost: "0"
                 }
             }
+        },
+        computed: {
+            datepicker_disabled:function () {
+                let end = this.search_end_time?this.search_end_time:''
+                if(end) {
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date(end)
+                    }
+                }else{
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date()
+                    }
+                }
+
+            },
+            datepicker_disabled2: function () {
+                let start = this.search_start_time
+                return  {
+                    to: new Date(start),
+                    from: new Date()
+                }
+            },
         },
         watch: {
             $route: function () {
@@ -132,13 +154,14 @@
         methods: {
             init() {
                 this.search_name = this.$route.query.search_name
+                this.search_customer = ''
                 this.search_agent = this.$route.query.search_agent
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id
+                this.agent_id = this.$route.query.agent_id?this.$route.query.agent_id:''
                 this.agent_name = this.$route.query.agent_name
-                this.customer_id = this.$route.query.customer_id
+                this.customer_id = this.$route.query.customer_id?this.$route.query.customer_id:""
                 this.customer_name = this.$route.query.customer_name
                 this.type = this.$route.query.type ? this.$route.query.type : 'all'
 
@@ -146,11 +169,12 @@
                     this.type = 'agent'
                     this.url = API.expense_seat
                     this.url_count = API.expense_seat_count
+                    this.search_agent = this.agent_id   //代理固定
                 } else if (this.customer_id && this.customer_name) {
                     this.type = 'user'
                     this.url = API.expense_seat
                     this.url_count = API.expense_seat_count
-                    this.search_customer = this.customer_id
+                    this.search_customer = this.customer_id //客户固定
                 } else if (this.type == 'customer') {
                     this.url = API.customer_seat
                     this.url_count = API.customer_seat_count
@@ -158,6 +182,8 @@
                     this.type = 'all'
                     this.url = API.expense_seat
                     this.url_count = API.expense_seat_count
+                    this.search_customer = this.customer_id  //重置
+                    this.search_agent = this.agent_id    //重置
                 }
                 this.refresh()
                 this.getcount()
