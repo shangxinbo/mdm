@@ -180,6 +180,8 @@
         methods: {
             radio(num) {
                 this.option = num
+                this.price_error = ''
+                this.reason_error = ''
             },
             submit() {
                 if (this.option == 1) {

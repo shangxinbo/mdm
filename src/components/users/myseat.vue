@@ -25,7 +25,6 @@
                                 <th>坐席账号</th>
                                 <th>坐席状态</th>
                                 <th>开通日期</th>
-                                <th>开通月数</th>
                                 <th>失效日期</th>
                                 <th>操作</th>
                             </tr>
@@ -33,7 +32,6 @@
                                 <td>{{item.user}}</td>
                                 <td>{{item.status==1?'有效':'失效'}}</td>
                                 <td>{{item.created_at}}</td>
-                                <td>{{item.open_month}}</td>
                                 <td>{{item.expire_time}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
