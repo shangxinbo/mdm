@@ -77,6 +77,7 @@
                         name: name
                     }
                 }
+                this.$emit('change',this.selected)
                 this.show = false
             }
         },

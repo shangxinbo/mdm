@@ -18,7 +18,7 @@ module.exports = function (req, res) {
             "data|10": [{
                 "id": '@natural',
                 "user": "@title",
-                "status": '@date("yyyy-MM-dd HH:mm:ss")', //开通日期
+                "status": '@int(0,1)',
                 "user_name": "@cname", //开通坐席数
                 "open_month": "@int(0,10)", //开通月数
                 "expire_time": '@date("yyyy-MM-dd HH:mm:ss")', //失效日期

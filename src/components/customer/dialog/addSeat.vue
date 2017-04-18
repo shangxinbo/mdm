@@ -20,12 +20,18 @@
                 </li>
                 <li>
                     <label>新开坐席</label>
-                    <mselect ref="seatNumSelect" addClass="seat-select" :initlist="numList" hideAll="true" id="1"></mselect>
+                    <mselect ref="seatNumSelect" addClass="seat-select" :initlist="numList" hideAll="true" id="1" @change="getSeatNum"></mselect>
+                </li>
+                <li>
+                    <label>新开费用</label>
+                    <div class="input-warp">
+                        <p class="text f18">&yen;{{price * num}}</p>
+                    </div>
                 </li>
             </ul>
         </div>
         <div class="dialog-footer">
-            <a class="btn blue" href="javascript:void(0);" @click="sure">确定</a>
+            <a class="btn blue" href="javascript:void(0);" @click="sure">开通</a>
             <a class="btn" href="javascript:void(0);" @click="close">取消</a>
         </div>
     </div>
@@ -36,33 +42,48 @@
     import mselect from 'components/utils/select'
 
     export default {
-        data: function () {
+        data() {
             return {
                 style: 'none',
                 company: '',
                 seat: '',
+                price: '',
                 add: '',
+                num:1,
                 add_error: '',
-                numList:{
-                    "1":"1",
-                    "2":"2",
-                    "3":"3",
-                    "4":"4",
-                    "5":"5",
-                    "6":"6",
-                    "7":"7",
-                    "8":"8",
-                    "9":"9",
-                    "10":"10"
+                numList: {
+                    "1": "1",
+                    "2": "2",
+                    "3": "3",
+                    "4": "4",
+                    "5": "5",
+                    "6": "6",
+                    "7": "7",
+                    "8": "8",
+                    "9": "9",
+                    "10": "10"
                 }
             }
         },
+        computed: {
+            allPrice() {
+                if (this.$refs.seatNumSelect) {
+                    return this.$refs.seatNumSelect.selected.id * this.price
+                } else {
+                    return 0
+                }
+
+            }
+        },
         methods: {
-            close: function () {
+            getSeatNum(value){
+                this.num = value.id
+            },
+            close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 let _this = this
                 mAjax(this, {
                     url: API.add_seat,
@@ -85,20 +106,21 @@
                 })
             }
         },
-        created: function () {
+        created() {
             let _this = this
-            this.$on('show', function (id, company, seat) {
+            this.$on('show', function (id, company, seat, price) {
                 _this.add = ''
                 _this.add_error = ''
                 _this.id = id
                 _this.company = company
                 _this.seat = seat
+                _this.price = price
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
 
             })
         },
-        components:{
+        components: {
             mselect
         }
     }

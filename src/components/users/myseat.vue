@@ -37,6 +37,7 @@
                                 <td>{{item.expire_time}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
+                                    <a v-if="item.status==1" href="javascript:void(0);" @click="showAddFee(item.id)">续费</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -47,6 +48,7 @@
             </div>
         </div>
         <resetPassDialog ref="resetPassDialog"></resetPassDialog>
+        <addFeeDialog ref="addFeeDialog"></addFeeDialog>
     </div>
 </template>
 <script>
@@ -54,6 +56,7 @@
     import { mAjax } from 'src/services/functions'
     import pages from 'components/common/pages'
     import resetPassDialog from 'components/dialog/resetpass'
+    import addFeeDialog from './dialog/addFee'
     export default {
         data: function () {
             return {
@@ -66,7 +69,8 @@
         },
         components: {
             pages,
-            resetPassDialog
+            resetPassDialog,
+            addFeeDialog
         },
         watch: {
             $route: function () {
@@ -103,8 +107,11 @@
                     }
                 })
             },
-            showResetPassDialog(id,name){
+            showResetPassDialog(id, name) {
                 this.$refs.resetPassDialog.$emit('show', id, name)
+            },
+            showAddFee(id) {
+                this.$refs.addFeeDialog.$emit('show', id)
             }
         },
         created: function () {
