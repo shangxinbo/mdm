@@ -24,11 +24,11 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled1" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -146,23 +146,39 @@
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
-                search_name: null,
                 client_name : '',
                 agent_name : '',
-                search_start_time: null,
-                search_end_time: null,
-                search_agent_id: null,
-                search_client_id : null,
-                search_project_id : null,
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
+                search_start_time : '',
+                search_end_time : '',
                 category : '',
                 api: {
                     customerList: API.customer_list_all,
                 }
             }
+        },
+        computed: {
+            datepicker_disabled1:function () {
+                let end = this.search_end_time?this.search_end_time:''
+                if(end) {
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date(end)
+                    }
+                }else{
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date()
+                    }
+                }
+
+            },
+            datepicker_disabled2: function () {
+                let start = this.search_start_time
+                return  {
+                    to: new Date(start),
+                    from: new Date()
+                }
+            },
         },
         watch: {
             $route: function () {
@@ -179,11 +195,13 @@
         methods: {
             init : function() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.search_agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : null
-                this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : null 
-                this.search_client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : null
-                this.client_name = this.$route.query.client_name ? this.$route.query.client_name : null 
-                this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : null
+                this.search_agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : ''
+                this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : '' 
+                this.search_client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : ''
+                this.client_name = this.$route.query.client_name ? this.$route.query.client_name : '' 
+                this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : ''
+                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
+                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
                 this.category = this.userType == 3 ? 1 :(this.search_agent_id ? 2:3)
                 this.refresh()
                 this.heads()
@@ -193,10 +211,10 @@
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
-                        search_name : _this.search_name,
-                        search_agent_id: _this.search_agent_id ,
-                        search_client_id : _this.search_client_id ,
-                        search_project_id : _this.search_project_id ,
+                        search_name : _this.search_name ? _this.search_name : null,
+                        search_agent_id: _this.search_agent_id ? _this.search_agent_id : null ,
+                        search_client_id : _this.search_client_id ? _this.search_client_id :null ,
+                        search_project_id : _this.search_project_id ? _this.search_project_id : null ,
                         search_start_time: dateFormat(_this.search_start_time),
                         search_end_time: dateFormat(_this.search_end_time),
                         category : _this.category,
@@ -219,10 +237,10 @@
                     url: API.call_head,
                     data: {
                         category : _this.category,
-                        search_name: _this.search_name,
-                        search_client_id: _this.search_client_id,
-                        search_agent_id: _this.search_agent_id,
-                        search_project_id : _this.search_project_id,
+                        search_name: _this.search_name ? _this.search_name :null,
+                        search_client_id: _this.search_client_id ? _this.search_client_id :null,
+                        search_agent_id: _this.search_agent_id ? _this.search_agent_id :null,
+                        search_project_id : _this.search_project_id ? _this.search_project_id :null,
                         search_start_time: dateFormat(_this.search_start_time),
                         search_end_time: dateFormat(_this.search_end_time)
                     },
@@ -249,8 +267,8 @@
                     search_client_id: search_client_id,
                     search_agent_id: this.search_agent_id,
                     search_project_id : this.search_project_id,
-                    search_start_time: dateFormat(this.search_start_time),
-                    search_end_time: dateFormat(this.search_end_time),
+                    search_start_time: this.search_start_time,
+                    search_end_time: this.search_end_time,
                     page: 1,
                     category : this.category,
                 })
