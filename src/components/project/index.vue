@@ -56,6 +56,7 @@
                                 </td>
                                 <td v-else-if="userType==4">
                                     <router-link v-if="item.status==1" :to="'/project/call/?id='+ item.id +'&projectName=' + item.name ">外呼</router-link>
+                                    <router-link v-else :to="'/project/call/?id='+ item.id +'&projectName=' + item.name + '&clue_status=1&end=1'">查看</router-link>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
