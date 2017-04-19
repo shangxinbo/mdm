@@ -24,11 +24,11 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled1" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -148,15 +148,37 @@
                 totalPage: 1,
                 client_name : '',
                 agent_name : '',
-                datepicker_disabled: {
-                    to: new Date(2017, 0, 1),
-                    from: new Date()
-                },
+                search_start_time : '',
+                search_end_time : '',
                 category : '',
                 api: {
                     customerList: API.customer_list_all,
                 }
             }
+        },
+        computed: {
+            datepicker_disabled1:function () {
+                let end = this.search_end_time?this.search_end_time:''
+                if(end) {
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date(end)
+                    }
+                }else{
+                    return  {
+                        to: new Date(2017,0,1),
+                        from: new Date()
+                    }
+                }
+
+            },
+            datepicker_disabled2: function () {
+                let start = this.search_start_time
+                return  {
+                    to: new Date(start),
+                    from: new Date()
+                }
+            },
         },
         watch: {
             $route: function () {
