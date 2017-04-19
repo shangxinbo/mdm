@@ -7,7 +7,7 @@
                 <a href="javascript:void(0);" :class="{active:clue_status}" @click="tab(1)">已完成</a>
             </div>
             <div class="data-property">
-                <searchForm @submit="search"></searchForm>
+                <searchForm @submit="search" :status="clue_status"></searchForm>
             </div>
             <div class="data-warp">
                 <div class="cutover">
