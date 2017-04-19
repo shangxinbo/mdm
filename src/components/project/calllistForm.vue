@@ -81,8 +81,8 @@
         },
         methods: {
             init() {
-                this.isDial = this.$route.query.isDial ? this.$route.query.isDial : ''
-                this.dialStatus = this.$route.query.dialStatus ? this.$route.query.dialStatus : ''
+                this.isDial = this.$route.query.isDial===undefined ?'': this.$route.query.isDial
+                this.dialStatus = this.$route.query.dialStatus===undefined ?'': this.$route.query.dialStatus
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.max_start = this.endTime

@@ -164,9 +164,9 @@
         methods: {
             init:function () {
                 this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer?this.$route.query.search_customer:''
-                this.search_agent = this.$route.query.search_agent?this.$route.query.search_agent:''
-                this.search_status = this.$route.query.search_status?this.$route.query.search_status:''
+                this.search_customer = this.$route.query.search_customer===undefined?'':this.$route.query.search_customer
+                this.search_agent = this.$route.query.search_agent===undefined?'':this.$route.query.search_agent
+                this.search_status = this.$route.query.search_status===undefined?'':this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
