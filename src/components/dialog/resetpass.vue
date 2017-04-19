@@ -104,6 +104,8 @@
                 _this.style = 'block'
                 _this.user = user ? user : ''
                 _this.id = id
+                _this.newpass_error = ''
+                _this.repass_error = ''
                 _this.$store.commit('SHOW_LAYER')
             })
         },
