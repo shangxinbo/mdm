@@ -27,7 +27,7 @@
                                 <label class="name">新密码</label>
                                 <div class="input-warp">
                                     <input class="text" type="password" v-model="newpass">
-                                    <p class="tips">英文大小写加数字字符6-18位</p>
+                                    <p class="tips">英文大小写加数字字符6-16位</p>
                                     <p v-show="new_error" class="error">{{new_error}}</p>
                                 </div>
                             </li>
@@ -57,6 +57,7 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import alert from 'components/dialog/alert'
+    import REG from 'src/services/reg'
     export default {
         data: function () {
             return {
@@ -79,7 +80,6 @@
         },
         methods: {
             submit: function () {
-                let reg = /^[a-zA-Z0-9]{6,18}$/
                 if (!this.oldpass) {
                     this.old_error = '请填写旧密码'
                     return false
@@ -93,7 +93,7 @@
                     if(this.newpass == this.oldpass){
                         this.new_error = '新密码与旧密码不能相同'
                         return false
-                    }else if (reg.test(this.newpass)) {
+                    }else if (REG.password.patten1.test(this.newpass)&&REG.password.patten2.test(this.newpass)&&REG.password.patten3.test(this.newpass)&&REG.password.patten4.test(this.newpass)) {
                         this.new_error = ''
                         if (this.repeat == this.newpass) {
                             this.repeat_error = ''
@@ -102,7 +102,7 @@
                             return false
                         }
                     } else {
-                        this.new_error = '密码需是英文大小写加数字6~18位'
+                        this.new_error = '密码需是英文大小写加数字6~16位'
                         return false
                     }
                 }
