@@ -1,5 +1,5 @@
 <template>
-    <div class="dialog" id="resetEdit" :style="{'display':style,'margin-left':'-259px','margin-top':'-280px'}">
+    <div class="dialog" id="resetEdit" :style="{'display':style,'margin-left':'-259px','margin-top':offsetTop}">
         <a href="javascript:void(0);" class="icon dialog-close" title="关闭" @click="close"></a>
         <div class="dialog-header">
             <h4 v-if="type=='create'">新建代理</h4>
@@ -92,7 +92,8 @@
                 addr: '',
                 addr_error: '',
                 self_addr: '',
-                self_addr_error: ''
+                self_addr_error: '',
+                offsetTop:0,
             }
         },
         methods: {
@@ -118,77 +119,79 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
+                let cansub = true
                 if (this.type == 'create') {
                     if (!this.user) {
                         this.user_error = '请填写代理账号'
-                        return false
+                        cansub = false
                     } else {
                         if (REG.username.test(this.user)) {
                             this.user_error = ''
                         } else {
                             this.user_error = '账号是中英文数字组成4~10位'
-                            return false
+                            cansub = false
                         }
                     }
                 }
                 let reg_name = /^[\u4e00-\u9fa5]{2,20}$/
                 if (!this.name) {
                     this.name_error = '请填写代理名称'
-                    return false
+                    cansub = false
                 } else {
                     if (reg_name.test(this.name)) {
                         this.name_error = ''
                     } else {
                         this.name_error = '代理名称由汉字组成2~20位'
-                        return false
+                        cansub = false
                     }
                 }
                 let reg = /^[\u4e00-\u9fa5]{2,6}$/
                 if (!this.username) {
                     this.username_error = '请填写姓名'
-                    return false
+                    cansub = false
                 } else {
                     if (reg.test(this.username)) {
                         this.username_error = ''
                     } else {
                         this.username_error = '姓名由汉字组成2~6位'
-                        return false
+                        cansub = false
                     }
                 }
                 if (!this.email) {
                     this.email_error = '请填写邮箱'
-                    return false
+                    cansub = false
                 } else {
                     if (isEmail(this.email)) {
                         this.email_error = ''
                     } else {
                         this.email_error = '邮箱格式不正确'
-                        return false
+                        cansub = false
                     }
                 }
                 if (!this.tel) {
                     this.tel_error = '请填写手机号'
-                    return false
+                    cansub = false
                 } else {
                     if (isRealPhone(this.tel)) {
                         this.tel_error = ''
                     } else {
                         this.tel_error = '请填写真实的手机号'
-                        return false
+                        cansub = false
                     }
                 }
                 if (!this.addr) {
                     this.addr_error = '请填写归属地'
-                    return false
+                    cansub = false
                 }else{
                     this.addr_error = ''
                 }
                 if (!this.self_addr) {
                     this.self_addr_error = '请填写所在位置'
-                    return false
+                    cansub = false
                 }else{
                     this.self_addr_error = ''
                 }
+                if(cansub==false) return false
                 let _this = this
                 mAjax(this, {
                     url: this.url,
@@ -226,7 +229,7 @@
                 })
             }
         },
-        created: function () {
+        created() {
             let _this = this
 
             this.$on('show', function (id) {
@@ -256,6 +259,12 @@
                 _this.$store.commit('SHOW_LAYER')
             })
         },
+        updated(){
+            let dialog = this.$el
+            let dh = dialog.offsetHeight
+            this.offsetTop = -dh / 2 + 'px'
+            console.log(this.offsetTop)
+        }
     }
 
 </script>

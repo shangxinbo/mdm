@@ -102,6 +102,7 @@
         },
         methods: {
             init() {
+                let now = moment().format('YYYY-MM-DD')
                 this.projectName = this.$route.query.projectName ? this.$route.query.projectName : ''
                 this.customerId = this.$route.query.customerId ? this.$route.query.customerId : ''
                 this.agentId = this.$route.query.agentId ? this.$route.query.agentId : ''
@@ -110,6 +111,9 @@
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.max_start = this.endTime
                 this.min_end = this.startTime
+                this.maxStart = now
+                this.maxEnd = now
+                this.minEnd = ''
 
                 if(this.$route.query.customer_id) {
                     this.type = 'customer'
