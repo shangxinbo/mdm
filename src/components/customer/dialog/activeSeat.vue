@@ -78,6 +78,7 @@
             let _this = this
             this.$on('show', (id, company, price) => {
                 _this.id = id
+                _this.error = ''
                 mAjax(this, {
                     url: API.operate_expire_seat_list,
                     data: {
