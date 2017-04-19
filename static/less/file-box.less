@@ -2,7 +2,6 @@
 //---------------------------------------------- 上传文件 ------------------------------------------------------
 .file-box{
   white-space: nowrap;
-  width: 400px;
   position: relative;
   .icon{
     .flo();
@@ -12,7 +11,7 @@
     position: relative;
     height: 41px;
     overflow: hidden;
-
+    float: left;
     .txt {
       display: inline-block;
       height: 39px;
@@ -42,8 +41,9 @@
   }
   .succ{
     display: none;
-    position: absolute;
-    right: -40px;
+    position:relative;
+    margin-left: 10px;
+    float: left;
       top: 8px;
     .wh(24px);
     background-position: -26px 0;
@@ -99,6 +99,7 @@
   .img{
     margin-top: 30px;
     height: 200px;
+    clear: both;
     img{
       height: 100%;
     }
