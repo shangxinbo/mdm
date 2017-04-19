@@ -104,9 +104,9 @@
             init() {
                 let now = moment().format('YYYY-MM-DD')
                 this.projectName = this.$route.query.projectName ? this.$route.query.projectName : ''
-                this.customerId = this.$route.query.customerId ? this.$route.query.customerId : ''
-                this.agentId = this.$route.query.agentId ? this.$route.query.agentId : ''
-                this.statusId = this.$route.query.statusId ? this.$route.query.statusId : ''
+                this.customerId = this.$route.query.customerId === undefined ? '' : this.$route.query.customerId
+                this.agentId = this.$route.query.agentId === undefined ? '' : this.$route.query.agentId
+                this.statusId = this.$route.query.statusId === undefined ? '' : this.$route.query.statusId
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.max_start = this.endTime
