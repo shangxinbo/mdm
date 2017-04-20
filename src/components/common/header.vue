@@ -21,7 +21,7 @@
                         <i class="icon icon04"></i>
                         <span>我的坐席</span>
                     </router-link>
-                    <a href="javascript:void(0)" class="edit" v-if="type!=0" @click.stop="download()">
+                    <a :href="downloadApi + '?type=' + type" class="edit" v-if="type!=0" @click.stop="slideUp()">
                         <i class="icon icon07"></i>
                         <span>操作手册</span>
                     </a>
@@ -53,7 +53,8 @@
                 username: user.user_name,
                 user:user.user,
                 show: false,
-                type: user.type
+                type: user.type,
+                downloadApi :API.doc_download
             }
         },
         methods: {
