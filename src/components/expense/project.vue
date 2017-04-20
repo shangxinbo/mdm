@@ -201,7 +201,7 @@
                         name: _this.search_name ? _this.search_name : '',
                         uid: _this.search_customer ? _this.search_customer : '',
                         superior_id: _this.search_agent ? _this.search_agent : '',
-                        status: _this.search_status ? _this.search_status : '',
+                        status: _this.search_status,
                         created_at_start: _this.search_start_time ? _this.search_start_time : '',
                         created_at_end: _this.search_end_time ? _this.search_end_time : ''
                     },
