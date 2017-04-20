@@ -21,6 +21,10 @@
                         <i class="icon icon04"></i>
                         <span>我的坐席</span>
                     </router-link>
+                    <a href="javascript:void(0)" class="edit" v-if="type!=0" @click.stop="download()">
+                        <i class="icon icon07"></i>
+                        <span>操作手册</span>
+                    </a>
                     <a href="javascript:void(0)" class="edit" v-if="type==4" @click.stop="showCallSet()">
                         <i class="icon icon06"></i>
                         <span>通话设置</span>
@@ -92,6 +96,11 @@
             showCallSet(){
                 this.slideUp()
                 this.$store.commit('SHOW_CALL_SET')
+            },
+            download(){
+                this.$http.get('/api/doc/download', {type:this.type}).then(function (data) {
+                    console.log(data)
+                })
             }
         },
         created: function () {

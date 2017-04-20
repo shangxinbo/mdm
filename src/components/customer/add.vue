@@ -59,7 +59,7 @@
                                         <span name="textfield" id="textfield" class="txt">{{licence_name}}</span>
                                         <div class="mainbox">
                                             <span class="button1">上传文件</span>
-                                            <input type="file" class="file" accept=".jpg,.png,gif" multiple="false" size="28" @change="selectLicense">
+                                            <input type="file" class="file" accept=".jpg,.png,.gif" multiple="false" size="28" @change="selectLicense">
                                         </div>
                                     </div>
                                     <p v-show="licence_error" class="error">{{licence_error}}</p>
