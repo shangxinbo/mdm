@@ -21,7 +21,7 @@
                             <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
                         </li>
                         <li>
-                            <label class="name">创建日期</label>
+                            <label class="name">日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
                                     <datepicker input-class="date" :disabled="datepicker_disabled1" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
