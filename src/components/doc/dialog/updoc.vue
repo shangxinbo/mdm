@@ -87,18 +87,18 @@
             },
             selectFile(evt) {
                 let file = evt.target.files[0]
-                let mimeArr = [
-                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                    'application/msword',
-                    'application/pdf'
-                ]
-                if (mimeArr.indexOf(file.type) < 0) {
-                    this.error = '请上传.doc,.docx,.pdf格式的文件'
-                    this.file_name = ''
-                }else{
+                // let mimeArr = [
+                //     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                //     'application/msword',
+                //     'application/pdf'
+                // ]
+                if (file.name.endsWith('.doc')||file.name.endsWith('.docx')||file.name.endsWith('.pdf')) {
                     this.error = ''
                     this.file_name = file.name
                     this.file = file
+                }else{
+                    this.error = '请上传.doc,.docx,.pdf格式的文件'
+                    this.file_name = ''
                 }
             }
         },
