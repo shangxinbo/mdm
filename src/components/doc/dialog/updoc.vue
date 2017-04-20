@@ -95,10 +95,11 @@
                 if (mimeArr.indexOf(file.type) < 0) {
                     this.error = '请上传.doc,.docx,.pdf格式的文件'
                     this.file_name = ''
-                    return false
+                }else{
+                    this.error = ''
+                    this.file_name = file.name
+                    this.file = file
                 }
-                this.file_name = file.name
-                this.file = file
             }
         },
         created: function () {
