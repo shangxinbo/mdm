@@ -59,9 +59,9 @@
         methods:{
             init() {
                 this.customerName = this.$route.query.customerName ? this.$route.query.customerName : ''
-                this.typeId = this.$route.query.typeId ? this.$route.query.typeId : ''
-                this.agentId = this.$route.query.agentId ? this.$route.query.agentId : ''
-                this.statusId = this.$route.query.statusId ? this.$route.query.statusId : ''
+                this.typeId = this.$route.query.typeId==undefined ?'': this.$route.query.typeId
+                this.agentId = this.$route.query.agentId==undefined ?'': this.$route.query.agentId
+                this.statusId = this.$route.query.statusId==undefined ?'': this.$route.query.statusId
                 if(this.$route.query.agent_id) {
                     this.type = 'agent'
                 }else{

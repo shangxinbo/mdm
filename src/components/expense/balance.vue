@@ -7,7 +7,7 @@
             <div class="title-warp">余额管理</div>
             <div class="money-sum">
                 <span class="name">余额</span><span class="num">&yen;<em>{{customerInfo['balance']}}</em></span>
-                <p class="notice" v-if="alarm"><i class="icon"></i>客户余额不足，请尽快联系客户进行充值，以免影响客户正常使用</p>
+                <p class="notice" v-if="alarm" style="max-width: 500px;"><i class="icon"></i>您的余额不足，请尽快联系相关人员进行充值，以免影响您的正常使用</p>
             </div>
             <div class="tag-nav">
                 <router-link to="/expense/balance?type=in" :class="type=='in'?'active':''">充值记录</router-link>

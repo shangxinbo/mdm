@@ -19,15 +19,15 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                         <tr>
-                            <th>代理账号</th>
-                            <th>代理名称</th>
-                            <th>姓名</th>
-                            <th>邮箱</th>
-                            <th>手机号</th>
-                            <th>归属地</th>
-                            <th>所在位置</th>
-                            <th>创建时间</th>
-                            <th>操作</th>
+                            <th width="5%">代理账号</th>
+                            <th width="5%">代理名称</th>
+                            <th width="5%">姓名</th>
+                            <th width="10%">邮箱</th>
+                            <th width="5%">手机号</th>
+                            <th width="20%">归属地</th>
+                            <th width="20%">所在位置</th>
+                            <th width="10%">创建时间</th>
+                            <th width="10%">操作</th>
                         </tr>
                         <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                             <td>{{item.user}}</td>

@@ -163,10 +163,10 @@
         },
         methods: {
             init:function () {
-                this.search_name = this.$route.query.search_name
-                this.search_customer = this.$route.query.search_customer?this.$route.query.search_customer:''
-                this.search_agent = this.$route.query.search_agent?this.$route.query.search_agent:''
-                this.search_status = this.$route.query.search_status?this.$route.query.search_status:''
+                this.search_name = this.$route.query.search_name?this.$route.query.search_name:''
+                this.search_customer = this.$route.query.search_customer===undefined?'':this.$route.query.search_customer
+                this.search_agent = this.$route.query.search_agent===undefined?'':this.$route.query.search_agent
+                this.search_status = this.$route.query.search_status===undefined?'':this.$route.query.search_status
                 this.search_start_time = this.$route.query.search_start_time
                 this.search_end_time = this.$route.query.search_end_time
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
@@ -201,7 +201,7 @@
                         name: _this.search_name ? _this.search_name : '',
                         uid: _this.search_customer ? _this.search_customer : '',
                         superior_id: _this.search_agent ? _this.search_agent : '',
-                        status: _this.search_status ? _this.search_status : '',
+                        status: _this.search_status,
                         created_at_start: _this.search_start_time ? _this.search_start_time : '',
                         created_at_end: _this.search_end_time ? _this.search_end_time : ''
                     },

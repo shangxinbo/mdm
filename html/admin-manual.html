@@ -30,48 +30,89 @@
 <div class="navbox">
     <h1><a href="#" title="geo方舟公有云" class="logo"><img src="../static/img/logo.png" alt="geo方舟公有云" /></a></h1>
     <ul>
-        <li class="active">
+        <li>
             <a href="admin-manage.html"><span><i class="icon icon01"></i>运营管理</span></a>
         </li>
-        <li>
+        <li class="active">
             <a href="admin-manual.html"><span><i class="icon icon05"></i>操作手册管理</span></a>
         </li>
     </ul>
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">运营管理</div>
-        <div class="data-property">
-            <div class="data-export">
-                <a href="javascript:void(0);" onclick="getWindow('add');" class="btn blue btn-export"><span><i class="icon add"></i>新建运营</span></a>
-            </div>
-        </div>
+        <div class="title-warp">操作手册管理</div>
         <div class="data-warp">
             <div class="data-table">
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>运营账号</th><th>姓名</th><th>邮箱</th><th>手机号</th><th>创建时间</th><th>操作</th></tr>
-                    <tr><td>CCCWWW1</td><td>张三</td><td>zhangsan@133.com</td><td>13811146398</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
-                    <tr class="tr2"><td>CCCWWW2</td><td>张三</td><td>zhangsan@133.com</td><td>13811146398</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
-                    <tr><td>CCCWWW1</td><td>张三</td><td>zhangsan@133.com</td><td>13811146398</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
-                    <tr class="tr2"><td>CCCWWW2</td><td>张三</td><td>zhangsan@133.com</td><td>13811146398</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('resetEdit');">修改信息</a><a href="javascript:void(0);" onclick="getWindow('resetPassword');">重置密码</a></td></tr>
+                    <tr><th>账号权限</th><th>操作手册名称</th><th>上传时间</th><th>操作</th></tr>
+                    <tr><td>运营</td><td>方舟公有云V1.0运营操作手册.docx</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('uploadManual');">更新手册</a></td></tr>
+                    <tr class="tr2"><td>代理</td><td>方舟公有云V1.0代理操作手册.docx</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('uploadManual');">更新手册</a></td></tr>
+                    <tr><td>客户</td><td>方舟公有云V1.0客户操作手册.docx</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('uploadManual');">更新手册</a></td></tr>
+                    <tr class="tr2"><td>坐席</td><td>方舟公有云V1.0坐席操作手册.docx</td><td>2017-03-16</td><td><a href="javascript:void(0);" onclick="getWindow('uploadManual');">更新手册</a></td></tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="page">
-                <a class="prev disabled" href="javascript:void(0);">上一页</a>
-                <a href="javascript:void(0);" class="active">1</a>
-                <a href="javascript:void(0);">2</a>
-                <a href="javascript:void(0);">3</a>
-                <span>...</span>
-                <a href="javascript:void(0);">19</a>
-                <a class="next" href="javascript:void(0);">下一页</a>
             </div>
         </div>
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 更新手册弹窗 -->
+<div class="dialog" id="uploadManual">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>更新手册</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>账号权限</label>
+                <div class="input-warp">
+                    <p class="text">运营</p>
+                </div>
+            </li>
+            <li>
+                <label>原文件名</label>
+                <div class="input-warp">
+                    <p class="text">方舟公有云V1.0运营操作手册.docx</p>
+                </div>
+            </li>
+            <li class="li-notice">
+                <label>更新文件</label>
+                <div class="input-warp">
+                    <div class="file-box">
+                        <div class="inputbox "><!-- 在div上加上class（active）上传成功 -->
+                            <span name="textfield" id="textfield" class="txt"></span>
+                            <div class="mainbox">
+                                <span class="button1">上传文件</span>
+                                <span class="button2">重新上传</span>
+                                <input type="file" name="fileField" class="file" id="fileField" size="28" onchange="sa(this.value)">
+                            </div>
+                        </div>
+                        <span class="icon succ" style="display: block"></span><!--上传成功显示-->
+                    </div>
+                    <p class="tips">doc、docx或pdf格式</p>
+                    <!--<p class="error">上传失败</p>-->
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="error-warp"><p class="error">请上传文件</p></div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('uploadManualSucc','tips-succ');">更新</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('uploadManual');">取消</a>
+    </div>
+</div>
+<!-- 更新手册弹窗 -->
+<!-- 更新手册成功弹窗-->
+<div class="dialog tips-succ" id="uploadManualSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>操作手册更新成功</span></p>
+        </div>
+    </div>
+</div>
 <!-- 重置密码弹窗 -->
 <div class="dialog" id="resetPassword">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>

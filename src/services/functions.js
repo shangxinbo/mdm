@@ -217,7 +217,19 @@ export const random = (max, min) => {
 
 export const dateFormat = (date) => {
     if (date instanceof Date) {
-        return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+        let m = ''
+        let d = ''
+        if(date.getMonth() < 9) {
+            m = "0"+ parseInt(date.getMonth()+1)
+        }else{
+            m = parseInt(date.getMonth()+1)
+        }
+        if(date.getDate() < 9) {
+            d = "0"+date.getDate()
+        }else{
+            d = date.getDate()
+        }
+        return date.getFullYear() + '-' + m + '-' + d
     } else {
         return ''
     }

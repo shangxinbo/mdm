@@ -78,6 +78,7 @@
                     url: API.logout,
                     success: function (data) {
                         localStorage.removeItem('user')
+                        sessionStorage.clear()
                         window.location.reload()
                     },
                     error: function (err) {

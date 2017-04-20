@@ -2,7 +2,7 @@
     <form>
         <div class="cutover">
             <ul class="data-text cutover-tab01">
-                <li>
+                <li v-if="status<1">
                     <label class="name">拨打状态</label>
                     <mselect ref="callStatusSelect" :initlist="statusList" :id="isDial"></mselect>
                 </li>
@@ -42,6 +42,7 @@
     import moment from 'moment'
 
     export default {
+        props:['status'],
         data() {
             let now = moment().format('YYYY-MM-DD')
             return {
@@ -80,8 +81,8 @@
         },
         methods: {
             init() {
-                this.isDial = this.$route.query.isDial ? this.$route.query.isDial : ''
-                this.dialStatus = this.$route.query.dialStatus ? this.$route.query.dialStatus : ''
+                this.isDial = this.$route.query.isDial===undefined ?'': this.$route.query.isDial
+                this.dialStatus = this.$route.query.dialStatus===undefined ?'': this.$route.query.dialStatus
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.max_start = this.endTime
@@ -96,13 +97,16 @@
                 this.maxStart = value
             },
             submit() {
-                console.log(2134)
-                this.$emit('submit', {
-                    isDial: this.$refs.callStatusSelect.selected.id,
+                let obj = {
                     dialStatus: this.$refs.callResultSelect.selected.id,
                     startTime:this.startTime,
                     endTime:this.endTime
-                })
+                }
+                if(this.status<1){
+                    obj.isDial = this.$refs.callStatusSelect.selected.id
+                }
+                console.log(obj)
+                this.$emit('submit', obj)
             }
         },
         components: {

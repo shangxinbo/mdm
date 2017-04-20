@@ -50,9 +50,9 @@ let mRouter = new Router({
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/call/index', name: 'call_index', component: call_index },
                 { path: '/call/cate', name: 'call_cate', component: call_cate },
-                { path: '/expense/project/:page?', name: 'expense_project', component: expense_project },
-                { path: '/expense/seat/:page?', name: 'expense_seat', component: expense_seat },
-                { path: '/expense/balance/:page?', name: 'expense_balance', component: expense_balance },
+                { path: '/expense/project', name: 'expense_project', component: expense_project },
+                { path: '/expense/seat', name: 'expense_seat', component: expense_seat },
+                { path: '/expense/balance', name: 'expense_balance', component: expense_balance },
                 { path: '/expense/doc', name: 'expense_doc', component: expense_doc }
             ]
         },

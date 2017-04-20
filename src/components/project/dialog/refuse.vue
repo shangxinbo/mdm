@@ -65,6 +65,7 @@
             this.$on('show', function (id) {
                 _this.id = id
                 _this.message = ''
+                _this.error = ''
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
             })

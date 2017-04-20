@@ -197,7 +197,7 @@
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.search_agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : ''
                 this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : '' 
-                this.search_client_id = this.$route.query.search_client_id ? this.$route.query.search_client_id : ''
+                this.search_client_id = this.$route.query.search_client_id===undefined ?'': this.$route.query.search_client_id 
                 this.client_name = this.$route.query.client_name ? this.$route.query.client_name : '' 
                 this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : ''
                 this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''

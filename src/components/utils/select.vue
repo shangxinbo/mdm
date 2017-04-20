@@ -33,7 +33,7 @@
         props: ['api', 'id', 'initlist', 'error', 'addClass','hideAll'],
         watch: {
             id: function (newVal, oldVal) {
-                if (newVal=='') {
+                if (newVal==='') {
                     this.selected = {
                         id: '',
                         name: '全部'
