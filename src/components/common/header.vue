@@ -98,7 +98,7 @@
                 this.$store.commit('SHOW_CALL_SET')
             },
             download(){
-                this.$http.get('/api/doc/download', {type:this.type}).then(function (data) {
+                this.$http.get(API.doc_download, {type:this.type}).then(function (data) {
                     console.log(data)
                 })
             }
