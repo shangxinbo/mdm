@@ -224,7 +224,7 @@ export const dateFormat = (date) => {
         }else{
             m = parseInt(date.getMonth()+1)
         }
-        if(date.getDate() < 9) {
+        if(date.getDate() <= 9) {
             d = "0"+date.getDate()
         }else{
             d = date.getDate()
