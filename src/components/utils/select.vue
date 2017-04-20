@@ -8,7 +8,7 @@
                 <div class="scroll-warp scrollBar" style="overflow-y:auto">
                     <ul>
                         <li @click.stop="change('','全部')" v-if="!hideAll">全部</li>
-                        <li v-for="(item,index) in list" @click.stop="change(index,item)">{{item.desc?item.desc:item}}</li>
+                        <li v-for="(item,index) in list" @click.stop="change(item.id,item.name)">{{item.name}}</li>
                     </ul>
                 </div>
             </div>
@@ -26,38 +26,24 @@
                     id: '',
                     name: '全部'
                 },
-                list: {},
+                list: [],
                 show: false
             }
         },
-        props: ['api', 'id', 'initlist', 'error', 'addClass','hideAll'],
+        props: ['api', 'id', 'initlist', 'error', 'addClass', 'hideAll'],
         watch: {
             id: function (newVal, oldVal) {
-                if (newVal==='') {
+                if (newVal === '') {
                     this.selected = {
                         id: '',
                         name: '全部'
                     }
                 } else {
-                    if (this.list instanceof Array) {
-                        this.list.find((value, index, arr) => {
-                            if (value.code == newVal) {
-                                this.selected = {
-                                    id: value.code,
-                                    name: value.desc
-                                }
-                            }
-                        })
-                    } else {
-                        for (let i in this.list) {
-                            if (i == newVal) {
-                                this.selected = {
-                                    id: i,
-                                    name: this.list[i]
-                                }
-                            }
+                    this.list.find((value, index, arr) => {
+                        if (value.id == newVal) {
+                            this.selected = value
                         }
-                    }
+                    })
                 }
             }
         },
@@ -77,7 +63,7 @@
                         name: name
                     }
                 }
-                this.$emit('change',this.selected)
+                this.$emit('change', this.selected)
                 this.show = false
             }
         },
@@ -86,41 +72,53 @@
             if (this.initlist) {
                 this.list = this.initlist
                 let id = this.id
-                if(!id) return false
-                for (let i in this.list) {
-                    if (i == id) {
-                        this.selected = {
-                            id: i,
-                            name: this.list[i]
-                        }
+                if (!id) return false
+                this.list.find((value, index, arr) => {
+                    if (value.id == id) {
+                        this.selected = value
                     }
-                }
+                })
             } else {
                 mAjax(this, {
                     url: this.api,
                     success: data => {
-                        this.list = data.data
-                        let id = this.id
-                        if(!id) return false
-                        if (this.list instanceof Array) {
-                            this.list.find((value, index, arr) => {
-                                if (value.code == id) {
-                                    this.selected = {
-                                        id: value.code,
-                                        name: value.desc
-                                    }
+                        let arr = []
+                        if (data.data instanceof Array) {
+                            for (let i = 0; i < data.data.length; i++) {
+                                if (data.data[i].id) {
+                                    arr.push({
+                                        id: data.data[i].id,
+                                        name: data.data[i].name
+                                    })
                                 }
-                            })
-                        } else {
-                            for (let i in this.list) {
-                                if (i == id) {
-                                    this.selected = {
-                                        id: i,
-                                        name: this.list[i]
-                                    }
+                                if (data.data[i].code) {
+                                    arr.push({
+                                        id: data.data[i].code,
+                                        name: data.data[i].desc
+                                    })
                                 }
                             }
+                        } else {
+                            for (let i in data.data) {
+                                arr.push({
+                                    id: i,
+                                    name: data.data[i]
+                                })
+                            }
                         }
+
+                        arr.sort((p, n) => {
+                            return parseInt(n.id) - parseInt(p.id)
+                        })
+
+                        this.list = arr
+                        let id = this.id
+                        if (!id) return false
+                        this.list.find((value, index, arr) => {
+                            if (value.id == id) {
+                                this.selected = value
+                            }
+                        })
                     }
                 })
             }

@@ -7,10 +7,16 @@
         </h1>
         <ul>
             <template v-if="type==0">
-                <li class="active">
+                <li :class="{active:path.startsWith('/operate/')}">
                     <router-link to="/operate/index">
                         <i class="icon icon01"></i>
                         <span>运营管理</span>
+                    </router-link>
+                </li>
+                <li :class="{active:path.startsWith('/doc/index')}">
+                    <router-link to="/doc/index">
+                        <i class="icon icon05"></i>
+                        <span>操作手册管理</span>
                     </router-link>
                 </li>
             </template>
