@@ -20,7 +20,7 @@
                 </li>
                 <li>
                     <label>新开坐席</label>
-                    <mselect ref="seatNumSelect" addClass="seat-select" :initlist="numList" hideAll="true" id="1" @change="getSeatNum"></mselect>
+                    <mselect ref="seatNumSelect" addClass="seat-select" :initlist="numList" hideAll="true" :id="num" @change="getSeatNum"></mselect>
                 </li>
                 <li>
                     <label>新开费用</label>
@@ -30,6 +30,7 @@
                 </li>
             </ul>
         </div>
+        <div class="error-warp" v-if="add_error"><p class="error">{{add_error}}</p></div>
         <div class="dialog-footer">
             <a class="btn blue" href="javascript:void(0);" @click="sure">开通</a>
             <a class="btn" href="javascript:void(0);" @click="close">取消</a>
@@ -115,6 +116,7 @@
                 _this.company = company
                 _this.seat = seat
                 _this.price = price
+                _this.num = 1
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
 
