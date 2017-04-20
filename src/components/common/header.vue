@@ -4,8 +4,7 @@
             <li @click.stop="slideDown" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>
                 <div class="quit" @click.stop>
-                    <p v-if="type==4" :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
-                    <p v-else :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
+                    <p :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
                     <router-link to="/agent/index" class="my" v-if="type==1">
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
