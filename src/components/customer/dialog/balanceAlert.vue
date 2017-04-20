@@ -31,13 +31,14 @@
         },
         created:function(){
             let balanceAlert = sessionStorage.getItem('balanceAlert')
+            console.log(balanceAlert)
             let _this = this
             if(!balanceAlert){
                 mAjax(this,{
                     url:API.customer_alarm,
                     success:data=>{
                         if(data.code==200){
-                            if(data.data.waring){
+                            if(data.data.warning){
                                 _this.style = 'block'
                                 _this.$store.commit('SHOW_LAYER')
                                 sessionStorage.setItem('balanceAlert',true)
