@@ -40,7 +40,11 @@
                                 <td v-else>待审核</td>
                                 <td v-if="userType==1">{{item.conduct_project}}</td>
                                 <td v-if="userType==1">{{item.seat_num}}</td>
-                                <td>¥{{item.balance}}</td>
+                                <td :class="{red:item.balance<1000}">¥{{item.balance}}
+                                    <span v-if="item.balance<1000" @mouseover="showReason" @mouseout="hideReason" class="notice">
+                                        <i class="icon tips"></i><em>请及时充值</em>
+                                    </span>
+                                </td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.audit_status==0" :to="'/customer/check/' + item.id">审核</router-link>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num,item.seat_price)">开坐席</a>
