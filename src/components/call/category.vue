@@ -58,11 +58,11 @@
 
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">{{head.charge_time | countavgcharge }}</span>
+                            <span class="num">{{head.charge_time }}</span>
                         </li>
                         <li>
                             <span class="t">平均通话</span>
-                            <span class="num">{{head.avg_time | countavgcharge }}</span>
+                            <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
                     <a @click="refresh" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
@@ -76,7 +76,7 @@
                             </li>
                             <li>
                                 <span class="t">通话时长</span>
-                                <span class="num">{{head.charge_time | countavgcharge }}</span>
+                                <span class="num">{{head.charge_time }}</span>
                             </li>
                         </ul>
                         <a href="javascript:void(0);" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
@@ -115,8 +115,8 @@
                                 <td>{{item.effect_call_rate}}%</td>
                                 <td>{{item.uneffect_call_times}}</td>
                                 <td>{{item.uneffect_call_rate}}%</td>
-                                <td>{{item.charge_time | countavgcharge }}</td>
-                                <td>{{item.avg_time | countavgcharge }}</td>
+                                <td>{{item.charge_time }}</td>
+                                <td>{{item.avg_time}}</td>
                                 <td v-if="userType!=4">{{item.seat_num}}</td>
                             </tr>
                         </tbody>
@@ -185,25 +185,6 @@
         watch: {
             $route: function () {
                 this.init()
-            }
-        },
-        filters:{
-            countavgcharge : function (value) {
-                if (value.day > 0 ) {
-                    if(value.hour > 0 ) {
-                        return value.day + '天' + value.hour + '小时'
-                    } else {
-                        return value.day + '天'
-                    }
-                } else if(value.hour > 0 ) {
-                    if(value.min > 0) {
-                        return value.hour + '小时' + value.min + '分钟'
-                    } else {
-                        return value.hour + '小时'
-                    }
-                } else {
-                    return value.min + '分钟'
-                }
             }
         },
         components: {

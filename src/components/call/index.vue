@@ -52,7 +52,7 @@
                         </li>
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">{{head.charge_time | countavgcharge }}</span>
+                            <span class="num">{{head.charge_time }}</span>
                         </li>
                         <a @click="refresh" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span>
                         </a>
@@ -162,25 +162,6 @@
         watch: {
             $route: function () {
                 this.init()
-            }
-        },
-        filters:{
-            countavgcharge : function (value) {
-                if (value.day > 0 ) {
-                    if(value.hour > 0 ) {
-                        return value.day + '天' + value.hour + '小时'
-                    } else {
-                        return value.day + '天'
-                    }
-                } else if(value.hour > 0 ) {
-                    if(value.min > 0) {
-                        return value.hour + '小时' + value.min + '分钟'
-                    } else {
-                        return value.hour + '小时'
-                    }
-                } else {
-                    return value.min + '分钟'
-                }
             }
         },
         components: {
