@@ -77,7 +77,7 @@
                 axios.post(API.doc_upload, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
                         _this.close()
-                        _this.$store.commit('SHOW_TOAST', '上传成功')
+                        _this.$store.commit('SHOW_TOAST', '操作手册更新成功')
                     } else {
                         _this.error = res.data.message
                     }
