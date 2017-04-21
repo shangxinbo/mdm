@@ -13,8 +13,16 @@ module.exports = function (req, res) {
                 "client_name": "@cname",
                 "call_times": "@int(0,1000)",
                 "effect_call_times" : "@int(0,1000)",
-                "charge_time" : "@int(0,1000)",
-                "avg_time" : "@int(0,1000)",
+                 "charge_time" :  {
+                    'hour' : "@int(0,12)",
+                    'day'  : "@int(0,12)",
+                    'min'  : "@int(0,12)",
+                    },
+                "avg_time" : {
+                    'hour' : "@int(0,12)",
+                    'day'  : "@int(0,12)",
+                    'min'  : "@int(0,12)",
+                    },
                 "effect_call_rate" : "@int(0,100)",
                 "uneffect_call_rate" : "@int(0,100)",
                 "uneffect_call_times" : "@int(0,1000)",
