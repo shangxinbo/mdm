@@ -4,8 +4,7 @@
             <li @click.stop="slideDown" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>
                 <div class="quit" @click.stop>
-                    <p v-if="type==4" :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
-                    <p v-else :title="username">{{username.length>9? username.substr(0,6)+'…':username}}</p>
+                    <p :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
                     <router-link to="/agent/index" class="my" v-if="type==1">
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
@@ -22,6 +21,10 @@
                         <i class="icon icon04"></i>
                         <span>我的坐席</span>
                     </router-link>
+                    <a :href="downloadApi + '?type=' + type" class="edit" v-if="type!=0" @click.stop="slideUp()">
+                        <i class="icon icon07"></i>
+                        <span>操作手册</span>
+                    </a>
                     <a href="javascript:void(0)" class="edit" v-if="type==4" @click.stop="showCallSet()">
                         <i class="icon icon06"></i>
                         <span>通话设置</span>
@@ -50,7 +53,8 @@
                 username: user.user_name,
                 user:user.user,
                 show: false,
-                type: user.type
+                type: user.type,
+                downloadApi :API.doc_download
             }
         },
         methods: {
@@ -93,6 +97,12 @@
             showCallSet(){
                 this.slideUp()
                 this.$store.commit('SHOW_CALL_SET')
+            },
+            download(){
+                this.$http.get(API.doc_download + '?type=' + this.type).then(function (data) {
+                    console.log(data)
+                })
+                this.slideUp()
             }
         },
         created: function () {

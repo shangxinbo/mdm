@@ -36,11 +36,11 @@
     
     let agentApi = API.angent_list_all
     let typeApi = API.customer_type_list
-    let statusList = {
-        "0": "待审核",
-        "1": "通过",
-        "2": "未通过"
-    }
+    let statusList = [
+        {id:"0",name: "待审核"},
+        {id:"1",name: "通过"},
+        {id:"2",name: "未通过"}
+    ]
 
     export default {
         props:['userType'],

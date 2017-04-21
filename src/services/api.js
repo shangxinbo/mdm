@@ -27,7 +27,7 @@ export default {
     agent_modify_myinfo: API_PRE + '/agent/modifyself',
     customer_detail_by_operate: API_PRE + '/operate/agentinfo',
     customer_edit: API_PRE + '/agent/modifyinfo',
-    customer_upself:API_PRE + '/customer/modify',
+    customer_upself: API_PRE + '/customer/modify',
     customer_check: API_PRE + '/operate/examine',
     customer_renew_seat: API_PRE + '/customer/renewseatinfo',
     angent_list_all: API_PRE + '/operate/agent',
@@ -66,5 +66,8 @@ export default {
     call_head: API_PRE + '/teltraffic/heads',
     get_seat_sign: API_PRE + '/callCenter/getSignInData',
     save_call_uuid: API_PRE + '/callCenter/saveCallUuid',
-    add_call_job: API_PRE + '/callCenter/addJob'
+    add_call_job: API_PRE + '/callCenter/addJob',
+    doc_list: API_PRE + '/doc/list',
+    doc_upload: API_PRE + '/doc/upload',
+    doc_download: API_PRE + '/doc/download'
 }

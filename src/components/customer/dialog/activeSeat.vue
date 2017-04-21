@@ -11,13 +11,13 @@
                     <table cellspacing="0" cellpadding="0">
                         <tr>
                             <th class="w50"></th>
-                            <th>坐席账号</th>
+                            <th class="tl">坐席账号</th>
                             <th class="w160">开通日期</th>
                             <th class="w160">失效日期</th>
                         </tr>
                     </table>
                 </div>
-                <div class="scroll-warp scrollBar w640" style="overflow-y:auto">
+                <div class="scroll-warp scrollBar w540" style="overflow-y:auto">
                     <div class="data-table check-warp">
                         <table cellspacing="0" cellpadding="0">
                             <tbody>
@@ -25,7 +25,7 @@
                                     <td class="w50">
                                         <i class="icon" @click="checkThis(item)"></i>
                                     </td>
-                                    <td>{{item.user}}</td>
+                                    <td class="tl">{{item.user}}</td>
                                     <td class="w160">{{item.created_at}}</td>
                                     <td class="w160">{{item.expire_time}}</td>
                                 </tr>

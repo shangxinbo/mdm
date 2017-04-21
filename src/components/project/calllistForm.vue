@@ -40,17 +40,25 @@
     import datepicker from 'components/utils/datepicker'
     import callResultConf from './callResultConf'
     import moment from 'moment'
+    
+    let resultList = []
+    for(let i in callResultConf){
+        resultList.push({
+            id:i,
+            name:callResultConf[i]
+        })
+    }
 
     export default {
         props:['status'],
         data() {
             let now = moment().format('YYYY-MM-DD')
             return {
-                statusList: {
-                    "0": '未拨打',
-                    "1": '已拨打'
-                },
-                resultList: callResultConf,
+                statusList: [
+                    {id:"0",name:"未拨打"},
+                    {id:"1",name:"已拨打"}
+                ],
+                resultList: resultList,
                 isDial: '',
                 dialStatus: '',
                 startTime: '',

@@ -59,7 +59,7 @@
                                         <span name="textfield" id="textfield" class="txt">{{licence_name}}</span>
                                         <div class="mainbox">
                                             <span class="button1">上传文件</span>
-                                            <input type="file" class="file" accept=".jpg,.png,gif" multiple="false" size="28" @change="selectLicense">
+                                            <input type="file" class="file" accept=".jpg,.png,.gif" multiple="false" size="28" @change="selectLicense">
                                         </div>
                                     </div>
                                     <p v-show="licence_error" class="error">{{licence_error}}</p>
@@ -199,7 +199,6 @@
                 scrollTop(newVal, 1)
             },
             company_error(newVal, oldVal) {
-                console.log(newVal)
                 scrollTop(newVal, 2)
             },
             legal_error(newVal, oldVal) {
@@ -325,15 +324,15 @@
                         this.licence_error = ''
                     }
                 }
-                let reg_user_name = /^[\u4e00-\u9fa5]{2,8}$/ 
+                let reg_user_name = /^[\u4e00-\u9fa5]{2,8}$/
                 if (!this.user_name) {
                     this.user_name_error = '请填写姓名'
                     return false
                 } else {
-                    if(!reg_user_name.test(this.user_name)){
+                    if (!reg_user_name.test(this.user_name)) {
                         this.user_name_error = '姓名由2到8位汉字组成'
                         return false
-                    }else{
+                    } else {
                         this.user_name_error = ''
                     }
                 }
@@ -394,8 +393,7 @@
                 data.append('application_addr', this.self_addr)
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
-                        let msg = _this.$route.query.id ? '修改成功' : '添加成功'
-                        _this.$refs.alert.$emit('show', msg, () => {
+                        _this.$refs.alert.$emit('show','客户资料已提交审核', () => {
                             _this.$router.push('/customer/index')
                         })
                     } else {
