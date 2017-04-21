@@ -65,6 +65,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
+                    <a @click="refresh" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                 </div>
                 <div class="data-export" v-else>
                     <div v-if="head.effect_call_times">
@@ -78,6 +79,7 @@
                                 <span class="num">{{head.charge_time}}</span>
                             </li>
                         </ul>
+                        <a href="javascript:void(0);" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                     </div>
                     <div v-else>
                     </div>

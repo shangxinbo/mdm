@@ -54,6 +54,8 @@
                             <span class="t">通话时长</span>
                             <span class="num">{{head.charge_time}}</span>
                         </li>
+                        <a @click="refresh" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span>
+                        </a>
                     </ul>
                 </div>
                 <div class="data-export" v-else>
