@@ -97,6 +97,12 @@
             },
             sure: function () {
                 let _this = this
+                if(this.des.length>100){
+                    this.error = '备注不能超过100个字符'
+                    return false
+                }else{
+                    this.error = ''
+                }
                 mAjax(this, {
                     url: API.project_call_modify,
                     data: {
