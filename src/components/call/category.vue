@@ -213,10 +213,10 @@
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
-                        search_name : _this.search_name ? _this.search_name : null,
-                        search_agent_id: _this.search_agent_id ? _this.search_agent_id : null ,
-                        search_client_id : _this.search_client_id ? _this.search_client_id :null ,
-                        search_project_id : _this.search_project_id ? _this.search_project_id : null ,
+                        search_name : _this.search_name ,
+                        search_agent_id: _this.search_agent_id  ,
+                        search_client_id : _this.search_client_id  ,
+                        search_project_id : _this.search_project_id  ,
                         search_start_time: dateFormat(_this.search_start_time),
                         search_end_time: dateFormat(_this.search_end_time),
                         category : _this.category,
@@ -239,10 +239,10 @@
                     url: API.call_head,
                     data: {
                         category : _this.category,
-                        search_name: _this.search_name ? _this.search_name :null,
-                        search_client_id: _this.search_client_id ? _this.search_client_id :null,
-                        search_agent_id: _this.search_agent_id ? _this.search_agent_id :null,
-                        search_project_id : _this.search_project_id ? _this.search_project_id :null,
+                        search_name: _this.search_name ,
+                        search_client_id: _this.search_client_id ,
+                        search_agent_id: _this.search_agent_id ,
+                        search_project_id : _this.search_project_id ,
                         search_start_time: dateFormat(_this.search_start_time),
                         search_end_time: dateFormat(_this.search_end_time)
                     },
