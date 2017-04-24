@@ -42,7 +42,7 @@
                                 <td>{{item.project_type}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}</td>
-                                <td>{{item.status==1||item.status==3 ? item.clue_num:'--'}}</td>
+                                <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
                                 <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
                                 <td>{{item.clue_connect_num?item.clue_connect_num:'--'}}</td>
                                 <td>{{item.clue_valid_percent?item.clue_valid_percent + '%':'--'}}</td>
