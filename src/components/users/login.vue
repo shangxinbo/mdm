@@ -67,6 +67,7 @@
                         password: vm.password
                     },
                     success: function (data) {
+                        console.log(data)
                         if (data.code == 200) {
                             this.error = ''
                             localStorage.setItem('user', JSON.stringify(data.data))
