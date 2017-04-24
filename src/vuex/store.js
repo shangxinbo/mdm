@@ -12,7 +12,8 @@ const state = {
     },   
     changeMypassDialogShow:false,
     callInfo:null,
-    showCallSet:false
+    showCallSet:false,
+    dialing:false
 }
 
 const mutations = {
@@ -47,6 +48,9 @@ const mutations = {
     },
     RESET_CALLINFO(state,opt){
         state.callInfo = opt
+    },
+    CHANGE_DIAL_STATUS(state,bool){
+        state.dialing = bool
     }
 }
 
