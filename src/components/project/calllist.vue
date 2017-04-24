@@ -73,6 +73,11 @@
                 end:''
             }
         },
+        computed:{
+            dialing: function(){
+                return this.$store.state.dialing
+            }
+        },
         components: {
             mselect,
             pages,
@@ -175,6 +180,16 @@
                 //用户接通后挂断
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     console.log('on_agent_ext_hangup')
+                    _this.$store.commit('CHANGE_DIAL_STATUS',false)
+                    mAjax(_this, {
+                        url: API.add_call_job,
+                        data: {
+                            call_uuid: _this.uuid
+                        },
+                        success: data => {
+                            console.log('拨叫任务处理完毕')
+                        }
+                    })
                     window.mycomm_agent.wrap_up(0)
                 }
                 //拨打失败
@@ -195,6 +210,7 @@
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     _this.uuid = evt.params.channel_uuid
+                    _this.$store.commit('CHANGE_DIAL_STATUS',true)
                     mAjax(_this, {
                         url: API.save_call_uuid,
                         data: {
