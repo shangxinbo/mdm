@@ -152,6 +152,7 @@
                 agent_name : '',
                 search_start_time : '',
                 search_end_time : '',
+                search_name : '',
                 category : '',
                 api: {
                     customerList: API.customer_list_all,
