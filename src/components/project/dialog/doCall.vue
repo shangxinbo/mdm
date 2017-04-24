@@ -22,10 +22,12 @@
                     <label>线索状态</label>
                     <div class="input-warp">
                         <label class="radio-warp" :class="{'radio-active':clueStatus}" for="hadFinish" @click="chooseStatus(1)">
-                            <i class="icon"></i><span class="radioname">已完成</span>
+                            <i class="icon"></i>
+                            <span class="radioname">已完成</span>
                         </label>
                         <label class="radio-warp" :class="{'radio-active':!clueStatus}" for="notFinish" @click="chooseStatus(0)">
-                            <i class="icon"></i><span class="radioname">未完成</span>
+                            <i class="icon"></i>
+                            <span class="radioname">未完成</span>
                         </label>
                     </div>
                 </li>
@@ -33,16 +35,20 @@
                     <label>拨打结果</label>
                     <div class="input-warp">
                         <label class="radio-warp" for="hadDial" :class="{'radio-active':callResult}" @click="chooseResult(1)">
-                            <i class="icon"></i><span class="radioname">已拨通</span>
+                            <i class="icon"></i>
+                            <span class="radioname">已拨通</span>
                         </label>
                         <label class="radio-warp" for="notDial" :class="{'radio-active':!callResult}" @click="chooseResult(0)">
-                            <i class="icon"></i><span class="radioname">未拨通</span>
+                            <i class="icon"></i>
+                            <span class="radioname">未拨通</span>
                         </label>
                         <selectInDialog ref="callResultSelect"></selectInDialog>
                     </div>
                 </li>
                 <li class="cl">
-                    <label>备注说明<em class="tips">（选填）</em></label>
+                    <label>备注说明
+                        <em class="tips">（选填）</em>
+                    </label>
                     <div class="input-warp">
                         <textarea v-model="des"></textarea>
                     </div>
@@ -75,7 +81,12 @@
                 error: ''
             }
         },
-        props:['uuid'],
+        props: ['uuid'],
+        computed:{
+            dialing: function(){
+                return this.$store.state.dialing
+            }
+        },
         components: {
             selectInDialog
         },
@@ -97,18 +108,24 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '操作成功')
 
-                            mAjax(this, {
-                                url: API.add_call_job,
-                                data: {
-                                    call_uuid: _this.uuid
-                                },
-                                success: data => {
-                                    console.log('拨叫任务处理完毕')
-                                }
-                            })
-                            //_this.$router.replace('/project/index')  //TODO 刷新页面
+                            // if (_this.dialing) {
+                            //     mAjax(this, {
+                            //         url: API.add_call_job,
+                            //         data: {
+                            //             call_uuid: _this.uuid
+                            //         },
+                            //         success: data => {
+                            //             _this.$store.commit('SHOW_TOAST', '操作成功')
+                            //             console.log('拨叫任务处理完毕')
+                            //         }
+                            //     })
+                            //     _this.$store.commit('CHANGE_DIAL_STATUS',false)
+                            // } else {
+                            //     _this.$store.commit('SHOW_TOAST', '操作成功')
+                            // }
+                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                            
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
