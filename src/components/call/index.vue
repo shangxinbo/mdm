@@ -188,11 +188,11 @@
                 mAjax(this, {
                     url: API.call_list,
                     data: {
-                        search_name: _this.search_name ? _this.search_name : null ,
-                        search_client_id: _this.search_client_id ? _this.search_client_id : null,
-                        search_agent_id: _this.search_agent_id ? _this.search_agent_id : null,
-                        search_start_time: _this.search_start_time ? dateFormat(_this.search_start_time) : null,
-                        search_end_time: _this.search_end_time ? dateFormat(_this.search_end_time) : null,
+                        search_name: _this.search_name  ,
+                        search_client_id: _this.search_client_id ,
+                        search_agent_id: _this.search_agent_id ,
+                        search_start_time: _this.search_start_time ,
+                        search_end_time: _this.search_end_time ,
                         page: _this.currentPage,
                     },
                     success: (data) => {
@@ -211,11 +211,11 @@
                 mAjax(this, {
                     url: API.call_head,
                     data: {
-                        search_name: _this.search_name ? _this.search_name :null,
-                        search_client_id:  _this.search_client_id ? _this.search_client_id : null,
-                        search_agent_id: _this.search_agent_id ? _this.search_agent_id :null,
-                        search_start_time: _this.search_start_time ? dateFormat(_this.search_start_time) : null,
-                        search_end_time: _this.search_end_time ? dateFormat(_this.search_end_time) : null
+                        search_name: _this.search_name ,
+                        search_client_id:  _this.search_client_id ,
+                        search_agent_id: _this.search_agent_id ,
+                        search_start_time: _this.search_start_time ,
+                        search_end_time: _this.search_end_time 
                     },
                     success: (data) => {
                         if (data.code == 200) {
