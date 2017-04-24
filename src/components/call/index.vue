@@ -54,7 +54,7 @@
                             <span class="t">通话时长</span>
                             <span class="num">{{head.charge_time }}</span>
                         </li>
-                        <a @click="refresh" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span>
+                        <a @click="excel" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span>
                         </a>
                     </ul>
                 </div>
@@ -94,8 +94,8 @@
                                 <td>{{item.effect_call_rate}}%</td>
                                 <td>{{item.uneffect_call_times}}</td>
                                 <td>{{item.uneffect_call_rate}}%</td>
-                                <td>{{item.charge_time | countavgcharge }}</td>
-                                <td>{{item.avg_time | countavgcharge }}</td>
+                                <td>{{item.charge_time }}</td>
+                                <td>{{item.avg_time }}</td>
                                 <td v-if="userType!=4">{{item.seat_num}}</td>
                             </tr>
                         </tbody>
@@ -248,8 +248,32 @@
                     name: this.$route.name,
                     query: query
                 })
+            },
+            excel : function () {
+                let _this = this
+                mAjax(this, {
+                    url: API.call_export,
+                    data: {
+                        search_name: _this.search_name ? _this.search_name : null ,
+                        search_client_id: _this.search_client_id ? _this.search_client_id : null,
+                        search_agent_id: _this.search_agent_id ? _this.search_agent_id : null,
+                        search_start_time: _this.search_start_time ? dateFormat(_this.search_start_time) : null,
+                        search_end_time: _this.search_end_time ? dateFormat(_this.search_end_time) : null,
+                        page: _this.currentPage,
+                    },
+                    success: (data) => {
+                        if (data.code == 200) {
+                            _this.list = data.data
+                        } else {
+                            _this.list = []
+                            _this.totalPage = 1
+                        }
+                    }
+                })
             }
         },
+  
+
         created: function () {
             this.init()
             let _this = this
