@@ -41,7 +41,7 @@
                         </li>
                     </ul>
                 </form>
-                 <div class="data-export" v-if="userType ==3&&head.seat_num">
+                 <div class="data-export" v-if="userType ==3&&head">
                      <ul>
                         <li>
                             <span class="t">参与坐席</span>
@@ -65,10 +65,10 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a @click="refresh" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
+                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+$search_project_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                 </div>
                 <div class="data-export" v-else>
-                    <div v-if="head.effect_call_times">
+                    <div v-if="head">
                         <ul>
                             <li>
                                 <span class="t">拨通次数</span>
@@ -79,7 +79,7 @@
                                 <span class="num">{{head.charge_time }}</span>
                             </li>
                         </ul>
-                        <a href="javascript:void(0);" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
+                        <a :href="'/teltraffic/categoryExport' + '?search_name=' + search_name + '&search_client_id='+ search_client_id + '&search_agent_id='+search_agent_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                     </div>
                     <div v-else>
                     </div>

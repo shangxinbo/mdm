@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export" v-if="head.effect_call_times">
+                <div class="data-export" v-if="head">
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
