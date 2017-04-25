@@ -11,15 +11,15 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th width="20%">客户名称</th>
-                                <th v-if="userType==1&&!agent_id">所属代理</th>
-                                <th>类型</th>
-                                <th>创建日期</th>
-                                <th>状态</th>
-                                <th v-if="userType==1">进行中的项目</th>
-                                <th v-if="userType==1">现有坐席</th>
-                                <th>余额</th>
-                                <th>操作</th>
+                                <th width="15%">客户名称</th>
+                                <th width="15%" v-if="userType==1&&!agent_id">所属代理</th>
+                                <th width="10%">类型</th>
+                                <th width="10%">创建日期</th>
+                                <th width="10%">状态</th>
+                                <th width="5%" v-if="userType==1">进行中项目</th>
+                                <th width="5%" v-if="userType==1">现有坐席</th>
+                                <th width="10%">余额</th>
+                                <th width="15%">操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
@@ -29,7 +29,7 @@
                                     <router-link :to="{query:{agent_id:item.superior_id,agent_name:item.agent_name}}">{{item.agent_name}}</router-link>
                                 </td>
                                 <td>{{item.type}}</td>
-                                <td>{{item.created_at}}</td>
+                                <td>{{item.created_at.substr(0,10)}}</td>
                                 <td v-if="item.audit_status==1">通过</td>
                                 <td v-else-if="item.audit_status==2">未通过
                                     <span class="notice" @mouseover="showReason" @mouseout="hideReason">

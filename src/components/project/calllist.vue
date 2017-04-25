@@ -27,7 +27,7 @@
                                     <td v-if="!clue_status">{{item.is_dial==1?'已拨打':'未拨打'}}</td>
                                     <td>{{item.dial_status | toResultText}}</td>
                                     <td>
-                                        <a href="javascript:void(0);" @click="call(item.id,item.telephone)">
+                                        <a href="javascript:void(0);" @click="call(item.id,item.telephone_crypt)">
                                             <span class="notice">
                                                 <i class="icon phone"></i>
                                             </span>拨打
