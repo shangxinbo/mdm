@@ -9,7 +9,7 @@
                 <li class="w50">
                     <label>手机号</label>
                     <div class="input-warp">
-                        <p class="text">{{tel}}</p>
+                        <p class="text">{{tel_encrypt}}</p>
                     </div>
                 </li>
                 <li class="w50">
@@ -85,6 +85,9 @@
         computed:{
             dialing: function(){
                 return this.$store.state.dialing
+            },
+            tel_encrypt:function(){
+                return this.tel.substr(0,3) + '****' + this.tel.substr(7,11)
             }
         },
         components: {

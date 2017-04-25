@@ -13,20 +13,20 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th>项目名称</th>
-                                <th v-if="!customer_id&&userType==1">客户名称</th>
-                                <th v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
-                                <th>类型</th>
-                                <th>创建日期</th>
-                                <th>状态</th>
-                                <th>线索量</th>
-                                <th>剩余线索</th>
-                                <th>拨通线索</th>
-                                <th>有效率</th>
-                                <th>通话时长</th>
-                                <th>剩余时间</th>
-                                <th v-if="userType!=4">项目坐席</th>
-                                <th>操作</th>
+                                <th width="10%">项目名称</th>
+                                <th width="10%" v-if="!customer_id&&userType==1">客户名称</th>
+                                <th width="10%" v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
+                                <th width="5%">类型</th>
+                                <th width="10%">创建日期</th>
+                                <th width="5%">状态</th>
+                                <th width="5%">线索量</th>
+                                <th width="5%">剩余线索</th>
+                                <th width="5%">拨通线索</th>
+                                <th width="5%">有效率</th>
+                                <th width="7%">通话时长</th>
+                                <th width="7%">剩余时间</th>
+                                <th width="6%" v-if="userType!=4">项目坐席</th>
+                                <th width="10%">操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
@@ -40,7 +40,7 @@
                                     <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
                                 </td>
                                 <td>{{item.project_type}}</td>
-                                <td>{{item.created_at}}</td>
+                                <td>{{item.created_at.substr(0,10)}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}</td>
                                 <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
                                 <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
