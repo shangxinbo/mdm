@@ -100,7 +100,7 @@
                                 <th>呼损率</th>
                                 <th>通话时长</th>
                                 <th>平均通话</th>
-                                <th v-if="userType!=4">参与坐席</th>
+                                <th v-if="userType!=3">参与坐席</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
