@@ -41,7 +41,7 @@
                         </li>
                     </ul>
                 </form>
-                 <div class="data-export" v-if="userType ==3&&head">
+                 <div class="data-export" v-if="list.length>0 && userType ==3">
                      <ul>
                         <li>
                             <span class="t">参与坐席</span>
@@ -68,7 +68,7 @@
                     <a :href="'/teltraffic/categoryExport' + '?search_project_id='+search_project_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                 </div>
                 <div class="data-export" v-else>
-                    <div v-if="head">
+                    <div v-if="list.length>0">
                         <ul>
                             <li>
                                 <span class="t">拨通次数</span>

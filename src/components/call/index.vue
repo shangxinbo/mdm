@@ -44,7 +44,7 @@
                         </li>
                     </ul>
                 </form>
-                <div class="data-export" v-if="head">
+                <div class="data-export" v-if="list.length>0">
                     <ul>
                         <li>
                             <span class="t">拨通次数</span>
