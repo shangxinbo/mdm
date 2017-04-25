@@ -3,8 +3,8 @@
         <div class="main">
             <div class="title-warp">{{project.name}}外呼列表</div>
             <div class="tag-nav" v-if="!end">
-                <a href="javascript:void(0);" :class="{active:!clue_status}" @click="tab(0)">未完成</a>
-                <a href="javascript:void(0);" :class="{active:clue_status}" @click="tab(1)">已完成</a>
+                <a href="javascript:void(0);" :class="{active:clue_status==0}" @click="tab(0)">未完成</a>
+                <a href="javascript:void(0);" :class="{active:clue_status==1}" @click="tab(1)">已完成</a>
             </div>
             <div class="data-property">
                 <searchForm @submit="search" :status="clue_status"></searchForm>
