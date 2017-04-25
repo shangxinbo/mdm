@@ -117,7 +117,7 @@
                                 <td>{{item.uneffect_call_rate}}%</td>
                                 <td>{{item.charge_time }}</td>
                                 <td>{{item.avg_time}}</td>
-                                <td v-if="userType!=4">{{item.seat_num}}</td>
+                                <td v-if="userType!=3">{{item.seat_num}}</td>
                             </tr>
                         </tbody>
                     </table>
