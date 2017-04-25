@@ -1,6 +1,6 @@
 <template>
     <div class="data-export">
-        <ul v-if="userType==1">
+        <ul v-if="userType==1&&list.length>0">
             <li>
                 <span class="t">客户数</span>
                 <span class="num">{{data.customer}}</span>
@@ -14,7 +14,7 @@
                 <span class="num">{{data.seat}}</span>
             </li>
         </ul>
-        <router-link v-else to="/customer/add" class="btn blue btn-export">
+        <router-link v-if="userType==2" to="/customer/add" class="btn blue btn-export">
             <span>
                 <i class="icon add"></i>新建客户
             </span>
@@ -28,7 +28,11 @@
                 type: Object,
                 require: true
             },
-            userType:String
+            userType:String,
+            list:{
+                type: Array,
+                require:true
+            }
         }
     }
 
