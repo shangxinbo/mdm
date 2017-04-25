@@ -65,7 +65,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+$search_project_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
+                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+search_project_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                 </div>
                 <div class="data-export" v-else>
                     <div v-if="head">
@@ -79,7 +79,7 @@
                                 <span class="num">{{head.charge_time }}</span>
                             </li>
                         </ul>
-                        <a :href="'/teltraffic/categoryExport' + '?search_name=' + search_name + '&search_client_id='+ search_client_id + '&search_agent_id='+search_agent_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
+                        <a :href="'/teltraffic/categoryExport' + '?search_name=' + search_name + '&search_client_id='+ search_client_id + '&search_agent_id='+search_agent_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time +'&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                     </div>
                     <div v-else>
                     </div>
