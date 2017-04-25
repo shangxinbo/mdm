@@ -53,7 +53,7 @@
                         </li>
                         <li>
                             <span class="t">拨通率</span>
-                            <span class="num">{{head.effect_call_rate}}</span>
+                            <span class="num">{{head.effect_call_rate}}%</span>
                         </li>
 
                         <li>
