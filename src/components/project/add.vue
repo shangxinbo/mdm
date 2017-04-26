@@ -152,6 +152,7 @@
                     this.content_error = '详细描述不能超过600字'
                     return false
                 }
+                let time = typeof this.expectTime == 'string' ? this.expectTime : dateFormat(this.expectTime)
                 let _this = this
                 let api = API.project_add
                 let data = {
@@ -159,12 +160,12 @@
                     type: projectType,
                     region: this.region,
                     expect_clue_num: this.expectClue,
-                    expect_begin_time: dateFormat(this.expectTime),
+                    expect_begin_time: time,
                     desc: this.content
                 }
-                if(this.id){
+                if (this.id) {
                     api = API.project_recheck
-                    data.id= this.id
+                    data.id = this.id
                 }
 
                 mAjax(this, {
@@ -172,7 +173,7 @@
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', _this.id ?'重新申请成功':'新建成功', function () {
+                            _this.$refs.alert.$emit('show', _this.id ? '重新申请成功' : '新建成功', function () {
                                 _this.$router.replace('/project/index')
                             })
                         } else {
