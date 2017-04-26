@@ -6,7 +6,7 @@
             <div class="data-property">
                 <searchForm :userType="userType" @submit="search"></searchForm>
                 <dataSum v-if="userType==1&&list.length>0" :data="sum"></dataSum>
-                <seatData v-if="userType==3"></seatData>
+                <seatData v-if="userType==3" @getSeatNum="setMySeat"></seatData>
             </div>
             <div class="data-warp">
                 <div class="data-table">
@@ -43,7 +43,8 @@
                                 <td>{{item.created_at.substr(0,10)}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
                                     <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
-                                        <i class="icon tips"></i><em>{{item.audit_reason}}</em>
+                                        <i class="icon tips"></i>
+                                        <em>{{item.audit_reason}}</em>
                                     </span>
                                 </td>
                                 <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
@@ -64,7 +65,7 @@
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
-                                    <a v-if="item.status==1" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
+                                    <a v-if="item.status==1&&myseatNum>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -102,7 +103,8 @@
                 agent_name: '',
                 customer_id: '',
                 customer_name: '',
-                sum: {}
+                sum: {},
+                myseatNum: 0
             }
         },
         methods: {
@@ -202,6 +204,9 @@
             },
             hideReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'none'
+            },
+            setMySeat(num) {
+                this.myseatNum = num
             }
         },
         created() {
