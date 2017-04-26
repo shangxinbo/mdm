@@ -150,6 +150,7 @@
                 totalPage: 1,
                 client_name : '',
                 agent_name : '',
+                search_name : '',
                 search_start_time : '',
                 search_end_time : '',
                 api: {
