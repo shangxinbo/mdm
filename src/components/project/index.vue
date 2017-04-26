@@ -43,7 +43,8 @@
                                 <td>{{item.created_at.substr(0,10)}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
                                     <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
-                                        <i class="icon tips"></i><em>{{item.audit_reason}}</em>
+                                        <i class="icon tips"></i>
+                                        <em>{{item.audit_reason}}</em>
                                     </span>
                                 </td>
                                 <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
@@ -103,7 +104,7 @@
                 customer_id: '',
                 customer_name: '',
                 sum: {},
-                myseatNum:0
+                myseatNum: 0
             }
         },
         methods: {
@@ -204,7 +205,7 @@
             hideReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'none'
             },
-            setMySeat(num){
+            setMySeat(num) {
                 this.myseatNum = num
             }
         },

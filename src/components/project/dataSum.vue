@@ -30,11 +30,12 @@
 </template>
 <script>
     export default {
-        props:{
-            data:{
-                type:Object,
-                require:true
+        props: {
+            data: {
+                type: Object,
+                require: true
             }
         }
     }
+
 </script>
