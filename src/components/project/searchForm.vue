@@ -109,11 +109,9 @@
                 this.statusId = this.$route.query.statusId === undefined ? '' : this.$route.query.statusId
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
-                this.max_start = this.endTime
-                this.min_end = this.startTime
-                this.maxStart = now
+                this.maxStart = this.endTime ? this.endTime : now
                 this.maxEnd = now
-                this.minEnd = ''
+                this.minEnd = this.startTime
 
                 if(this.$route.query.customer_id) {
                     this.type = 'customer'

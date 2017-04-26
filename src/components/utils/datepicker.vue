@@ -520,10 +520,20 @@
         watch:{
             init:function(newVal,oldVal){
                 this.val = newVal
+                this.checked = {
+                    oldtime: '',
+                    currentMoment: null,
+                    year: '',
+                    month: '',
+                    day: '',
+                    hour: '00',
+                    min: '00'
+                }
             }
         },
         methods: {
             showCheck() {
+                console.log(this.val)
                 if (this.val === '') {
                     this.showDay()
                 } else {
@@ -633,7 +643,6 @@
                             val.unavailable = true
                         }
                         if (this.max && val.moment.isAfter(this.max)) { //TODO 如果this max和format不同
-                            console.log(val.moment)
                             val.unavailable = true
                         }
                     })
