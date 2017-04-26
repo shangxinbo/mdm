@@ -41,7 +41,11 @@
                                 </td>
                                 <td>{{item.project_type}}</td>
                                 <td>{{item.created_at.substr(0,10)}}</td>
-                                <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}</td>
+                                <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
+                                    <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
+                                        <i class="icon tips"></i><em>{{item.audit_reason}}</em>
+                                    </span>
+                                </td>
                                 <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
                                 <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
                                 <td>{{item.clue_connect_num?item.clue_connect_num:'--'}}</td>
@@ -192,6 +196,12 @@
             },
             assignSeat(id, name) {
                 this.$refs.chooseSeatDialog.$emit('show', id, name)
+            },
+            showReason(evt) {
+                evt.currentTarget.querySelector('em').style.display = 'block'
+            },
+            hideReason(evt) {
+                evt.currentTarget.querySelector('em').style.display = 'none'
             }
         },
         created() {

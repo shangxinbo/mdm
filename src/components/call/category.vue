@@ -263,13 +263,15 @@
             },
             search() {
                 let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : this.search_client_id
+                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
+                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_client_id: search_client_id,
                     search_agent_id: this.search_agent_id,
                     search_project_id : this.search_project_id,
-                    search_start_time: dateFormat(this.search_start_time),
-                    search_end_time: dateFormat(this.search_end_time),
+                    search_start_time: start_time,
+                    search_end_time: end_time,
                     page: 1,
                     category : this.category,
                 })
