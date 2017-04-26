@@ -113,7 +113,6 @@
                 if(this.status<1){
                     obj.isDial = this.$refs.callStatusSelect.selected.id
                 }
-                console.log(obj)
                 this.$emit('submit', obj)
             }
         },

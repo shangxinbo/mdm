@@ -68,7 +68,7 @@
 
 
 <script>
-    import {mAjax, isEmail, isRealPhone} from 'src/services/functions'
+    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     import REG from 'src/services/reg'
 
@@ -93,7 +93,7 @@
                 addr_error: '',
                 self_addr: '',
                 self_addr_error: '',
-                offsetTop:0,
+                offsetTop: 0,
             }
         },
         methods: {
@@ -182,16 +182,16 @@
                 if (!this.addr) {
                     this.addr_error = '请填写归属地'
                     cansub = false
-                }else{
+                } else {
                     this.addr_error = ''
                 }
                 if (!this.self_addr) {
                     this.self_addr_error = '请填写所在位置'
                     cansub = false
-                }else{
+                } else {
                     this.self_addr_error = ''
                 }
-                if(cansub==false) return false
+                if (cansub == false) return false
                 let _this = this
                 mAjax(this, {
                     url: this.url,
@@ -215,7 +215,6 @@
                             } else {
                                 msg = 'ok'
                             }
-                            console.log(msg)
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', msg)
                             _this.$router.replace('/agent/index')
@@ -259,7 +258,7 @@
                 _this.$store.commit('SHOW_LAYER')
             })
         },
-        updated(){
+        updated() {
             let dialog = this.$el
             let dh = dialog.offsetHeight
             this.offsetTop = -dh / 2 + 'px'

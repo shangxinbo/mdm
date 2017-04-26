@@ -27,7 +27,7 @@
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -62,7 +62,6 @@
                             _this.$store.commit('RESET_CALLINFO', info)
                         }
                         window.mycomm_agent.on_login_f = function (evt) {
-                            //console.log(_this.$refs)
                             _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能不能使用')
                         }
                         window.mycomm_agent.set_wrap_up_time(0)

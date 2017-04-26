@@ -533,7 +533,6 @@
         },
         methods: {
             showCheck() {
-                console.log(this.val)
                 if (this.val === '') {
                     this.showDay()
                 } else {

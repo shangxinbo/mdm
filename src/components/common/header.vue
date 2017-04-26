@@ -51,10 +51,10 @@
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 username: user.user_name,
-                user:user.user,
+                user: user.user,
                 show: false,
                 type: user.type,
-                downloadApi :API.doc_download
+                downloadApi: API.doc_download
             }
         },
         methods: {
@@ -68,15 +68,15 @@
                 this.show = false
                 let _this = this
 
-                if(_this.$store.state.callInfo){ //退出外呼平台
-                    window.mycomm_agent.on_logout_s = function(){
+                if (_this.$store.state.callInfo) { //退出外呼平台
+                    window.mycomm_agent.on_logout_s = function () {
                         console.log('成功')
                     }
-                    window.mycomm_agent.on_logout_f = function(evt){
+                    window.mycomm_agent.on_logout_f = function (evt) {
                         console.log(evt)
                     }
                     window.mycomm_agent.logout()
-                    _this.$store.commit('RESET_CALLINFO',null)
+                    _this.$store.commit('RESET_CALLINFO', null)
                 }
                 mAjax(this, {
                     url: API.logout,
@@ -94,15 +94,9 @@
                 this.slideUp()
                 this.$store.commit('SHOW_CHANGEPASS')
             },
-            showCallSet(){
+            showCallSet() {
                 this.slideUp()
                 this.$store.commit('SHOW_CALL_SET')
-            },
-            download(){
-                this.$http.get(API.doc_download + '?type=' + this.type).then(function (data) {
-                    console.log(data)
-                })
-                this.slideUp()
             }
         },
         created: function () {
