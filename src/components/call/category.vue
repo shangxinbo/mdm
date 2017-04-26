@@ -150,7 +150,6 @@
                 totalPage: 1,
                 client_name : '',
                 agent_name : '',
-                search_name : '',
                 search_start_time : '',
                 search_end_time : '',
                 api: {
@@ -196,6 +195,7 @@
         },
         methods: {
             init : function() {
+                this.search_name = this.$route.query.search_name ? this.$route.query.search_name : '' 
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.search_agent_id = this.$route.query.search_agent_id ? this.$route.query.search_agent_id : ''
                 this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : '' 
