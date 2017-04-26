@@ -1,6 +1,5 @@
 <template>
     <div class="dialog" :style="{display:style}" style="margin-left:-259px;margin-top:-267.5px;">
-        <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
         <div class="dialog-header">
             <h4>拨打详情</h4>
         </div>
