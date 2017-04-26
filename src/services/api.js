@@ -69,5 +69,6 @@ export default {
     add_call_job: API_PRE + '/callCenter/addJob',
     doc_list: API_PRE + '/doc/list',
     doc_upload: API_PRE + '/doc/upload',
-    doc_download: API_PRE + '/doc/download'
+    doc_download: API_PRE + '/doc/download',
+    get_myclient_balance: API_PRE + '/seat/balance'
 }

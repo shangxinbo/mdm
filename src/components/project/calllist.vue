@@ -60,11 +60,13 @@
     import callResultConf from './callResultConf'
     export default {
         data: () => {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 project: {
                     id: '',
                     name: ''
                 },
+                user_id:user.id,
                 currentPage: 1,
                 totalPage: 1,
                 clue_status: '',
@@ -223,9 +225,25 @@
                         }
                     })
                 }
-
-                window.mycomm_agent.wrap_up(0)
-                window.mycomm_agent.dial(tel, 'fuck', 'you')
+                
+                mAjax(this,{
+                    url:API.get_myclient_balance,
+                    data:{
+                        seat_id:_this.user_id
+                    },
+                    success:data=>{
+                        if(data.code==200){
+                            if(data.data.balance&&data.data.balance>0){
+                                window.mycomm_agent.wrap_up(0)
+                                window.mycomm_agent.dial(tel, 'fuck', 'you')
+                            }else{
+                                _this.$refs.alert.$emit('show','客户账户余额不足,暂不能拨打')
+                            }
+                        }else{
+                            _this.$refs.alert.$emit('show','获取客户账户余额失败,暂不能拨打')
+                        }
+                    }
+                })
             },
             view(id) {
                 this.$refs.callViewDialog.$emit('show', id, this.project.name)
