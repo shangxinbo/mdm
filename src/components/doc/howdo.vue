@@ -29,7 +29,7 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
+    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import upDialog from './dialog/updoc'
     export default {
