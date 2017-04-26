@@ -167,8 +167,8 @@
                 this.search_customer = this.$route.query.search_customer===undefined?'':this.$route.query.search_customer
                 this.search_agent = this.$route.query.search_agent===undefined?'':this.$route.query.search_agent
                 this.search_status = this.$route.query.search_status===undefined?'':this.$route.query.search_status
-                this.search_start_time = this.$route.query.search_start_time
-                this.search_end_time = this.$route.query.search_end_time
+                this.search_start_time = this.$route.query.search_start_time?this.$route.query.search_start_time:''
+                this.search_end_time = this.$route.query.search_end_time?this.$route.query.search_end_time:''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
@@ -194,6 +194,8 @@
             },
             refresh: function () {
                 let _this = this
+                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
+                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 mAjax(this, {
                     url: _this.url,
                     data: {
@@ -202,8 +204,8 @@
                         uid: _this.search_customer ? _this.search_customer : '',
                         superior_id: _this.search_agent ? _this.search_agent : '',
                         status: _this.search_status,
-                        created_at_start: _this.search_start_time ? _this.search_start_time : '',
-                        created_at_end: _this.search_end_time ? _this.search_end_time : ''
+                        created_at_start: start_time,
+                        created_at_end: end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -223,8 +225,8 @@
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
-                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
-                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
+                let start_time = this.search_start_time
+                let end_time = this.search_end_time
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_customer: search_customer,

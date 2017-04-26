@@ -117,7 +117,7 @@
     import datepicker from 'vuejs-datepicker'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -185,14 +185,16 @@
 
             refresh: function () {
                 let _this = this
+                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
+                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 mAjax(this, {
                     url: API.call_list,
                     data: {
                         search_name: _this.search_name  ,
                         search_client_id: _this.search_client_id ,
                         search_agent_id: _this.search_agent_id ,
-                        search_start_time: _this.search_start_time ,
-                        search_end_time: _this.search_end_time ,
+                        search_start_time: start_time ,
+                        search_end_time: end_time ,
                         page: _this.currentPage,
                     },
                     success: (data) => {
@@ -208,14 +210,16 @@
             },
             heads: function () {
                 let _this = this
+                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
+                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 mAjax(this, {
                     url: API.call_head,
                     data: {
                         search_name: _this.search_name ,
                         search_client_id:  _this.search_client_id ,
                         search_agent_id: _this.search_agent_id ,
-                        search_start_time: _this.search_start_time ,
-                        search_end_time: _this.search_end_time
+                        search_start_time: start_time,
+                        search_end_time:end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -236,8 +240,8 @@
             search() {
                 let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
-                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
-                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
+                let start_time =this.search_start_time
+                let end_time = this.search_end_time
                 let query = Object.assign({}, this.$route.query, {
                     search_name: this.search_name,
                     search_client_id: search_client_id,
