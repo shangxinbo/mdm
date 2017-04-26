@@ -6,7 +6,7 @@
             <div class="data-property">
                 <searchForm :userType="userType" @submit="search"></searchForm>
                 <dataSum v-if="userType==1&&list.length>0" :data="sum"></dataSum>
-                <seatData v-if="userType==3"></seatData>
+                <seatData v-if="userType==3" @getSeatNum="setMySeat"></seatData>
             </div>
             <div class="data-warp">
                 <div class="data-table">
@@ -64,7 +64,7 @@
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
-                                    <a v-if="item.status==1" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
+                                    <a v-if="item.status==1&&myseatNum>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -102,7 +102,8 @@
                 agent_name: '',
                 customer_id: '',
                 customer_name: '',
-                sum: {}
+                sum: {},
+                myseatNum:0
             }
         },
         methods: {
@@ -202,6 +203,9 @@
             },
             hideReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'none'
+            },
+            setMySeat(num){
+                this.myseatNum = num
             }
         },
         created() {

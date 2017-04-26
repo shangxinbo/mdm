@@ -35,6 +35,7 @@
                     } else {
                         this.num = 0
                     }
+                    this.$emit('getSeatNum',this.num)
                 }
             })
         }
