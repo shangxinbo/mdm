@@ -39,7 +39,8 @@
             <p class="error">{{error}}</p>
         </div>
         <div class="dialog-footer">
-            <a class="btn blue" href="javascript:void(0);" @click="sure">更新</a>
+            <a class="btn blue" v-if="!loading" href="javascript:void(0);" @click="sure">更新</a>
+            <a class="btn blue" v-else href="javascript:void(0);"><img style="margin-top:11px;" :src="loadimg" /></a>
             <a class="btn" href="javascript:void(0);" @click="close">取消</a>
         </div>
     </div>
@@ -48,6 +49,7 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import axios from 'axios'
+    import loadimg from 'assets/img/upload.gif'
     export default {
         data: () => {
             return {
@@ -57,7 +59,9 @@
                 name: '',
                 file: '',
                 file_name: '',
-                error: ''
+                error: '',
+                loading:false,
+                loadimg:loadimg
             }
         },
         methods: {
@@ -72,9 +76,11 @@
                     this.error = '请选择上传文件'
                     return false
                 }
+                this.loading = true
                 data.append('file', this.file)
                 data.append('type', this.id)
                 axios.post(API.doc_upload, data).then(function (res) {
+                    _this.loading = false
                     if (res.status == 200 && res.data.code == 200) {
                         _this.close()
                         _this.$store.commit('SHOW_TOAST', '操作手册更新成功')
@@ -83,6 +89,7 @@
                     }
                 }).catch(err => {
                     _this.error = '程序未知错误'
+                    _this.loading = false
                 })
             },
             selectFile(evt) {
