@@ -19,13 +19,13 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                         <tr>
-                            <th width="5%">代理账号</th>
-                            <th width="5%">代理名称</th>
-                            <th width="5%">姓名</th>
+                            <th width="8%">代理账号</th>
+                            <th width="8%">代理名称</th>
+                            <th width="8%">姓名</th>
                             <th width="10%">邮箱</th>
-                            <th width="5%">手机号</th>
-                            <th width="20%">归属地</th>
-                            <th width="20%">所在位置</th>
+                            <th width="12%">手机号</th>
+                            <th width="17%">归属地</th>
+                            <th width="17%">所在位置</th>
                             <th width="10%">创建时间</th>
                             <th width="10%">操作</th>
                         </tr>
@@ -37,7 +37,7 @@
                             <td>{{item.tel}}</td>
                             <td>{{item.regoin}}</td>
                             <td>{{item.application_addr}}</td>
-                            <td>{{item.created_at}}</td>
+                            <td>{{item.created_at.substr(0,10)}}</td>
                             <td>
                                 <a href="javascript:void(0);" @click="showUpdateDialog(item.id)">修改信息</a>
                                 <a href="javascript:void(0);" @click="showPassDialog(item.id,item.user)">重置密码</a>
