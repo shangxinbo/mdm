@@ -56,7 +56,7 @@
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>
-                                    <a v-if="item.status==1" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
+                                    <a v-if="item.status==1&&item.audit_status==-2" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
                                 </td>
                                 <td v-else-if="userType==4">
