@@ -58,12 +58,14 @@
                     url: API.get_seat_sign,
                     success: data => {
                         let info = data.data
+                        _this.$store.commit('RESET_CALLINFO', info)
                         window.mycomm_agent.on_login_s = function (evt) {
-                            _this.$store.commit('RESET_CALLINFO', info)
+                            //_this.$store.commit('RESET_CALLINFO', info)
                         }
                         window.mycomm_agent.on_login_f = function (evt) {
                             _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能不能使用')
                         }
+                        
                         window.mycomm_agent.set_wrap_up_time(0)
                         window.mycomm_agent.login(info.cti_server, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                     },
