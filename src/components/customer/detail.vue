@@ -84,19 +84,19 @@
                                 <p class="text" v-else>--</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="detail.audit_status!=2">
                             <label class="name">线索单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.clue_price}}/条</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="detail.audit_status!=2">
                             <label class="name">话费单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.tel_price}}/分钟</p>
                             </div>
                         </li>
-                        <li>
+                        <li v-if="detail.audit_status!=2">
                             <label class="name">坐席单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.seat_price}}/个/月</p>
