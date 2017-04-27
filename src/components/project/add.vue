@@ -108,6 +108,7 @@
                 let reg = /^[a-zA-Z0-9\u4e00-\u9fa5]{4,20}$/
                 let reg_Inter = /^[1-9][0-9]*$/
                 let projectType = this.$refs.projectTypeSelect.selected.id
+                this.content_error = ''
                 if (!this.name) {
                     this.name_error = '请填写项目名称'
                     return false
