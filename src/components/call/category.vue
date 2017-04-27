@@ -5,7 +5,7 @@
     <div class="warp">
         <div class="main">
             <div class="title-warp" v-if="userType==5"></div>
-            <div class="title-warp" v-else>{{client_name?client_name + '的话务':(agent_name?'代理' + agent_name + '的话务':'我的话务')}}
+            <div class="title-warp" v-else>{{client_name?client_name + '的话务':(agent_name?'代理' + agent_name + '的话务': project_name + '的话务')}}
             </div>
             <div class="data-property">
                 <form>
@@ -147,6 +147,7 @@
                 totalPage: 1,
                 client_name : '',
                 agent_name : '',
+                project_name : '',
                 search_start_time : '',
                 search_end_time : '',
                 api: {
@@ -198,6 +199,7 @@
                 this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : ''
                 this.search_client_id = this.$route.query.search_client_id===undefined ?'': this.$route.query.search_client_id
                 this.client_name = this.$route.query.client_name ? this.$route.query.client_name : ''
+                this.project_name = this.$route.query.project_name ? this.$route.query.project_name : ''
                 this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : ''
                 this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
                 this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
