@@ -103,10 +103,7 @@
                                 <th v-if="userType!=3">参与坐席</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>
-                                    <span v-if="userType !=3">{{item.name}}</span>
-                                    <span v-else>{{item.seat_id}}</span>
-                                </td>
+                                <td>{{item.name}}</td>
                                 <td v-if="category==2&&userType==1">
                                     <router-link :to="{path : '/call/cate',query:{search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
