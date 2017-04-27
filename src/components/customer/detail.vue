@@ -26,7 +26,7 @@
                             <label class="name">余额</label>
                             <div class="input-warp">
                                 <p class="text">&yen; {{detail.balance}}</p>
-                                <p class="notice" v-if="detail.balance<=detail.balance_alarm">
+                                <p class="notice" v-if="detail.balance<detail.balance_alarm">
                                     <i class="icon"></i>客户余额不足，请尽快联系客户进行充值，以免影响客户正常使用</p>
                             </div>
                         </li>
