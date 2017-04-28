@@ -266,7 +266,7 @@
                 })
             },
             search() {
-                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
+                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : this.search_client_id
                 let start_time = this.search_start_time
                 let end_time = this.search_end_time
                 let query = Object.assign({}, this.$route.query, {
