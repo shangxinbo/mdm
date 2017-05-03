@@ -1,0 +1,211 @@
+@import (reference) "base.less";
+.check-warp .icon,.btn .icon,.radio-warp .icon{
+  .flo();
+  background: url('@{url}/dialog-icon.png') no-repeat 0 0;
+}
+input,textarea {
+  width: 100%;
+  background-color: @whiteColor;
+  border: 1px solid @inputborder;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  color: @grayColor;
+  font: 14px/18px "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei";
+}
+input{
+  &.text {
+    height: 30px;
+    line-height: 28px\9;
+    padding: 0 10px;
+    min-width: 150px;
+    max-width: 300px;
+  }
+  &.long {
+    max-width: 60%;
+  }
+  &.date{
+    height: 30px;
+    line-height: 28px\9;
+    padding:0 40px 0 10px;
+    width: 140px;
+  }
+  &.radio{
+    .wh(20px);
+    vertical-align: top;
+  }
+  &:disabled{
+    background-color: @disabledBg;
+  }
+}
+textarea{
+  height: 118px;
+  padding: 8px 10px;
+  line-height: 26px;
+}
+.calendar-warp {
+  position: relative;
+  &:before {
+    display: block;
+    content: '';
+    width: 16px;
+    height: 15px;
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    margin-top: -7px;
+    z-index: 1;
+    background: url('@{url}/dialog-icon.png') no-repeat 0 0;
+    background-position: -55px 0;
+  }
+  input {
+    position: relative;
+    z-index: 2;
+    background: none;
+    cursor: pointer;
+    &.text {
+      float: left;
+    }
+  }
+}
+.date-warp{
+  .calendar-warp{
+    float: left;
+  }
+  .or{
+    float: left;
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: @grayColor;
+  }
+}
+.radio-warp{
+  cursor: pointer;
+  .radio{
+    display: none;
+  }
+  .icon{
+    .wh(20px);
+    display: inline-block;
+    vertical-align: top;
+    background-position: -79px -54px;
+    margin-right: 10px;
+  }
+  &.radio-active{
+    .icon{
+      background-position: -58px -54px;
+    }
+  }
+}
+.check-warp{
+  position: relative;
+  li{
+    float: left;
+    height: 43px;
+    overflow: hidden;
+    min-width: 50%;
+    p {
+      display: inline-block;
+      height: 43px;
+      border-radius: 4px;
+      cursor: pointer;
+      padding-right: 10px;
+      span {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 43px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        color: @grayColor;
+      }
+    }
+    .icon {
+      .wh(17px);
+      float: left;
+      margin-top: 13px;
+      margin-right: 10px;
+      background-position: 0 -55px;
+    }
+    &.checked{
+      .icon{
+        background-position: -19px -55px;
+      }
+    }
+  }
+}
+.btn{
+  display: block;
+  background-color: #FFF;
+  border: 1px solid #d8dde5;
+  border-radius: 30px;
+  color: @grayColor;
+  font-size: 14px;
+  line-height: 28px;
+  position: relative;
+  font-family: @YaHei;
+  cursor: pointer;
+  min-width: 88px;
+  margin: 0 auto;
+  text-align: center;
+  &:hover{
+  }
+  &.disabled{
+    background-color: #EDECF5;
+    border-color: #EDECF5;
+    color: #8b8da6;
+  }
+  &.blue,&.green{
+    background-color: @blueColor;
+    color: @whiteColor;
+    border-color: @blueColor;
+    &:hover{
+      background-color: lighten(@blueColor,3%); //亮度增加 3%
+    }
+  }
+  &.red{
+    background-color: @redColor;
+    color: @whiteColor;
+    border-color: @redColor;
+    &:hover{
+      background-color: lighten(@redColor,3%); //亮度增加 3%
+    }
+  }
+  span{
+    padding-left: 20px;
+    position: relative;
+    display: inline-block;
+    margin: 0 15px;
+  }
+  i{
+    position: absolute;
+    display: inline-block;
+    top: 50%;
+    left:0;
+    .wh(13px);
+    margin-top: -6px;
+    &.search{
+      background-position: -73px 0;
+    }
+    &.icon-export{
+      background-position: -87px 0;
+    }
+    &.add{
+      background-position: -115px 0;
+    }
+    &.edit{
+      background-position: -101px 0;
+    }
+  }
+}
+.sms-push,.news-qual,.news-account{
+  .btn{
+    width: 117px;
+    margin: 10px 20px 0 0;
+    display: inline-block;
+  }
+}

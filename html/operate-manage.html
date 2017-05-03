@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>geo易获客</title>
+    <link rel="shortcut icon" href="../static/favicon.ico">
+    <link rel="bookmark" href="../static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css">
+    <link rel="stylesheet" type="text/css"  href="../static/css/data-cloud.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../static/js/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="header">
+    <ul class="header-content">
+        <li>
+            <i class="icon login-icon"></i>
+            <div class="quit">
+                <!--<p title="Hi，hahaha">Hi，hahaha</p>-->
+                <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
+                <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
+                <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
+                <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="navbox">
+    <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
+    <ul>
+        <li class="active">
+            <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
+        </li>
+        <li>
+            <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
+        </li>
+        <li>
+            <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
+        </li>
+        <li>
+            <a href="operate-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
+        </li>
+    </ul>
+</div>
+<div class="warp">
+    <div class="main">
+        <div class="title-warp">客户管理</div>
+        <div class="data-property">
+            <form>
+                <ul class="data-text">
+                    <li>
+                        <label class="name">客户名称</label>
+                        <div class="input-warp"><input class="text" type="text"></div>
+                    </li>
+                    <li>
+                        <label class="name">所属代理</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">客户类型</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                            <li>旅游</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">项目状态</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                            <li>待审核</li>
+                                            <li>未通过</li>
+                                            <li>准备中</li>
+                                            <li>进行中</li>
+                                            <li>已暂停</li>
+                                            <li>已结束</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
+                    </li>
+                </ul>
+            </form>
+            <div class="data-export">
+                <ul>
+                    <li>
+                       <span class="t">客户数</span><span class="num">80</span>
+                    </li>
+                    <li>
+                        <span class="t">进行中项目</span><span class="num">240</span>
+                    </li>
+                    <li>
+                        <span class="t">在用坐席</span><span class="num">280</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="data-warp">
+            <div class="data-table">
+                <!--<p class="no-data">暂无数据</p>-->
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr><th>客户名称</th><th>所属代理</th><th>类型</th><th>创建日期</th><th>状态</th><th>进行中项目</th><th>现有坐席</th><th>余额</th><th>操作</th></tr>
+                    <tr><td><a href="#">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td><a href="operate-manage-examine.html">审核</a></td></tr>
+                    <tr class="tr2"><td><a href="#">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td class="red">&yen;888.88<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">总代</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page">
+                <a class="prev disabled" href="javascript:void(0);">上一页</a>
+                <a href="javascript:void(0);" class="active">1</a>
+                <a href="javascript:void(0);">2</a>
+                <a href="javascript:void(0);">3</a>
+                <span>...</span>
+                <a href="javascript:void(0);">19</a>
+                <a class="next" href="javascript:void(0);">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 开坐席弹窗 -->
+<div class="dialog" id="openSeat">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>新开坐席</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>客户名称</label>
+                <div class="input-warp">
+                    <p class="text">北京字节跳动科技有限公司</p>
+                </div>
+            </li>
+            <li>
+                <label>现有坐席</label>
+                <div class="input-warp">
+                    <p class="text">5</p>
+                </div>
+            </li>
+            <li>
+                <label>新开坐席</label>
+                <div class="input-warp">
+                    <div class="select-warp seat-select">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                        <p class="all"><span>1</span></p>
+                        <div class="select-ul">
+                            <div class="scroll-warp scrollBar">
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>4</li>
+                                    <li>5</li>
+                                    <li>6</li>
+                                    <li>7</li>
+                                    <li>8</li>
+                                    <li>9</li>
+                                    <li>10</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label>新开费用</label>
+                <div class="input-warp">
+                    <p class="text f18">&yen;200</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="error-warp"><p class="error">客户余额不足，请尽快联系客户充值</p></div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('openSucc','tips-succ');">开通</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('openSeat');">取消</a>
+    </div>
+</div>
+<!-- 开坐席弹窗 End -->
+<!-- 成功弹窗-->
+<div class="dialog tips-succ" id="openSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>新开坐席成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 成功弹窗 End -->
+<!-- 激活坐席弹窗 -->
+<div class="dialog" id="activateSeat">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>激活坐席</h4>
+    </div>
+    <div class="dialog-body">
+        <div class="dialog-activate">
+            <div class="title">中国电信失效坐席</div>
+            <div class="data-table">
+                <table cellspacing="0" cellpadding="0">
+                    <tr><th class="w50"></th><th class="tl">坐席账号</th><th class="w160">开通日期</th><th class="w160">失效日期</th></tr>
+                </table>
+            </div>
+            <div class="scroll-warp scrollBar w540">
+                <div class="data-table check-warp">
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr class="checked"><td class="w50"><i class="icon"></i></td><td class="tl">XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        <tr class="tr2"><td class="w50"><i class="icon"></i></td><td class="tl">XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        <tr><td class="w50"><i class="icon"></i></td><td class="tl">XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        <tr class="tr2"><td class="w50"><i class="icon"></i></td><td class="tl">XXXCC001</td><td class="w160">2017-03-14</td><td class="w160">2017-05-17</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="dialog-select">
+                <div class="checkall"><i class="icon"></i><span>全选</span></div>
+            </div>
+            <ul class="activate-state">
+                <li>
+                    <span>续费后失效日期</span>
+                    <p class="text">2017-06-14</p>
+                </li>
+                <li>
+                    <span>激活费用</span>
+                    <p class="text">¥400</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="error-warp"><p class="error">客户余额不足，请尽快联系客户充值</p></div>
+    <div class="dialog-footer">
+        <!--<button class="btn disabled" type="button"  disabled="disabled" >激活</button>--><!--不可用状态-->
+        <button class="btn blue" type="button" onclick="getWindow('activateSeatSucc','tips-succ');">激活</button>
+        <button class="btn" type="button" onclick="hideDialog('activateSeat');">取消</button>
+    </div>
+</div>
+<!-- 坐席激活弹窗-->
+<div class="dialog tips-succ" id="activateSeatSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>坐席激活成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 充值弹窗 -->
+<div class="dialog" id="recharge">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>充值</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>客户名称</label>
+                <div class="input-warp">
+                    <p class="text">北京字节跳动科技有限公司</p>
+                </div>
+            </li>
+            <li>
+                <label>余额</label>
+                <div class="input-warp">
+                    <p class="text">&yen; 888.88</p>
+                </div>
+            </li>
+            <li class="li-notice">
+                <label>充值金额</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                    <p class="notice"><i class="icon"></i>请务必与财务确认充值金额已到账</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('rechargeSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('recharge');">取消</a>
+    </div>
+</div>
+<!-- 充值弹窗 End -->
+<!-- 充值成功弹窗-->
+<div class="dialog tips-succ" id="rechargeSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>充值成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 充值成功弹窗 End -->
+<!-----------------------header下拉弹窗------------------------->
+<!-- 修改密码弹窗 -->
+<div class="dialog" id="editPassword">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>修改密码</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>原密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>新密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>确认密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('editPasswordSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('editPassword');">取消</a>
+    </div>
+</div>
+<!-- 修改密码成功弹窗-->
+<div class="dialog tips-succ" id="editPasswordSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>密码修改成功</span></p>
+        </div>
+    </div>
+</div>
+<!-----------------------header下拉弹窗 end------------------------->
+<script type="text/javascript" src="../static/js/lib/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../static/js/lib/scrollBar.js"></script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $(".header-content li").click(function(){
+            $(this).toggleClass('li-hover').siblings().removeClass("li-hover");
+            setTimeout("$('.header-content li').removeClass('li-hover');",2500);
+        });
+        $(".select-warp p").click(function(){
+            if($(this).parent().hasClass("select-open")){
+                $(this).parent().removeClass("select-open");
+
+            }else{
+                $(this).parent().addClass("select-open");
+            }
+        });
+        $(".select-ul li").click(function(){
+            $(this).parents().find(".select-open .all span").html($(this).text());
+            $(this).parents().find(".select-warp").removeClass("select-open");
+        });
+        $(".notice i.tips").hover(function(){
+            $(this).next().show();
+        },function () {
+            $(this).next().hide();
+        });
+    });
+    //弹窗
+    function getWindow(id,c) {
+        if($('#shadowLayer').length == 0){
+            showDialog(id);
+        }else{
+            $(".dialog").hide();
+            var ids = $("#" + id);
+            var idH = -(ids.height()/2);
+            var idW = -(ids.width()/2);
+            ids.show().css({ "margin-left": idW,"margin-top": idH });
+            if(c=='tips-succ'){
+                setTimeout("$('.tips-succ').hide();$('#shadowLayer').remove();",1500);
+            }
+        }
+        $("#"+id+" .dialog-close").click(function () {
+            hideDialog(id);
+        });
+        $("#shadowLayer").click(function () {
+            hideDialog(id);
+        });
+    }
+    function hideDialog(id,c){
+        $("#"+id).hide();
+        $("#shadowLayer").remove();
+    }
+    function showDialog(id){
+        var ids = $("#" + id);
+        var idH = -(ids.height()/2);
+        var idW = -(ids.width()/2);
+        $('<div id="shadowLayer"></div>').appendTo("body").show();
+        ids.show().css({ "margin-left": idW,"margin-top": idH });
+    }
+</script>
+</body>
+</html>

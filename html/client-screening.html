@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>geo易获客</title>
+    <link rel="shortcut icon" href="../static/favicon.ico">
+    <link rel="bookmark" href="../static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css">
+    <link rel="stylesheet" type="text/css"  href="../static/css/screening.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../static/js/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="header header-screening">
+    <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo-screening.png" alt="geo易获客" /></a></h1>
+    <ul class="header-content">
+        <li>
+            <i class="icon login-icon"></i>
+            <div class="quit">
+                <p title="Hi，hahaha">Hi，hahaha</p>
+                <a href="client-my.html" class="my"><i class="icon icon03"></i><span>我的账号</span></a>
+                <a href="client-myseat.html" class="my"><i class="icon icon04"></i><span>我的坐席</span></a>
+                <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
+                <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
+                <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="warp warp-screening">
+    <div class="main">
+        <div class="screening screening-show">
+            <h2>筛选分类</h2>
+            <div class="screening-left">
+                <div class="scroll-warp">
+                    <ul class="scroll-content screening-one">
+                        <li class="active">
+                            <div class="sort-first"><i class="icon icon102002"></i><span>金融</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104002"></i><span>房产</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104009"></i><span>教育培训</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104003"></i><span>汽车</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104013"></i><span>家装</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104004"></i><span>商旅</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon103002"></i><span>生活服务</span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="screening-right">
+                <div class="scroll-warp">
+                    <ul class="scroll-content screening-item">
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>信用卡</span></p>
+                            <p class="piece"><em style="width: 100%;"><span>75000人</span></em></p>
+                        </li>
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>投资理财</span></p>
+                            <p class="piece"><em style="width: 60%;"><span>32400人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>保险</span></p>
+                            <p class="piece"><em style="width: 60%;"><span>75000人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>贷款</span></p>
+                            <p class="piece"><em style="width: 100%;"><span>32400人</span></em></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="all-button">
+                    <p class="text"><i class="icon"></i><span>全选</span></p>
+                </div>
+                <div class="btn-screening billing">
+                    <a class="blue" href="javascript:void(0);">加入购物车</a>
+                </div>
+            </div>
+        </div>
+        <div class="screening">
+            <h2>筛选偏好</h2>
+            <div class="screening-left">
+                <div class="scroll-warp">
+                    <ul class="scroll-content screening-one">
+                        <li class="active">
+                            <div class="sort-first"><i class="icon icon106013"></i><span>购物</span></div>
+                            <ul class="screening-sub">
+                                <li class="checked">
+                                    <div class="checkbox-warp"><i class="icon"></i><span>外卖团购</span></div>
+                                </li>
+                                <li>
+                                    <div class="checkbox-warp"><i class="icon"></i><span>综合商城</span></div>
+                                </li>
+                                <li>
+                                    <div class="checkbox-warp"><i class="icon"></i><span>母婴用品</span></div>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon102002"></i><span>金融</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104002"></i><span>房产</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104009"></i><span>教育培训</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104003"></i><span>汽车</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104013"></i><span>家装</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon104004"></i><span>商旅</span></div>
+                        </li>
+                        <li>
+                            <div class="sort-first"><i class="icon icon103002"></i><span>生活服务</span></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="screening-right">
+                <div class="scroll-warp">
+                    <ul class="scroll-content screening-item">
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>美团外卖</span></p>
+                            <p class="piece"><em style="width: 100%;"><span>1473人</span></em></p>
+                        </li>
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>百度外卖</span></p>
+                            <p class="piece"><em style="width: 59.4%;"><span>875人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>饿了么</span></p>
+                            <p class="piece"><em style="width: 23.2%;"><span>342人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>口碑外卖</span></p>
+                            <p class="piece"><em style="width: 6.7%;"><span>98人</span></em></p>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="all-button">
+                    <p class="text"><i class="icon"></i><span>全选</span></p>
+                </div>
+                <div class="btn-screening billing">
+                    <a class="blue" href="javascript:void(0);">加入购物车</a>
+                </div>
+            </div>
+        </div>
+        <div class="screening">
+            <h2>筛选地域</h2>
+            <div class="screening-right screening-right-all">
+                <div class="scroll-warp">
+                    <ul class="scroll-content screening-item">
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>河北</span></p>
+                            <p class="piece"><em style="width: 100%;"><span>1473人</span></em></p>
+                        </li>
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>山东</span></p>
+                            <p class="piece"><em style="width: 82.1%;"><span>1209人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>辽宁</span></p>
+                            <p class="piece"><em style="width: 74%;"><span>1090人</span></em></p>
+                        </li>
+                        <li class="checked">
+                            <p class="text"><i class="icon"></i><span>黑龙江</span></p>
+                            <p class="piece"><em style="width: 66.5%;"><span>980人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>吉林</span></p>
+                            <p class="piece"><em style="width: 61%;"><span>898人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>甘肃</span></p>
+                            <p class="piece"><em style="width: 41.1%;"><span>606人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>青海</span></p>
+                            <p class="piece"><em style="width: 20.4%;"><span>300人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>河南</span></p>
+                            <p class="piece"><em style="width: 14.2%;"><span>209人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>江苏</span></p>
+                            <p class="piece"><em style="width: 6.7%;"><span>98人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>湖北</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>湖南</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>江西</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>浙江</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>广东</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>云南</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>福建</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>海南</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>山西</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>四川</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>陕西</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>贵州</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>安徽</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>重庆</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>北京</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>上海</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>天津</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>广西</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>内蒙古</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>西藏</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>新疆</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                        <li>
+                            <p class="text"><i class="icon"></i><span>宁夏</span></p>
+                            <p class="piece"><em style="width: 2%;"><span>30人</span></em></p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="all-button">
+                    <p class="text"><i class="icon"></i><span>全选</span></p>
+                </div>
+                <div class="btn-screening billing">
+                    <a class="blue" href="javascript:void(0);">加入购物车</a>
+                </div>
+            </div>
+        </div>
+        <div class="cart-warp">
+            <h3>人群购物车</h3>
+            <div class="screening-time">
+                <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                    <p class="all"><span>最近7天</span></p>
+                    <div class="select-ul">
+                        <div class="scroll-warp scrollBar">
+                            <ul>
+                                <li>最近7天</li>
+                                <li>最近15天</li>
+                                <li>最近30天</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-warp">
+                <div class="scroll-content">
+                    <ul class="select-center">
+                        <li class="active">
+                            <h4>筛选分类<em>(必选)</em></h4>
+                            <p><span>成人英语</span><i class="icon"></i></p>
+                            <p><span>投资理财</span><i class="icon"></i></p>
+                        </li>
+                        <li class="active">
+                            <h4>筛选偏好</h4>
+                            <p><span>美团外卖</span><i class="icon"></i></p>
+                            <p><span>百度外卖</span><i class="icon"></i></p>
+                        </li>
+                        <li class="active">
+                            <h4>筛选地域</h4>
+                            <p><span>河北</span><i class="icon"></i></p>
+                            <p><span>山东</span><i class="icon"></i></p>
+                            <p><span>黑龙江</span><i class="icon"></i></p>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="select-number"><em>已选客户</em><span><b>3,643,342</b><i></i></span></div><!--加载中span加上load-->
+            <div class="btn-screening btn-manual">
+                <span>没找到合适的? </span>
+                <a class="blue next" href="javascript:void(0);" onclick="getWindow('submitManua');">我们帮您选人</a>
+            </div>
+            <div class="btn-screening billing">
+                <a class="prev" href="javascript:void(0);" style="display: none">上一步</a>
+                <a href="javascript:void(0);" style="display: none">跳过</a>
+                <a class="blue" style="display: none" href="javascript:void(0);" onclick="getWindow('submitSave');">保存</a><!--disabled-->
+                <a class="blue next" href="javascript:void(0);">下一步</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 新建项目弹窗 -->
+<div class="dialog" id="submitSave">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>新建项目</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp dialog-client-add">
+            <li>
+                <label>项目名称</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>已选客户</label>
+                <div class="input-warp">
+                    <p class="text">34000</p>
+                </div>
+            </li>
+            <li>
+                <label>预计线索量</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                    <p class="tips block">最多10万条，外呼时间为3天，打不完的线索不会计费</p>
+                </div>
+            </li>
+            <li>
+                <label>预计开始时间</label>
+                <div class="input-warp date-warp">
+                    <div class="calendar-warp">
+                        <input class="date" type="text" value="2016.12.01">
+                    </div>
+                    <p class="tips">外呼时间为3天</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('submitSaveSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('submitSave');">取消</a>
+    </div>
+</div>
+<!-- 新建项目成功弹窗-->
+<div class="dialog tips-succ" id="submitSaveSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>新建项目成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 我们帮您选人弹窗 -->
+<div class="dialog" id="submitManua">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>新建项目</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp dialog-manua-add">
+            <li>
+                <label>项目名称</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>人群地域</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                    <p class="tips">如：北京、上海，或全国</p>
+                </div>
+            </li>
+            <li>
+                <label>预计线索量</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                    <p class="tips">最多10万条，外呼时间为3天，打不完的线索不会计费</p>
+                </div>
+            </li>
+            <li>
+                <label>预计开始时间</label>
+                <div class="input-warp date-warp">
+                    <div class="calendar-warp">
+                        <input class="date" type="text" value="2016.12.01">
+                    </div>
+                    <p class="tips">外呼时间为3天</p>
+                </div>
+            </li>
+            <li>
+                <label class="name">短信文本<br/><em class="tips">（选填）</em></label>
+                <div class="input-warp">
+                    <textarea></textarea>
+                    <p class="tips block">最多输入600个字符，已经输入0个字符</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('submitManuaSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('submitManua');">取消</a>
+    </div>
+</div>
+<!-- 我们帮您选人成功弹窗-->
+<div class="dialog tips-succ" id="submitManuaSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>项目申请已提交审核</span></p>
+        </div>
+    </div>
+</div>
+<!-----------------------header下拉弹窗------------------------->
+<!-- 修改密码弹窗 -->
+<div class="dialog" id="editPassword">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>修改密码</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>原密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>新密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>确认密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('editPasswordSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('editPassword');">取消</a>
+    </div>
+</div>
+<!-- 修改密码成功弹窗-->
+<div class="dialog tips-succ" id="editPasswordSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>密码修改成功</span></p>
+        </div>
+    </div>
+</div>
+<!-----------------------header下拉弹窗 end------------------------->
+<script type="text/javascript" src="../static/js/lib/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../static/js/lib/scrollBar.js"></script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $(".header-content li").click(function(){
+            $(this).toggleClass('li-hover').siblings().removeClass("li-hover");
+            setTimeout("$('.header-content li').removeClass('li-hover');",2500);
+        });
+        $(".select-warp p").click(function(){
+            if($(this).parent().hasClass("select-open")){
+                $(this).parent().removeClass("select-open");
+
+            }else{
+                $(this).parent().addClass("select-open");
+            }
+        });
+        $(".select-ul li").click(function(){
+            $(this).parents().find(".select-open .all span").html($(this).text());
+            $(this).parents().find(".select-warp").removeClass("select-open");
+        });
+        $(".billing a").click(function () {
+            var show = $(".screening-show");
+            if ( $(this).hasClass("prev")){
+                if( show.prev().hasClass("screening")){
+                    show.removeClass("screening-show").prev(".screening").addClass("screening-show");
+                    if(show.next(".screening").index()==2){
+                        $(this).hide();
+                        $(this).next().hide();
+                    }
+                    if(show.next(".screening").index()==-1){
+                        $(this).siblings().show();
+                        $(this).next().next().hide();
+                    }
+                }
+            }
+            if ($(this).hasClass("next")){
+                if( show.next().hasClass("screening")){
+                    show.removeClass("screening-show").next(".screening").addClass("screening-show");
+                    //alert(show.next(".screening").index() );
+                    if(show.next(".screening").index()==1){
+                        $(this).siblings().show();
+                        $(this).prev().hide();
+                    }
+                    if(show.next(".screening").index()==2){
+                        $(this).hide();
+                        $(this).siblings(2).show();
+                    }
+                }
+            }
+        });
+        $(".scroll-warp").scrollBar();
+    });
+    //弹窗
+    function getWindow(id,c) {
+        if($('#shadowLayer').length == 0){
+            showDialog(id);
+        }else{
+            $(".dialog").hide();
+            var ids = $("#" + id);
+            var idH = -(ids.height()/2);
+            var idW = -(ids.width()/2);
+            ids.show().css({ "margin-left": idW,"margin-top": idH });
+            if(c=='tips-succ'){
+                setTimeout("$('.tips-succ').hide();$('#shadowLayer').remove();",1500);
+            }
+        }
+        $("#"+id+" .dialog-close").click(function () {
+            hideDialog(id);
+        });
+        $("#shadowLayer").click(function () {
+            hideDialog(id);
+        });
+    }
+    function hideDialog(id,c){
+        $("#"+id).hide();
+        $("#shadowLayer").remove();
+    }
+    function showDialog(id){
+        var ids = $("#" + id);
+        var idH = -(ids.height()/2);
+        var idW = -(ids.width()/2);
+        $('<div id="shadowLayer"></div>').appendTo("body").show();
+        ids.show().css({ "margin-left": idW,"margin-top": idH });
+    }
+</script>
+</body>
+</html>

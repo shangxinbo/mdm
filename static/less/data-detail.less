@@ -1,0 +1,234 @@
+@import (reference) "base.less";
+@import "data-card.less";
+//---------------------------------------------- 数据属性信息 ------------------------------------------------------
+
+.data-detail{
+  position: relative;
+  .notice .icon,.notice:before{
+    .flo();
+    background: url('@{url}/data-icon.png') no-repeat 0 0;
+  }
+ .title-info{
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .data-text{
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    &>li{
+      min-height: 60px;
+      position: relative;
+      .name {
+        position: absolute;
+        display: inline-block;
+        height: 41px;
+        font-size: 14px;
+        line-height: 41px;
+        text-align: right;
+        color: @grayColor;
+        width: 100px;
+      }
+      p.text {
+        font-size: 16px;
+        line-height: 41px;
+        color: @grayColor;
+        display: inline-block;
+        a{
+          color: @blueColor;
+          margin-right: 20px;
+        }
+        &.red{
+          color: @redColor;
+        }
+      }
+      .input-warp{
+        padding-left: 115px;
+        position: relative;
+        input{
+          &.text,&.date{
+            height: 41px;
+            line-height: 39px\9;
+          }
+        }
+        .btn{
+          margin: 20px 20px 0 0;
+          line-height: 41px;
+          width: 120px;
+          font-size: 16px;
+        }
+        textarea{
+          width: 60%;
+        }
+        .file-box{
+          float: left;
+        }
+      }
+      .notice{
+        color: @redColor;
+        font-size: 12px;
+        line-height: 32px;
+        display: inline-block;
+        padding: 0 15px 0 38px;
+        margin-left: 10px;
+        background-color: #fffae5;
+        border: 1px solid #f0ebd5;
+        position: absolute;
+        max-width: 350px;
+        top: 4px;
+        i{
+          .wh(17px);
+          display: inline-block;
+          position: absolute;
+          top:7px;
+          left: 12px;
+        }
+        &:before{
+          display: block;
+          content: '';
+          width: 6px;
+          height: 11px;
+          .flo();
+          position: absolute;
+          left: -6px;
+          top:12px;
+          background-position: -34px 0;
+        }
+      }
+      .tips{
+        font-size: 14px;
+        color: @grayColor2;
+        line-height: 41px;
+        display: inline-block;
+        padding-left: 10px;
+        &.block{
+          display: block;
+          padding: 0;
+        }
+      }
+      .error {
+        font-size: 14px;
+        padding: 8px 0;
+        color: @redColor;
+        clear: both;
+      }
+      &.both{
+        clear: both;
+      }
+      &.li-bg{
+        background-color: #f4f4f4;
+        margin-left: -50px;
+        margin-right: -50px;
+        .name,.input-warp{
+          margin-left: 50px;
+          line-height: 60px;
+        }
+      }
+      &.li-radio{
+        margin: 10px 0 0;
+        .radio-warp{
+          padding: 12px 0 0;
+          display: block;
+          overflow: hidden;
+          .tips{
+            padding-left: 30px;
+          }
+          .radioname{
+            display: inline-block;
+            line-height: 20px;
+            height: 20px;
+            font-size: 16px;
+          }
+          .data-in{
+            margin-top: 20px;
+            min-width: 300px;
+            li{
+              float: left;
+              padding: 0 10px 20px 30px;
+              font-size: 14px;
+              input.text{
+                margin: 0 10px;
+                min-width: 60px;
+                max-width: 100px;
+                height: 30px;
+                line-height: 30px;
+                width: 80px;
+              }
+            }
+          }
+          .data-textarea{
+            margin-top: 20px;
+            padding: 0 10px 0 86px;
+            font-size: 14px;
+            position: relative;
+            span{
+              position: absolute;
+              left: 30px;
+            }
+            textarea{
+              margin: 0 10px;
+              vertical-align: top;
+              max-width: 80%;
+              width: 100%;
+            }
+          }
+        }
+      }
+      &.li-btn{
+        padding-top: 30px;
+      }
+    }
+  }
+  .data-view{
+    &>li{
+      .name {
+        color: @grayColor2;
+      }
+    }
+  }
+  .btn-warp{
+    text-align: center;
+    padding: 20px;
+    .btn{
+      display: inline-block;
+      line-height: 41px;
+      width: 130px;
+      font-size: 16px;
+      margin: 0 40px;
+    }
+  }
+  .license{
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 500px;
+    text-align: center;
+    z-index: 2;
+    overflow: hidden;
+    .t{
+      font-size: 14px;
+      padding-bottom: 10px;
+      display: block;
+    }
+    img{
+      max-height: 350px;
+    }
+  }
+}
+.card-warp{
+  .input-warp{
+    padding-right: 390px;
+  }
+}
+.examine{
+  .data-text{
+    &>li{
+      .input-warp{
+        padding-right: 500px;
+      }
+    }
+  }
+  .data-card{
+    right: 58px;
+  }
+}

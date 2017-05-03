@@ -1,0 +1,52 @@
+@import (reference) "base.less";
+//---------------------------------------------- 出错信息 ------------------------------------------------------
+
+.data-errors {
+  position: relative;
+  .data-error{
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    padding: 130px 0 40px;
+    .num{
+      font-size: 130px;
+      color: @whiteColor;
+      padding-bottom: 40px;
+      font-family: @YaHei;
+      font-weight: bold;
+      span{
+        display: inline-block;
+        line-height: 140px;
+        img{
+          position: relative;
+          display: inline-block;
+          width: 146px;
+          top: 10px;
+          left: 5px;
+          margin-right: -10px;
+        }
+      }
+    }
+    .tips{
+      font-size: 20px;
+      color: #a9bed5;
+    }
+  }
+  .bg{
+      width: 640px;
+      position: absolute;
+      z-index: 1;
+    top: 0;
+    left: 50%;
+    margin-left: -320px;
+  }
+  .data-search{
+    position: relative;
+    z-index: 3;
+    .btn{
+      height: 40px;
+      width: 110px;
+      font-size: 16px;
+    }
+  }
+}

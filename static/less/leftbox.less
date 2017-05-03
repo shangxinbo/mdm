@@ -1,0 +1,147 @@
+@import (reference) "base.less";
+@navBg:#007fe1;
+@navTopBg:#0e55a7;
+@navOut:#356483;
+.navbox{
+  width: 251px;
+  height: 100%;
+  background-color: @navBg;
+  background: -webkit-gradient(linear,center top,center bottom,from(@navTopBg), to(@navBg));
+  background: -moz-linear-gradient( top,@navTopBg,@navBg);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  box-shadow:0 0 0 @navOut,0 0 30px @navOut;
+  &:before{
+    display: block;
+    content: '';
+    .flo();
+    background: url('@{url}/left-bg.png') no-repeat;
+    width: 240px;
+    height: 646px;
+    position: absolute;
+    top: 192px;
+    right: 0;
+  }
+  h1{
+    padding: 50px 0 35px;
+  }
+  .logo{
+    text-align: center;
+    display: block;
+    img{
+      width: 164px;
+      height: 34px;
+      display: inline-block;
+    }
+  }
+  &>ul{
+    //margin-top: 95px;
+    width: 100%;
+    &>li{
+      color: @whiteColor;
+      position: relative;
+      margin-top: 25px;
+      span{
+        font-size: 16px;
+        display: block;
+        height: 100%;
+        line-height: 54px;
+        padding-left: 80px;
+      }
+      .icon{
+        .wh(22px);
+        display: inline-block;
+        position: absolute;
+        left: 41px;
+        top:50%;
+        margin-top: -11px;
+        .flo();
+        background: url('@{url}/left-icon.png') no-repeat;
+        opacity: 0.7;
+      }
+      a{
+        display: block;
+        color: @whiteColor;
+        width: 225px;
+        height: 54px;
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+        position: relative;
+        opacity: 1;
+      }
+      &.active{
+        a{
+          background-color:#0275d6;
+          .icon{
+            opacity: 1;
+          }
+        }
+        ul{
+          li{
+            a{
+              background:none;
+            }
+          }
+        }
+      }
+      li{
+        height: 26px;
+        color: @whiteColor;
+        position: relative;
+        margin-top: 25px;
+        span{
+          font-size: 14px;
+          padding-left: 26px;
+          line-height: 26px;
+        }
+        .icon{
+          .wh(15px);
+          left: 0;
+          margin-top: -7px;
+          opacity: 0.7;
+        }
+        a{
+          width: auto;
+          height: 100%;
+          display: inline-block;
+          margin-left: 80px;
+          opacity: 0.5;
+        }
+        &.active{
+          a{
+            opacity: 1;
+          }
+        }
+      }
+
+      .icon01{
+        background-position: 0 0;//我的项目
+        }
+      .icon02{
+        background-position: 0 -22px;//我的话务
+      }
+      .icon03{
+        background-position: 0 -44px;//计费管理
+      }
+      .icon04{
+        background-position: 0 -66px;//客户管理
+      }
+      .icon05{
+        background-position: 0 -88px;//操作手册管理
+      }
+      .icon03-1{
+        background-position: -24px 0;//项目计费
+      }
+      .icon03-2{
+        background-position: -24px -15px;//坐席计费
+      }
+      .icon03-3{
+        background-position: -24px -30px;//余额管理
+      }
+
+
+    }
+  }
+}
