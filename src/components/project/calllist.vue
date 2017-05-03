@@ -215,12 +215,13 @@
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     _this.uuid = evt.params.channel_uuid
+                    let tel = evt.params.dest_number.replace(_this.tel_pre,'')
                     _this.$store.commit('CHANGE_DIAL_STATUS',true)
                     mAjax(_this, {
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: _this.uuid,
-                            phone: evt.params.dest_number,
+                            phone: tel,
                             project_id: _this.project.id
                         },
                         success: data => {
