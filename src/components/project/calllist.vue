@@ -22,7 +22,7 @@
                                     <th>操作</th>
                                 </tr>
                                 <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                    <td>{{item.telephone_crypt}}</td>
+                                    <td>{{item.telephone.substr(0,3)+'****'+item.telephone.substr(7,11)}}</td>
                                     <td>{{item.distribution_date}}</td>
                                     <td v-if="clue_status==0">{{item.is_dial==1?'已拨打':'未拨打'}}</td>
                                     <td>{{item.dial_status | toResultText}}</td>
