@@ -78,6 +78,9 @@
         computed:{
             dialing: function(){
                 return this.$store.state.dialing
+            },
+            tel_pre:function(){
+                return this.$store.state.tel_pre
             }
         },
         components: {
@@ -235,7 +238,11 @@
                         if(data.code==200){
                             if(data.data.balance&&data.data.balance>0){
                                 window.mycomm_agent.wrap_up(0)
-                                window.mycomm_agent.dial(tel, 'fuck', 'you')
+                                let tel_all = tel
+                                if(this.tel_pre){
+                                    tel_all = this.tel_pre + tel_all
+                                }
+                                window.mycomm_agent.dial(tel_all, 'fuck', 'you')
                             }else{
                                 _this.$refs.alert.$emit('show','客户账户余额不足,暂不能拨打')
                             }

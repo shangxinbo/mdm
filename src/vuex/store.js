@@ -13,7 +13,8 @@ const state = {
     changeMypassDialogShow:false,
     callInfo:null,
     showCallSet:false,
-    dialing:false
+    dialing:false,
+    tel_pre:null
 }
 
 const mutations = {
@@ -51,6 +52,9 @@ const mutations = {
     },
     CHANGE_DIAL_STATUS(state,bool){
         state.dialing = bool
+    },
+    SET_TEL_PREFIX(state,str){
+        state.tel_pre = str
     }
 }
 
