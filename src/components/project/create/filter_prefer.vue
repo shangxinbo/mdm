@@ -1,42 +1,138 @@
 <template>
     <div class="screening">
-        <h2>筛选分类</h2>
+        <h2>筛选偏好</h2>
         <div class="screening-left">
-            <div class="scroll-warp" style="overflow-y:auto">
+            <div class="scroll-warp">
                 <ul class="scroll-content screening-one">
-                    <li v-for="(item,index) in tag1" :class="{active:item.code==selected}">
-                        <div class="sort-first" @click="selectCate(item.code)">
-                            <i class="icon" :class="'icon'+ item.code"></i>
-                            <span>{{item.name}}</span>
+                    <li class="active">
+                        <div class="sort-first">
+                            <i class="icon icon106013"></i>
+                            <span>购物</span>
+                        </div>
+                        <ul class="screening-sub">
+                            <li class="checked">
+                                <div class="checkbox-warp">
+                                    <i class="icon"></i>
+                                    <span>外卖团购</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox-warp">
+                                    <i class="icon"></i>
+                                    <span>综合商城</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox-warp">
+                                    <i class="icon"></i>
+                                    <span>母婴用品</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon102002"></i>
+                            <span>金融</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon104002"></i>
+                            <span>房产</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon104009"></i>
+                            <span>教育培训</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon104003"></i>
+                            <span>汽车</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon104013"></i>
+                            <span>家装</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon104004"></i>
+                            <span>商旅</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="sort-first">
+                            <i class="icon icon103002"></i>
+                            <span>生活服务</span>
                         </div>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="screening-right">
-            <div class="scroll-warp" style="overflow-y:auto">
+            <div class="scroll-warp">
                 <ul class="scroll-content screening-item">
-                    <li v-for="(item,index) in tag2" :class="{checked:inCart(item)>=0}">
-                        <p class="text" @click="toggleChecked(item)">
+                    <li class="checked">
+                        <p class="text">
                             <i class="icon"></i>
-                            <span>{{item.name}}</span>
+                            <span>美团外卖</span>
                         </p>
                         <p class="piece">
-                            <em :style="{width: item.percent}">
-                                <span>{{item.num}}人</span>
+                            <em style="width: 100%;">
+                                <span>1473人</span>
                             </em>
                         </p>
                     </li>
+                    <li class="checked">
+                        <p class="text">
+                            <i class="icon"></i>
+                            <span>百度外卖</span>
+                        </p>
+                        <p class="piece">
+                            <em style="width: 59.4%;">
+                                <span>875人</span>
+                            </em>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text">
+                            <i class="icon"></i>
+                            <span>饿了么</span>
+                        </p>
+                        <p class="piece">
+                            <em style="width: 23.2%;">
+                                <span>342人</span>
+                            </em>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="text">
+                            <i class="icon"></i>
+                            <span>口碑外卖</span>
+                        </p>
+                        <p class="piece">
+                            <em style="width: 6.7%;">
+                                <span>98人</span>
+                            </em>
+                        </p>
+                    </li>
+
                 </ul>
             </div>
             <div class="all-button">
-                <p class="text" :class="{checked:allChecked}" @click="checkAll">
+                <p class="text">
                     <i class="icon"></i>
                     <span>全选</span>
                 </p>
             </div>
             <div class="btn-screening billing">
-                <a class="blue" href="javascript:void(0);" @click="toCart">加入购物车</a>
+                <a class="blue" href="javascript:void(0);">加入购物车</a>
             </div>
         </div>
     </div>
