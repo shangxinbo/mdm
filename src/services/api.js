@@ -74,4 +74,6 @@ export default {
     get_tel_prefix: API_PRE + '/callCenter/getPhonePrefix',
     filter_product_1: API_PRE + '/filtertag/products',
     filter_product_2: API_PRE + '/filtertag/product',
+    filter_prefer_1: API_PRE + '/filtertag/preferences',
+    filter_prefer_2: API_PRE + '/filtertag/preference',
 }

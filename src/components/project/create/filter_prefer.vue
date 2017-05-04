@@ -1,138 +1,50 @@
 <template>
     <div class="screening">
-        <h2>筛选偏好</h2>
+        <h2>筛选渠道</h2>
         <div class="screening-left">
-            <div class="scroll-warp">
+            <div class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-one">
-                    <li class="active">
-                        <div class="sort-first">
-                            <i class="icon icon106013"></i>
-                            <span>购物</span>
+                    <li v-for="(item,index) in tag1" :class="{active:selected1&&item.code==selected1.code}">
+                        <div class="sort-first" @click="selectT1(item)">
+                            <i class="icon" :class="'icon' + item.code"></i>
+                            <span>{{item.name}}</span>
                         </div>
-                        <ul class="screening-sub">
-                            <li class="checked">
-                                <div class="checkbox-warp">
-                                    <i class="icon"></i>
-                                    <span>外卖团购</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox-warp">
-                                    <i class="icon"></i>
-                                    <span>综合商城</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox-warp">
-                                    <i class="icon"></i>
-                                    <span>母婴用品</span>
+                        <ul v-if="item.list.length>0" class="screening-sub">
+                            <li v-for="(val,key) in item.list" :class="{checked:inCart(val)>=0,active:selected2&&val.code==selected2.code}">
+                                <div class="checkbox-warp" @click="showChild(val.code)">
+                                    <i class="icon" @click.stop="toggleChecked(val)"></i>
+                                    <span>{{val.name}}</span>
                                 </div>
                             </li>
                         </ul>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon102002"></i>
-                            <span>金融</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon104002"></i>
-                            <span>房产</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon104009"></i>
-                            <span>教育培训</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon104003"></i>
-                            <span>汽车</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon104013"></i>
-                            <span>家装</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon104004"></i>
-                            <span>商旅</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="sort-first">
-                            <i class="icon icon103002"></i>
-                            <span>生活服务</span>
-                        </div>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="screening-right">
-            <div class="scroll-warp">
+            <div class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-item">
-                    <li class="checked">
-                        <p class="text">
+                    <li v-for="(item,index) in tag2" :class="{checked:inCart(item)>=0}">
+                        <p class="text" @click="toggleChecked(item)">
                             <i class="icon"></i>
-                            <span>美团外卖</span>
+                            <span>{{item.name}}</span>
                         </p>
                         <p class="piece">
-                            <em style="width: 100%;">
-                                <span>1473人</span>
+                            <em :style="{width: item.percent}">
+                                <span>{{item.num}}人</span>
                             </em>
                         </p>
                     </li>
-                    <li class="checked">
-                        <p class="text">
-                            <i class="icon"></i>
-                            <span>百度外卖</span>
-                        </p>
-                        <p class="piece">
-                            <em style="width: 59.4%;">
-                                <span>875人</span>
-                            </em>
-                        </p>
-                    </li>
-                    <li>
-                        <p class="text">
-                            <i class="icon"></i>
-                            <span>饿了么</span>
-                        </p>
-                        <p class="piece">
-                            <em style="width: 23.2%;">
-                                <span>342人</span>
-                            </em>
-                        </p>
-                    </li>
-                    <li>
-                        <p class="text">
-                            <i class="icon"></i>
-                            <span>口碑外卖</span>
-                        </p>
-                        <p class="piece">
-                            <em style="width: 6.7%;">
-                                <span>98人</span>
-                            </em>
-                        </p>
-                    </li>
-
                 </ul>
             </div>
             <div class="all-button">
-                <p class="text">
+                <p class="text" :class="{checked:allChecked}" @click="checkAll">
                     <i class="icon"></i>
                     <span>全选</span>
                 </p>
             </div>
             <div class="btn-screening billing">
-                <a class="blue" href="javascript:void(0);">加入购物车</a>
+                <a class="blue" href="javascript:void(0);" @click="toCart">加入购物车</a>
             </div>
         </div>
     </div>
@@ -145,14 +57,15 @@
             return {
                 tag1: [],
                 tag2: [],
-                selected: null,
+                tag3: [],
+                selected1: null,
+                selected2: null,
                 cart_pre: [],
-                cart: [],
             }
         },
         created() {
             mAjax(this, {
-                url: API.filter_product_1,
+                url: API.filter_prefer_1,
                 success: data => {
                     if (data.code == 200) {
                         this.tag1 = data.data
@@ -171,9 +84,10 @@
                 let _this = this
                 if (this.tag2.length > 0) {
                     this.tag2.forEach(el => {
-                        if (_this.cart_pre.indexOf(el.code) < 0) {
-                            status = false
-                        }
+                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
+                            return val.code == el.code
+                        })
+                        if (loc < 0) status = false
                     })
                     return status
                 } else {
@@ -182,10 +96,18 @@
             }
         },
         methods: {
-            selectCate(code) {
-                this.selected = code
+            selectT1(code) {
+                this.selected1 = code
+            },
+            showChild(code) {
+                this.selected2 = code
                 mAjax(this, {
-                    url: API.filter_product_2,
+                    url: API.filter_prefer_2,
+                    data:{
+                        product:[20200100100,20200100200],
+                        code:[code],
+                        date:7
+                    },
                     success: data => {
                         if (data.code == 200) {
                             let tags = data.data
@@ -220,12 +142,13 @@
             },
             inCart(item) {
                 return this.cart_pre.findIndex((val, index, arr) => {
-                    return val.code == item.code
+                    return item.code.toString().indexOf(val.code)==0
                 })
             },
             checkAll() {
                 let _this = this
-                if (this.allChecked) {
+                if (this.allChecked && this.tag2.length > 0) {
+                    
                     this.tag2.forEach(el => {
                         let loc = _this.cart_pre.findIndex((val, index, arr) => {
                             return val.code == el.code

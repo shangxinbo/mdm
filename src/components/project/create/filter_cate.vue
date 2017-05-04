@@ -51,7 +51,6 @@
                 tag2: [],
                 selected: null,
                 cart_pre: [],
-                cart: [],
             }
         },
         created() {
@@ -75,9 +74,10 @@
                 let _this = this
                 if (this.tag2.length > 0) {
                     this.tag2.forEach(el => {
-                        if (_this.cart_pre.indexOf(el.code) < 0) {
-                            status = false
-                        }
+                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
+                            return val.code == el.code
+                        })
+                        if (loc < 0) status = false
                     })
                     return status
                 } else {
@@ -129,7 +129,7 @@
             },
             checkAll() {
                 let _this = this
-                if (this.allChecked) {
+                if (this.allChecked&&this.tag2.length>0) {
                     this.tag2.forEach(el => {
                         let loc = _this.cart_pre.findIndex((val, index, arr) => {
                             return val.code == el.code
