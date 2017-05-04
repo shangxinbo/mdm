@@ -27,6 +27,6 @@ new Vue({
     el: '#app',
     router,
     store,
-    template: '<App/>',
+    template: '<App style="height:100%"/>',
     components: { App }
 })

@@ -1,5 +1,6 @@
 <template>
     <div class="header">
+        <slot></slot>
         <ul class="header-content">
             <li @click.stop="slideDown" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>

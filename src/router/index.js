@@ -20,6 +20,7 @@ const project_list = resolve => System.import('components/project/index.vue')
 const project_call_list = resolve => System.import('components/project/calllist.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
+const project_create = resolve => System.import('components/project/create/index.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const call_cate = resolve => System.import('components/call/category.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
@@ -58,6 +59,7 @@ let mRouter = new Router({
                 { path: '/expense/doc', name: 'expense_doc', component: expense_doc }
             ]
         },
+        { path: '/project/create', name: 'project_create', component: project_create },
         { path: '/error*', name: 'error', component: error },
         { path: '*', redirect: '/error?code=404' }
     ]

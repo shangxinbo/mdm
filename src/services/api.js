@@ -71,5 +71,7 @@ export default {
     doc_upload: API_PRE + '/doc/upload',
     doc_download: API_PRE + '/doc/download',
     get_myclient_balance: API_PRE + '/seat/balance',
-    get_tel_prefix: API_PRE + '/callCenter/getPhonePrefix'
+    get_tel_prefix: API_PRE + '/callCenter/getPhonePrefix',
+    filter_product_1: API_PRE + '/filtertag/products',
+    filter_product_2: API_PRE + '/filtertag/product',
 }
