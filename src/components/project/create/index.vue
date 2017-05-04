@@ -12,7 +12,7 @@
         </mheader>
         <div class="warp warp-screening">
             <div class="main">
-                <filterCate class="screening-show"></filterCate>
+                <filterCate class="screening-show" @toCart="addCate"></filterCate>
                 <div class="screening">
                     <h2>筛选偏好</h2>
                     <div class="screening-left">
@@ -532,16 +532,12 @@
                     <div class="scroll-warp">
                         <div class="scroll-content">
                             <ul class="select-center">
-                                <li class="active">
+                                <li class="active" v-if="cate.length>0">
                                     <h4>筛选分类
                                         <em>(必选)</em>
                                     </h4>
-                                    <p>
-                                        <span>成人英语</span>
-                                        <i class="icon"></i>
-                                    </p>
-                                    <p>
-                                        <span>投资理财</span>
+                                    <p v-for="(item,index) in cate">
+                                        <span>{{item.name}}</span>
                                         <i class="icon"></i>
                                     </p>
                                 </li>
@@ -622,16 +618,20 @@
     import filterCate from './filter_cate'
 
     export default {
-        data: function () {
-            let user = JSON.parse(localStorage.getItem('user'))
+        data() {
             return {
-                userType: user.type,
-                logo:logo
+                logo:logo,
+                cate:[]
             }
         },
         computed: {
-            layer: function () {
+            layer() {
                 return this.$store.state.showLayer
+            }
+        },
+        methods:{
+            addCate(arr){
+                this.cate = arr
             }
         },
         components: {

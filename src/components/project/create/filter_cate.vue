@@ -16,8 +16,8 @@
         <div class="screening-right">
             <div class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-item">
-                    <li v-for="(item,index) in tag2" :class="{checked:cart_pre.indexOf(item.code)>=0}">
-                        <p class="text" @click="toggleChecked(item.code)">
+                    <li v-for="(item,index) in tag2" :class="{checked:inCart(item)>=0}">
+                        <p class="text" @click="toggleChecked(item)">
                             <i class="icon"></i>
                             <span>{{item.name}}</span>
                         </p>
@@ -36,7 +36,7 @@
                 </p>
             </div>
             <div class="btn-screening billing">
-                <a class="blue" href="javascript:void(0);">加入购物车</a>
+                <a class="blue" href="javascript:void(0);" @click="toCart">加入购物车</a>
             </div>
         </div>
     </div>
@@ -112,29 +112,45 @@
                     }
                 })
             },
-            toggleChecked(code) {
-                if (this.cart_pre.indexOf(code) < 0) {
-                    this.cart_pre.push(code)
+            toggleChecked(item) {
+                let loc = this.cart_pre.findIndex((val, index, arr) => {
+                    return val.code == item.code
+                })
+                if (loc < 0) {
+                    this.cart_pre.push(item)
                 } else {
-                    let loc = this.cart_pre.indexOf(code)
                     this.cart_pre.splice(loc, 1)
                 }
+            },
+            inCart(item) {
+                return this.cart_pre.findIndex((val, index, arr) => {
+                    return val.code == item.code
+                })
             },
             checkAll() {
                 let _this = this
                 if (this.allChecked) {
                     this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.indexOf(el.code)
+                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
+                            return val.code == el.code
+                        })
                         _this.cart_pre.splice(loc, 1)
                     })
                 } else {
                     this.tag2.forEach(el => {
-                        if (_this.cart_pre.indexOf(el.code) < 0) {
-                            _this.cart_pre.push(el.code)
+                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
+                            return val.code == el.code
+                        })
+                        if (loc < 0) {
+                            _this.cart_pre.push(el)
                         }
                     })
                 }
-
+            },
+            toCart() {
+                if (this.cart_pre.length > 0) {
+                    this.$emit('toCart', this.cart_pre)
+                }
             }
         }
     }
