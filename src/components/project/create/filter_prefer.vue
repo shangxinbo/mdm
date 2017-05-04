@@ -11,7 +11,7 @@
                         </div>
                         <ul v-if="item.list.length>0" class="screening-sub">
                             <li v-for="(val,key) in item.list" :class="{checked:inCart(val)>=0,active:selected2&&val.code==selected2.code}">
-                                <div class="checkbox-warp" @click="showChild(val.code)">
+                                <div class="checkbox-warp" @click="showChild(val)">
                                     <i class="icon" @click.stop="toggleChecked(val)"></i>
                                     <span>{{val.name}}</span>
                                 </div>
@@ -83,13 +83,20 @@
                 let status = true
                 let _this = this
                 if (this.tag2.length > 0) {
-                    this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        if (loc < 0) status = false
+                    let floc = _this.cart_pre.findIndex((val, index, arr) => {
+                        return val.code == this.selected2.code
                     })
-                    return status
+                    if (floc < 0) {
+                        this.tag2.forEach(el => {
+                            let loc = _this.cart_pre.findIndex((val, index, arr) => {
+                                return val.code == el.code
+                            })
+                            if (loc < 0) status = false
+                        })
+                        return status
+                    } else {
+                        return true
+                    }
                 } else {
                     return false
                 }
@@ -99,14 +106,14 @@
             selectT1(code) {
                 this.selected1 = code
             },
-            showChild(code) {
-                this.selected2 = code
+            showChild(item) {
+                this.selected2 = item
                 mAjax(this, {
                     url: API.filter_prefer_2,
-                    data:{
-                        product:[20200100100,20200100200],
-                        code:[code],
-                        date:7
+                    data: {
+                        product: [20200100100, 20200100200],
+                        code: [item.code],
+                        date: 7
                     },
                     success: data => {
                         if (data.code == 200) {
@@ -134,21 +141,33 @@
                 let loc = this.cart_pre.findIndex((val, index, arr) => {
                     return val.code == item.code
                 })
+                let re = this.cart_pre.findIndex((val, index, arr) => {
+                    return val.code == this.selected2.code
+                })
+                
                 if (loc < 0) {
                     this.cart_pre.push(item)
                 } else {
+                    if(re>=0){
+                        this.cart_pre.splice(re, 1)
+                    }
                     this.cart_pre.splice(loc, 1)
                 }
             },
             inCart(item) {
                 return this.cart_pre.findIndex((val, index, arr) => {
-                    return item.code.toString().indexOf(val.code)==0
+                    return item.code.toString().indexOf(val.code) == 0
                 })
             },
             checkAll() {
                 let _this = this
                 if (this.allChecked && this.tag2.length > 0) {
-                    
+
+                    let re = _this.cart_pre.findIndex((val, index, arr) => {
+                        return val.code == this.selected2.code
+                    })
+                    if (re >= 0) _this.cart_pre.splice(re, 1)
+
                     this.tag2.forEach(el => {
                         let loc = _this.cart_pre.findIndex((val, index, arr) => {
                             return val.code == el.code
@@ -156,6 +175,12 @@
                         _this.cart_pre.splice(loc, 1)
                     })
                 } else {
+
+                    let re = _this.cart_pre.findIndex((val, index, arr) => {
+                        return val.code == this.selected2.code
+                    })
+                    if (re < 0) _this.cart_pre.push(this.selected2)
+
                     this.tag2.forEach(el => {
                         let loc = _this.cart_pre.findIndex((val, index, arr) => {
                             return val.code == el.code
