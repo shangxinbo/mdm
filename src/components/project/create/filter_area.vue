@@ -18,13 +18,13 @@
                 </ul>
             </div>
             <div class="all-button">
-                <p class="text" :class="{checked:allChecked}" @click="checkAll">
+                <p class="text" :class="{checked:allStatus}" @click="checkAll">
                     <i class="icon"></i>
                     <span>全选</span>
                 </p>
             </div>
             <div class="btn-screening billing">
-                <a class="blue" href="javascript:void(0);">加入购物车</a>
+                <a class="blue" href="javascript:void(0);" @click="toCart">加入购物车</a>
             </div>
         </div>
     </div>
@@ -36,8 +36,7 @@
         data() {
             return {
                 tag: [],
-                cart_pre: [],
-                cart: [],
+                cart: []
             }
         },
         created() {
@@ -68,14 +67,12 @@
             })
         },
         computed: {
-            allChecked() {
+            allStatus() {
                 let status = true
                 let _this = this
                 if (this.tag.length > 0) {
                     this.tag.forEach(el => {
-                        if (_this.cart_pre.indexOf(el.code) < 0) {
-                            status = false
-                        }
+                        if (_this.locInCart(el) < 0) status = false
                     })
                     return status
                 } else {
@@ -84,44 +81,45 @@
             }
         },
         methods: {
-            toggleChecked(item) {
-                let loc = this.cart_pre.findIndex((val, index, arr) => {
-                    return val.code == item.code
+            locInCart(item) {
+                return this.cart.findIndex((val, index, arr) => {
+                    if (item) {
+                        return val.code == item.code
+                    } else {
+                        return false
+                    }
                 })
+            },
+            toggleChecked(item) {
+                let loc = this.locInCart(item)
                 if (loc < 0) {
-                    this.cart_pre.push(item)
+                    this.cart.push(item)
                 } else {
-                    this.cart_pre.splice(loc, 1)
+                    this.cart.splice(loc, 1)
                 }
             },
             inCart(item) {
-                return this.cart_pre.findIndex((val, index, arr) => {
+                return this.cart.findIndex((val, index, arr) => {
                     return val.code == item.code
                 })
             },
             checkAll() {
                 let _this = this
-                if (this.allChecked) {
+                if (this.allStatus && this.tag.length > 0) {
                     this.tag.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        _this.cart_pre.splice(loc, 1)
+                        _this.cart.splice(_this.locInCart(el), 1)
                     })
                 } else {
                     this.tag.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        if (loc < 0) {
-                            _this.cart_pre.push(el)
+                        if (_this.locInCart(el) < 0) {
+                            _this.cart.push(el)
                         }
                     })
                 }
             },
             toCart() {
-                if (this.cart_pre.length > 0) {
-                    this.$emit('toCart', this.cart_pre)
+                if (this.cart.length > 0) {
+                    this.$emit('toCart', this.cart)
                 }
             }
         }

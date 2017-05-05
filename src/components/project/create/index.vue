@@ -14,7 +14,7 @@
             <div class="main">
                 <filterCate @toCart="addCate" :class="{'screening-show':step==1}"></filterCate>
                 <filterPrefer @toCart="addTunnel" :class="{'screening-show':step==2}"></filterPrefer>
-                <filterArea @toCart="addCate" :class="{'screening-show':step==3}"></filterArea>
+                <filterArea @toCart="addArea" :class="{'screening-show':step==3}"></filterArea>
                 <div class="cart-warp">
                     <h3>人群购物车</h3>
                     <div class="screening-time">
@@ -53,22 +53,13 @@
                                         <i class="icon"></i>
                                     </p>
                                 </li>
-                                <li class="active">
+                                <li class="active" v-if="area.length>0">
                                     <h4>筛选地域</h4>
-                                    <p>
-                                        <span>河北</span>
-                                        <i class="icon"></i>
-                                    </p>
-                                    <p>
-                                        <span>山东</span>
-                                        <i class="icon"></i>
-                                    </p>
-                                    <p>
-                                        <span>黑龙江</span>
+                                    <p v-for="(item,index) in area">
+                                        <span>{{item.name}}</span>
                                         <i class="icon"></i>
                                     </p>
                                 </li>
-
                             </ul>
                         </div>
                     </div>
@@ -140,6 +131,10 @@
             },
             addTunnel(arr) {
                 this.tunnel = this.tunnel.concat(arr) //TODO 去重
+                arr.splice(0, arr.length)
+            },
+            addArea(arr) {
+                this.area = this.area.concat(arr)     //TODO 去重
                 arr.splice(0, arr.length)
             },
             nextStep() {
