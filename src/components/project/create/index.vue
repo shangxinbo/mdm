@@ -163,19 +163,19 @@
                 let l = this.cate.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                this.cate.splice(l, 1)
+                if(l>=0) this.cate.splice(l, 1)
             },
             delTunnelTag(code) {
                 let l = this.tunnel.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                this.tunnel.splice(l, 1)
+                if(l>=0)  this.tunnel.splice(l, 1)
             },
             delAreaTag(code) {
                 let l = this.area.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                this.area.splice(l, 1)
+                if(l>=0) this.area.splice(l, 1)
             },
             getCustomers(){
                 mAjax(this,{
