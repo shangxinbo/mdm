@@ -12,9 +12,9 @@
         </mheader>
         <div class="warp warp-screening">
             <div class="main">
-                <filterCate @toCart="addCate"></filterCate>
-                <filterPrefer @toCart="addTunnel"></filterPrefer>
-                <filterArea class="screening-show" @toCart="addCate"></filterArea>
+                <filterCate @toCart="addCate" :class="{'screening-show':step==1}"></filterCate>
+                <filterPrefer @toCart="addTunnel" :class="{'screening-show':step==2}"></filterPrefer>
+                <filterArea @toCart="addCate" :class="{'screening-show':step==3}"></filterArea>
                 <div class="cart-warp">
                     <h3>人群购物车</h3>
                     <div class="screening-time">
@@ -85,11 +85,10 @@
                         <a class="blue next" href="javascript:void(0);" onclick="getWindow('submitManua');">我们帮您选人</a>
                     </div>
                     <div class="btn-screening billing">
-                        <a class="prev" href="javascript:void(0);" style="display: none">上一步</a>
-                        <a href="javascript:void(0);" style="display: none">跳过</a>
-                        <a class="blue" style="display: none" href="javascript:void(0);" onclick="getWindow('submitSave');">保存</a>
-                        <!--disabled-->
-                        <a class="blue next" href="javascript:void(0);">下一步</a>
+                        <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
+                        <a v-show="step>1" href="javascript:void(0);">跳过</a>
+                        <a v-show="step>=3" class="blue" href="javascript:void(0);">保存</a>
+                        <a v-show="step<3" class="blue next" @click="nextStep" href="javascript:void(0);">下一步</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +105,6 @@
 <script>
     import mheader from 'components/common/header.vue'
     import mfooter from 'components/common/footer.vue'
-    import mnav from 'components/common/nav.vue'
     import toast from 'components/dialog/toast'
     import alert from 'components/dialog/alert'
     import confirm from 'components/dialog/confirm'
@@ -125,7 +123,9 @@
             return {
                 logo: logo,
                 cate: [],
-                tunnel:[]
+                tunnel: [],
+                area: [],
+                step: 1,
             }
         },
         computed: {
@@ -136,17 +136,22 @@
         methods: {
             addCate(arr) {
                 this.cate = this.cate.concat(arr)     //TODO 去重
-                arr.splice(0,arr.length)
+                arr.splice(0, arr.length)
             },
             addTunnel(arr) {
                 this.tunnel = this.tunnel.concat(arr) //TODO 去重
-                arr.splice(0,arr.length)
+                arr.splice(0, arr.length)
+            },
+            nextStep() {
+                this.step = this.step + 1
+            },
+            preStep() {
+                this.step = this.step - 1
             }
         },
         components: {
             mheader,
             mfooter,
-            mnav,
             toast,
             alert,
             changeMyPass,
