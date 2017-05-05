@@ -5,13 +5,13 @@
             <div class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-one">
                     <li v-for="(item,index) in tag1" :class="{active:selected1&&item.code==selected1.code}">
-                        <div class="sort-first" @click="selectT1(item)">
+                        <div class="sort-first" @click="select(item)">
                             <i class="icon" :class="'icon' + item.code"></i>
                             <span :title="item.name">{{item.name}}</span>
                         </div>
                         <ul v-if="item.list.length>0" class="screening-sub">
                             <li v-for="(val,key) in item.list" :class="{checked:inCart(val)>=0,active:selected2&&val.code==selected2.code}">
-                                <div class="checkbox-warp" @click="showChild(val)">
+                                <div class="checkbox-warp" @click="getLeaf(val)">
                                     <i class="icon" @click.stop="toggleLeftChecked(val)"></i>
                                     <span :title="item.name">{{val.name}}</span>
                                 </div>
@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="all-button">
-                <p class="text" :class="{checked:allCheckStatus>=0}" @click="checkAll">
+                <p class="text" :class="{checked:allStatus>=0}" @click="checkAll">
                     <i class="icon"></i>
                     <span>全选</span>
                 </p>
@@ -74,10 +74,9 @@
             return {
                 tag1: [],
                 tag2: [],
-                tag3: [],
                 selected1: null,
                 selected2: null,
-                cart_pre: [],
+                cart: []
             }
         },
         created() {
@@ -96,30 +95,32 @@
             })
         },
         computed: {
-            allCheckStatus() {
+            allStatus() {
                 if (this.tag2.length > 0) {
                     let status = true
                     this.tag2.forEach(el => {
-                        let itemIndex = getIndexAtArr(this.cart_pre, el)
+                        let itemIndex = getIndexAtArr(this.cart, el)
                         if (itemIndex < 0) status = false
                     })
                     if (status == true) {
-                        this.cart_pre.push(this.selected2)
+                        this.cart.push(this.selected2)
                         this.tag2.forEach(el => {
-                            removeItemAtArr(this.cart_pre, el)
+                            removeItemAtArr(this.cart, el)
                         })
                     }
                 }
-                return getIndexAtArr(this.cart_pre, this.selected2)
+                return getIndexAtArr(this.cart, this.selected2)
             }
         },
         methods: {
-            selectT1(code) {
-                this.selected1 = code
+            select(item) {
+                this.selected1 = item
             },
-            showChild(item) {
-                if (this.selected2 && this.selected2.code == item.code) return false
-                this.selected2 = item
+            getLeaf(item) {
+
+                if (this.selected2 && this.selected2.code == item.code)
+                    return false
+
                 mAjax(this, {
                     url: API.filter_prefer_2,
                     data: {
@@ -129,6 +130,7 @@
                     },
                     success: data => {
                         if (data.code == 200) {
+                            this.selected2 = item
                             let tags = data.data
                             let max = 0
                             tags.forEach(item => {
@@ -139,7 +141,7 @@
                             tags.forEach(item => {
                                 item.percent = item.num * 100 / max + '%'
                             })
-                            this.tag2 = data.data
+                            this.tag2 = tags
                         } else {
                             this.tag2 = []
                         }
@@ -150,51 +152,49 @@
                 })
             },
             toggleLeftChecked(item) {
-                let itemIndex = getIndexAtArr(this.cart_pre, item)
+                let itemIndex = getIndexAtArr(this.cart, item)
                 if (itemIndex < 0) {
-                    this.cart_pre.push(item)
+                    this.cart.push(item)
                 } else {
-                    removeItemAtArr(this.cart_pre, item)
+                    removeItemAtArr(this.cart, item)
                 }
             },
             toggleChecked(item) {
-                let itemIndex = getIndexAtArr(this.cart_pre, item)
-                let selectedIndex = getIndexAtArr(this.cart_pre, this.selected2)
+                let itemIndex = getIndexAtArr(this.cart, item)
+                let selectedIndex = getIndexAtArr(this.cart, this.selected2)
                 if (selectedIndex < 0) {
                     if (itemIndex < 0) {
-                        this.cart_pre.push(item)
+                        this.cart.push(item)
                     } else {
-                        removeItemAtArr(this.cart_pre, item)
+                        removeItemAtArr(this.cart, item)
                     }
                 } else {
                     let ss = this.tag2.slice()
-                    removeItemAtArr(this.cart_pre, this.selected2)
+                    removeItemAtArr(this.cart, this.selected2)
                     removeItemAtArr(ss, item)
-                    this.cart_pre = this.cart_pre.concat(ss)
+                    this.cart = this.cart.concat(ss)
                 }
             },
             inCart(item) {
-                return this.cart_pre.findIndex((val, index, arr) => {
-                    return item.code.toString().indexOf(val.code) == 0
-                })
+                return getIndexAtArr(this.cart, item)
             },
             checkAll() {
                 let _this = this
-                if (this.allCheckStatus >= 0 && this.tag2.length > 0) {
-                    removeItemAtArr(this.cart_pre, this.selected2)
+                if (this.allStatus >= 0 && this.tag2.length > 0) {
+                    removeItemAtArr(this.cart, this.selected2)
                     this.tag2.forEach(el => {
-                        removeItemAtArr(this.cart_pre, el)
+                        removeItemAtArr(this.cart, el)
                     })
                 } else {
                     this.tag2.forEach(el => {
-                        removeItemAtArr(this.cart_pre, el)
+                        removeItemAtArr(this.cart, el)
                     })
-                    this.cart_pre.push(this.selected2)
+                    this.cart.push(this.selected2)
                 }
             },
             toCart() {
-                if (this.cart_pre.length > 0) {
-                    this.$emit('toCart', this.cart_pre)
+                if (this.cart.length > 0) {
+                    this.$emit('toCart', this.cart)
                 }
             }
         }
