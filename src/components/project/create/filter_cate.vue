@@ -90,6 +90,9 @@
                 this.selected = code
                 mAjax(this, {
                     url: API.filter_product_2,
+                    data:{
+                        code:code
+                    },
                     success: data => {
                         if (data.code == 200) {
                             let tags = data.data

@@ -82,7 +82,7 @@
                     <!--加载中span加上load-->
                     <div class="btn-screening btn-manual">
                         <span>没找到合适的? </span>
-                        <a class="blue next" href="javascript:void(0);" onclick="getWindow('submitManua');">我们帮您选人</a>
+                        <a class="blue next" href="javascript:void(0);">我们帮您选人</a>
                     </div>
                     <div class="btn-screening billing">
                         <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
