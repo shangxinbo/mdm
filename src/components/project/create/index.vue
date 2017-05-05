@@ -66,7 +66,7 @@
                     <div class="select-number">
                         <em>已选客户</em>
                         <span>
-                            <b>3,643,342</b>
+                            <b>{{customers}}</b>
                             <i></i>
                         </span>
                     </div>
@@ -77,7 +77,6 @@
                     </div>
                     <div class="btn-screening billing">
                         <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
-                        <a v-show="step>1" href="javascript:void(0);">跳过</a>
                         <a v-show="step>=3" class="blue" href="javascript:void(0);">保存</a>
                         <a v-show="step<3" class="blue next" :class="{disabled:cate.length<=0}" @click="nextStep" href="javascript:void(0);">下一步</a>
                     </div>
@@ -103,7 +102,7 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
+    import { mAjax,numberFormatter } from 'src/services/functions'
     import logo from 'assets/img/logo-screening.png'
     import filterCate from './filter_cate'
     import filterPrefer from './filter_prefer'
@@ -117,6 +116,7 @@
                 tunnel: [],
                 area: [],
                 step: 1,
+                customers:0
             }
         },
         computed: {
@@ -128,21 +128,24 @@
             addCate(arr) {
                 this.cate = this.cate.concat(arr)     //TODO 去重
                 arr.splice(0, arr.length)
+                this.getCustomers()
             },
             addTunnel(arr) {
                 this.tunnel = this.tunnel.concat(arr) //TODO 去重
                 arr.splice(0, arr.length)
+                this.getCustomers()
             },
             addArea(arr) {
                 this.area = this.area.concat(arr)     //TODO 去重
                 arr.splice(0, arr.length)
+                this.getCustomers()
             },
             nextStep() {
                 this.step = this.step + 1
             },
             preStep() {
                 this.step = this.step - 1
-                switch(this.step){
+                switch (this.step) {
                 case 1:
                     this.tunnel = []
                     this.area = []
@@ -156,23 +159,35 @@
                     this.area = []
                 }
             },
-            delCateTag(code){
-                let l = this.cate.findIndex((val,index,arr)=>{
+            delCateTag(code) {
+                let l = this.cate.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                this.cate.splice(l,1)
+                this.cate.splice(l, 1)
             },
-            delTunnelTag(code){
-                let l = this.tunnel.findIndex((val,index,arr)=>{
+            delTunnelTag(code) {
+                let l = this.tunnel.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                this.tunnel.splice(l,1)
+                this.tunnel.splice(l, 1)
             },
-            delAreaTag(code){
-                let l = this.area.findIndex((val,index,arr)=>{
+            delAreaTag(code) {
+                let l = this.area.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                this.area.splice(l,1)
+                this.area.splice(l, 1)
+            },
+            getCustomers(){
+                mAjax(this,{
+                    url:API.filter_customers,
+                    success:data=>{
+                        if(data.code==200){
+                            this.customers = numberFormatter(data.data)
+                        }else{
+                            this.customers = '获取失败'
+                        }
+                    }
+                })
             }
         },
         components: {
