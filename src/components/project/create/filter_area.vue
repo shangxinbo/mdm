@@ -7,7 +7,7 @@
                     <li v-for="(item,index) in tag" :class="{checked:inCart(item)>=0}">
                         <p class="text" @click="toggleChecked(item)">
                             <i class="icon"></i>
-                            <span>{{item.name}}</span>
+                            <span :title="item.name">{{item.name}}</span>
                         </p>
                         <p class="piece">
                             <em :style="{width: item.percent}">

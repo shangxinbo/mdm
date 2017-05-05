@@ -7,13 +7,13 @@
                     <li v-for="(item,index) in tag1" :class="{active:selected1&&item.code==selected1.code}">
                         <div class="sort-first" @click="selectT1(item)">
                             <i class="icon" :class="'icon' + item.code"></i>
-                            <span>{{item.name}}</span>
+                            <span :title="item.name">{{item.name}}</span>
                         </div>
                         <ul v-if="item.list.length>0" class="screening-sub">
                             <li v-for="(val,key) in item.list" :class="{checked:inCart(val)>=0,active:selected2&&val.code==selected2.code}">
                                 <div class="checkbox-warp" @click="showChild(val)">
                                     <i class="icon" @click.stop="toggleLeftChecked(val)"></i>
-                                    <span>{{val.name}}</span>
+                                    <span :title="item.name">{{val.name}}</span>
                                 </div>
                             </li>
                         </ul>
@@ -27,7 +27,7 @@
                     <li v-for="(item,index) in tag2" :class="{checked:inCart(item)>=0}">
                         <p class="text" @click="toggleChecked(item)">
                             <i class="icon"></i>
-                            <span>{{item.name}}</span>
+                            <span :title="item.name">{{item.name}}</span>
                         </p>
                         <p class="piece">
                             <em :style="{width: item.percent}">

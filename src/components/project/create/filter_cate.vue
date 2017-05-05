@@ -7,7 +7,7 @@
                     <li v-for="(item,index) in tag1" :class="{active:item.code==selected}">
                         <div class="sort-first" @click="getLeaf(item.code)">
                             <i class="icon" :class="'icon'+ item.code"></i>
-                            <span>{{item.name}}</span>
+                            <span :title="item.name">{{item.name}}</span>
                         </div>
                     </li>
                 </ul>
@@ -19,7 +19,7 @@
                     <li v-for="(item,index) in tag2" :class="{checked:locInCart(item)>=0}">
                         <p class="text" @click="toggleChecked(item)">
                             <i class="icon"></i>
-                            <span>{{item.name}}</span>
+                            <span :title="item.name">{{item.name}}</span>
                         </p>
                         <p class="piece">
                             <em :style="{width: item.percent}">
