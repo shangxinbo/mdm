@@ -43,21 +43,21 @@
                                     </h4>
                                     <p v-for="(item,index) in cate">
                                         <span>{{item.name}}</span>
-                                        <i class="icon"></i>
+                                        <i v-if="step==1" class="icon" @click="delCateTag(item.code)"></i>
                                     </p>
                                 </li>
                                 <li class="active" v-if="tunnel.length>0">
                                     <h4>筛选偏好</h4>
                                     <p v-for="(item,index) in tunnel">
                                         <span>{{item.name}}</span>
-                                        <i class="icon"></i>
+                                        <i v-if="step==2" class="icon" @click="delTunnelTag(item.code)"></i>
                                     </p>
                                 </li>
                                 <li class="active" v-if="area.length>0">
                                     <h4>筛选地域</h4>
                                     <p v-for="(item,index) in area">
                                         <span>{{item.name}}</span>
-                                        <i class="icon"></i>
+                                        <i v-if="step==3" class="icon" @click="delAreaTag(item.code)"></i>
                                     </p>
                                 </li>
                             </ul>
@@ -79,7 +79,7 @@
                         <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
                         <a v-show="step>1" href="javascript:void(0);">跳过</a>
                         <a v-show="step>=3" class="blue" href="javascript:void(0);">保存</a>
-                        <a v-show="step<3" class="blue next" @click="nextStep" href="javascript:void(0);">下一步</a>
+                        <a v-show="step<3" class="blue next" :class="{disabled:cate.length<=0}" @click="nextStep" href="javascript:void(0);">下一步</a>
                     </div>
                 </div>
             </div>
@@ -142,6 +142,37 @@
             },
             preStep() {
                 this.step = this.step - 1
+                switch(this.step){
+                case 1:
+                    this.tunnel = []
+                    this.area = []
+                    break
+                case 2:
+                    this.area = []
+                    break
+                default:
+                    this.cate = []
+                    this.tunnel = []
+                    this.area = []
+                }
+            },
+            delCateTag(code){
+                let l = this.cate.findIndex((val,index,arr)=>{
+                    return val.code = code
+                })
+                this.cate.splice(l,1)
+            },
+            delTunnelTag(code){
+                let l = this.tunnel.findIndex((val,index,arr)=>{
+                    return val.code = code
+                })
+                this.tunnel.splice(l,1)
+            },
+            delAreaTag(code){
+                let l = this.area.findIndex((val,index,arr)=>{
+                    return val.code = code
+                })
+                this.area.splice(l,1)
             }
         },
         components: {
