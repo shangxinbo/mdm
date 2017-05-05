@@ -5,7 +5,7 @@
             <div class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-one">
                     <li v-for="(item,index) in tag1" :class="{active:item.code==selected}">
-                        <div class="sort-first" @click="selectCate(item.code)">
+                        <div class="sort-first" @click="getLeaf(item.code)">
                             <i class="icon" :class="'icon'+ item.code"></i>
                             <span>{{item.name}}</span>
                         </div>
@@ -16,7 +16,7 @@
         <div class="screening-right">
             <div class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-item">
-                    <li v-for="(item,index) in tag2" :class="{checked:inCart(item)>=0}">
+                    <li v-for="(item,index) in tag2" :class="{checked:locInCart(item)>=0}">
                         <p class="text" @click="toggleChecked(item)">
                             <i class="icon"></i>
                             <span>{{item.name}}</span>
@@ -30,7 +30,7 @@
                 </ul>
             </div>
             <div class="all-button">
-                <p class="text" :class="{checked:allChecked}" @click="checkAll">
+                <p class="text" :class="{checked:allStatus}" @click="checkAll">
                     <i class="icon"></i>
                     <span>全选</span>
                 </p>
@@ -50,7 +50,7 @@
                 tag1: [],
                 tag2: [],
                 selected: null,
-                cart_pre: [],
+                cart: [],
             }
         },
         created() {
@@ -69,15 +69,12 @@
             })
         },
         computed: {
-            allChecked() {
+            allStatus() {
                 let status = true
                 let _this = this
                 if (this.tag2.length > 0) {
                     this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        if (loc < 0) status = false
+                        if (_this.locInCart(el) < 0) status = false
                     })
                     return status
                 } else {
@@ -86,15 +83,15 @@
             }
         },
         methods: {
-            selectCate(code) {
-                this.selected = code
+            getLeaf(code) {
                 mAjax(this, {
                     url: API.filter_product_2,
-                    data:{
-                        code:code
+                    data: {
+                        code: code
                     },
                     success: data => {
                         if (data.code == 200) {
+                            this.selected = code
                             let tags = data.data
                             let max = 0
                             tags.forEach(item => {
@@ -105,7 +102,7 @@
                             tags.forEach(item => {
                                 item.percent = item.num * 100 / max + '%'
                             })
-                            this.tag2 = data.data
+                            this.tag2 = tags
                         } else {
                             this.tag2 = []
                         }
@@ -115,44 +112,40 @@
                     }
                 })
             },
-            toggleChecked(item) {
-                let loc = this.cart_pre.findIndex((val, index, arr) => {
-                    return val.code == item.code
+            locInCart(item) {
+                return this.cart.findIndex((val, index, arr) => {
+                    if (item) {
+                        return val.code == item.code
+                    } else {
+                        return false
+                    }
                 })
-                if (loc < 0) {
-                    this.cart_pre.push(item)
-                } else {
-                    this.cart_pre.splice(loc, 1)
-                }
             },
-            inCart(item) {
-                return this.cart_pre.findIndex((val, index, arr) => {
-                    return val.code == item.code
-                })
+            toggleChecked(item) {
+                let loc = this.locInCart(item)
+                if (loc < 0) {
+                    this.cart.push(item)
+                } else {
+                    this.cart.splice(loc, 1)
+                }
             },
             checkAll() {
                 let _this = this
-                if (this.allChecked&&this.tag2.length>0) {
+                if (this.allStatus && this.tag2.length > 0) {
                     this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        _this.cart_pre.splice(loc, 1)
+                        _this.cart.splice(_this.locInCart(el), 1)
                     })
                 } else {
                     this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        if (loc < 0) {
-                            _this.cart_pre.push(el)
+                        if (_this.locInCart(el) < 0) {
+                            _this.cart.push(el)
                         }
                     })
                 }
             },
             toCart() {
-                if (this.cart_pre.length > 0) {
-                    this.$emit('toCart', this.cart_pre)
+                if (this.cart.length > 0) {
+                    this.$emit('toCart', this.cart)
                 }
             }
         }
