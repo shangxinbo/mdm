@@ -532,6 +532,7 @@ body{
     height: 36px;
     background-color: @screeningColor03;
     margin: 0 0 20px 20px;
+    position: relative;
     &.text{
       span{
         text-align: left;
@@ -545,7 +546,7 @@ body{
     float: left;
     min-width: 64px;
     height: 100%;
-    padding: 0 20px;
+    padding: 0 30px 0 20px;
     font-size: 14px;
     line-height: 36px;
     cursor: default;
@@ -554,9 +555,12 @@ body{
     display: none;
     .wh(10px);
     float: left;
-    margin: 13px 15px 0 0;
     cursor: pointer;
     background-position: -47px -15px;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -5px;
     &:hover{
       background-position: -57px -15px;
     }
