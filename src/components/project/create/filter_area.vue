@@ -365,9 +365,7 @@
     export default {
         data() {
             return {
-                tag1: [],
-                tag2: [],
-                selected: null,
+                tag: [],
                 cart_pre: [],
                 cart: [],
             }

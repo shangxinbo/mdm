@@ -12,7 +12,7 @@
                         <ul v-if="item.list.length>0" class="screening-sub">
                             <li v-for="(val,key) in item.list" :class="{checked:inCart(val)>=0,active:selected2&&val.code==selected2.code}">
                                 <div class="checkbox-warp" @click="showChild(val)">
-                                    <i class="icon" @click.stop="toggleChecked(val)"></i>
+                                    <i class="icon" @click.stop="toggleLeftChecked(val)"></i>
                                     <span>{{val.name}}</span>
                                 </div>
                             </li>
@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="all-button">
-                <p class="text" :class="{checked:allChecked}" @click="checkAll">
+                <p class="text" :class="{checked:allCheckStatus>=0}" @click="checkAll">
                     <i class="icon"></i>
                     <span>全选</span>
                 </p>
@@ -52,6 +52,23 @@
 <script>
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
+
+    function getIndexAtArr(arr, item) {
+        return arr.findIndex((val, index, arr) => {
+            if (item) {
+                return val.code == item.code
+            } else {
+                return false
+            }
+        })
+    }
+    function removeItemAtArr(arr, item) {
+        let index = getIndexAtArr(arr, item)
+        if (index >= 0) {
+            arr.splice(index, 1)
+        }
+    }
+
     export default {
         data() {
             return {
@@ -79,27 +96,21 @@
             })
         },
         computed: {
-            allChecked() {
-                let status = true
-                let _this = this
+            allCheckStatus() {
                 if (this.tag2.length > 0) {
-                    let floc = _this.cart_pre.findIndex((val, index, arr) => {
-                        return val.code == this.selected2.code
+                    let status = true
+                    this.tag2.forEach(el => {
+                        let itemIndex = getIndexAtArr(this.cart_pre, el)
+                        if (itemIndex < 0) status = false
                     })
-                    if (floc < 0) {
+                    if (status == true) {
+                        this.cart_pre.push(this.selected2)
                         this.tag2.forEach(el => {
-                            let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                                return val.code == el.code
-                            })
-                            if (loc < 0) status = false
+                            removeItemAtArr(this.cart_pre, el)
                         })
-                        return status
-                    } else {
-                        return true
                     }
-                } else {
-                    return false
                 }
+                return getIndexAtArr(this.cart_pre, this.selected2)
             }
         },
         methods: {
@@ -107,6 +118,7 @@
                 this.selected1 = code
             },
             showChild(item) {
+                if (this.selected2 && this.selected2.code == item.code) return false
                 this.selected2 = item
                 mAjax(this, {
                     url: API.filter_prefer_2,
@@ -137,21 +149,28 @@
                     }
                 })
             },
-            toggleChecked(item) {
-                let loc = this.cart_pre.findIndex((val, index, arr) => {
-                    return val.code == item.code
-                })
-                let re = this.cart_pre.findIndex((val, index, arr) => {
-                    return val.code == this.selected2.code
-                })
-                
-                if (loc < 0) {
+            toggleLeftChecked(item) {
+                let itemIndex = getIndexAtArr(this.cart_pre, item)
+                if (itemIndex < 0) {
                     this.cart_pre.push(item)
                 } else {
-                    if(re>=0){
-                        this.cart_pre.splice(re, 1)
+                    removeItemAtArr(this.cart_pre, item)
+                }
+            },
+            toggleChecked(item) {
+                let itemIndex = getIndexAtArr(this.cart_pre, item)
+                let selectedIndex = getIndexAtArr(this.cart_pre, this.selected2)
+                if (selectedIndex < 0) {
+                    if (itemIndex < 0) {
+                        this.cart_pre.push(item)
+                    } else {
+                        removeItemAtArr(this.cart_pre, item)
                     }
-                    this.cart_pre.splice(loc, 1)
+                } else {
+                    let ss = this.tag2.slice()
+                    removeItemAtArr(this.cart_pre, this.selected2)
+                    removeItemAtArr(ss, item)
+                    this.cart_pre = this.cart_pre.concat(ss)
                 }
             },
             inCart(item) {
@@ -161,34 +180,16 @@
             },
             checkAll() {
                 let _this = this
-                if (this.allChecked && this.tag2.length > 0) {
-
-                    let re = _this.cart_pre.findIndex((val, index, arr) => {
-                        return val.code == this.selected2.code
-                    })
-                    if (re >= 0) _this.cart_pre.splice(re, 1)
-
+                if (this.allCheckStatus >= 0 && this.tag2.length > 0) {
+                    removeItemAtArr(this.cart_pre, this.selected2)
                     this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        _this.cart_pre.splice(loc, 1)
+                        removeItemAtArr(this.cart_pre, el)
                     })
                 } else {
-
-                    let re = _this.cart_pre.findIndex((val, index, arr) => {
-                        return val.code == this.selected2.code
-                    })
-                    if (re < 0) _this.cart_pre.push(this.selected2)
-
                     this.tag2.forEach(el => {
-                        let loc = _this.cart_pre.findIndex((val, index, arr) => {
-                            return val.code == el.code
-                        })
-                        if (loc < 0) {
-                            _this.cart_pre.push(el)
-                        }
+                        removeItemAtArr(this.cart_pre, el)
                     })
+                    this.cart_pre.push(this.selected2)
                 }
             },
             toCart() {

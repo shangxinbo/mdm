@@ -13,8 +13,8 @@
         <div class="warp warp-screening">
             <div class="main">
                 <filterCate @toCart="addCate"></filterCate>
-                <filterPrefer class="screening-show" @toCart="addCate"></filterPrefer>
-                <filterArea @toCart="addCate"></filterArea>
+                <filterPrefer @toCart="addTunnel"></filterPrefer>
+                <filterArea class="screening-show" @toCart="addCate"></filterArea>
                 <div class="cart-warp">
                     <h3>人群购物车</h3>
                     <div class="screening-time">
@@ -46,14 +46,10 @@
                                         <i class="icon"></i>
                                     </p>
                                 </li>
-                                <li class="active">
+                                <li class="active" v-if="tunnel.length>0">
                                     <h4>筛选偏好</h4>
-                                    <p>
-                                        <span>美团外卖</span>
-                                        <i class="icon"></i>
-                                    </p>
-                                    <p>
-                                        <span>百度外卖</span>
+                                    <p v-for="(item,index) in tunnel">
+                                        <span>{{item.name}}</span>
                                         <i class="icon"></i>
                                     </p>
                                 </li>
@@ -128,7 +124,8 @@
         data() {
             return {
                 logo: logo,
-                cate: []
+                cate: [],
+                tunnel:[]
             }
         },
         computed: {
@@ -138,7 +135,12 @@
         },
         methods: {
             addCate(arr) {
-                this.cate = arr
+                this.cate = this.cate.concat(arr)     //TODO 去重
+                arr.splice(0,arr.length)
+            },
+            addTunnel(arr) {
+                this.tunnel = this.tunnel.concat(arr) //TODO 去重
+                arr.splice(0,arr.length)
             }
         },
         components: {
