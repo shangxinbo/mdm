@@ -176,7 +176,9 @@
                 }
             },
             inCart(item) {
-                return getIndexAtArr(this.cart, item)
+                return this.cart.findIndex((val, index, arr) => {
+                    return item.code.toString().indexOf(val.code) == 0
+                })
             },
             checkAll() {
                 let _this = this
