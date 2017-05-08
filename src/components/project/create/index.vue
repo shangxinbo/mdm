@@ -213,8 +213,8 @@
                     })
                     if (l >= 0) this.cate.splice(l, 1)
                     this.getCustomers()
-                }else{
-                    this.$refs.alert.$emit('show','请筛选至少一个分类')
+                } else {
+                    this.$refs.alert.$emit('show', '请筛选至少一个分类')
                 }
 
             },
@@ -269,6 +269,14 @@
             optionProject() {
                 this.$refs.optSaveDialog.$emit('show')
             }
+        },
+        beforeRouteEnter(to, from, next) {
+            document.getElementsByTagName('body')[0].className = 'screening-body'
+            next()
+        },
+        beforeRouteLeave(to, from, next) {
+            document.getElementsByTagName('body')[0].className = ''
+            next()
         },
         components: {
             mheader,
