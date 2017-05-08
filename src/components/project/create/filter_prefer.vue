@@ -133,6 +133,7 @@
                 
                 // if (this.selected2 && this.selected2.code == item.code)
                 //     return false
+                // console.log(event.target)
                 
                 let product = []
                 this.cate.forEach(el =>{

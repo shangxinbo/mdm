@@ -33,38 +33,22 @@
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
     export default {
+        props: ['cate', 'tunnel', 'step'],
         data() {
             return {
                 tag: [],
                 cart: []
             }
         },
-        created() {
-            mAjax(this, {
-                url: API.filter_area,
-                success: data => {
-                    if (data.code == 200) {
-                        let tags = data.data
-                        let max = 0
-                        tags.forEach(item => {
-                            if (item.num > max) {
-                                max = item.num
-                            }
-                        })
-                        tags.forEach(item => {
-                            item.percent = item.num * 100 / max + '%'
-                        })
-                        this.tag = tags.sort((a, b) => {
-                            return b.num - a.num
-                        })
-                    } else {
-                        this.tag = []
-                    }
-                },
-                error: err => {
-                    this.tag = []
+        watch: {
+            step(newVal, oldVal) {
+                if (newVal == 3) {
+                    this.init()
                 }
-            })
+            },
+            date(){
+                this.init()
+            }
         },
         computed: {
             allStatus() {
@@ -78,9 +62,57 @@
                 } else {
                     return false
                 }
+            },
+            date() {
+                return this.$store.state.filter_date
             }
         },
         methods: {
+            init() {
+                if (this.cate.length > 0) {
+                    let product = []
+                    this.cate.forEach(el => {
+                        product.push(el.code)
+                    })
+                    let data = {
+                        product: product,
+                        date: this.date
+                    }
+                    if (this.tunnel.length > 0) {
+                        let preference = []
+                        this.tunnel.forEach(el => {
+                            preference.push(el.code)
+                        })
+                        data.preference = preference
+                    }
+                    mAjax(this, {
+                        url: API.filter_area,
+                        data: data,
+                        success: data => {
+                            if (data.code == 200) {
+                                let tags = data.data
+                                let max = 0
+                                tags.forEach(item => {
+                                    if (item.num > max) {
+                                        max = item.num
+                                    }
+                                })
+                                tags.forEach(item => {
+                                    item.percent = item.num * 100 / max + '%'
+                                })
+                                this.tag = tags.sort((a, b) => {
+                                    return b.num - a.num
+                                })
+                            } else {
+                                this.tag = []
+                            }
+                        },
+                        error: err => {
+                            this.tag = []
+                        }
+                    })
+                }
+            },
             locInCart(item) {
                 return this.cart.findIndex((val, index, arr) => {
                     if (item) {

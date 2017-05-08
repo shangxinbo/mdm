@@ -14,7 +14,7 @@
             <div class="main">
                 <filterCate @toCart="addCate" :class="{'screening-show':step==1}"></filterCate>
                 <filterPrefer @toCart="addTunnel" :cate="cate" :class="{'screening-show':step==2}"></filterPrefer>
-                <filterArea @toCart="addArea" :class="{'screening-show':step==3}"></filterArea>
+                <filterArea @toCart="addArea" :cate="cate" :tunnel="tunnel" :step="step" :class="{'screening-show':step==3}"></filterArea>
                 <div class="cart-warp">
                     <h3>人群购物车</h3>
                     <div class="screening-time">
