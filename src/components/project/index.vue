@@ -16,7 +16,6 @@
                                 <th width="10%">项目名称</th>
                                 <th width="10%" v-if="!customer_id&&userType==1">客户名称</th>
                                 <th width="10%" v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
-                                <th width="5%">类型</th>
                                 <th width="10%">创建日期</th>
                                 <th width="5%">状态</th>
                                 <th width="5%">线索量</th>
@@ -39,7 +38,6 @@
                                 <td v-if="!agent_id&&!customer_id&&userType==1">
                                     <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
                                 </td>
-                                <td>{{item.project_type}}</td>
                                 <td>{{item.created_at.substr(0,10)}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
                                     <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
