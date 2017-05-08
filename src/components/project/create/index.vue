@@ -68,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <mfooter></mfooter>
+        <mfooter class="footer-screening"></mfooter>
         <toast></toast>
         <changeMyPass></changeMyPass>
         <callSet></callSet>
