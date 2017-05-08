@@ -8,7 +8,7 @@
                 <span class="num">{{num}}</span>
             </li>
         </ul>
-        <router-link to="/project/add" class="btn blue btn-export">
+        <router-link to="/project/create" class="btn blue btn-export">
             <span>
                 <i class="icon add"></i>新建顶目</span>
         </router-link>

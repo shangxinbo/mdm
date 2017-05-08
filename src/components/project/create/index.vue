@@ -56,10 +56,9 @@
                             <i></i>
                         </span>
                     </div>
-                    <!--加载中span加上load-->
                     <div class="btn-screening btn-manual">
                         <span>没找到合适的? </span>
-                        <a class="blue next" href="javascript:void(0);">我们帮您选人</a>
+                        <a class="blue next" href="javascript:void(0);" @click="optionProject">我们帮您选人</a>
                     </div>
                     <div class="btn-screening billing">
                         <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
@@ -76,6 +75,7 @@
         <alert ref="alert"></alert>
         <balanceAlert></balanceAlert>
         <saveDialog ref="save" :cate="cate" :tunnel="tunnel" :area="area" :customers="customers"></saveDialog>
+        <saveByOptional ref="optSaveDialog"></saveByOptional>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -96,6 +96,7 @@
     import filterArea from './filter_area'
     import mselect from 'components/utils/select'
     import saveDialog from './save'
+    import saveByOptional from './save_optional'
 
     export default {
         data() {
@@ -259,6 +260,9 @@
             },
             save(){
                 this.$refs.save.$emit('show')
+            },
+            optionProject(){
+                this.$refs.optSaveDialog.$emit('show')
             }
         },
         components: {
@@ -273,7 +277,8 @@
             filterPrefer,
             filterArea,
             mselect,
-            saveDialog
+            saveDialog,
+            saveByOptional
         }
     }
 

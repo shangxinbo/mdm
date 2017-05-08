@@ -41,7 +41,7 @@
         </div>
         <div class="dialog-footer">
             <a class="btn blue" href="javascript:void(0);" @click="sure">确定</a>
-            <a class="btn" href="javascript:void(0);" onclick="hideDialog('submitSave');">取消</a>
+            <a class="btn" href="javascript:void(0);" @click="close">取消</a>
         </div>
     </div>
 </template>
@@ -141,7 +141,7 @@
                     data: data,
                     success: data => {
                         this.close()
-                        this.$store.commit('SHOW_TOAST', '项目新建成功')
+                        this.$store.commit('SHOW_TOAST', '项目申请已提交审核')
                     },
                     error: err => {
                         console.log(err)
