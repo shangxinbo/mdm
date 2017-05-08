@@ -237,12 +237,30 @@
                     let loadingTime = new Date().getTime()
                     this.lastGetCusTime = loadingTime
                     this.loading = true
+                    
+                    let product = []
+                    this.cate.forEach(el =>{
+                        product.push(el.code)
+                    })
                     let data = {
                         date: this.date,
-                        product: this.cate
+                        product: product
                     }
-                    if (this.tunnel.length > 0) data.preference = this.tunnel
-                    if (this.area.length > 0) data.area = this.area
+                    if(this.tunnel.length>0){
+                        let preference = []
+                        this.tunnel.forEach(el =>{
+                            preference.push(el.code)
+                        })
+                        data.preference = preference
+                    }
+                    if(this.area.length>0){
+                        let area = []
+                        this.area.forEach(el =>{
+                            area.push(el.code)
+                        })
+                        data.area = area
+                    }
+
                     mAjax(this, {
                         url: API.filter_customers,
                         data: data,
