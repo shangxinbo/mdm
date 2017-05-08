@@ -70,6 +70,7 @@
     }
 
     export default {
+        props:['cate'],
         data() {
             return {
                 tag1: [],
@@ -82,6 +83,9 @@
         created() {
             mAjax(this, {
                 url: API.filter_prefer_1,
+                data:{
+                    date:this.date
+                },
                 success: data => {
                     if (data.code == 200) {
                         this.tag1 = data.data
@@ -110,6 +114,15 @@
                     }
                 }
                 return getIndexAtArr(this.cart, this.selected2)
+            },
+            date() {
+                return this.$store.state.filter_date
+            }
+        },
+        watch: {
+            date: function () {
+                if (this.selected2)
+                    this.getLeaf(this.selected2)
             }
         },
         methods: {
@@ -117,16 +130,21 @@
                 this.selected1 = item
             },
             getLeaf(item) {
-
-                if (this.selected2 && this.selected2.code == item.code)
-                    return false
+                
+                // if (this.selected2 && this.selected2.code == item.code)
+                //     return false
+                
+                let product = []
+                this.cate.forEach(el =>{
+                    product.push(el.code)
+                })
 
                 mAjax(this, {
                     url: API.filter_prefer_2,
                     data: {
-                        product: [20200100100, 20200100200],
+                        product: product,
                         code: [item.code],
-                        date: 7
+                        date: this.date
                     },
                     success: data => {
                         if (data.code == 200) {

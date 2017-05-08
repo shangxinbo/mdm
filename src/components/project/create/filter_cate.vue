@@ -80,6 +80,15 @@
                 } else {
                     return false
                 }
+            },
+            date() {
+                return this.$store.state.filter_date
+            }
+        },
+        watch: {
+            date: function () {
+                if (this.selected)
+                    this.getLeaf(this.selected)
             }
         },
         methods: {
@@ -87,7 +96,8 @@
                 mAjax(this, {
                     url: API.filter_product_2,
                     data: {
-                        code: code
+                        code: code,
+                        date: this.date
                     },
                     success: data => {
                         if (data.code == 200) {

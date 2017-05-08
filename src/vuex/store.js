@@ -14,7 +14,8 @@ const state = {
     callInfo:null,
     showCallSet:false,
     dialing:false,
-    tel_pre:null
+    tel_pre:null,
+    filter_date:7
 }
 
 const mutations = {
@@ -55,6 +56,9 @@ const mutations = {
     },
     SET_TEL_PREFIX(state,str){
         state.tel_pre = str
+    },
+    SET_FILTER_DATE(state,val){
+        state.filter_date = val
     }
 }
 

@@ -13,26 +13,12 @@
         <div class="warp warp-screening">
             <div class="main">
                 <filterCate @toCart="addCate" :class="{'screening-show':step==1}"></filterCate>
-                <filterPrefer @toCart="addTunnel" :class="{'screening-show':step==2}"></filterPrefer>
+                <filterPrefer @toCart="addTunnel" :cate="cate" :class="{'screening-show':step==2}"></filterPrefer>
                 <filterArea @toCart="addArea" :class="{'screening-show':step==3}"></filterArea>
                 <div class="cart-warp">
                     <h3>人群购物车</h3>
                     <div class="screening-time">
-                        <div class="select-warp ">
-                            <!-- 在div上加上class（select-open）显示出ul列表 -->
-                            <p class="all">
-                                <span>最近7天</span>
-                            </p>
-                            <div class="select-ul">
-                                <div class="scroll-warp scrollBar">
-                                    <ul>
-                                        <li>最近7天</li>
-                                        <li>最近15天</li>
-                                        <li>最近30天</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <mselect ref="dateSelect" :initlist="select.init" hideAll="true" :id="7" @change="dateChange"></mselect>
                     </div>
                     <div class="scroll-warp">
                         <div class="scroll-content">
@@ -102,11 +88,12 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax,numberFormatter } from 'src/services/functions'
+    import { mAjax, numberFormatter } from 'src/services/functions'
     import logo from 'assets/img/logo-screening.png'
     import filterCate from './filter_cate'
     import filterPrefer from './filter_prefer'
     import filterArea from './filter_area'
+    import mselect from 'components/utils/select'
 
     export default {
         data() {
@@ -116,12 +103,32 @@
                 tunnel: [],
                 area: [],
                 step: 1,
-                customers:0
+                customers: 0,
+                select: {
+                    id: 7,
+                    init: [
+                        {
+                            id: 7,
+                            name: '最近7天'
+                        },
+                        {
+                            id: 15,
+                            name: '最近15天'
+                        },
+                        {
+                            id: 30,
+                            name: '最近30天'
+                        }
+                    ]
+                }
             }
         },
         computed: {
             layer() {
                 return this.$store.state.showLayer
+            },
+            date() {
+                return this.$store.state.filter_date
             }
         },
         methods: {
@@ -146,48 +153,61 @@
             preStep() {
                 this.step = this.step - 1
                 switch (this.step) {
-                case 1:
-                    this.tunnel = []
-                    this.area = []
-                    break
-                case 2:
-                    this.area = []
-                    break
-                default:
-                    this.cate = []
-                    this.tunnel = []
-                    this.area = []
+                    case 1:
+                        this.tunnel = []
+                        this.area = []
+                        break
+                    case 2:
+                        this.area = []
+                        break
+                    default:
+                        this.cate = []
+                        this.tunnel = []
+                        this.area = []
                 }
             },
             delCateTag(code) {
                 let l = this.cate.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                if(l>=0) this.cate.splice(l, 1)
+                if (l >= 0) this.cate.splice(l, 1)
             },
             delTunnelTag(code) {
                 let l = this.tunnel.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                if(l>=0)  this.tunnel.splice(l, 1)
+                if (l >= 0) this.tunnel.splice(l, 1)
             },
             delAreaTag(code) {
                 let l = this.area.findIndex((val, index, arr) => {
                     return val.code = code
                 })
-                if(l>=0) this.area.splice(l, 1)
+                if (l >= 0) this.area.splice(l, 1)
             },
-            getCustomers(){
-                mAjax(this,{
-                    url:API.filter_customers,
-                    success:data=>{
-                        if(data.code==200){
-                            this.customers = numberFormatter(data.data)
-                        }else{
-                            this.customers = '获取失败'
-                        }
+            getCustomers() {
+                if (this.cate.length > 0) {
+                    let data = {
+                        date: this.date,
+                        product: this.cate
                     }
-                })
+                    if (this.tunnel.length > 0) data.preference = this.tunnel
+                    if (this.area.length > 0) data.area = this.area
+                    mAjax(this, {
+                        url: API.filter_customers,
+                        data: data,
+                        success: data => {
+                            if (data.code == 200) {
+                                this.customers = numberFormatter(data.data)
+                            } else {
+                                this.customers = '获取失败'
+                            }
+                        }
+                    })
+                }
+            },
+            dateChange(val) {
+                this.$store.commit('SET_FILTER_DATE', val.id)
+                this.getCustomers()
             }
         },
         components: {
@@ -200,7 +220,8 @@
             callSet,
             filterCate,
             filterPrefer,
-            filterArea
+            filterArea,
+            mselect
         }
     }
 
