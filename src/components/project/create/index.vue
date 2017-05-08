@@ -51,8 +51,8 @@
                     </div>
                     <div class="select-number">
                         <em>已选客户</em>
-                        <span>
-                            <b>{{customers}}</b>
+                        <span :class="{load:loading}">
+                            <b>{{customers|formatBigNumer}}</b>
                             <i></i>
                         </span>
                     </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="btn-screening billing">
                         <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
-                        <a v-show="step>=3" class="blue" href="javascript:void(0);">保存</a>
+                        <a v-show="step>=3" class="blue" href="javascript:void(0);" @click="save">保存</a>
                         <a v-show="step<3" class="blue next" :class="{disabled:cate.length<=0}" @click="nextStep" href="javascript:void(0);">下一步</a>
                     </div>
                 </div>
@@ -75,6 +75,7 @@
         <callSet></callSet>
         <alert ref="alert"></alert>
         <balanceAlert></balanceAlert>
+        <saveDialog ref="save" :cate="cate" :tunnel="tunnel" :area="area" :customers="customers"></saveDialog>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -94,6 +95,7 @@
     import filterPrefer from './filter_prefer'
     import filterArea from './filter_area'
     import mselect from 'components/utils/select'
+    import saveDialog from './save'
 
     export default {
         data() {
@@ -120,7 +122,9 @@
                             name: '最近30天'
                         }
                     ]
-                }
+                },
+                loading:false,
+                lastGetCusTime:null
             }
         },
         computed: {
@@ -131,19 +135,53 @@
                 return this.$store.state.filter_date
             }
         },
+        filters:{
+            formatBigNumer(val){
+                return numberFormatter(val)
+            }
+        },
         methods: {
             addCate(arr) {
-                this.cate = this.cate.concat(arr)     //TODO 去重
+                arr.forEach(el=>{
+                    let elin = false
+                    this.cate.forEach(item =>{
+                        if(item.code==el.code)
+                            elin = true
+                    })
+                    if(!elin){
+                        this.cate.push(el)
+                    }
+                })
+
                 arr.splice(0, arr.length)
                 this.getCustomers()
             },
             addTunnel(arr) {
-                this.tunnel = this.tunnel.concat(arr) //TODO 去重
+                arr.forEach(el=>{
+                    let elin = false
+                    this.tunnel.forEach(item =>{
+                        if(item.code==el.code)
+                            elin = true
+                    })
+                    if(!elin){
+                        this.tunnel.push(el)
+                    }
+                })
+
                 arr.splice(0, arr.length)
                 this.getCustomers()
             },
             addArea(arr) {
-                this.area = this.area.concat(arr)     //TODO 去重
+                arr.forEach(el=>{
+                    let elin = false
+                    this.area.forEach(item =>{
+                        if(item.code==el.code)
+                            elin = true
+                    })
+                    if(!elin){
+                        this.area.push(el)
+                    }
+                })
                 arr.splice(0, arr.length)
                 this.getCustomers()
             },
@@ -165,27 +203,34 @@
                         this.tunnel = []
                         this.area = []
                 }
+                this.getCustomers()
             },
             delCateTag(code) {
                 let l = this.cate.findIndex((val, index, arr) => {
-                    return val.code = code
+                    return val.code == code
                 })
                 if (l >= 0) this.cate.splice(l, 1)
+                this.getCustomers()
             },
             delTunnelTag(code) {
                 let l = this.tunnel.findIndex((val, index, arr) => {
-                    return val.code = code
+                    return val.code == code
                 })
                 if (l >= 0) this.tunnel.splice(l, 1)
+                this.getCustomers()
             },
             delAreaTag(code) {
                 let l = this.area.findIndex((val, index, arr) => {
-                    return val.code = code
+                    return val.code == code
                 })
                 if (l >= 0) this.area.splice(l, 1)
+                this.getCustomers()
             },
             getCustomers() {
                 if (this.cate.length > 0) {
+                    let loadingTime = new Date().getTime()
+                    this.lastGetCusTime = loadingTime
+                    this.loading = true
                     let data = {
                         date: this.date,
                         product: this.cate
@@ -196,8 +241,11 @@
                         url: API.filter_customers,
                         data: data,
                         success: data => {
+                            if(this.lastGetCusTime == loadingTime){
+                                this.loading = false
+                            }
                             if (data.code == 200) {
-                                this.customers = numberFormatter(data.data)
+                                this.customers = data.data
                             } else {
                                 this.customers = '获取失败'
                             }
@@ -208,6 +256,9 @@
             dateChange(val) {
                 this.$store.commit('SET_FILTER_DATE', val.id)
                 this.getCustomers()
+            },
+            save(){
+                this.$refs.save.$emit('show')
             }
         },
         components: {
@@ -221,7 +272,8 @@
             filterCate,
             filterPrefer,
             filterArea,
-            mselect
+            mselect,
+            saveDialog
         }
     }
 

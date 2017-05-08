@@ -77,5 +77,6 @@ export default {
     filter_prefer_1: API_PRE + '/filtertag/preferences',
     filter_prefer_2: API_PRE + '/filtertag/preference',
     filter_area: API_PRE + '/filtertag/region',
-    filter_customers: API_PRE + '/filtertag/selectnumber'
+    filter_customers: API_PRE + '/filtertag/selectnumber',
+    filter_save:API_PRE + '/filtertag/save'
 }
