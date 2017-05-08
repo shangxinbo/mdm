@@ -36,14 +36,14 @@
             msg: function () {
                 let msg = this.$route.query.msg
                 switch (this.code) {
-                case '404':
-                    return '页面未找到'
-                case '403':
-                    return '您的访问不被允许'
-                case '500':
-                    return '程序未知错误'
-                default:
-                    return msg ? msg : ''
+                    case '404':
+                        return '页面未找到'
+                    case '403':
+                        return '您的访问不被允许'
+                    case '500':
+                        return '程序未知错误'
+                    default:
+                        return msg ? msg : ''
                 }
             }
         }
