@@ -124,8 +124,8 @@
                         }
                     ]
                 },
-                loading:false,
-                lastGetCusTime:null
+                loading: false,
+                lastGetCusTime: null
             }
         },
         computed: {
@@ -136,20 +136,20 @@
                 return this.$store.state.filter_date
             }
         },
-        filters:{
-            formatBigNumer(val){
+        filters: {
+            formatBigNumer(val) {
                 return numberFormatter(val)
             }
         },
         methods: {
             addCate(arr) {
-                arr.forEach(el=>{
+                arr.forEach(el => {
                     let elin = false
-                    this.cate.forEach(item =>{
-                        if(item.code==el.code)
+                    this.cate.forEach(item => {
+                        if (item.code == el.code)
                             elin = true
                     })
-                    if(!elin){
+                    if (!elin) {
                         this.cate.push(el)
                     }
                 })
@@ -158,13 +158,13 @@
                 this.getCustomers()
             },
             addTunnel(arr) {
-                arr.forEach(el=>{
+                arr.forEach(el => {
                     let elin = false
-                    this.tunnel.forEach(item =>{
-                        if(item.code==el.code)
+                    this.tunnel.forEach(item => {
+                        if (item.code == el.code)
                             elin = true
                     })
-                    if(!elin){
+                    if (!elin) {
                         this.tunnel.push(el)
                     }
                 })
@@ -173,13 +173,13 @@
                 this.getCustomers()
             },
             addArea(arr) {
-                arr.forEach(el=>{
+                arr.forEach(el => {
                     let elin = false
-                    this.area.forEach(item =>{
-                        if(item.code==el.code)
+                    this.area.forEach(item => {
+                        if (item.code == el.code)
                             elin = true
                     })
-                    if(!elin){
+                    if (!elin) {
                         this.area.push(el)
                     }
                 })
@@ -207,11 +207,16 @@
                 this.getCustomers()
             },
             delCateTag(code) {
-                let l = this.cate.findIndex((val, index, arr) => {
-                    return val.code == code
-                })
-                if (l >= 0) this.cate.splice(l, 1)
-                this.getCustomers()
+                if (this.cate.length > 1) {
+                    let l = this.cate.findIndex((val, index, arr) => {
+                        return val.code == code
+                    })
+                    if (l >= 0) this.cate.splice(l, 1)
+                    this.getCustomers()
+                }else{
+                    this.$refs.alert.$emit('show','请筛选至少一个分类')
+                }
+
             },
             delTunnelTag(code) {
                 let l = this.tunnel.findIndex((val, index, arr) => {
@@ -242,7 +247,7 @@
                         url: API.filter_customers,
                         data: data,
                         success: data => {
-                            if(this.lastGetCusTime == loadingTime){
+                            if (this.lastGetCusTime == loadingTime) {
                                 this.loading = false
                             }
                             if (data.code == 200) {
@@ -258,10 +263,10 @@
                 this.$store.commit('SET_FILTER_DATE', val.id)
                 this.getCustomers()
             },
-            save(){
+            save() {
                 this.$refs.save.$emit('show')
             },
-            optionProject(){
+            optionProject() {
                 this.$refs.optSaveDialog.$emit('show')
             }
         },
