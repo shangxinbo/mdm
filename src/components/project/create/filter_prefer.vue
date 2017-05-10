@@ -22,7 +22,8 @@
             </div>
         </div>
         <div class="screening-right">
-            <div class="scroll-warp" style="overflow-y:auto">
+            <div class="loading" v-show="loading"></div>
+            <div v-show="!loading" class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-item">
                     <li v-for="(item,index) in tag2" :class="{checked:inCart(item)>=0}">
                         <p class="text" @click="toggleChecked(item)">
@@ -77,7 +78,8 @@
                 tag2: [],
                 selected1: null,
                 selected2: null,
-                cart: []
+                cart: [],
+                loading:false
             }
         },
         created() {
@@ -135,6 +137,9 @@
                 //     return false
                 // console.log(event.target)
                 
+                if(this.loading) return false //正在加载中
+                this.loading = true
+
                 let product = []
                 this.cate.forEach(el =>{
                     product.push(el.code)
@@ -148,6 +153,7 @@
                         date: this.date
                     },
                     success: data => {
+                        this.loading = false
                         if (data.code == 200) {
                             this.selected2 = item
                             let tags = data.data
