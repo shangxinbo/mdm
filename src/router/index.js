@@ -74,7 +74,7 @@ mRouter.beforeEach((to, from, next) => {
         if (user.type == 0) {
             next({ path: '/operate/index' })
         } else if (user.type == 1 || user.type == 2) {
-            next({ path: '/customer/index' })
+            next({ path: '/customer/index' })   //跳转链接需要个性化配置
         } else {
             next({ path: '/project/index' })
         }
