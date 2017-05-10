@@ -1,16 +1,11 @@
 module.exports = function (req, res) {
     var param = req.body
-    if (!param.id) {
-        return 'id null'
+    return {
+        "id": 2,
+        "user": "yunying",//账号
+        "user_name": "运营",//姓名
+        "mail": "aa@111.com",//邮箱
+        "tel": "13522164562",//手机号
+        "rule": "1,2,3"
     }
-    if (!param.user_name) {
-        return 'user_name null'
-    }
-    if (!param.mail) {
-        return 'mail null'
-    }
-    if (!param.tel) {
-        return 'tel null'
-    }
-    return {}
 }
