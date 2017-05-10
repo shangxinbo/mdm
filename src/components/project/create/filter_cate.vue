@@ -14,7 +14,8 @@
             </div>
         </div>
         <div class="screening-right">
-            <div class="scroll-warp" style="overflow-y:auto">
+            <div class="loading" v-show="loading"></div>
+            <div v-show="!loading" class="scroll-warp" style="overflow-y:auto">
                 <ul class="scroll-content screening-item">
                     <li v-for="(item,index) in tag2" :class="{checked:locInCart(item)>=0}">
                         <p class="text" @click="toggleChecked(item)">
@@ -51,6 +52,7 @@
                 tag2: [],
                 selected: null,
                 cart: [],
+                loading:false
             }
         },
         created() {
@@ -93,6 +95,8 @@
         },
         methods: {
             getLeaf(code) {
+                if(this.loading) return false //正在加载中
+                this.loading = true
                 mAjax(this, {
                     url: API.filter_product_2,
                     data: {
@@ -100,6 +104,7 @@
                         date: this.date
                     },
                     success: data => {
+                        this.loading = false
                         if (data.code == 200) {
                             this.selected = code
                             let tags = data.data
