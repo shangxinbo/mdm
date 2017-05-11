@@ -52,6 +52,13 @@
         },
         created: function () {
             let _this = this
+                
+            if(this.userType==1){
+                let user = JSON.parse(localStorage.getItem('user'))
+                console.log(user.rule)
+            }
+
+
             //坐席登录外呼中心 start
             if (this.userType == 4) {
                 mAjax(_this, {

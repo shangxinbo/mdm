@@ -121,7 +121,9 @@
                 this.$store.commit('HIDE_LAYER')
             },
             togglePower(num) {
-                this.power[num] = !this.power[num]
+                if (num) {
+                    this.power[num] = !this.power[num]
+                }
             },
             sure: function () {
                 let reg_username = /^[\u4e00-\u9fa5]{2,6}$/
@@ -212,7 +214,6 @@
         },
         created: function () {
             let _this = this
-
             this.$on('edit', function (id, user, username, email, tel) {
                 mAjax(this, {
                     url: API.get_operate_info,
@@ -233,9 +234,12 @@
                             for (let i in _this.power) {
                                 _this.power[i] = false
                             }
-                            arr.forEach(el => {
-                                _this.power[el] = true
-                            })
+                            if (info.rule && arr.length > 0) {
+                                arr.forEach(el => {
+                                    _this.power[el] = true
+                                })
+                            }
+
                             _this.edit = true
                             _this.user_error = ''
                             _this.username_error = ''
