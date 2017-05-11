@@ -55,9 +55,12 @@
                 
             if(this.userType==1){
                 let user = JSON.parse(localStorage.getItem('user'))
-                console.log(user.rule)
+                if(user.rule){
+                    let arr = user.rule.split(',')
+                    this.$store.commit('CHANGE_POWER',arr)
+                    console.log(this.$store.state.yunying_role)
+                }
             }
-
 
             //坐席登录外呼中心 start
             if (this.userType == 4) {

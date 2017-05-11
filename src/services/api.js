@@ -16,7 +16,7 @@ export default {
     reset_operate_pass: API_PRE + '/operation/changePwd',
     create_operate: API_PRE + '/operation/add',
     get_operate_info: API_PRE + '/operation/modifyinfo',
-    update_operate: API_PRE + '/operation/modifyinfomessage',
+    update_operate: API_PRE + '/operation/operationmodifyinfomessage',
     customer_list: API_PRE + '/agent/list',
     customer_list_all: API_PRE + '/customer/all',
     customer_list_by_operate: API_PRE + '/operate/list',

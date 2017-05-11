@@ -17,11 +17,11 @@ const state = {
     tel_pre:null,
     filter_date:7,
     yunying_role:{
-        1:true,
-        2:true,
-        3:true,
-        4:true,
-        5:true
+        1:false,
+        2:false,
+        3:false,
+        4:false,
+        5:false
     }
 }
 
@@ -66,6 +66,13 @@ const mutations = {
     },
     SET_FILTER_DATE(state,val){
         state.filter_date = val
+    },
+    CHANGE_POWER(state,arr){
+        if(arr.length>0){
+            arr.forEach(el=>{
+                state.yunying_role[el] = true
+            })
+        }
     }
 }
 
