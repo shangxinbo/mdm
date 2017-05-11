@@ -73,8 +73,24 @@ mRouter.beforeEach((to, from, next) => {
     } else if (path == '/') {
         if (user.type == 0) {
             next({ path: '/operate/index' })
-        } else if (user.type == 1 || user.type == 2) {
-            next({ path: '/customer/index' })   //跳转链接需要个性化配置
+        } else if (user.type == 2) {
+            next({ path: '/customer/index' })   
+        } else if (user.type == 1) {
+            let rule = user.rule.split(',')
+            console.log(rule)
+            if(rule.indexOf('1')>=0){
+                next({ path: '/customer/index' })  
+            }else if(rule.indexOf('2')>=0){
+                next({ path: '/project/index' }) 
+            }else if(rule.indexOf('3')>=0){
+                next({ path: '/call/index' }) 
+            }else if(rule.indexOf('4')>=0){
+                next({ path: '/expense/project' }) 
+            }else if(rule.indexOf('5')>=0){
+                next({ path: '/agent/index' }) 
+            }else{
+                next({ path: '/error?code=403' }) 
+            }
         } else {
             next({ path: '/project/index' })
         }
