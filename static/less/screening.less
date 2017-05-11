@@ -1,0 +1,761 @@
+@import (reference) "base.less";
+@import "select-warp.less";
+//---------------------------------------------- 标签切换 ------------------------------------------------------
+.screening-body{
+  height: 100%;
+  min-height: 650px;
+}
+.warp-screening{
+  padding: 87px 0 70px;
+  height: 100%;
+  .box-sizing();
+  .icon{
+    .flo();
+    background: url("@{url}/tag.png") no-repeat;
+  }
+  .main{
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+  }
+  .scroll-warp{
+    padding: 10px 0;
+  }
+  .loading{
+    background: url("@{url}/loading.gif") no-repeat;
+    width: 100px;
+    height: 15px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -40px 0 0 -50px;
+  }
+  @breadcrumbColor:#5A5A8B;
+  @screeningColor01:#2D2D5A;
+  @screeningColor02:rgba(3,50,102,0.3);
+  @screeningColor03:#e9f0f6;
+  @beforeTextColor:#8686AD;
+  @pieceColor:#8aabd0;
+  @selectBG:#4B4B79;
+  @disabledButton:#ACAEBA;
+  @navBg:#007fe1;
+  @navTopBg:#0e55a7;
+  @navOut:#356483;
+  .screening{
+    @scrollBarColor1: rgba(255,255,255,0.3);
+    @scrollBarColor2: #3888db;
+    @scrollBarRightColor1: #c7d8e9;
+    @scrollBarRightColor2: #c0d5ea;
+    .mCSB_scrollTools{
+      right: 10px;
+    }
+    .screening-right{
+      .mCSB_scrollTools{
+        .mCSB_dragger {
+          .mCSB_dragger_bar{
+            background-color: @scrollBarRightColor2;
+            &:hover{
+              background-color: lighten(@scrollBarRightColor2,2%);
+            }
+          }
+        }
+        .mCSB_draggerRail{
+          background-color: @scrollBarRightColor1;
+        }
+      }
+    }
+    .screening-left,.screening-right-all{
+      .mCSB_scrollTools{
+        .mCSB_dragger {
+          .mCSB_dragger_bar{
+            background-color: @scrollBarColor2;
+            &:hover{
+              background-color: lighten(@scrollBarColor2,8%);
+            }
+          }
+        }
+        .mCSB_draggerRail{
+          background-color: @scrollBarColor1;
+        }
+      }
+    }
+  }
+  .cart-warp{
+    @scrollBarCarColor1: #e3ebf4;
+    @scrollBarCarColor2: #dfeaf4;
+    .mCSB_scrollTools{
+      .mCSB_dragger {
+        .mCSB_dragger_bar{
+          background-color: @scrollBarCarColor2;
+          &:hover{
+            background-color: lighten(@scrollBarCarColor2,3%);
+          }
+        }
+      }
+      .mCSB_draggerRail{
+        background-color: @scrollBarCarColor2;
+      }
+    }
+  }
+  .screening {
+    //display: none;
+    width: 50%;
+    height: 100%;
+    float: left;
+    position: absolute;
+    left: -100%;
+    top: 0;
+    z-index: 1;
+    opacity: 0;
+    -o-transition: left 400ms linear, opacity 400ms linear;
+    -moz-transition: left 400ms linear, opacity 400ms linear;
+    -webkit-transition: left 400ms linear, opacity 400ms linear;
+    transition: left 400ms linear, opacity 400ms linear;
+    &.screening-show {
+      //display: block;
+      left: 0;
+      z-index: 2;
+      opacity: 1;
+    }
+    h2 {
+      width: 100%;
+      height: 56px;
+      padding: 25px 0 0 45px;
+      font-size: 18px;
+      line-height: 30px;
+      color: @whiteColor;
+      .box-sizing();
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 3;
+    }
+  }
+  .screening-left{
+    width: 38%;
+    height: 100%;
+    padding-top: 56px;
+    float: left;
+    background-color: @navBg;
+    background: -webkit-gradient(linear,center top,center bottom,from(@navTopBg), to(@navBg));
+    background: -moz-linear-gradient( top,@navTopBg,@navBg);
+    .box-sizing();
+    position: relative;
+    z-index: 1;
+    &:before{
+      display: block;
+      content: '';
+      .flo();
+      background: url('@{url}/left-bg.png') no-repeat;
+      width: 240px;
+      height: 646px;
+      position: absolute;
+      top: 100px;
+      right: 0;
+    }
+  }
+  .sort-first{
+    display: inline-block;
+    height: 30px;
+    padding: 0 10px 0 12px;
+    border-radius: 4px;
+    color: #85b8e3;
+    vertical-align: top;
+    cursor: pointer;
+    .icon{
+      .wh(17px);
+      float: left;
+      margin-top: 6px;
+      background-position: -17px -163px;
+    }
+    .icon01,.icon202005,.icon2033{
+      background-position: 0 -31px;
+    }
+    .icon03,.icon202004{
+      background-position: -34px -31px;
+    }
+    .icon04,.icon202001{
+      background-position: -51px -31px;
+    }
+    .icon07,.icon2032{
+      background-position: -17px -75px;
+    }
+    .icon08,.icon202006{
+      background-position: -34px -75px;
+    }
+    .icon13,.icon202003{
+      background-position: -34px -119px;
+    }
+    .icon14,.icon202002{
+      background-position: -51px -119px;
+    }
+    .icon16,.icon2031{
+      background-position: 0 -163px;
+    }
+    span{
+      display: inline-block;
+      max-width: 96px;
+      margin-left: 8px;
+      font-size: 16px;
+      line-height: 30px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    &:hover{
+      background-color: @screeningColor02;
+    }
+  }
+  .checkbox-warp{
+    display: inline-block;
+    height: 30px;
+    padding: 0 10px 0 8px;
+    border-radius: 4px;
+    vertical-align: top;
+    cursor: pointer;
+    .icon{
+      .wh(15px);
+      float: left;
+      margin-top: 7px;
+      background-position: -30px 0;
+    }
+    span{
+      display: inline-block;
+      padding-left: 7px;
+      font-size: 14px;
+      line-height: 30px;
+      color: @whiteColor;
+    }
+    &:hover{
+      background-color: @screeningColor02;
+    }
+  }
+  .screening-one{
+    width: 100%;
+    min-height: 100%;
+    padding-left: 45px;
+    .box-sizing();
+    &>li{
+      padding: 9px 0;
+      min-height: 30px;
+      &.active{
+        .sort-first{
+          color: @whiteColor;
+          //background-color: @screeningColor02;
+          .icon{
+            background-position: -17px -190px;
+          }
+          .icon01,.icon202005,.icon2033{
+            background-position: 0 -58px;
+          }
+          .icon03,.icon202004{
+            background-position: -34px -58px;
+          }
+          .icon04,.icon202001{
+            background-position: -51px -58px;
+          }
+          .icon07,.icon2032{
+            background-position: -17px -102px;
+          }
+          .icon08,.icon202006{
+            background-position: -34px -102px;
+          }
+          .icon13,.icon202003{
+            background-position: -34px -146px;
+          }
+          .icon14,.icon202002{
+            background-position: -51px -146px;
+          }
+          .icon16,.icon2031{
+            background-position: 0 -190px;
+          }
+        }
+        &>.screening-sub{
+          display: block;
+        }
+      }
+    }
+  }
+  .screening-sub{
+    display: none;
+    padding: 2px 0 0 0;
+    margin-left: 33px;
+    overflow: hidden;
+    position: relative;
+    &>li{
+      margin-top: 10px;
+      min-height: 30px;
+      position: relative;
+      .screening-sub{
+        margin: 1px 0 0 30px;
+      }
+      &.checked{
+        &>.checkbox-warp{
+          .icon{
+            background-position: -15px 0;
+          }
+        }
+      }
+      &.active{
+        &>.checkbox-warp{
+          background-color: @screeningColor02;
+        }
+      }
+      &.show{
+        &>.screening-sub{
+          display: block;
+        }
+      }
+    }
+  }
+  .screening-right{
+    width: 62%;
+    height: 100%;
+    padding: 56px 0 110px;
+    float: right;
+    background-color:#dae6f0;
+    .box-sizing();
+    position: relative;
+    z-index: 2;
+    .text{
+      display: inline-block;
+      vertical-align: top;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+      z-index: 4;
+      .icon{
+        .wh(15px);
+        float: left;
+        margin-top: 7px;
+        background-position: 0 0;
+      }
+      span{
+        display: inline-block;
+        max-width: 70px;
+        margin-left: 9px;
+        font-size: 14px;
+        line-height: 30px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: @grayColor;
+      }
+      &:hover{
+        background-color: #c5d5e3;
+      }
+    }
+    .piece{
+      display: block;
+      width: 100%;
+      height: 10px;
+      padding: 0 130px 0 110px;
+      .box-sizing();
+      position: absolute;
+      left: 0;
+      top: 19px;
+      z-index: 3;
+      em{
+        display: block;
+        min-width: 5%;
+        height: 100%;
+        background-color: @pieceColor;
+        position: relative;
+      }
+      span{
+        display: block;
+        width: 120px;
+        height: 30px;
+        font-size: 12px;
+        line-height: 30px;
+        padding-left: 10px;
+        position: absolute;
+        top: -10px;
+        right: -130px;
+        color: @pieceColor;
+      }
+    }
+  }
+  .screening-item{
+    width: 100%;
+    min-height: 100%;
+    padding-left: 60px;
+    overflow: hidden;
+    .box-sizing();
+    li{
+      width: 100%;
+      height: 30px;
+      padding: 9px 0;
+      overflow: hidden;
+      position: relative;
+      &.checked{
+        .icon{
+          background-position: -15px 0;
+        }
+      }
+    }
+  }
+  .screening-right-all{
+    width: 100%;
+    padding-bottom: 160px;
+    background-color: @navBg;
+    background: -webkit-gradient(linear,center top,center bottom,from(@navTopBg), to(@navBg));
+    background: -moz-linear-gradient( top,@navTopBg,@navBg);
+    .box-sizing();
+    position: relative;
+    z-index: 1;
+    &:before{
+      display: block;
+      content: '';
+      .flo();
+      background: url('@{url}/left-bg.png') no-repeat;
+      width: 240px;
+      height: 646px;
+      position: absolute;
+      top: 100px;
+      right: 0;
+    }
+    .text{
+      span{
+        color: @whiteColor;
+      }
+      .icon{
+        background-position: -30px 0;
+      }
+      &:hover{
+        background-color: @screeningColor02;
+      }
+    }
+    .billing{
+      a{
+        &.blue{
+          background-color: @whiteColor;
+          color: @blueColor;
+          border: 2px solid @whiteColor;
+          &:hover{
+            background-color: lighten(@whiteColor,3%); //亮度增加 3%
+          }
+        }
+      }
+    }
+    .screening-item{
+      li{
+        width: 50%;
+        float: left;
+      }
+    }
+  }
+  .all-button{
+    padding-left: 45px;
+    height: 50px;
+    text-align: right;
+    .box-sizing();
+    position: absolute;
+    left: 0;
+    bottom: 38px;
+    p{
+      float: left;
+      margin-top: 10px;
+      &.checked{
+        .icon{
+          background-position: -15px 0;
+        }
+      }
+    }
+  }
+  .screening-time{
+    width: 124px;
+    height: 34px;
+    position: absolute;
+    right: 40px;
+    top: 22px;
+    z-index: 4;
+    .scroll-warp{
+      padding: 0;
+    }
+  }
+  .cart-warp{
+    float: right;
+    width: 50%;
+    height: 100%;
+    padding: 70px 40px 170px 30px;
+    .box-sizing();
+    background-color: @whiteColor;
+    position: relative;
+    h3{
+      width: 100%;
+      height: 22px;
+      padding: 0 60px 0 30px;
+      .box-sizing();
+      font-size: 18px;
+      line-height: 22px;
+      color: @breadcrumbColor;
+      position: absolute;
+      top: 25px;
+      left: 0;
+    }
+  }
+
+  .select-center{
+    color: @grayColor;
+    li{
+      min-height: 60px;
+      padding-left: 60px;
+      overflow: hidden;
+      position: relative;
+      &.active{
+        .icon{
+          display: block;
+        }
+      }
+    }
+    h4{
+      width: 70px;
+      min-height: 36px;
+      font-size: 14px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      line-height: 36px;
+      em{
+        display: block;
+        float: left;
+        font-size: 12px;
+        line-height: 12px;
+        position: absolute;
+        left: 10px;
+        margin-top: -5px;
+        color: @grayColor2;
+      }
+    }
+    p{
+      display: block;
+      float: left;
+      height: 36px;
+      background-color: @screeningColor03;
+      margin: 0 0 20px 20px;
+      position: relative;
+      overflow: hidden;
+      &.text{
+        span{
+          text-align: left;
+          border: none;
+          background-color: @whiteColor;
+        }
+      }
+    }
+    span{
+      display: block;
+      float: left;
+      min-width: 64px;
+      height: 100%;
+      padding: 0 30px 0 20px;
+      font-size: 14px;
+      line-height: 36px;
+      cursor: default;
+    }
+    .icon{
+      display: none;
+      .wh(10px);
+      float: left;
+      cursor: pointer;
+      background-position: -47px -15px;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      margin-top: -5px;
+      &:hover{
+        background-position: -57px -15px;
+      }
+    }
+  }
+  .select-number{
+    height: 30px;
+    padding-right: 40px;
+    color: @grayColor;
+    position: absolute;
+    right: 0;
+    bottom: 120px;
+    span{
+      display: inline-block;
+      vertical-align: top;
+      min-width: 45px;
+      text-align: left;
+      height: 100%;
+      font-size: 20px;
+      line-height: 30px;
+      position: relative;
+      color: @grayColor;
+      b{
+        display: inline-block;
+        font-weight: normal;
+      }
+      i{
+        display: none;
+        .wh();
+        position: absolute;
+        left: 0;
+        top: 2px;
+        background: url("../img/load4.gif") no-repeat center;
+      }
+      &.load{
+        b{
+          visibility: hidden;
+        }
+        i{
+          display: block;
+        }
+      }
+    }
+    em{
+      display: inline-block;
+      vertical-align: top;
+      font-size: 14px;
+      padding-right: 10px;
+      margin-top: 9px;
+      color: @grayColor2;
+    }
+  }
+  .btn-screening{
+    a{
+      display: inline-block;
+      min-width: 40px;
+      padding: 0 20px;
+      font-size: 16px;
+      height: 36px;
+      line-height: 36px;
+      color: @blueColor;
+      border: 2px solid @blueColor;
+      background-color: @whiteColor;
+      border-radius: 20px;
+      text-align: center;
+      margin-left: 10px;
+      &:hover{
+        box-shadow: 0 0 3px fade(@blackColor ,50%);
+      }
+      &.blue{
+        background-color: @blueColor;
+        color: @whiteColor;
+        &:hover{
+          background-color: lighten(@blueColor,3%); //亮度增加 3%
+        }
+      }
+      &.disabled{
+        border: 2px solid @disabledButton;
+        background-color: @whiteColor;
+        color: @disabledButton;
+        cursor: default;
+        pointer-events: none;
+        .user-select();
+        &:hover{
+          box-shadow: none;
+          background-color: @disabledButton;
+        }
+      }
+    }
+  }
+  .btn-manual{
+    position: absolute;
+    left: 30px;
+    bottom: 38px;
+    height: 40px;
+    span{
+      display: inline-block;
+      font-size: 14px;
+      color: @grayColor;
+    }
+  }
+  .billing{
+    height: 40px;
+    font-size: 0;
+    .box-sizing();
+    text-align: right;
+    position: absolute;
+    right: 40px;
+    bottom: 38px;
+  }
+}
+.footer-screening{
+  border-top: 1px solid #c7d8e9;
+  p{
+    margin: 0;
+  }
+}
+//---------------------------------------------- 标签筛选页样式 End ----------------------------------------------------
+
+
+@media (max-width: 1366px){
+  .warp-screening{
+    .screening h2,.screening-one,.screening-item{
+      padding-left: 45px;
+    }
+    .screening-right{
+      .text{
+        span{
+          font-size: 14px;
+        }
+      }
+      .piece{
+        padding: 0 85px 0 110px;
+        span{
+          width: 80px;
+          font-size: 14px;
+          padding-left: 5px;
+          right: -85px;
+        }
+      }
+    }
+    .screening-right-all{
+      padding-bottom: 123px;
+      .piece{
+        padding-left: 110px;
+      }
+    }
+    .all-button{
+      bottom: 23px;
+    }
+    .screening-time{
+      right: 20px;
+    }
+    .cart-warp{
+      padding-right: 20px;
+      padding-bottom: 120px;
+    }
+    .select-center{
+      h4{
+        top: 15px;
+      }
+      li{
+        &:first-child{
+          margin-top: -15px;
+        }
+      }
+      p{
+        margin: 15px 0 0 15px;
+      }
+      span{
+        padding: 0 15px;
+      }
+    }
+    .select-number{
+      bottom: 85px;
+    }
+    .btn-screening{
+      a{
+        padding: 0 15px;
+      }
+    }
+    .btn-manual{
+      left: 20px;
+    }
+    .billing{
+      right: 20px;
+    }
+    .billing,.btn-manual{
+      bottom: 28px;
+    }
+  }
+}

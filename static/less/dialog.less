@@ -99,7 +99,7 @@
   }
 }
 .dialog-footer{
-  padding: 10px 0 40px;
+  padding: 20px 0 40px;
   text-align: center;
   font-size: 0;
   position: relative;
@@ -135,6 +135,7 @@
       line-height: 41px;
       text-align: right;
       color: @grayColor2;
+      cursor: inherit;
       &.w110{
         width: 110px;
       }
@@ -161,31 +162,53 @@
       &.tips{
         font-size: 14px;
         color: @tipsText;
-        padding: 8px 0;
+        line-height: 41px;
         display: inline-block;
         &.block{
           display: block;
-          padding: 0;
+          line-height: 30px;
+          padding: 0 0 5px;
         }
       }
     }
     .calendar-warp {
-      width: 170px;
-      float: left;
+      margin-right: 10px;
+      input{
+        &.date{
+          height: 41px;
+          line-height: 39px\9;
+        }
+      }
     }
     .input-warp{
       width: 340px;
       position: relative;
       input{
-        &.text {
+        &.text{
           height: 41px;
           line-height: 39px\9;
           max-width:320px;
+          margin-right: 10px;
         }
       }
       &.w240{
         width: 210px;
         padding-left: 30px;
+      }
+    }
+    .unit-warp{
+      padding-right: 30px;
+      position: relative;
+      span{
+        font-size: 14px;
+      }
+      input{
+        &.text{
+          height: 41px;
+          line-height: 39px\9;
+          max-width:150px;
+          margin:0 10px;
+        }
       }
     }
     &.li-notice{
@@ -230,23 +253,12 @@
       width: 375px;
     }
     .check-warp{
-      float: left;
-      width: 375px;
-      height: 120px;
-      li{
-        width: 33%;
-        span{
-          width: 80px;
-        }
-      }
-      .all{
-        p{
-          display: inline-block;
-          height: 43px;
-          padding: 0 8px;
-          border-radius: 4px;
-          font-size: 14px;
-          line-height: 43px;
+      &.check-limit{
+        height: 100px;
+        width: 340px;
+        li{
+          width: 33%;
+          min-width: inherit;
         }
       }
     }
@@ -301,6 +313,30 @@
       .inputbox{
         .txt{
           width: 280px;
+        }
+      }
+    }
+  }
+  &.dialog-client-add{
+    &>li{
+      padding-left: 105px;
+      &>label{
+        width:90px;
+      }
+    }
+  }
+  &.dialog-manua-add{
+    &>li{
+      padding-left: 105px;
+      &>label{
+        width:90px;
+      }
+      .input-warp{
+        width: 600px;
+        input{
+          &.text{
+            max-width: 250px;
+          }
         }
       }
     }
