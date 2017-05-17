@@ -55,10 +55,18 @@
                 
             if(this.userType==1){
                 let user = JSON.parse(localStorage.getItem('user'))
-                if(user.rule){
-                    let arr = user.rule.split(',')
-                    this.$store.commit('CHANGE_POWER',arr)
-                }
+                mAjax(this,{
+                    url:API.get_operate_info,
+                    data:{
+                        id:user.id
+                    },
+                    success:data=>{
+                    if(data.data.rule){
+                            let arr = data.data.rule.split(',')
+                            this.$store.commit('CHANGE_POWER',arr)
+                        }
+                    }
+                })
             }
 
             //坐席登录外呼中心 start
