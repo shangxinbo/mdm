@@ -2,7 +2,7 @@
     <div class="dialog" :style="{'display':style,'margin-left':'-394px','margin-top':'-284px'}">
         <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
         <div class="dialog-header">
-            <h4>新建项目</h4>
+            <h4>{{title}}</h4>
         </div>
         <div class="dialog-body">
             <ul class="query-warp dialog-manua-add">
@@ -35,12 +35,12 @@
                         <div class="calendar-warp">
                             <datepicker input-class="date" style="z-index:1" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="expectTime"></datepicker>
                         </div>
-                        <p class="tips">未拨打的数据，三天后自动回收</p>
+                        <p class="tips">外呼时间为3天</p>
                         <p v-if="expectTime_error" class="error">{{expectTime_error}}</p>
                     </div>
                 </li>
                 <li>
-                    <label class="name">短信文本
+                    <label class="name">详细描述
                         <br/>
                         <em class="tips">（选填）</em>
                     </label>
@@ -65,7 +65,9 @@
     export default {
         data: function () {
             return {
-                style:'none',
+                title: '新建项目',
+                id: null,
+                style: 'none',
                 name: '',
                 name_error: '',
                 region: '',
@@ -146,13 +148,18 @@
                     expect_begin_time: time,
                     desc: this.content
                 }
+                if (this.title == '重新申请项目') {
+                    api = API.project_recheck,
+                        data.id = this.id
+                }
 
                 mAjax(this, {
                     url: api,
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            this.$store.commit('SHOW_TOAST', '项目申请已提交审核')
+                            this.close()
+                            this.$emit('success')
                         } else {
                             this.content_error = data.message
                         }
@@ -162,19 +169,49 @@
         },
         created() {
             let _this = this
-            this.$on('show', function () {
-                _this.style = 'block'
-                _this.name = ''
-                _this.name_error = ''
-                _this.region = ''
-                _this.region_error = ''
-                _this.expectClue = ''
-                _this.expectClue_error = ''
-                _this.expectTime = ''
-                _this.expectTime_error = ''
-                _this.content = ''
-                _this.content_error = ''
-                _this.$store.commit('SHOW_LAYER')
+            this.$on('show', function (id) {
+                if (id) {
+                    mAjax(this, {
+                        url: API.project_detail,
+                        data: {
+                            id: id
+                        },
+                        success: data => {
+                            if (data.code == 200) {
+                                _this.title = '重新申请项目'
+                                _this.style = 'block'
+                                _this.id = id
+                                _this.name = data.data.name
+                                _this.name_error = ''
+                                _this.region = data.data.region
+                                _this.region_error = ''
+                                _this.expectClue = data.data.expect_clue_num
+                                _this.expectClue_error = ''
+                                _this.expectTime = data.data.expect_begin_date
+                                _this.expectTime_error = ''
+                                _this.content = data.data.desc
+                                _this.content_error = ''
+                                _this.$store.commit('SHOW_LAYER')
+                            } else {
+                                this.$store.commit('SHOW_TOAST', '获取项目信息失败')
+                            }
+                        }
+                    })
+                } else {
+                    _this.title = '新建项目'
+                    _this.style = 'block'
+                    _this.name = ''
+                    _this.name_error = ''
+                    _this.region = ''
+                    _this.region_error = ''
+                    _this.expectClue = ''
+                    _this.expectClue_error = ''
+                    _this.expectTime = ''
+                    _this.expectTime_error = ''
+                    _this.content = ''
+                    _this.content_error = ''
+                    _this.$store.commit('SHOW_LAYER')
+                }
             })
         }
     }

@@ -141,7 +141,7 @@
                     data: data,
                     success: data => {
                         this.close()
-                        this.$store.commit('SHOW_TOAST', '项目申请已提交审核')
+                        this.$emit('success')
                     },
                     error: err => {
                         console.log(err)

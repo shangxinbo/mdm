@@ -33,7 +33,7 @@
                                     </p>
                                 </li>
                                 <li class="active" v-if="tunnel.length>0">
-                                    <h4>筛选偏好</h4>
+                                    <h4>筛选渠道</h4>
                                     <p v-for="(item,index) in tunnel">
                                         <span>{{item.name}}</span>
                                         <i v-if="step==2" class="icon" @click="delTunnelTag(item.code)"></i>
@@ -74,8 +74,8 @@
         <callSet></callSet>
         <alert ref="alert"></alert>
         <balanceAlert></balanceAlert>
-        <saveDialog ref="save" :cate="cate" :tunnel="tunnel" :area="area" :customers="customers"></saveDialog>
-        <saveByOptional ref="optSaveDialog"></saveByOptional>
+        <saveDialog ref="save" :cate="cate" :tunnel="tunnel" :area="area" :customers="customers" @success="saveSuccess"></saveDialog>
+        <saveByOptional ref="optSaveDialog" @success="saveSuccess"></saveByOptional>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -286,6 +286,12 @@
             },
             optionProject() {
                 this.$refs.optSaveDialog.$emit('show')
+            },
+            saveSuccess(){
+                console.log(123)
+                this.$refs.alert.$emit('show','项目已经提交审核',()=>{
+                    this.$router.replace('/project/index')
+                })
             }
         },
         beforeRouteEnter(to, from, next) {

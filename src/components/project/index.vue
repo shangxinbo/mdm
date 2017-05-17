@@ -62,7 +62,7 @@
                                     <router-link v-else :to="'/project/call/?id='+ item.id +'&projectName=' + item.name + '&clue_status=1&end=1'">查看</router-link>
                                 </td>
                                 <td v-else>
-                                    <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
+                                    <a v-if="item.audit_status==-3" href="javascript:void(0);" @click="resend(item.id)">重新申请</a>
                                     <a v-if="item.status==1&&myseatNum>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>
@@ -75,6 +75,7 @@
         </div>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
+        <saveByOptional ref="optSaveDialog" @success="saveSuccess"></saveByOptional>
         <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
     </div>
 </template>
@@ -88,6 +89,7 @@
     import searchForm from './searchForm'
     import dataSum from './dataSum'
     import seatData from './seat'
+    import saveByOptional from './create/save_optional'
 
     export default {
         data() {
@@ -205,6 +207,14 @@
             },
             setMySeat(num) {
                 this.myseatNum = num
+            },
+            resend(id){
+                this.$refs.optSaveDialog.$emit('show',id)
+            },
+            saveSuccess(){
+                this.$refs.alert.$emit('show','项目已经提交审核',()=>{
+                    window.location.reload()
+                })
             }
         },
         created() {
@@ -222,7 +232,8 @@
             chooseSeatDialog,
             searchForm,
             dataSum,
-            seatData
+            seatData,
+            saveByOptional
         }
     }
 
