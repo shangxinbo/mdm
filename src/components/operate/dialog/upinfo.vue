@@ -1,5 +1,5 @@
 <template>
-    <div class="dialog" :style="{'display':style,'margin-left':'-259px','margin-top':'-181px'}">
+    <div class="dialog" :style="{'display':style,'margin-left':'-259px','margin-top':'-257px'}">
         <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
         <div class="dialog-header">
             <h4>{{edit?'修改信息':'新建运营'}}</h4>

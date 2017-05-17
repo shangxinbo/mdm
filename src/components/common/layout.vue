@@ -58,7 +58,6 @@
                 if(user.rule){
                     let arr = user.rule.split(',')
                     this.$store.commit('CHANGE_POWER',arr)
-                    console.log(this.$store.state.yunying_role)
                 }
             }
 

@@ -75,7 +75,7 @@
         <alert ref="alert"></alert>
         <balanceAlert></balanceAlert>
         <saveDialog ref="save" :cate="cate" :tunnel="tunnel" :area="area" :customers="customers" @success="saveSuccess"></saveDialog>
-        <saveByOptional ref="optSaveDialog" @success="saveSuccess"></saveByOptional>
+        <saveByOptional ref="optSaveDialog" @success="saveSuccessOpt"></saveByOptional>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -288,7 +288,11 @@
                 this.$refs.optSaveDialog.$emit('show')
             },
             saveSuccess(){
-                console.log(123)
+                this.$refs.alert.$emit('show','新建项目成功',()=>{
+                    this.$router.replace('/project/index')
+                })
+            },
+            saveSuccessOpt(){
                 this.$refs.alert.$emit('show','项目已经提交审核',()=>{
                     this.$router.replace('/project/index')
                 })
