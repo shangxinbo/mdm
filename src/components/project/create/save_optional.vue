@@ -80,7 +80,8 @@
                 content_error: '',
                 datepicker_disabled: {
                     to: new Date()
-                }
+                },
+                ajax:false
             }
         },
         computed: {
@@ -152,11 +153,13 @@
                     api = API.project_recheck,
                         data.id = this.id
                 }
-
+                if(this.ajax) return false
+                this.ajax = true
                 mAjax(this, {
                     url: api,
                     data: data,
                     success: data => {
+                        this.ajax = false
                         if (data.code == 200) {
                             this.close()
                             this.$emit('success')

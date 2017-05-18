@@ -142,12 +142,15 @@
                     url: API.filter_save,
                     data: data,
                     success: data => {
-                        this.close()
                         this.ajax = false
-                        this.$emit('success')
-                    },
-                    error: err => {
-                        console.log(err)
+                        if(data.code==200){
+                            this.close()
+                            this.ajax = false
+                            this.$emit('success')
+                        }else{
+                            this.time_error = data.message
+                        }
+                        
                     }
                 })
             }
