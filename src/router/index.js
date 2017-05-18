@@ -77,7 +77,6 @@ mRouter.beforeEach((to, from, next) => {
             next({ path: '/customer/index' })   
         } else if (user.type == 1) {
             let rule = user.rule.split(',')
-            console.log(rule)
             if(rule.indexOf('1')>=0){
                 next({ path: '/customer/index' })  
             }else if(rule.indexOf('2')>=0){
