@@ -32,7 +32,7 @@
                                                 <i class="icon phone"></i>
                                             </span>拨打
                                         </a>
-                                        <a v-if="item.is_dial||clue_status" href="javascript:void(0);" @click="view(item.id)">查看</a>
+                                        <a v-if="item.is_dial!=0||clue_status!=0" href="javascript:void(0);" @click="view(item.id)">查看</a>
                                     </td>
                                 </tr>
                             </tbody>
