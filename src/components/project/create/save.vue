@@ -62,7 +62,8 @@
                 time_error:'',
                 datepicker_disabled: {
                     to: new Date()
-                }
+                },
+                ajax:false
             }
         },
         computed:{
@@ -135,12 +136,14 @@
                     })
                     data.area = area
                 }
-                
+                if(this.ajax) return false
+                this.ajax = true
                 mAjax(this, {
                     url: API.filter_save,
                     data: data,
                     success: data => {
                         this.close()
+                        this.ajax = false
                         this.$emit('success')
                     },
                     error: err => {

@@ -20,7 +20,7 @@
                     <div class="screening-time">
                         <mselect ref="dateSelect" :initlist="select.init" hideAll="true" :id="7" @change="dateChange"></mselect>
                     </div>
-                    <div class="scroll-warp">
+                    <div class="scroll-warp" style="overflow-y:auto">
                         <div class="scroll-content">
                             <ul class="select-center">
                                 <li class="active" v-if="cate.length>0">

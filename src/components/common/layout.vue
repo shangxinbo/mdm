@@ -61,7 +61,7 @@
                         id:user.id
                     },
                     success:data=>{
-                    if(data.data.rule){
+                        if(data.data.rule){
                             let arr = data.data.rule.split(',')
                             this.$store.commit('CHANGE_POWER',arr)
                         }
