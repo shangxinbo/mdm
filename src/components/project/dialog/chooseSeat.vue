@@ -119,7 +119,7 @@
         },
         created() {
             let _this = this
-            if(this.userType!=4) return false
+            if(this.userType!=3) return false
             mAjax(this, {
                 url: API.seat_list,
                 success: data => {
