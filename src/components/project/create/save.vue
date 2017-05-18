@@ -31,7 +31,7 @@
                     <label>预计开始时间</label>
                     <div class="input-warp date-warp">
                         <div class="calendar-warp">
-                            <datepicker input-class="date" style="z-index:1" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="time"></datepicker>
+                            <datepicker addClass="date" style="z-index:1" :weeks="weeks" :months="months" :buttons="buttons" :min="minTime" @change="setEndTime"></datepicker>
                         </div>
                         <p class="tips">外呼时间为3天</p>
                         <p v-show="time_error" class="error">{{time_error}}</p>
@@ -48,10 +48,12 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import datepicker from 'vuejs-datepicker'
+    import datepicker from 'components/utils/datepicker'
+    import moment from 'moment'
     export default {
         props:['cate','tunnel','area','customers'],
         data() {
+            let now = moment().format('YYYY-MM-DD')
             return {
                 style: 'none',
                 name: '',
@@ -60,9 +62,13 @@
                 name_error:'',
                 clue_error:'',
                 time_error:'',
-                datepicker_disabled: {
-                    to: new Date()
+                weeks: ['一', '二', '三', '四', '五', '六', '日'],
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                buttons: {
+                    ok: '确认',
+                    cancel: '取消'
                 },
+                minTime: now,
                 ajax:false
             }
         },
@@ -75,6 +81,9 @@
             close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
+            },
+            setEndTime(val){
+                this.time = val
             },
             sure() {
                 let reg = /^[a-zA-Z0-9\u4e00-\u9fa5]{4,20}$/

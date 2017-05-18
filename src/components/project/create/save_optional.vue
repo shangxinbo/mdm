@@ -33,7 +33,7 @@
                     <label>预计开始时间</label>
                     <div class="input-warp date-warp">
                         <div class="calendar-warp">
-                            <datepicker input-class="date" style="z-index:1" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="expectTime"></datepicker>
+                            <datepicker addClass="date" style="z-index:1" :init="expectTime" :weeks="weeks" :months="months" :buttons="buttons" :min="minTime" @change="setEndTime"></datepicker>
                         </div>
                         <p class="tips">外呼时间为3天</p>
                         <p v-if="expectTime_error" class="error">{{expectTime_error}}</p>
@@ -61,9 +61,11 @@
 <script>
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
-    import datepicker from 'vuejs-datepicker'
+    import datepicker from 'components/utils/datepicker'
+    import moment from 'moment'
     export default {
         data: function () {
+            let now = moment().format('YYYY-MM-DD')
             return {
                 title: '新建项目',
                 id: null,
@@ -78,9 +80,13 @@
                 expectTime_error: '',
                 content: '',
                 content_error: '',
-                datepicker_disabled: {
-                    to: new Date()
+                weeks: ['一', '二', '三', '四', '五', '六', '日'],
+                months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                buttons: {
+                    ok: '确认',
+                    cancel: '取消'
                 },
+                minTime: now,
                 ajax:false
             }
         },
@@ -96,6 +102,9 @@
             close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
+            },
+            setEndTime(val){
+                this.expectTime = val
             },
             sure() {
                 let reg = /^[a-zA-Z0-9\u4e00-\u9fa5]{4,20}$/
@@ -139,14 +148,14 @@
                     this.content_error = '详细描述不能超过600字'
                     return false
                 }
-                let time = typeof this.expectTime == 'string' ? this.expectTime : dateFormat(this.expectTime)
+        
                 let _this = this
                 let api = API.project_add
                 let data = {
                     name: this.name,
                     region: this.region,
                     expect_clue_num: this.expectClue,
-                    expect_begin_time: time,
+                    expect_begin_time: this.expectTime,
                     desc: this.content
                 }
                 if (this.title == '重新申请项目') {
