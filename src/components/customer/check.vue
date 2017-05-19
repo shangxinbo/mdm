@@ -200,7 +200,7 @@
                             this.price_error = '单价必须是数值'
                             return false
                         } else {
-                            if(this.clue_price>=0&&this.call_price>=0&&this.seat_price>0){
+                            if(this.clue_price>=0&&this.call_price>=0&&this.seat_price>=0){
                                 this.price_error = ''
                             }else{
                                 this.price_error = '单价必须大于等于0'
