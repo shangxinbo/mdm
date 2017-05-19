@@ -74,21 +74,21 @@ mRouter.beforeEach((to, from, next) => {
         if (user.type == 0) {
             next({ path: '/operate/index' })
         } else if (user.type == 2) {
-            next({ path: '/customer/index' })   
+            next({ path: '/customer/index' })
         } else if (user.type == 1) {
             let rule = user.rule.split(',')
-            if(rule.indexOf('1')>=0){
-                next({ path: '/customer/index' })  
-            }else if(rule.indexOf('2')>=0){
-                next({ path: '/project/index' }) 
-            }else if(rule.indexOf('3')>=0){
-                next({ path: '/call/index' }) 
-            }else if(rule.indexOf('4')>=0){
-                next({ path: '/expense/project' }) 
-            }else if(rule.indexOf('5')>=0){
-                next({ path: '/agent/index' }) 
-            }else{
-                next({ path: '/error?code=403' }) 
+            if (rule.indexOf('1') >= 0) {
+                next({ path: '/customer/index' })
+            } else if (rule.indexOf('2') >= 0) {
+                next({ path: '/project/index' })
+            } else if (rule.indexOf('3') >= 0) {
+                next({ path: '/call/index' })
+            } else if (rule.indexOf('4') >= 0) {
+                next({ path: '/expense/project' })
+            } else if (rule.indexOf('5') >= 0) {
+                next({ path: '/agent/index' })
+            } else {
+                next({ path: '/error?code=403' })
             }
         } else {
             next({ path: '/project/index' })
@@ -108,16 +108,29 @@ mRouter.beforeEach((to, from, next) => {
             if (user.type == 0 && (arr[1] || arr[2] || arr[3] || arr[4] || arr[5])) {
                 next({ path: '/error?code=403' })
             }
-            if (user.type == 1 && (arr[0]||arr[6])) {
+            if (user.type == 1) {
+                if (arr[0] || arr[6]) {
+                    next({ path: '/error?code=403' })
+                } else {
+                    //运营权限
+                    let rule = user.rule
+                    //console.log(rule)
+                    if ((arr[1] && rule.indexOf(5) < 0)
+                        || (arr[2] && rule.indexOf(1) < 0)
+                        || (arr[3] && rule.indexOf(2) < 0)
+                        || (arr[4] && rule.indexOf(3) < 0)
+                        || (arr[5] && rule.indexOf(4) < 0)) {
+                        next({ path: '/error?code=403' })
+                    }
+                }
+            }
+            if (user.type == 2 && (arr[0] || arr[1] || arr[3] || arr[4] || arr[5] || arr[6])) {
                 next({ path: '/error?code=403' })
             }
-            if (user.type == 2 && (arr[0] || arr[1] || arr[3] || arr[4] || arr[5]||arr[6])) {
+            if (user.type == 3 && (arr[0] || arr[1] || arr[2] || arr[6])) {
                 next({ path: '/error?code=403' })
             }
-            if (user.type == 3 && (arr[0] || arr[1] || arr[2]||arr[6])) {
-                next({ path: '/error?code=403' })
-            }
-            if (user.type == 4 && (arr[0] || arr[1] || arr[2] || arr[5]||arr[6])) {
+            if (user.type == 4 && (arr[0] || arr[1] || arr[2] || arr[5] || arr[6])) {
                 next({ path: '/error?code=403' })
             }
         }

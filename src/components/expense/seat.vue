@@ -129,7 +129,6 @@
                         from: new Date()
                     }
                 }
-
             },
             datepicker_disabled2: function () {
                 let start = this.search_start_time
