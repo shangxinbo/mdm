@@ -108,7 +108,12 @@
                         this.clue_error = '线索量需要是正整数'
                         return false
                     } else {
-                        this.clue_error = ''
+                        if (this.clue > 100000) {
+                            this.clue_error = '线索量不能超过10万'
+                            return false
+                        } else {
+                            this.clue_error = ''
+                        }
                     }
                 }
                 

@@ -33,7 +33,8 @@
                     <label>预计开始时间</label>
                     <div class="input-warp date-warp">
                         <div class="calendar-warp">
-                            <datepicker addClass="date" style="z-index:1" :init="expectTime" :weeks="weeks" :months="months" :buttons="buttons" :min="minTime" @change="setEndTime"></datepicker>
+                            <datepicker addClass="date" style="z-index:1" :init="expectTime" :weeks="weeks" :months="months" :buttons="buttons" :min="minTime"
+                                @change="setEndTime"></datepicker>
                         </div>
                         <p class="tips">外呼时间为3天</p>
                         <p v-if="expectTime_error" class="error">{{expectTime_error}}</p>
@@ -65,7 +66,7 @@
     import moment from 'moment'
     export default {
         data: function () {
-            let now = moment().format('YYYY-MM-DD')
+            let now = moment().add(1, 'days').format('YYYY-MM-DD')
             return {
                 title: '新建项目',
                 id: null,
@@ -87,7 +88,7 @@
                     cancel: '取消'
                 },
                 minTime: now,
-                ajax:false
+                ajax: false
             }
         },
         computed: {
@@ -103,7 +104,7 @@
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            setEndTime(val){
+            setEndTime(val) {
                 this.expectTime = val
             },
             sure() {
@@ -135,7 +136,12 @@
                         this.expectClue_error = '线索量需要是正整数'
                         return false
                     } else {
-                        this.expectClue_error = ''
+                        if (this.expectClue > 100000) {
+                            this.expectClue_error = '线索量不能超过10万'
+                            return false
+                        } else {
+                            this.expectClue_error = ''
+                        }
                     }
                 }
                 if (!this.expectTime) {
@@ -148,7 +154,7 @@
                     this.content_error = '详细描述不能超过600字'
                     return false
                 }
-        
+
                 let _this = this
                 let api = API.project_add
                 let data = {
@@ -162,7 +168,7 @@
                     api = API.project_recheck,
                         data.id = this.id
                 }
-                if(this.ajax) return false
+                if (this.ajax) return false
                 this.ajax = true
                 mAjax(this, {
                     url: api,

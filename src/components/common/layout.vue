@@ -63,6 +63,8 @@
                     success:data=>{
                         if(data.data.rule){
                             let arr = data.data.rule.split(',')
+                            user.rule = data.data.rule
+                            localStorage.setItem('user',JSON.stringify(user))
                             this.$store.commit('CHANGE_POWER',arr)
                         }
                     }
