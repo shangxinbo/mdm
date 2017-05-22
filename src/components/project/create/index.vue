@@ -62,7 +62,7 @@
                     </div>
                     <div class="btn-screening billing">
                         <a v-show="step>1" class="prev" @click="preStep" href="javascript:void(0);">上一步</a>
-                        <a v-show="step>=3" class="blue" href="javascript:void(0);" @click="save">保存</a>
+                        <a v-show="step>=3" class="blue" :class="{disabled:!canSave}" href="javascript:void(0);" @click="save">保存</a>
                         <a v-show="step<3" class="blue next" :class="{disabled:cate.length<=0}" @click="nextStep" href="javascript:void(0);">下一步</a>
                     </div>
                 </div>
@@ -125,7 +125,8 @@
                     ]
                 },
                 loading: false,
-                lastGetCusTime: null
+                lastGetCusTime: null,
+                canSave:false
             }
         },
         computed: {
@@ -233,6 +234,7 @@
                 this.getCustomers()
             },
             getCustomers() {
+                this.canSave = false
                 if (this.cate.length > 0) {
                     let loadingTime = new Date().getTime()
                     this.lastGetCusTime = loadingTime
@@ -270,6 +272,9 @@
                             }
                             if (data.code == 200) {
                                 this.customers = data.data
+                                if(this.customers>0){
+                                    this.canSave = true
+                                }
                             } else {
                                 this.customers = '获取失败'
                             }
