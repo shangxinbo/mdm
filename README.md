@@ -2,6 +2,12 @@
 
 > ark build on public cloud
 
+回滚版本
+git reset --hard commit_id
+git push -f
+
+
+
 ## Build Setup
 
 ``` bash
