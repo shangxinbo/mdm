@@ -8,7 +8,7 @@
                 <li class="w50">
                     <label>手机号</label>
                     <div class="input-warp">
-                        <p class="text">{{tel_encrypt}}</p>
+                        <p class="text">{{tel|md5Tel}}</p>
                     </div>
                 </li>
                 <li class="w50">
@@ -67,6 +67,7 @@
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import selectInDialog from './selectInDialog'
+    import md5 from 'js-md5'
     export default {
         data: function () {
             return {
@@ -81,12 +82,18 @@
             }
         },
         props: ['uuid'],
-        computed:{
-            dialing: function(){
+        computed: {
+            dialing: function () {
                 return this.$store.state.dialing
             },
-            tel_encrypt:function(){
-                return this.tel.substr(0,3) + '****' + this.tel.substr(7,11)
+            tel_encrypt: function () {
+                return this.tel.substr(0, 3) + '****' + this.tel.substr(7, 11)
+            }
+        },
+        filters: {
+            md5Tel(value) {
+                let mm = md5.create().update(value).hex()
+                return mm.substr(0, 16)
             }
         },
         components: {
@@ -99,10 +106,10 @@
             },
             sure: function () {
                 let _this = this
-                if(this.des.length>100){
+                if (this.des.length > 100) {
                     this.error = '备注不能超过100个字符'
                     return false
-                }else{
+                } else {
                     this.error = ''
                 }
                 mAjax(this, {
@@ -133,7 +140,7 @@
                             //     _this.$store.commit('SHOW_TOAST', '操作成功')
                             // }
                             _this.$store.commit('SHOW_TOAST', '操作成功')
-                            
+
                         } else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }

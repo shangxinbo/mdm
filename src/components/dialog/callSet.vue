@@ -34,7 +34,7 @@
     export default {
         computed:{
             host:function(){
-                return this.$store.state.callInfo ? this.$store.state.callInfo.cti_server:''
+                return this.$store.state.callInfo ? this.$store.state.callInfo.cti_server + ':' + this.$store.state.callInfo.ip_port :''
             },
             user:function(){
                 return this.$store.state.callInfo ? this.$store.state.callInfo.agent_id:''

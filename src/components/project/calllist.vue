@@ -22,7 +22,7 @@
                                     <th>操作</th>
                                 </tr>
                                 <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                    <td>{{item.telephone.substr(0,3)+'****'+item.telephone.substr(7,11)}}</td>
+                                    <td>{{item.telephone|md5Tel}}</td>
                                     <td>{{item.distribution_date}}</td>
                                     <td v-if="clue_status==0">{{item.is_dial==1?'已拨打':'未拨打'}}</td>
                                     <td>{{item.dial_status | toResultText}}</td>
@@ -58,6 +58,7 @@
     import callViewDialog from './dialog/callView'
     import searchForm from './calllistForm'
     import callResultConf from './callResultConf'
+    import md5 from 'js-md5'
     export default {
         data: () => {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -94,12 +95,16 @@
             }
         },
         filters: {
-            toResultText: function (value) {
+            toResultText(value) {
                 if (value) {
                     return callResultConf[value]
                 } else {
                     return '未拨打'
                 }
+            },
+            md5Tel(value){     
+                let mm = md5.create().update(value).hex()
+                return mm.substr(0,16)
             }
         },
         methods: {
@@ -235,7 +240,7 @@
                         if(data.code==200){
                             if(data.data.balance&&data.data.balance>0){
                                 window.mycomm_agent.wrap_up(0)
-                                window.mycomm_agent.dial(tel, 'fuck', 'you')
+                                window.mycomm_agent.dial(tel, 'geo', 'great')
                             }else{
                                 _this.$refs.alert.$emit('show','客户账户余额不足,暂不能拨打')
                             }

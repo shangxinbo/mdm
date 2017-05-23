@@ -9,7 +9,7 @@
                 <li class="w50">
                     <label>手机号</label>
                     <div class="input-warp">
-                        <p class="text">{{tel}}</p>
+                        <p class="text">{{tel|md5Tel}}</p>
                     </div>
                 </li>
                 <li class="w50">
@@ -51,6 +51,7 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import callResultConf from '../callResultConf'
+    import md5 from 'js-md5'
     export default {
         data: () => {
             return {
@@ -80,6 +81,10 @@
                 } else {
                     return '未拨打'
                 }
+            },
+            md5Tel(value){     
+                let mm = md5.create().update(value).hex()
+                return mm.substr(0,16)
             }
         },
         created: function () {
