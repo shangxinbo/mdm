@@ -6,6 +6,8 @@
 git reset --hard commit_id
 git push -f
 
+同步远端分支
+git fetch -p
 
 
 ## Build Setup
