@@ -18,6 +18,12 @@
                             </div>
                         </li>
                         <li>
+                            <label class="name">项目类型</label>
+                            <div class="input-warp">
+                                <p class="text">{{detail.project_type}}</p>
+                            </div>
+                        </li>
+                        <li>
                             <label class="name">人群地域</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.region}}</p>
@@ -144,6 +150,7 @@
                     audit_status: 1,
                     name: '',
                     client_name: '',
+                    project_type: '',
                     agency: '',
                     region: '',
                     expect_clue_num: '',
