@@ -8,7 +8,7 @@
                 <li class="w50">
                     <label>手机号</label>
                     <div class="input-warp">
-                        <p class="text">{{tel|md5Tel}}</p>
+                        <p class="text">{{tel}}</p>
                     </div>
                 </li>
                 <li class="w50">
@@ -161,7 +161,7 @@
                 _this.tel = tel
                 _this.projectName = projectName
                 _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
+                _this.$store.commit('SHOW_LAYER')       
             })
         }
     }
