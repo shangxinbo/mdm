@@ -8,7 +8,7 @@
                 <li class="w50">
                     <label>手机号</label>
                     <div class="input-warp">
-                        <p class="text">{{tel_show}}</p>
+                        <p class="text">{{tel}}</p>
                     </div>
                 </li>
                 <li class="w50">
@@ -74,7 +74,6 @@
                 style: 'none',
                 id: '',
                 tel: '',
-                tel_show:'',
                 projectName: '',
                 clueStatus: 1,
                 callResult: 1,
@@ -158,24 +157,11 @@
         created: function () {
             let _this = this
             this.$on('show', function (id, tel, projectName) {
-                this.tel_show = tel
-                mAjax(this, {
-                    url: API.get_tel,
-                    data: {
-                        id: id
-                    },
-                    success: data => {
-                        if (data.code == 200) {
-                            _this.id = id
-                            _this.tel = data.telephone
-                            _this.projectName = projectName
-                            _this.style = 'block'
-                            _this.$store.commit('SHOW_LAYER')
-                        }
-                    }
-                })
-
-
+                _this.id = id
+                _this.tel = tel
+                _this.projectName = projectName
+                _this.style = 'block'
+                _this.$store.commit('SHOW_LAYER')       
             })
         }
     }

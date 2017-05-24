@@ -67,17 +67,17 @@
                     id: '',
                     name: ''
                 },
-                user_id:user.id,
+                user_id: user.id,
                 currentPage: 1,
                 totalPage: 1,
                 clue_status: '',
                 list: [],
-                uuid:'',
-                end:''
+                uuid: '',
+                end: ''
             }
         },
-        computed:{
-            dialing: function(){
+        computed: {
+            dialing: function () {
                 return this.$store.state.dialing
             }
         },
@@ -102,9 +102,9 @@
                     return '未拨打'
                 }
             },
-            md5Tel(value){     
+            md5Tel(value) {
                 let mm = md5.create().update(value).hex()
-                return mm.substr(0,16)
+                return mm.substr(0, 16)
             }
         },
         methods: {
@@ -141,17 +141,17 @@
                         dial_status: _this.$route.query.dialStatus,
                         created_at_start: _this.$route.query.startTime,
                         created_at_end: _this.$route.query.endTime,
-                        page:_this.currentPage
+                        page: _this.currentPage
                     },
                     success: (data) => {
                         if (data.code == 200) {
                             _this.list = data.data.data
                             _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
-                        } else if(data.code==10005){
-                            _this.$refs.alert.$emit('show', data.message,function(){
+                        } else if (data.code == 10005) {
+                            _this.$refs.alert.$emit('show', data.message, function () {
                                 _this.$router.replace('/')
                             })
-                        }else {
+                        } else {
                             _this.$refs.alert.$emit('show', data.message)
                         }
                     }
@@ -187,7 +187,7 @@
                 //用户接通后挂断
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     console.log('on_agent_ext_hangup')
-                    _this.$store.commit('CHANGE_DIAL_STATUS',false)
+                    _this.$store.commit('CHANGE_DIAL_STATUS', false)
                     mAjax(_this, {
                         url: API.add_call_job,
                         data: {
@@ -217,7 +217,7 @@
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     _this.uuid = evt.params.channel_uuid
-                    _this.$store.commit('CHANGE_DIAL_STATUS',true)
+                    _this.$store.commit('CHANGE_DIAL_STATUS', true)
                     mAjax(_this, {
                         url: API.save_call_uuid,
                         data: {
@@ -230,22 +230,31 @@
                         }
                     })
                 }
-                
-                mAjax(this,{
-                    url:API.get_myclient_balance,
-                    data:{
-                        seat_id:_this.user_id
+
+                mAjax(this, {
+                    url: API.get_myclient_balance,
+                    data: {
+                        seat_id: _this.user_id
                     },
-                    success:data=>{
-                        if(data.code==200){
-                            if(data.data.balance&&data.data.balance>0){
-                                window.mycomm_agent.wrap_up(0)
-                                window.mycomm_agent.dial(tel, 'geo', 'great')
-                            }else{
-                                _this.$refs.alert.$emit('show','客户账户余额不足,暂不能拨打')
+                    success: data => {
+                        if (data.code == 200) {
+                            if (data.data.balance && data.data.balance > 0) {
+                                mAjax(this, {
+                                    url: API.get_tel,
+                                    data: {
+                                        id: id
+                                    },
+                                    success: data => {
+                                        window.mycomm_agent.wrap_up(0)
+                                        console.log(data.data.telephone)
+                                        window.mycomm_agent.dial(data.data.telephone, 'geo', 'great')
+                                    }
+                                })
+                            } else {
+                                _this.$refs.alert.$emit('show', '客户账户余额不足,暂不能拨打')
                             }
-                        }else{
-                            _this.$refs.alert.$emit('show','获取客户账户余额失败,暂不能拨打')
+                        } else {
+                            _this.$refs.alert.$emit('show', '获取客户账户余额失败,暂不能拨打')
                         }
                     }
                 })
