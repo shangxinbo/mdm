@@ -19,7 +19,7 @@ const myseat = resolve => System.import('components/users/myseat.vue')
 const project_list = resolve => System.import('components/project/index.vue')
 const project_call_list = resolve => System.import('components/project/calllist.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
-//const project_add = resolve => System.import('components/project/add.vue')
+const project_add = resolve => System.import('components/project/add.vue')
 const project_create = resolve => System.import('components/project/create/index.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const call_cate = resolve => System.import('components/call/category.vue')
@@ -50,7 +50,7 @@ let mRouter = new Router({
                 { path: '/project/index/', name: 'project_list', component: project_list },
                 { path: '/project/call/', name: 'project_call_list', component: project_call_list },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
-                // { path: '/project/add/:id?', name: 'project_add', component: project_add },
+                { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/call/index', name: 'call_index', component: call_index },
                 { path: '/call/cate', name: 'call_cate', component: call_cate },
                 { path: '/expense/project', name: 'expense_project', component: expense_project },
@@ -59,7 +59,7 @@ let mRouter = new Router({
                 { path: '/expense/doc', name: 'expense_doc', component: expense_doc }
             ]
         },
-        { path: '/project/create', name: 'project_create', component: project_create },
+        // { path: '/project/create', name: 'project_create', component: project_create },
         { path: '/error*', name: 'error', component: error },
         { path: '*', redirect: '/error?code=404' }
     ]

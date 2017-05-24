@@ -16,6 +16,7 @@
                                 <th width="10%">项目名称</th>
                                 <th width="10%" v-if="!customer_id&&userType==1">客户名称</th>
                                 <th width="10%" v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
+                                <th width="5%">类型</th>
                                 <th width="10%">创建日期</th>
                                 <th width="5%">状态</th>
                                 <th width="5%">线索量</th>
@@ -38,6 +39,7 @@
                                 <td v-if="!agent_id&&!customer_id&&userType==1">
                                     <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
                                 </td>
+                                <td>{{item.project_type}}</td>
                                 <td>{{item.created_at.substr(0,10)}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
                                     <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
@@ -62,7 +64,8 @@
                                     <router-link v-else :to="'/project/call/?id='+ item.id +'&projectName=' + item.name + '&clue_status=1&end=1'">查看</router-link>
                                 </td>
                                 <td v-else>
-                                    <a v-if="item.audit_status==-3" href="javascript:void(0);" @click="resend(item.id)">重新申请</a>
+                                    <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
+                                    <!--<a v-if="item.audit_status==-3" href="javascript:void(0);" @click="resend(item.id)">重新申请</a>-->
                                     <a v-if="item.status==1&&myseatNum>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
                                 </td>
                             </tr>
