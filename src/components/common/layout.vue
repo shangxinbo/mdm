@@ -73,8 +73,25 @@
                         _this.error = err.message
                     }
                 })
+
+                
+                //定时退出 
+                setInterval(()=>{
+                    mAjax(this,{
+                        url:API.get_myclient_balance,
+                        success:data=>{
+                            if(data.code==10001){
+                                //退出
+                            }
+                        }
+                    })
+                },30*1000)
+
             }
             //坐席登录外呼中心 end
+
+            
+
         }
     }
 
