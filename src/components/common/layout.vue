@@ -26,7 +26,7 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax,getCookie } from 'src/services/functions'
+    import { mAjax, getCookie } from 'src/services/functions'
 
     export default {
         data: function () {
@@ -65,7 +65,7 @@
                         window.mycomm_agent.on_login_f = function (evt) {
                             _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能不能使用')
                         }
-                        
+
                         window.mycomm_agent.set_wrap_up_time(0)
                         window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                     },
@@ -74,30 +74,31 @@
                     }
                 })
 
-                
+
                 //定时退出 
-                setInterval(()=>{
-                    let user = JSON.parse(localStorage.getItem('user'))
-                    let token = getCookie('api-token')
-                    mAjax(this,{
-                        url:API.get_login_status,
-                        data:{
-                            id:user.id,
-                            token:token
-                        },
-                        success:data=>{
-                            if(data.code!=200||data.data.status==false){
-                                localStorage.removeItem('user')
-                                sessionStorage.clear()
-                                window.location.reload()
+                setInterval(() => {
+                    let now = new Date().getTime()
+                    if ((now - window.login_timer) > 20 * 60 * 1000) {  //20无操作退出
+                        localStorage.removeItem('user')
+                        sessionStorage.clear()
+                        window.location.reload()
+                    } else {                                            //看登录是否有效
+                        mAjax(this, {
+                            url: API.get_myclient_balance,
+                            success: data => {
+                                //console.log(123)
                             }
-                        }
-                    })
-                },30*1000)
+                        })
+                    }
+                }, 30 * 1000)
 
             }
             //坐席登录外呼中心 end
-
+        },
+        mounted() {
+            document.body.addEventListener('mouseover', function () {
+                window.login_timer = new Date().getTime()
+            })
         }
     }
 

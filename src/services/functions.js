@@ -47,7 +47,9 @@ export const setCookie = (name, value, end, path, domain, secure) => {
 }
 
 export const getCookie = (name) => {
+    console.log(name)
     let value = document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(name).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")
+    console.log(document.cookie)
     return decodeURIComponent(value) || null
 }
 
