@@ -26,7 +26,7 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
+    import { mAjax,getCookie } from 'src/services/functions'
 
     export default {
         data: function () {
@@ -77,11 +77,19 @@
                 
                 //定时退出 
                 setInterval(()=>{
+                    let user = JSON.parse(localStorage.getItem('user'))
+                    let token = getCookie('api-token')
                     mAjax(this,{
-                        url:API.get_myclient_balance,
+                        url:API.get_login_status,
+                        data:{
+                            id:user.id,
+                            token:token
+                        },
                         success:data=>{
-                            if(data.code==10001){
-                                //退出
+                            if(data.code!=200||data.data.status==false){
+                                localStorage.removeItem('user')
+                                sessionStorage.clear()
+                                window.location.reload()
                             }
                         }
                     })
@@ -89,8 +97,6 @@
 
             }
             //坐席登录外呼中心 end
-
-            
 
         }
     }

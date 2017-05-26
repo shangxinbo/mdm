@@ -71,5 +71,6 @@ export default {
     doc_upload: API_PRE + '/doc/upload',
     doc_download: API_PRE + '/doc/download',
     get_myclient_balance: API_PRE + '/seat/balance',
-    get_tel: API_PRE + '/seat/getseatphone'
+    get_tel: API_PRE + '/seat/getseatphone',
+    get_login_status: API_PRE + '/user/status'
 }
