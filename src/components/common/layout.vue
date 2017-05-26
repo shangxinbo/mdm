@@ -96,6 +96,7 @@
             //坐席登录外呼中心 end
         },
         mounted() {
+            window.login_timer = new Date().getTime()
             document.body.addEventListener('mouseover', function () {
                 window.login_timer = new Date().getTime()
             })
