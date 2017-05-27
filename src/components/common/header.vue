@@ -1,8 +1,9 @@
 <template>
     <div class="header">
         <ul class="header-content">
-            <li @click.stop="slideDown" :class="{'li-hover':show}">
+            <li @click.stop="slideDown" class="user-name" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>
+                <span v-if="type!=3" class="name">{{type|typeText}}</span>
                 <div class="quit" @click.stop>
                     <p :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
                     <router-link to="/agent/index" class="my" v-if="type==1">
@@ -55,6 +56,17 @@
                 show: false,
                 type: user.type,
                 downloadApi: API.doc_download
+            }
+        },
+        filters: {
+            typeText(val) {
+                switch (val) {
+                case '0': return '管理员'
+                case '1': return '运营'
+                case '2': return '代理'
+                case '4': return '坐席'
+                default: return ''
+                }
             }
         },
         methods: {
