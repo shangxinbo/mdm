@@ -193,7 +193,8 @@
             resetPassDialog,
             addSeatDialog,
             activeSeatDialog,
-            rechargeDialog
+            rechargeDialog,
+            changePriceDialog
         },
     }
 

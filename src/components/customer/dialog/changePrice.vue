@@ -13,7 +13,7 @@
                         <input class="text" type="text" v-model="clue">
                         <span>/条</span>
                     </div>
-                    <p  class="error">{{money_error}}</p>
+                    <p  class="error">{{}}</p>
                 </li>
                 <li>
                     <label>话费单价</label>
@@ -22,7 +22,7 @@
                         <input class="text" type="text" v-model="call">
                         <span>/分钟</span>
                     </div>
-                    <p class="error">{{money_error}}</p>
+                    <p class="error">{{}}</p>
                 </li>
                 <li>
                     <label>坐席单价</label>
@@ -31,7 +31,7 @@
                         <input class="text" type="text" v-model="seat">
                         <span>/个/月</span>
                     </div>
-                    <p class="error">{{money_error}}</p>
+                    <p class="error">{{}}</p>
                 </li>
             </ul>
         </div>
@@ -83,7 +83,7 @@
                 })
             },
             close(){
-                this.style="block"
+                this.style="none"
                 this.$store.commit('HIDE_LAYER')
             }
         },
