@@ -95,26 +95,26 @@ mRouter.beforeEach((to, from, next) => {
         }
     } else {
         let arr = [
-            path.indexOf('/operate') >= 0,
-            path.indexOf('/agent') >= 0,
-            path.indexOf('/customer') >= 0,
-            path.indexOf('/project') >= 0,
-            path.indexOf('/call') >= 0,
-            path.indexOf('/expense') >= 0,
-            path.indexOf('/doc/index') >= 0
+            /^\/operate/.test(path),
+            /^\/agent/.test(path),
+            /^\/customer/.test(path),
+            /^\/project/.test(path),
+            /^\/call/.test(path),
+            /^\/expense/.test(path),
+            /^\/doc\/index/.test(path)
         ]
         //权限配置
         if (path != '/login') {
             if (user.type == 0 && (arr[1] || arr[2] || arr[3] || arr[4] || arr[5])) {
                 next({ path: '/error?code=403' })
             }
+            console.log(arr)
             if (user.type == 1) {
                 if (arr[0] || arr[6]) {
                     next({ path: '/error?code=403' })
                 } else {
                     //运营权限
                     let rule = user.rule
-                    //console.log(rule)
                     if ((arr[1] && rule.indexOf(5) < 0)
                         || (arr[2] && rule.indexOf(1) < 0)
                         || (arr[3] && rule.indexOf(2) < 0)
