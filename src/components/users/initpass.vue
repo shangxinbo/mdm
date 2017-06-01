@@ -80,6 +80,10 @@
         },
         methods: {
             submit: function () {
+                if(this.layer){
+                    return false 
+                }
+
                 if (!this.oldpass) {
                     this.old_error = '请填写旧密码'
                     return false

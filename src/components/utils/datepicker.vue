@@ -14,7 +14,7 @@
         -o-animation: fadein 0.5s;
         animation: fadein 0.5s;
     }
-    
+
     @keyframes fadein {
         from {
             opacity: 0;
@@ -23,7 +23,7 @@
             opacity: 1;
         }
     }
-    
+
     @-moz-keyframes fadein {
         from {
             opacity: 0;
@@ -32,7 +32,7 @@
             opacity: 1;
         }
     }
-    
+
     @-webkit-keyframes fadein {
         from {
             opacity: 0;
@@ -41,7 +41,7 @@
             opacity: 1;
         }
     }
-    
+
     @-ms-keyframes fadein {
         from {
             opacity: 0;
@@ -50,7 +50,7 @@
             opacity: 1;
         }
     }
-    
+
     @-o-keyframes fadein {
         from {
             opacity: 0;
@@ -59,7 +59,7 @@
             opacity: 1;
         }
     }
-    
+
     .cov-date-body {
         display: inline-block;
         background: #3F51B5;
@@ -80,7 +80,7 @@
         transform: translate(-50%, -50%);
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
     }
-    
+
     .cov-picker-box {
         background: #fff;
         width: 100%;
@@ -95,7 +95,7 @@
         height: 280px;
         text-align: start!important;
     }
-    
+
     .cov-picker-box td {
         height: 34px;
         width: 34px;
@@ -106,17 +106,17 @@
         text-align: center;
         cursor: pointer;
     }
-    
+
     .cov-picker-box td:hover {
         background: #E6E6E6;
     }
-    
+
     table {
         border-collapse: collapse;
         border-spacing: 0;
         width: 100%;
     }
-    
+
     .day {
         width: 14.2857143%;
         display: inline-block;
@@ -129,13 +129,13 @@
         background: #fff;
         vertical-align: middle;
     }
-    
+
     .week ul {
         margin: 0 0 8px;
         padding: 0;
         list-style: none;
     }
-    
+
     .week ul li {
         width: 14.2%;
         display: inline-block;
@@ -144,26 +144,26 @@
         color: #000;
         font-weight: bold;
     }
-    
+
     .passive-day {
         color: #bbb;
     }
-    
+
     .checked {
         background: #F50057;
         color: #FFF !important;
         border-radius: 3px;
     }
-    
+
     .unavailable {
         color: #ccc;
         cursor: not-allowed;
     }
-    
+
     .cov-date-monthly {
         height: 150px;
     }
-    
+
     .cov-date-monthly>div {
         display: inline-block;
         padding: 0;
@@ -175,7 +175,7 @@
         text-align: center;
         cursor: pointer;
     }
-    
+
     .cov-date-previous,
     .cov-date-next {
         position: relative;
@@ -184,35 +184,35 @@
         overflow: hidden;
         color: #fff;
     }
-    
+
     .cov-date-caption {
         width: 60%;
         padding: 50px 0!important;
         box-sizing: border-box;
         font-size: 24px;
     }
-    
+
     .cov-date-caption span:hover {
         color: rgba(255, 255, 255, 0.7);
     }
-    
+
     .cov-date-previous:hover,
     .cov-date-next:hover {
         background: rgba(255, 255, 255, 0.1);
     }
-    
+
     .day:hover {
         background: #EAEAEA;
     }
-    
+
     .unavailable:hover {
         background: none;
     }
-    
+
     .checked:hover {
         background: #FF4F8E;
     }
-    
+
     .cov-date-next::before,
     .cov-date-previous::before {
         width: 20px;
@@ -230,7 +230,7 @@
         -moz-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-    
+
     .cov-date-next::after,
     .cov-date-previous::after {
         width: 20px;
@@ -248,41 +248,41 @@
         -moz-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
-    
+
     .cov-date-previous::after {
         -webkit-transform: rotate(45deg);
         -moz-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-    
+
     .cov-date-previous::before {
         -webkit-transform: rotate(-45deg);
         -moz-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
-    
+
     .date-item {
         text-align: center;
         font-size: 20px;
         padding: 10px 0;
         cursor: pointer;
     }
-    
+
     .date-item:hover {
         background: #e0e0e0;
     }
-    
+
     .date-list {
         overflow: auto;
         vertical-align: top;
         padding: 0;
     }
-    
+
     .cov-vue-date {
         display: inline-block;
         color: #5D5D5D;
     }
-    
+
     .button-box {
         background: #fff;
         vertical-align: top;
@@ -291,17 +291,17 @@
         text-align: right;
         padding-right: 20px;
     }
-    
+
     .button-box span {
         cursor: pointer;
         padding: 10px 20px;
     }
-    
+
     .watch-box {
         height: 100%;
         overflow: hidden;
     }
-    
+
     .hour-box,
     .min-box {
         display: inline-block;
@@ -311,40 +311,40 @@
         overflow: auto;
         float: left;
     }
-    
+
     .hour-box ul,
     .min-box ul {
         list-style: none;
         margin: 0;
         padding: 0;
     }
-    
+
     .hour-item,
     .min-item {
         padding: 10px;
         font-size: 36px;
         cursor: pointer;
     }
-    
+
     .hour-item:hover,
     .min-item:hover {
         background: #E3E3E3;
     }
-    
+
     .hour-box .active,
     .min-box .active {
         background: #F50057;
         color: #FFF !important;
     }
-    
+
      ::-webkit-scrollbar {
         width: 2px;
     }
-    
+
      ::-webkit-scrollbar-track {
         background: #E3E3E3;
     }
-    
+
      ::-webkit-scrollbar-thumb {
         background: #C1C1C1;
         border-radius: 2px;
@@ -353,7 +353,8 @@
 <template>
     <div class="cov-vue-date">
         <div class="datepickbox">
-            <input type="text" class="cov-datepicker" readonly="readonly" :placeholder="placeholder" v-model="val" @click="showCheck" @foucus="showCheck" :class="addClass" />
+            <input type="text" class="cov-datepicker" readonly="readonly" :placeholder="placeholder" v-model="val" @click="showCheck"
+                @foucus="showCheck" :class="addClass" />
         </div>
         <div class="datepicker-overlay" v-if="show">
             <div class="cov-date-body" :style="{'background-color':colors&&colors.header}">
@@ -432,7 +433,7 @@
             weeks: {
                 type: Array,
                 default() {
-                    return this.$options.propsData.sundayFirst?['Su','Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']:['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+                    return this.$options.propsData.sundayFirst ? ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'] : ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
                 }
             },
             months: {
@@ -455,12 +456,12 @@
                 default: false
             },
             format: {
-                type:String,
-                default:'YYYY-MM-DD'
+                type: String,
+                default: 'YYYY-MM-DD'
             },
             sundayFirst: {
-                type:Boolean,
-                default:false
+                type: Boolean,
+                default: false
             },
             min: {
                 type: String
@@ -514,12 +515,11 @@
                     hour: '00',
                     min: '00'
                 },
-                dayList: [],
-                choose:null
+                dayList: []
             }
         },
-        watch:{
-            init:function(newVal,oldVal){
+        watch: {
+            init: function (newVal, oldVal) {
                 this.val = newVal
                 this.checked = {
                     oldtime: '',
@@ -542,16 +542,17 @@
                 }
                 this.show = true
             },
-            setChoose(){
-                let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
-                this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
-                this.choose = moment(this.checked.currentMoment).format(this.format)
-            },
             showDay(time) {
                 let currentMoment
                 if (time === undefined || !Date.parse(time)) {
-                    let now = moment().format(this.format)
-                    currentMoment = moment(now)
+                    let now = moment()
+                    if (this.min&&now.isBefore(moment(this.min))) {
+                        currentMoment = moment(moment(this.min), this.format)
+                    } else if (this.max&&moment(this.max).isBefore(now)) {
+                        currentMoment = moment(moment(this.max), this.format)
+                    } else {
+                        currentMoment = moment(now)
+                    }
                 } else {
                     currentMoment = moment(time, this.format)
                 }
@@ -605,15 +606,14 @@
                 }
 
                 this.doDisabled(days)
-            
-                //this.checked.currentMoment = currentMoment
+
+                this.checked.currentMoment = currentMoment
                 this.dayList = days
                 this.checked.year = moment(currentMoment).format('YYYY')
                 this.checked.month = moment(currentMoment).format('MM')
                 this.checked.day = moment(currentMoment).format('DD')
                 this.displayMonth = this.months[moment(currentMoment).month()]
                 this.layer = 'day'
-                this.setChoose()
             },
             checkDay(obj) {
                 if (obj.unavailable || obj.value === '') {
@@ -627,7 +627,7 @@
                 })
                 this.checked.day = this.pad(obj.value)
                 obj.checked = true
-                
+
                 if (this.timepicker) {
                     this.layer = 'hour'
                     this.shiftActTime()
@@ -653,16 +653,16 @@
                         }
                     })
                 }
-                if(this.disabled){
-                    days.forEach((val,index)=>{
-                        if(this.disabled.type=='inMonth'){
-                           
-                            if(this.disabled.arr.indexOf(val.moment.date())>=0){
+                if (this.disabled) {
+                    days.forEach((val, index) => {
+                        if (this.disabled.type == 'inMonth') {
+
+                            if (this.disabled.arr.indexOf(val.moment.date()) >= 0) {
                                 val.unavailable = true
                             }
                         }
-                        if(this.disabled.type=='inWeek'){
-                            if(this.disabled.arr.indexOf(val.moment.day())>0){
+                        if (this.disabled.type == 'inWeek') {
+                            if (this.disabled.arr.indexOf(val.moment.day()) > 0) {
                                 val.unavailable = true
                             }
                         }
@@ -715,25 +715,11 @@
                 }
             },
             picked() {
-                let checked = null
-                this.dayList.forEach((x) => {
-                    if(x.checked == true){
-                        checked = x
-                    }
-                })
-                if(checked){ //如果当前日期没有选中则不做处理
-                    let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
-                    this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
-                    this.val = moment(this.checked.currentMoment).format(this.format)
-                    this.show = false
-                    this.$emit('change', this.val)
-                }
-                
-                //let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
-                //this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
-                //this.val = moment(this.checked.currentMoment).format(this.format)
-                //this.show = false
-                //this.$emit('change', this.val)
+                let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
+                this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
+                this.val = moment(this.checked.currentMoment).format(this.format)
+                this.show = false
+                this.$emit('change', this.val)
             },
             shiftActTime() {
                 this.$nextTick(() => {
