@@ -514,7 +514,8 @@
                     hour: '00',
                     min: '00'
                 },
-                dayList: []
+                dayList: [],
+                choose:null
             }
         },
         watch:{
@@ -540,6 +541,11 @@
                     this.showDay(this.val)
                 }
                 this.show = true
+            },
+            setChoose(){
+                let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
+                this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
+                this.choose = moment(this.checked.currentMoment).format(this.format)
             },
             showDay(time) {
                 let currentMoment
@@ -599,14 +605,15 @@
                 }
 
                 this.doDisabled(days)
-
-                this.checked.currentMoment = currentMoment
+            
+                //this.checked.currentMoment = currentMoment
                 this.dayList = days
                 this.checked.year = moment(currentMoment).format('YYYY')
                 this.checked.month = moment(currentMoment).format('MM')
                 this.checked.day = moment(currentMoment).format('DD')
                 this.displayMonth = this.months[moment(currentMoment).month()]
                 this.layer = 'day'
+                this.setChoose()
             },
             checkDay(obj) {
                 if (obj.unavailable || obj.value === '') {
@@ -620,7 +627,7 @@
                 })
                 this.checked.day = this.pad(obj.value)
                 obj.checked = true
-
+                
                 if (this.timepicker) {
                     this.layer = 'hour'
                     this.shiftActTime()
@@ -708,11 +715,25 @@
                 }
             },
             picked() {
-                let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
-                this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
-                this.val = moment(this.checked.currentMoment).format(this.format)
-                this.show = false
-                this.$emit('change', this.val)
+                let checked = null
+                this.dayList.forEach((x) => {
+                    if(x.checked == true){
+                        checked = x
+                    }
+                })
+                if(checked){ //如果当前日期没有选中则不做处理
+                    let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
+                    this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
+                    this.val = moment(this.checked.currentMoment).format(this.format)
+                    this.show = false
+                    this.$emit('change', this.val)
+                }
+                
+                //let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
+                //this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
+                //this.val = moment(this.checked.currentMoment).format(this.format)
+                //this.show = false
+                //this.$emit('change', this.val)
             },
             shiftActTime() {
                 this.$nextTick(() => {

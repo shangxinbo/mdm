@@ -262,7 +262,6 @@
             let dialog = this.$el
             let dh = dialog.offsetHeight
             this.offsetTop = -dh / 2 + 'px'
-            console.log(this.offsetTop)
         }
     }
 

@@ -83,7 +83,6 @@
                             //_this.$store.commit('RESET_CALLINFO', info)
                         }
                         window.mycomm_agent.on_login_f = function (evt) {
-                            console.log(123)
                             _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能不能使用')
                         }
 
