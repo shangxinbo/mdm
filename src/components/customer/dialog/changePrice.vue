@@ -13,7 +13,7 @@
                         <input class="text" type="text" v-model="clue">
                         <span>/条</span>
                     </div>
-                    <p  class="error">{{}}</p>
+                    <p v-show="error_clue" class="error">{{error_clue}}</p>
                 </li>
                 <li>
                     <label>话费单价</label>
@@ -22,7 +22,7 @@
                         <input class="text" type="text" v-model="call">
                         <span>/分钟</span>
                     </div>
-                    <p class="error">{{}}</p>
+                    <p v-show="error_call" class="error">{{error_call}}</p>
                 </li>
                 <li>
                     <label>坐席单价</label>
@@ -31,7 +31,7 @@
                         <input class="text" type="text" v-model="seat">
                         <span>/个/月</span>
                     </div>
-                    <p class="error">{{}}</p>
+                    <p v-show="error_seat" class="error">{{error_seat}}</p>
                 </li>
             </ul>
         </div>
@@ -45,36 +45,50 @@
     import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
-        data(){
+        data() {
             return {
                 style: 'none',
-                id:'',
-                clue:'',
-                call:'',
-                seat:''
+                id: '',
+                clue: '',
+                call: '',
+                seat: '',
+                error_clue: '',
+                error_call: '',
+                error_seat: ''
             }
         },
-        methods:{
-            sure(){
+        methods: {
+            sure() {
                 let _this = this
-                
-                //表单验证格式
 
+                //表单验证格式
+                if (isNaN(this.clue) || this.clue < 0) {
+                    this.error_clue = '单价格式不正确'
+                    return false
+                }
+                if (isNaN(this.call) || this.call < 0) {
+                    this.error_call = '单价格式不正确'
+                    return false
+                }
+                if (isNaN(this.seat) || this.seat < 0) {
+                    this.error_seat = '单价格式不正确'
+                    return false
+                }
 
                 mAjax(this, {
-                    url: API.add_seat,
+                    url: API.change_price,
                     data: {
                         id: this.id,
-                        clue: this.clue,
-                        call: this.call,
-                        seat:this.seat
+                        clue_price: this.clue,
+                        tel_price: this.call,
+                        seat_price: this.seat
                     },
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '价格已做调整')
                         } else {
-                            _this.add_error = data.message
+                            _this.error_seat = data.message
                         }
                     },
                     error: err => {
@@ -82,12 +96,12 @@
                     }
                 })
             },
-            close(){
-                this.style="none"
+            close() {
+                this.style = "none"
                 this.$store.commit('HIDE_LAYER')
             }
         },
-        created(){
+        created() {
             let _this = this
             this.$on('show', function (id, company, balance) {
                 _this.id = id
@@ -101,4 +115,5 @@
             })
         }
     }
+
 </script>
