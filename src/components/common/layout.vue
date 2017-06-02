@@ -78,7 +78,8 @@
                 //定时退出 
                 setInterval(() => {
                     let now = new Date().getTime()
-                    if ((now - window.login_timer) > 20 * 60 * 1000) {  //20无操作退出
+                    console.log(now-window.login_timer)
+                    if ((now - window.login_timer) > 2 * 60 * 1000) {  //20无操作退出
                         localStorage.removeItem('user')
                         sessionStorage.clear()
                         window.location.reload()
@@ -95,6 +96,7 @@
                 window.login_timer = new Date().getTime()
                 document.body.addEventListener('mouseover', function () {
                     window.login_timer = new Date().getTime()
+                    console.log(window.login_timer)
                 })
 
             }
