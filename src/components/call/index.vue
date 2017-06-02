@@ -7,43 +7,7 @@
             <div class="title-warp" v-if="userType==4">我的话务</div>
             <div class="title-warp" v-else>话务管理</div>
             <div class="data-property">
-                <form>
-                    <ul class="data-text">
-                        <li>
-                            <label class="name">项目</label>
-                            <div class="input-warp">
-                                <input class="text" v-model="search_name" type="text">
-                            </div>
-                        </li>
-                        <li v-if="userType==1">
-                            <label class="name">客户</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
-                        </li>
-                        <li v-if="userType==1">
-                            <label class="name">代理</label>
-                            <mselect ref="agentSelect" :api="api.agentList" :id="search_agent_id"></mselect>
-                        </li>
-                        <li>
-                            <label class="name">日期</label>
-                            <div class="input-warp date-warp">
-                                <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled1" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
-                                </div>
-                                <em class="or">至</em>
-                                <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button class="btn blue" type="button" @click="search">
-                                <span>
-                                    <i class="icon search"></i>查询
-                                </span>
-                            </button>
-                        </li>
-                    </ul>
-                </form>
+                <indexFilter @submit="search"></indexFilter>
                 <div class="data-export" v-if="list.length>0">
                     <ul>
                         <li>
@@ -80,8 +44,7 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <span v-if="userType !=3">{{item.name}}</span>
-                                    <router-link :to="{path : '/call/cate',query : {search_project_id:item.id,project_name:item.name}}" v-else>{{item.name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : {search_project_id:item.id,project_name:item.name}}">{{item.name}}</router-link>
                                 </td>
                                 <td v-if="userType==1">
                                     <router-link :to="{path : '/call/cate',query : {search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -113,8 +76,7 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import mselect from 'components/utils/select'
-    import datepicker from 'vuejs-datepicker'
+    import indexFilter from './index_filter'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
 
@@ -166,8 +128,7 @@
         },
         components: {
             pages,
-            mselect,
-            datepicker,
+            indexFilter,
             confirm,
             alert,
         },
