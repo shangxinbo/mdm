@@ -17,12 +17,12 @@
 <body>
 <div class="header">
     <ul class="header-content">
-        <li>
+        <li class="user-name">
             <i class="icon login-icon"></i>
+            <span class="name">运营</span>
             <div class="quit">
                 <p title="Hi，hahaha">Hi，hahaha</p>
-                <a href="client-my.html" class="my"><i class="icon icon03"></i><span>我的账号</span></a>
-                <a href="client-myseat.html" class="my"><i class="icon icon04"></i><span>我的坐席</span></a>
+                <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
                 <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
                 <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
                 <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
@@ -33,79 +33,92 @@
 <div class="navbox">
     <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
     <ul>
+        <li>
+            <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
+        </li>
         <li class="active">
-            <a href="client-manage.html"><span><i class="icon icon01"></i>项目管理</span></a>
+            <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
+            <ul>
+                <li>
+                    <a href="operate-project.html"><span><i class="icon icon01-1"></i>外呼项目</span></a>
+                </li>
+                <li class="active">
+                    <a href="operate-project-sms.html"><span><i class="icon icon01-2"></i>短信项目</span></a>
+                </li>
+            </ul>
         </li>
         <li>
-            <a href="client-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
+            <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
         </li>
         <li>
-            <a href="client-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
+            <a href="operate-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
         </li>
     </ul>
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">新建项目</div>
+        <div class="title-warp">中国电信项目1</div>
         <div class="data-detail">
             <form>
-                <ul class="data-text">
-                    <li>
-                        <label class="name">项目名称</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="中国电信项目1">
-                        </div>
-                    </li>
+                <ul class="data-text data-view">
                     <li>
                         <label class="name">项目类型</label>
                         <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>sim卡电销</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                            <li>sim卡电销</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            <p class="text">短信营销</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">客户名称</label>
+                        <div class="input-warp">
+                            <p class="text">中国电信</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">所属代理</label>
+                        <div class="input-warp">
+                            <p class="text">代理1</p>
                         </div>
                     </li>
                     <li>
                         <label class="name">人群地域</label>
                         <div class="input-warp">
-                            <input class="text" type="text" value="全国">
-                            <p class="tips">如：北京、上海，或全国</p>
-                            <!--<p class="error">未填写</p>-->
+                            <p class="text">全国</p>
                         </div>
                     </li>
                     <li>
                         <label class="name">预计线索量</label>
                         <div class="input-warp">
-                            <input class="text" type="text" value="3000">
-                            <p class="tips">外呼时间为3天，打不完的线索不会计费</p>
+                            <p class="text">3000</p>
                         </div>
                     </li>
                     <li>
                         <label class="name">预计开始时间</label>
-                        <div class="input-warp date-warp">
-                            <div class="calendar-warp">
-                                <input class="date" type="text" value="2016.12.01">
-                            </div>
-                            <p class="tips">外呼时间为3天</p>
+                        <div class="input-warp">
+                            <p class="text">2017.12.01</p>
                         </div>
                     </li>
                     <li>
-                        <label class="name">详细描述<br/>（选填）</label>
+                        <label class="name">详细描述</label>
                         <div class="input-warp">
-                            <textarea>详细描述详细描述详细描述详细描述详细描述详</textarea>
-                            <p class="tips block">最多输入600个字符，已经输入0个字符</p>
+                            <p class="text">详细描述详细描述详细描述详细描述详细描述详</p>
                         </div>
                     </li>
                     <li>
+                        <label class="name">项目创建时间</label>
                         <div class="input-warp">
-                            <button class="btn blue" type="button">提交</button>
+                            <p class="text">2017-03-20</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">项目状态</label>
+                        <div class="input-warp">
+                            <p class="text">未通过</p>
+                        </div>
+                    </li>
+                    <li class="both">
+                        <label class="name">未通过原因</label>
+                        <div class="input-warp">
+                            <p class="text red">原因xxxxxxx原因xxxxxxx原因xxxxxxx原因xxxxxxx原因xxxxx</p>
                         </div>
                     </li>
                 </ul>
@@ -114,6 +127,7 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+
 <!-----------------------header下拉弹窗------------------------->
 <!-- 修改密码弹窗 -->
 <div class="dialog" id="editPassword">

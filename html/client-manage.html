@@ -35,6 +35,14 @@
     <ul>
         <li class="active">
             <a href="client-manage.html"><span><i class="icon icon01"></i>项目管理</span></a>
+            <ul>
+                <li class="active">
+                    <a href="client-manage.html"><span><i class="icon icon01-1"></i>外呼项目</span></a>
+                </li>
+                <li>
+                    <a href="client-manage-sms.html"><span><i class="icon icon01-2"></i>短信项目</span></a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="client-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
@@ -46,7 +54,7 @@
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">项目管理</div>
+        <div class="title-warp">外呼项目</div>
         <div class="data-property">
             <form>
                 <ul class="data-text">
@@ -79,11 +87,11 @@
                         <label class="name">创建日期</label>
                         <div class="input-warp date-warp">
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.01">
+                                <input class="date" type="text" value="2016-12-01">
                             </div>
                             <em class="or">至</em>
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.07">
+                                <input class="date" type="text" value="2016-12-07">
                             </div>
                         </div>
                     </li>
@@ -98,7 +106,7 @@
                         <span class="t"><a href="#">现有坐席</a></span><span class="num">10</span>
                     </li>
                 </ul>
-                <a href="client-add.html" class="btn blue btn-export"><span><i class="icon add"></i>新建顶目</span></a>
+                <a href="client-screening.html" class="btn blue btn-export" target="_blank"><span><i class="icon add"></i>新建外呼顶目</span></a>
             </div>
         </div>
         <div class="data-warp">
@@ -106,14 +114,14 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>项目名称</th><th>类型</th><th>创建日期</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>项目坐席</th><th>操作</th></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr class="tr2"><td><a href="client-fail.html">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="client-afresh.html">重新申请</a></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr class="tr2"><td><a href="client-ongoing.html">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配坐席</a></td></tr>
-                    <tr><td><a href="client-ongoing.html">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配坐席</a></td></tr>
-                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td>sim卡电销</td><td>2017-03-16</td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td></tr>
+                    <tr><th>项目名称</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>项目坐席</th><th>挂机短信</th><th>操作</th></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="tr2"><td><a href="client-fail.html">中国电信项目1</a></td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="javascript:void(0);" onclick="getWindow('dialogAfresh');">重新申请</a></td></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="tr2"><td><a href="client-ongoing.html">中国电信项目1</a></td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td>300</td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配坐席</a></td></tr>
+                    <tr><td><a href="client-ongoing.html">中国电信项目1</a></td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配坐席</a></td></tr>
+                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td>300</td><td></td></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td>300</td><td></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -134,11 +142,75 @@
 <div class="dialog" id="callBalance">
     <div class="dialog-body">
         <div class="pop-default nop10">
-            <p class="title"><span><i class="icon tips"></i>您的余额不足，请尽快联系相关人员进行充值<br/>以免影响您的正常使用</span></p>
+            <p class="title"><span><i class="icon tips"></i>您的余额不足，请尽快联系相关人员进行充值以免影响您的正常使用</span></p>
         </div>
     </div>
     <div class="dialog-footer">
         <button class="btn blue" type="button" onclick="hideDialog('callBalance');">关闭</button>
+    </div>
+</div>
+<!-- 重新申请弹窗 -->
+<div class="dialog" id="dialogAfresh">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>新建外呼项目</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp dialog-manua-add">
+            <li>
+                <label>项目名称</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="中国电信项目1">
+                </div>
+            </li>
+            <li>
+                <label>人群地域</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="全国">
+                    <p class="tips">如：北京、上海，或全国</p>
+                </div>
+            </li>
+            <li>
+                <label>预计线索量</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="3000">
+                    <p class="tips">最多10万条，外呼时间为3天，打不完的线索不会计费</p>
+                </div>
+            </li>
+            <li>
+                <label>预计开始时间</label>
+                <div class="input-warp date-warp">
+                    <div class="calendar-warp">
+                        <input class="date" type="text" value="2016-12-01">
+                    </div>
+                    <p class="tips">外呼时间为3天</p>
+                </div>
+            </li>
+            <li>
+                <label class="name">详细描述<br/><em class="tips">（选填）</em></label>
+                <div class="input-warp">
+                    <textarea>详细描述详细描述详细描述详细描述详细描述详</textarea>
+                    <p class="tips block">最多输入600个字符，已经输入0个字符</p>
+                </div>
+            </li>
+            <li class="hang">
+                <div class="dialog-select">
+                    <div class="checkall"><i class="icon"></i><span>使用挂机短信</span></div><!-- 选中增加 checked -->
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('submitManuaSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('dialogAfresh');">取消</a>
+    </div>
+</div>
+<!-- 重新申请成功弹窗-->
+<div class="dialog tips-succ" id="submitManuaSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>项目申请已提交审核</span></p>
+        </div>
     </div>
 </div>
 <!-- 分配坐席弹窗 -->
@@ -149,21 +221,79 @@
     </div>
     <div class="dialog-body">
         <div class="dialog-allocation">
+            <ul class="mode">
+                <li>
+                    <label>项目线索量</label>
+                    <div class="input-warp">
+                        <p class="text"> 8888</p>
+                    </div>
+                </li>
+                <li>
+                    <label>线索分配方式</label>
+                    <div class="input-warp">
+                        <div class="select-warp seat-select">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                            <p class="all"><span>平均分配</span></p>
+                            <div class="select-ul">
+                                <div class="scroll-warp scrollBar">
+                                    <ul>
+                                        <li onclick="tagCutover(this,'select-cutover1')">平均分配</li>
+                                        <li onclick="tagCutover(this,'select-cutover2')">自定义平配</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
             <div class="title">中国电信项目1分配给以下坐席拨打</div>
-            <div class="check-warp">
-                <div class="scroll-warp scrollBar">
-                    <ul class="scroll-content screening-item">
-                        <li class="checked"><p><i class="icon"></i><span>坐席1</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席2</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席3</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席4</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席5</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席6</span></p></li>
-                    </ul>
+            <div class="cutover">
+                <div class="select-cutover1">
+                    <div class="check-warp">
+                        <div class="scroll-warp scrollBar">
+                            <ul class="scroll-content screening-item">
+                                <li class="checked"><p><i class="icon"></i><span>坐席1</span></p>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席3</span></p>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li> <p><i class="icon"></i><span>坐席6</span></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dialog-select">
+                        <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="dialog-select">
-                <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                <div class="select-cutover2" style="display: none">
+                    <div class="check-warp">
+                        <div class="scroll-warp scrollBar">
+                            <ul class="scroll-content screening-item">
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席1</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席3</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席6</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="notice"><i class="icon"></i>选中坐席分配线索量之和应等于项目线索量</p>
+                    <div class="dialog-select">
+                        <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -285,6 +415,14 @@
         var idW = -(ids.width()/2);
         $('<div id="shadowLayer"></div>').appendTo("body").show();
         ids.show().css({ "margin-left": idW,"margin-top": idH });
+    }
+    //标签切换
+    function tagCutover(c,d){
+        $(c).attr("class");
+        $(c).parent().children().removeClass("active");
+        $(c).addClass("active");
+        $("."+d).parent().children().hide();
+        $("."+d).show();
     }
 </script>
 </body>

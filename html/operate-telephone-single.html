@@ -17,8 +17,9 @@
 <body>
 <div class="header">
     <ul class="header-content">
-        <li>
+        <li class="user-name">
             <i class="icon login-icon"></i>
+            <span class="name">运营</span>
             <div class="quit">
                 <p title="Hi，hahaha">Hi，hahaha</p>
                 <a href="client-my.html" class="my"><i class="icon icon03"></i><span>我的账号</span></a>
@@ -33,83 +34,89 @@
 <div class="navbox">
     <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
     <ul>
+        <li>
+            <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
+        </li>
+        <li>
+            <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
+        </li>
         <li class="active">
-            <a href="client-manage.html"><span><i class="icon icon01"></i>项目管理</span></a>
+            <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
         </li>
         <li>
-            <a href="client-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
-        </li>
-        <li>
-            <a href="client-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
+            <a href="operate-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
         </li>
     </ul>
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">新建项目</div>
-        <div class="data-detail">
+        <div class="title-warp">中国电信项目1的话务</div>
+        <div class="data-property">
             <form>
                 <ul class="data-text">
                     <li>
-                        <label class="name">项目名称</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="中国电信项目1">
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">项目类型</label>
-                        <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>sim卡电销</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                            <li>sim卡电销</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">人群地域</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="全国">
-                            <p class="tips">如：北京、上海，或全国</p>
-                            <!--<p class="error">未填写</p>-->
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">预计线索量</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="3000">
-                            <p class="tips">外呼时间为3天，打不完的线索不会计费</p>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">预计开始时间</label>
+                        <label class="name">日期</label>
                         <div class="input-warp date-warp">
-                            <div class="calendar-warp">
-                                <input class="date" type="text" value="2016.12.01">
+                            <div class="calendar-warp w45">
+                                <input class="date" type="text" value="2016-12-01">
                             </div>
-                            <p class="tips">外呼时间为3天</p>
+                            <em class="or">至</em>
+                            <div class="calendar-warp w45">
+                                <input class="date" type="text" value="2016-12-07">
+                            </div>
                         </div>
                     </li>
                     <li>
-                        <label class="name">详细描述<br/>（选填）</label>
-                        <div class="input-warp">
-                            <textarea>详细描述详细描述详细描述详细描述详细描述详</textarea>
-                            <p class="tips block">最多输入600个字符，已经输入0个字符</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="input-warp">
-                            <button class="btn blue" type="button">提交</button>
-                        </div>
+                        <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
                     </li>
                 </ul>
             </form>
+            <div class="data-export">
+                <ul>
+                    <li>
+                        <span class="t">参与坐席</span><span class="num">3</span>
+                    </li>
+                    <li>
+                        <span class="t">拨通次数</span><span class="num">800</span>
+                    </li>
+                    <li>
+                        <span class="t">拨通率</span><span class="num">80%</span>
+                    </li>
+                    <li>
+                        <span class="t">通话时长</span><span class="num">12小时46分</span>
+                    </li>
+                    <li>
+                        <span class="t">平均通话</span><span class="num">10分</span>
+                    </li>
+                    <li>
+                        <span class="t">挂机短信</span><span class="num">400</span>
+                    </li>
+                </ul>
+                <a href="javascript:void(0);" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
+            </div>
+        </div>
+        <div class="data-warp">
+            <div class="data-table">
+                <!--<p class="no-data">暂无数据</p>-->
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr><th>参与坐席</th><th>外呼次数</th><th>拨通次数</th><th>拨通率</th><th>呼损次数</th><th>呼损率</th><th>通话时长</th><th>平均通话</th><th>挂机短信</th></tr>
+                    <tr><td><a href="operate-telephone-single-seat.html">坐席1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>260</td></tr>
+                    <tr class="tr2"><td><a href="operate-telephone-single-seat.html">坐席2</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>260</td></tr>
+                    <tr><td><a href="operate-telephone-single-seat.html">坐席3</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>260</td></tr>
+                    <tr class="tr2"><td><a href="operate-telephone-single-seat.html">坐席4</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>260</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page">
+                <a class="prev disabled" href="javascript:void(0);">上一页</a>
+                <a href="javascript:void(0);" class="active">1</a>
+                <a href="javascript:void(0);">2</a>
+                <a href="javascript:void(0);">3</a>
+                <span>...</span>
+                <a href="javascript:void(0);">19</a>
+                <a class="next" href="javascript:void(0);">下一页</a>
+            </div>
         </div>
     </div>
 </div>

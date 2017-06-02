@@ -17,8 +17,9 @@
 <body>
 <div class="header">
     <ul class="header-content">
-        <li>
+        <li class="user-name">
             <i class="icon login-icon"></i>
+            <span class="name">坐席</span>
             <div class="quit">
                 <p title="Hi，hahaha">Hi，hahaha</p>
                 <a href="javascript:void(0);" onclick="getWindow('callSetting');" class="edit"><i class="icon icon06"></i><span>通话设置</span></a>
@@ -72,11 +73,11 @@
                         <label class="name">创建日期</label>
                         <div class="input-warp date-warp">
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.01">
+                                <input class="date" type="text" value="2016-12-01">
                             </div>
                             <em class="or">至</em>
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.07">
+                                <input class="date" type="text" value="2016-12-07">
                             </div>
                         </div>
                     </li>
@@ -92,10 +93,10 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>项目名称</th><th>类型</th><th>创建日期</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>操作</th></tr>
-                    <tr><td>中国电信项目1</td><td>sim卡电销</td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td><a href="seat-list.html">外呼</a></td></tr>
-                    <tr class="tr2"><td>中国电信项目2</td><td>sim卡电销</td><td>2017-03-16</td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td><a href="seat-list-view.html">查看</a></td></tr>
-                    <tr><td>中国电信项目3</td><td>sim卡电销</td><td>2017-03-16</td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td><a href="seat-list-view.html">查看</a></td></tr>
+                    <tr><th>项目名称</th><th>创建日期</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>挂机短信</th><th>操作</th></tr>
+                    <tr><td><a href="seat-list.html">中国电信项目1</a></td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>260</td><td><a href="seat-list.html">外呼</a></td></tr>
+                    <tr class="tr2"><td>中国电信项目2</td><td>2017-03-16</td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td></td><td><a href="seat-list-view.html">查看</a></td></tr>
+                    <tr><td>中国电信项目3</td><td>2017-03-16</td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>260</td><td><a href="seat-list-view.html">查看</a></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -112,6 +113,17 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 提醒弹窗 -->
+<div class="dialog" id="callTips">
+    <div class="dialog-body">
+        <div class="pop-default nop10">
+            <p class="title"><span><i class="icon tips"></i>IP电话、软电话或分机没有注册，请根据IP电话机内置说明书进行配置，如有疑问请联系管理员</span></p>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <button class="btn blue" type="button" onclick="hideDialog('callTips');">关闭</button>
+    </div>
+</div>
 <!-----------------------header下拉弹窗------------------------->
 <!-- 通话设置弹窗 -->
 <div class="dialog" id="callSetting">
@@ -204,6 +216,7 @@
             $(this).parents().find(".select-open .all span").html($(this).text());
             $(this).parents().find(".select-warp").removeClass("select-open");
         });
+        getWindow('callTips');
     });
     //弹窗
     function getWindow(id,c) {

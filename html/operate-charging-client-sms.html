@@ -17,12 +17,12 @@
 <body>
 <div class="header">
     <ul class="header-content">
-        <li>
+        <li class="user-name">
             <i class="icon login-icon"></i>
+            <span class="name">运营</span>
             <div class="quit">
-                <p title="Hi，hahaha">Hi，hahaha</p>
-                <a href="client-my.html" class="my"><i class="icon icon03"></i><span>我的账号</span></a>
-                <a href="client-myseat.html" class="my"><i class="icon icon04"></i><span>我的坐席</span></a>
+                <!--<p title="Hi，hahaha">Hi，hahaha</p>-->
+                <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
                 <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
                 <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
                 <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
@@ -33,39 +33,54 @@
 <div class="navbox">
     <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
     <ul>
+        <li>
+            <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
+        </li>
+        <li>
+            <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
+        </li>
+        <li>
+            <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
+        </li>
         <li class="active">
-            <a href="client-manage.html"><span><i class="icon icon01"></i>项目管理</span></a>
-        </li>
-        <li>
-            <a href="client-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
-        </li>
-        <li>
-            <a href="client-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
+            <a href="operate-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
+            <ul>
+                <li class="active">
+                    <a href="operate-charging.html"><span><i class="icon icon03-1"></i>项目计费</span></a>
+                </li>
+                <li>
+                    <a href="operate-charging-seat.html"><span><i class="icon icon03-2"></i>坐席计费</span></a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">新建项目</div>
-        <div class="data-detail">
+        <div class="tag-nav">
+            <a href="operate-charging.html">外呼计费</a>
+            <a href="operate-charging-sms.html" class="active">短信计费</a>
+        </div>
+        <div class="title-warp">中国电信</div>
+        <div class="data-property">
             <form>
                 <ul class="data-text">
                     <li>
                         <label class="name">项目名称</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="中国电信项目1">
-                        </div>
+                        <div class="input-warp"><input class="text" type="text"></div>
                     </li>
                     <li>
-                        <label class="name">项目类型</label>
+                        <label class="name">项目状态</label>
                         <div class="input-warp">
                             <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>sim卡电销</span></p>
+                                <p class="all"><span>全部</span></p>
                                 <div class="select-ul">
                                     <div class="scroll-warp scrollBar">
                                         <ul>
                                             <li>全部</li>
-                                            <li>sim卡电销</li>
+                                            <li>进行中</li>
+                                            <li>已暂停</li>
+                                            <li>已结束</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -73,43 +88,55 @@
                         </div>
                     </li>
                     <li>
-                        <label class="name">人群地域</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="全国">
-                            <p class="tips">如：北京、上海，或全国</p>
-                            <!--<p class="error">未填写</p>-->
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">预计线索量</label>
-                        <div class="input-warp">
-                            <input class="text" type="text" value="3000">
-                            <p class="tips">外呼时间为3天，打不完的线索不会计费</p>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">预计开始时间</label>
+                        <label class="name">创建日期</label>
                         <div class="input-warp date-warp">
-                            <div class="calendar-warp">
-                                <input class="date" type="text" value="2016.12.01">
+                            <div class="calendar-warp w45">
+                                <input class="date" type="text" value="2016-12-01">
                             </div>
-                            <p class="tips">外呼时间为3天</p>
+                            <em class="or">至</em>
+                            <div class="calendar-warp w45">
+                                <input class="date" type="text" value="2016-12-07">
+                            </div>
                         </div>
                     </li>
                     <li>
-                        <label class="name">详细描述<br/>（选填）</label>
-                        <div class="input-warp">
-                            <textarea>详细描述详细描述详细描述详细描述详细描述详</textarea>
-                            <p class="tips block">最多输入600个字符，已经输入0个字符</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="input-warp">
-                            <button class="btn blue" type="button">提交</button>
-                        </div>
+                        <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
                     </li>
                 </ul>
             </form>
+            <div class="data-export">
+                <ul>
+                    <li>
+                        <span class="t">短信线索计费</span><span class="num">¥8888.88</span>
+                    </li>
+                    <li>
+                        <span class="t">营销短信计费</span><span class="num">¥8888.88</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="data-warp">
+            <div class="data-table">
+                <!--<p class="no-data">暂无数据</p>-->
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr><th>项目名称</th><th>创建日期</th><th>状态</th><th>短信线索计费</th><th>营销短信计费</th></tr>
+                    <tr><td>中国电信项目1</td><td>2017-03-16</td><td>进行中</td><td>¥888.88</td><td>¥888.88</td></tr>
+                    <tr class="tr2"><td>中国电信项目1</td><td>2017-03-16</td><td>进行中</td><td>¥888.88</td><td>¥888.88</td></tr>
+                    <tr><td>中国电信项目1</td><td>2017-03-16</td><td>已暂停</td><td>¥888.88</td><td>¥888.88</td></tr>
+                    <tr class="tr2"><td>中国电信项目1</td><td>2017-03-16</td><td>已结束</td><td>¥888.88</td><td>¥888.88</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page">
+                <a class="prev disabled" href="javascript:void(0);">上一页</a>
+                <a href="javascript:void(0);" class="active">1</a>
+                <a href="javascript:void(0);">2</a>
+                <a href="javascript:void(0);">3</a>
+                <span>...</span>
+                <a href="javascript:void(0);">19</a>
+                <a class="next" href="javascript:void(0);">下一页</a>
+            </div>
         </div>
     </div>
 </div>
@@ -177,6 +204,7 @@
             $(this).parents().find(".select-open .all span").html($(this).text());
             $(this).parents().find(".select-warp").removeClass("select-open");
         });
+
     });
     //弹窗
     function getWindow(id,c) {

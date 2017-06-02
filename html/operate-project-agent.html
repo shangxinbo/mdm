@@ -17,8 +17,9 @@
 <body>
 <div class="header">
     <ul class="header-content">
-        <li>
+        <li class="user-name">
             <i class="icon login-icon"></i>
+            <span class="name">运营</span>
             <div class="quit">
                 <p title="Hi，hahaha">Hi，hahaha</p>
                 <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
@@ -37,6 +38,14 @@
         </li>
         <li class="active">
             <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
+            <ul>
+                <li class="active">
+                    <a href="operate-project.html"><span><i class="icon icon01-1"></i>外呼项目</span></a>
+                </li>
+                <li>
+                    <a href="operate-project-sms.html"><span><i class="icon icon01-2"></i>短信项目</span></a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
@@ -48,7 +57,7 @@
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">代理1的项目</div>
+        <div class="title-warp">代理1的外呼项目</div>
         <div class="data-property">
             <form>
                 <ul class="data-text">
@@ -96,11 +105,11 @@
                         <label class="name">创建日期</label>
                         <div class="input-warp date-warp">
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.01">
+                                <input class="date" type="text" value="2016-12-01">
                             </div>
                             <em class="or">至</em>
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.07">
+                                <input class="date" type="text" value="2016-12-07">
                             </div>
                         </div>
                     </li>
@@ -129,6 +138,9 @@
                     <li>
                         <span class="t">有效率</span><span class="num">80%</span>
                     </li>
+                    <li>
+                        <span class="t">挂机短信</span><span class="num">1000</span>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -137,14 +149,14 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>项目名称</th><th>客户名称</th><th>类型</th><th>创建日期</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>项目坐席</th><th>操作</th></tr>
-                        <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="operate-project-examine.html">审核</a></td></tr>
-                    <tr class="tr2"><td><a href="operate-project-fail.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>未通过</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr class="tr2"><td><a href="operate-project-ongoing.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td><a href="javascript:void(0);" onclick="getWindow('projectPause');">暂停</a></td></tr>
-                    <tr><td><a href="operate-project-ongoing.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td><a href="javascript:void(0);" onclick="getWindow('projectPause');">暂停</a></td></tr>
-                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>3</td><td><a href="javascript:void(0);" onclick="getWindow('projectStart');">开启</a></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>sim卡电销</td><td>2017-03-16</td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td></tr>
+                    <tr><th>项目名称</th><th>客户名称</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>项目坐席</th><th>挂机短信</th><th>操作</th></tr>
+                        <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="operate-project-examine.html">审核</a></td></tr>
+                    <tr class="tr2"><td><a href="operate-project-fail.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>未通过</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="tr2"><td><a href="operate-project-ongoing.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td>300</td><td><a href="javascript:void(0);" onclick="getWindow('projectPause');">暂停</a></td></tr>
+                    <tr><td><a href="operate-project-ongoing.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td><td><a href="javascript:void(0);" onclick="getWindow('projectPause');">暂停</a><a href="javascript:void(0);" onclick="getWindow('projectSms');">使用挂机短信</a></td></tr>
+                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>3</td><td>300</td><td><a href="javascript:void(0);" onclick="getWindow('projectStart');">开启</a></td></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td>300</td><td></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -161,6 +173,26 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 使用挂机短信弹窗 -->
+<div class="dialog" id="projectSms">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p><span>确定中国电信项目1要使用挂机短信？</span></p>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <button class="btn blue" type="button" onclick="getWindow('projectSms-succ','tips-succ');">确定</button>
+        <button class="btn" type="button" onclick="hideDialog('projectSms');">取消</button>
+    </div>
+</div>
+<div class="dialog tips-succ" id="projectSms-succ">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>挂机短信设置成功</span></p>
+        </div>
+    </div>
+</div>
 <!-- 暂停项目弹窗 -->
 <div class="dialog" id="projectPause">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
