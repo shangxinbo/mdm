@@ -7,7 +7,7 @@
         <div class="dialog-body">
             <ul class="query-warp">
                 <li class="w50">
-                    <label>手机号</label>
+                    <label>拨打资源</label>
                     <div class="input-warp">
                         <p class="text">{{tel}}</p>
                     </div>

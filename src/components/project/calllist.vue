@@ -15,7 +15,7 @@
                         <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                             <tbody>
                                 <tr>
-                                    <th>手机号</th>
+                                    <th>拨打资源</th>
                                     <th>分配日期</th>
                                     <th v-if="clue_status==0">拨打状态</th>
                                     <th>拨打结果</th>
