@@ -4,44 +4,11 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp" v-if="userType==5"></div>
-            <div class="title-warp" v-else>{{client_name?client_name + '的话务':(agent_name?'代理' + agent_name + '的话务': project_name + '的话务')}}
+            <div class="title-warp">{{project_name的话务')}}
             </div>
             <div class="data-property">
-                <form>
-                    <ul class="data-text">
-                        <li v-if="userType==1">
-                            <label class="name">项目</label>
-                            <div class="input-warp">
-                                <input class="text" v-model="search_name" type="text">
-                            </div>
-                        </li>
-                        <li v-if="category==2&&userType==1">
-                            <label class="name">客户</label>
-                            <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
-                        </li>
-                        <li>
-                            <label class="name">日期</label>
-                            <div class="input-warp date-warp">
-                                <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled1" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
-                                </div>
-                                <em class="or">至</em>
-                                <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button class="btn blue" type="button" @click="search">
-                                <span>
-                                    <i class="icon search"></i>查询
-                                </span>
-                            </button>
-                        </li>
-                    </ul>
-                </form>
-                 <div class="data-export" v-if="list.length>0 && userType ==3">
+                <categoryFilter @submit="search"></categoryFilter>
+                 <div class="data-export" v-if="list.length>0">
                      <ul>
                         <li>
                             <span class="t">参与坐席</span>
@@ -67,32 +34,13 @@
                     </ul>
                     <a :href="'/teltraffic/categoryExport' + '?search_project_id='+search_project_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
                 </div>
-                <div class="data-export" v-else>
-                    <div v-if="list.length>0">
-                        <ul>
-                            <li>
-                                <span class="t">拨通次数</span>
-                                <span class="num">{{head.effect_call_times}}</span>
-                            </li>
-                            <li>
-                                <span class="t">通话时长</span>
-                                <span class="num">{{head.charge_time }}</span>
-                            </li>
-                        </ul>
-                        <a :href="'/teltraffic/categoryExport' + '?search_name=' + search_name + '&search_client_id='+ search_client_id + '&search_agent_id='+search_agent_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time +'&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
-                    </div>
-                    <div v-else>
-                    </div>
-                </div>
             </div>
             <div class="data-warp">
                 <div class="data-table">
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th v-if="userType==1">项目名称</th>
-                                <th v-else>参与坐席</th>
-                                <th v-if="category==2&&userType==1">客户名称</th>
+                                <th>参与坐席</th>
                                 <th>外呼次数</th>
                                 <th>拨通次数</th>
                                 <th>拨通率</th>
@@ -100,13 +48,9 @@
                                 <th>呼损率</th>
                                 <th>通话时长</th>
                                 <th>平均通话</th>
-                                <th v-if="userType!=3">参与坐席</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>{{item.name}}</td>
-                                <td v-if="category==2&&userType==1">
-                                    <router-link :to="{path : '/call/cate',query:{search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
-                                </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
                                 <td>{{item.effect_call_rate}}%</td>
@@ -114,7 +58,6 @@
                                 <td>{{item.uneffect_call_rate}}%</td>
                                 <td>{{item.charge_time }}</td>
                                 <td>{{item.avg_time}}</td>
-                                <td v-if="userType!=3">{{item.seat_num}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -132,12 +75,12 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import mselect from 'components/utils/select'
-    import datepicker from 'vuejs-datepicker'
+    import categoryFilter from './category_filter'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
 
     export default {
-        data: function () {
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
@@ -155,30 +98,6 @@
                 }
             }
         },
-        computed: {
-            datepicker_disabled1:function () {
-                let end = this.search_end_time?this.search_end_time:''
-                if(end) {
-                    return  {
-                        to: new Date(2017,0,1),
-                        from: new Date(end)
-                    }
-                }else{
-                    return  {
-                        to: new Date(2017,0,1),
-                        from: new Date()
-                    }
-                }
-
-            },
-            datepicker_disabled2: function () {
-                let start = this.search_start_time
-                return  {
-                    to: new Date(start),
-                    from: new Date()
-                }
-            },
-        },
         watch: {
             $route: function () {
                 this.init()
@@ -187,7 +106,7 @@
         components: {
             pages,
             mselect,
-            datepicker,
+            categoryFilter,
             confirm,
             alert,
         },
