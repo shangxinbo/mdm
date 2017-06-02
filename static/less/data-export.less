@@ -9,7 +9,6 @@
     li{
       float: left;
       margin: 0 40px 0 0;
-      line-height: 30px;
       position: relative;
       color: @grayColor;
       span{
@@ -19,6 +18,7 @@
         position: relative;
         padding:0 10px 0 0;
         font-size: 14px;
+        line-height: 30px;
         color: @grayColor2;
         a{
           color: @blueColor;
@@ -36,6 +36,10 @@
     position: absolute;
     top: 0;
     right: 0;
+    a{
+      display: inline-block;
+      margin-left: 10px;
+    }
   }
   .btn-a{
     line-height: 30px;
@@ -73,4 +77,22 @@
       margin-left: 20px;
     }
   }
+}
+@media (max-width: 1366px){
+  .data-export{
+    ul{
+      li{
+        margin: 0 20px 0 0;
+        .num{
+          font-size: 16px;
+        }
+      }
+    }
+    .btn-export{
+      a{
+        margin-left: 5px;
+      }
+    }
+  }
+
 }

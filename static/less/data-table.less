@@ -67,7 +67,7 @@
       position: relative;
       a{
         color: @blueColor;
-        margin:0 10px;
+        margin:0 5px;
         display: inline-block;
         &.news{
           background-color: @blueColor;
@@ -84,6 +84,10 @@
         &:hover{
           text-decoration: underline;
         }
+      }
+      .audio{
+        vertical-align: middle;
+        position: absolute;
       }
       .notice{
         .wh(17px);
@@ -109,6 +113,24 @@
             background-position: -34px -20px;
             top: 2px;
             left: 2px;
+          }
+          &.play,&.pause{
+            .wh(14px);
+            top: 2px;
+            left: -1px;
+          }
+          &.play{
+            background-position: -17px -20px;
+          }
+          &.pause{
+            background-position: -17px -34px;
+          }
+          &.download{
+            width: 8px;
+            height: 12px;
+            background-position: -34px -36px;
+            top: 3px;
+            left: 4px;
           }
         }
         em{
@@ -153,6 +175,12 @@
       &.red{
         color: @redColor;
       }
+      &.limit{
+        span{
+          display: inline-block;
+          padding: 5px;
+        }
+      }
     }
     th{
       background: @tabelThBg;
@@ -173,7 +201,8 @@
   }
   &.check-warp{
     .icon {
-      .wh(17px);
+      margin: 0;
+      float: none;
       display: inline-block;
       background-position: 0 -55px;
       cursor: pointer;
