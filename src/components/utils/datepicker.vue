@@ -715,11 +715,24 @@
                 }
             },
             picked() {
-                let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
-                this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
-                this.val = moment(this.checked.currentMoment).format(this.format)
-                this.show = false
-                this.$emit('change', this.val)
+                // let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
+                // this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
+                // this.val = moment(this.checked.currentMoment).format(this.format)
+                // this.show = false
+                // this.$emit('change', this.val)
+                let checked = null
+                this.dayList.forEach((x) => {
+                    if(x.checked == true){
+                        checked = x
+                    }
+                })
+                if(checked){ //如果当前日期没有选中则不做处理
+                    let ctime = this.checked.year + '-' + this.checked.month + '-' + this.checked.day + ' ' + this.checked.hour + ':' + this.checked.min
+                    this.checked.currentMoment = moment(ctime, 'YYYY-MM-DD HH:mm')
+                    this.val = moment(this.checked.currentMoment).format(this.format)
+                    this.show = false
+                    this.$emit('change', this.val)
+                }
             },
             shiftActTime() {
                 this.$nextTick(() => {
