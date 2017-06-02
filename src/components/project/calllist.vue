@@ -60,7 +60,7 @@
     import callResultConf from './callResultConf'
     import md5 from 'js-md5'
     export default {
-        data: () => {
+        data(){
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 project: {

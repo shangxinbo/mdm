@@ -13,17 +13,19 @@
                         <li>
                             <span class="t">拨通次数</span>
                             <span class="num">{{head.effect_call_times}}</span>
-                        </li>
+                        </li> 
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">{{head.charge_time }}</span>
+                            <span class="num">{{head.charge_time}}</span>
                         </li>
-                        <a :href="'/teltraffic/export' + '?search_name=' + search_name + '&search_client_id='+ search_client_id + '&search_agent_id='+search_agent_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span>
+                        <a :href="downUrl" class="btn blue btn-export">
+                            <span>
+                                <i class="icon icon-export"></i>导出
+                            </span>
                         </a>
                     </ul>
                 </div>
-                <div class="data-export" v-else>
-                </div>
+                <div class="data-export" v-else></div>
             </div>
             <div class="data-warp">
                 <div class="data-table">
@@ -65,7 +67,7 @@
                     </table>
                     <p class="no-data" v-else>暂无数据</p>
                 </div>
-                <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
+                <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
         <confirm ref="confirm"></confirm>
@@ -81,45 +83,25 @@
     import alert from 'components/dialog/alert'
 
     export default {
-        data: function () {
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
                 head: [],
                 userType: user.type,
                 currentPage: 1,
-                totalPage: 1,
-                search_start_time : '',
-                search_end_time : '',
-                api: {
-                    customerList: API.customer_list_all,
-                    agentList: API.angent_list_all,
-                }
+                totalPage: 1
             }
         },
         computed: {
-            datepicker_disabled1:function () {
-                let end = this.search_end_time?this.search_end_time:''
-                if(end) {
-                    return  {
-                        to: new Date(2017,0,1),
-                        from: new Date(end)
-                    }
-                }else{
-                    return  {
-                        to: new Date(2017,0,1),
-                        from: new Date()
-                    }
-                }
-
-            },
-            datepicker_disabled2: function () {
-                let start = this.search_start_time
-                return  {
-                    to: new Date(start),
-                    from: new Date()
-                }
-            },
+            downUrl() {
+                return '/teltraffic/export?'
+                    + 'search_name=' + this.$route.query.search_name
+                    + '&search_client_id=' + this.$route.query.search_client_id
+                    + '&search_agent_id=' + this.$route.query.search_agent_id
+                    + '&search_start_time=' + this.$route.query.startTime
+                    + '&search_end_time=' + this.$route.query.endTime
+            }
         },
         watch: {
             $route: function () {
@@ -132,97 +114,71 @@
             confirm,
             alert,
         },
+        created() {
+            this.init()
+        },
         methods: {
-            init: function () {
-                this.search_agent_id = this.$route.query.search_agent_id===undefined ?'': this.$route.query.search_agent_id
-                this.search_client_id = this.$route.query.search_client_id===undefined ?'': this.$route.query.search_client_id
-                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
-                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
-                this.search_name = this.$route.query.search_name ? this.$route.query.search_name : ''
+            init() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.refresh()
+                this.render()
                 this.heads()
             },
-
-            refresh: function () {
-                let _this = this
-                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
-                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
+            render() {
+                let search_agent_id = this.$route.query.search_agent_id === undefined ? '' : this.$route.query.search_agent_id
+                let search_client_id = this.$route.query.search_client_id === undefined ? '' : this.$route.query.search_client_id
                 mAjax(this, {
                     url: API.call_list,
                     data: {
-                        search_name: _this.search_name  ,
-                        search_client_id: _this.search_client_id ,
-                        search_agent_id: _this.search_agent_id ,
-                        search_start_time: start_time ,
-                        search_end_time: end_time ,
-                        page: _this.currentPage,
+                        search_name: this.$route.query.search_name,
+                        search_client_id: search_client_id,
+                        search_agent_id: search_agent_id,
+                        search_start_time: this.$route.query.startTime,
+                        search_end_time: this.$route.query.endTime,
+                        page: this.currentPage,
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.list = data.data.data
-                            _this.totalPage = data.data.page
+                            this.list = data.data.data
+                            this.totalPage = data.data.page
                         } else {
-                            _this.list = []
-                            _this.totalPage = 1
+                            this.list = []
+                            this.totalPage = 1
                         }
                     }
                 })
             },
-            heads: function () {
-                let _this = this
-                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
-                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
+            heads() {
+                let search_agent_id = this.$route.query.search_agent_id === undefined ? '' : this.$route.query.search_agent_id
+                let search_client_id = this.$route.query.search_client_id === undefined ? '' : this.$route.query.search_client_id
                 mAjax(this, {
                     url: API.call_head,
                     data: {
-                        search_name: _this.search_name ,
-                        search_client_id:  _this.search_client_id ,
-                        search_agent_id: _this.search_agent_id ,
-                        search_start_time: start_time,
-                        search_end_time:end_time
+                        search_name: this.$route.query.search_name,
+                        search_client_id: search_client_id,
+                        search_agent_id: search_agent_id,
+                        search_start_time: this.$route.query.startTime,
+                        search_end_time: this.$route.query.end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.head = data.data
+                            this.head = data.data
                         } else {
-                            _this.head = []
+                            this.head = []
                         }
                     }
                 })
             },
-            jump(num) {
-                let obj = Object.assign({}, this.$route.query, { page: num })
-                this.$router.replace({
-                    name: this.$route.name,
-                    query: obj
-                })
-            },
-            search() {
-                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
-                let search_agent_id = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
-                let start_time =this.search_start_time
-                let end_time = this.search_end_time
-                let query = Object.assign({}, this.$route.query, {
-                    search_name: this.search_name,
-                    search_client_id: search_client_id,
-                    search_agent_id: search_agent_id,
-                    search_start_time: start_time,
-                    search_end_time: end_time,
-                    page: 1
-                })
+            search(param) {
+                let query
+                if (!isNaN(param)) {
+                    query = Object.assign({}, this.$route.query, { page: param })
+                } else {
+                    query = Object.assign({}, this.$route.query, param, { page: 1 })
+                }
                 this.$router.replace({
                     name: this.$route.name,
                     query: query
                 })
-            }
-        },
-        created: function () {
-            this.init()
-            let _this = this
-            document.onkeyup = function (evt) {
-                if (evt.keyCode == 13)
-                    _this.search()
             }
         }
     }
