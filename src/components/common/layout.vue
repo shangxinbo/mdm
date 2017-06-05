@@ -93,19 +93,22 @@
                         _this.error = err.message
                     }
                 })
-                mAjax(_this, {
-                    url: API.get_tel_prefix,
-                    success: data => {
-                        if (data.code == 200) {
-                            _this.$store.commit('SET_TEL_PREFIX', data.data.prefix)
-                        } else {
-                            _this.$store.commit('SET_TEL_PREFIX', null)
-                        }
-                    },
-                    error: err => {
-                        _this.$store.commit('SET_TEL_PREFIX', null)
-                    }
-                })
+                
+                // 获取前缀
+                // mAjax(_this, {
+                //     url: API.get_tel_prefix,
+                //     success: data => {
+                //         if (data.code == 200) {
+                //             _this.$store.commit('SET_TEL_PREFIX', data.data.prefix)
+                //         } else {
+                //             _this.$store.commit('SET_TEL_PREFIX', null)
+                //         }
+                //     },
+                //     error: err => {
+                //         _this.$store.commit('SET_TEL_PREFIX', null)
+                //     }
+                // })
+                _this.$store.commit('SET_TEL_PREFIX', null)
             }
             //坐席登录外呼中心 end
         }
