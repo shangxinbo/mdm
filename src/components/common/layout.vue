@@ -115,7 +115,7 @@
                 setInterval(() => {
                     let now = new Date().getTime()
                     console.log(now-window.login_timer)
-                    if ((now - window.login_timer) > 2 * 60 * 1000) {  //20无操作退出
+                    if ((now - window.login_timer) > 20 * 60 * 1000) {  //20无操作退出
                         localStorage.removeItem('user')
                         sessionStorage.clear()
                         window.location.reload()
