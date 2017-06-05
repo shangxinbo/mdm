@@ -26,7 +26,7 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
+    import { mAjax, getCookie } from 'src/services/functions'
 
     export default {
         data: function () {
@@ -109,8 +109,35 @@
                 //     }
                 // })
                 _this.$store.commit('SET_TEL_PREFIX', null)
+
+
+                //定时退出 
+                setInterval(() => {
+                    let now = new Date().getTime()
+                    console.log(now-window.login_timer)
+                    if ((now - window.login_timer) > 2 * 60 * 1000) {  //20无操作退出
+                        localStorage.removeItem('user')
+                        sessionStorage.clear()
+                        window.location.reload()
+                    } else {                                            //看登录是否有效
+                        mAjax(this, {
+                            url: API.get_myclient_balance,
+                            success: data => {
+                                //console.log(123)
+                            }
+                        })
+                    }
+                }, 30 * 1000)
+
+                window.login_timer = new Date().getTime()
+                document.body.addEventListener('mouseover', function () {
+                    window.login_timer = new Date().getTime()
+                    console.log(window.login_timer)
+                })
+
             }
             //坐席登录外呼中心 end
+
         }
     }
 
