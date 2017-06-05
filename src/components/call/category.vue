@@ -4,8 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">{{project_name的话务')}}
-            </div>
+            <div class="title-warp">{{project_name}}的话务</div>
             <div class="data-property">
                 <categoryFilter @submit="search"></categoryFilter>
                  <div class="data-export" v-if="list.length>0">
