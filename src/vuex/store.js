@@ -13,7 +13,16 @@ const state = {
     changeMypassDialogShow:false,
     callInfo:null,
     showCallSet:false,
-    dialing:false
+    dialing:false,
+    tel_pre:null,
+    filter_date:7,
+    yunying_role:{
+        1:false,
+        2:false,
+        3:false,
+        4:false,
+        5:false
+    }
 }
 
 const mutations = {
@@ -51,6 +60,19 @@ const mutations = {
     },
     CHANGE_DIAL_STATUS(state,bool){
         state.dialing = bool
+    },
+    SET_TEL_PREFIX(state,str){
+        state.tel_pre = str
+    },
+    SET_FILTER_DATE(state,val){
+        state.filter_date = val
+    },
+    CHANGE_POWER(state,arr){
+        if(arr.length>0){
+            arr.forEach(el=>{
+                state.yunying_role[el] = true
+            })
+        }
     }
 }
 

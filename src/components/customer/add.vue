@@ -62,8 +62,8 @@
                                             <input type="file" class="file" accept=".jpg,.png,.gif" multiple="false" size="28" @change="selectLicense">
                                         </div>
                                     </div>
-                                    <p v-show="licence_error" class="error">{{licence_error}}</p>
                                 </div>
+                                <p v-show="licence_error" class="error">{{licence_error}}</p>
                             </div>
                         </li>
                         <li>
@@ -80,9 +80,9 @@
                                             <span class="button1">上传文件</span>
                                             <input type="file" class="file" accept=".jpg,.png,gif" multiple="false" size="28" @change="selectQualification">
                                         </div>
-                                        <p v-show="qualification_error" class="error">{{qualification_error}}</p>
                                     </div>
                                 </div>
+                                <p v-show="qualification_error" class="error">{{qualification_error}}</p>
                             </div>
                         </li>
                     </ul>

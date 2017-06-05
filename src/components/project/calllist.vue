@@ -32,7 +32,7 @@
                                                 <i class="icon phone"></i>
                                             </span>拨打
                                         </a>
-                                        <a v-if="item.is_dial||clue_status" href="javascript:void(0);" @click="view(item.id)">查看</a>
+                                        <a v-if="item.is_dial!=0||clue_status!=0" href="javascript:void(0);" @click="view(item.id)">查看</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -79,6 +79,9 @@
         computed: {
             dialing: function () {
                 return this.$store.state.dialing
+            },
+            tel_pre:function(){
+                return this.$store.state.tel_pre
             }
         },
         components: {
@@ -217,12 +220,13 @@
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     _this.uuid = evt.params.channel_uuid
-                    _this.$store.commit('CHANGE_DIAL_STATUS', true)
+                    let tel = evt.params.dest_number.replace(_this.tel_pre,'')
+                    _this.$store.commit('CHANGE_DIAL_STATUS',true)
                     mAjax(_this, {
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: _this.uuid,
-                            phone: evt.params.dest_number,
+                            phone: tel,
                             project_id: _this.project.id
                         },
                         success: data => {
@@ -246,8 +250,11 @@
                                     },
                                     success: data => {
                                         window.mycomm_agent.wrap_up(0)
-                                        console.log(data.data.telephone)
-                                        window.mycomm_agent.dial(data.data.telephone, 'geo', 'great')
+                                        let tel_all = data.data.telephone
+                                        if(this.tel_pre){
+                                            tel_all = this.tel_pre + tel_all
+                                        }
+                                        window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                     }
                                 })
                             } else {

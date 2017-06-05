@@ -5,7 +5,6 @@
             <th>项目名称</th>
             <th v-if="type!='user'&&userType!=3">客户名称</th>
             <th v-if="type=='all'&&userType!=3">所属代理</th>
-            <th>类型</th>
             <th>创建日期</th>
             <th>状态</th>
             <th>线索计费</th>
@@ -23,7 +22,6 @@
 
                 </router-link>
             </td>
-            <td>{{item.type}}</td>
             <td>{{item.created_at}}</td>
             <td>{{item.status_name}}</td>
             <td>¥{{item.clue_charging}}</td>

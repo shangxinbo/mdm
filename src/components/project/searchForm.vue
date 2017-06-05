@@ -32,11 +32,11 @@
                 </div>
             </li>
             <li>
-                <button class="btn blue" type="button" @click="submit">
+                <a class="btn blue" type="button" @click="submit">
                     <span>
                         <i class="icon search"></i>查询
                     </span>
-                </button>
+                </a>
             </li>
         </ul>
     </form>

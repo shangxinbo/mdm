@@ -20,6 +20,7 @@ module.exports = function (req, res) {
                 "nickname": '@cname',
                 "mail": "@email",
                 "tel": "18923156486",
+                "rule":"客户管理",
                 "created_at": '@date("yyyy-MM-dd HH:mm:ss")'
             }
         ]

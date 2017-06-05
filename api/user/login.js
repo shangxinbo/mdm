@@ -14,7 +14,7 @@ module.exports = function (req, res) {
         "nick_name": "尚新波",
         "tel": "18612119498",
         "mail": "314911714@qq.com",
-        "type": "4",  //账号类型：超管、运营、代理、客户、座席
+        "type": "0",  //账号类型：超管、运营、代理、客户、座席
         "status": 0,   //用户状态
         "modify_status":1
     }

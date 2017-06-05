@@ -15,7 +15,8 @@ export default {
     agent_list: API_PRE + '/operate/aginuserinfo',
     reset_operate_pass: API_PRE + '/operation/changePwd',
     create_operate: API_PRE + '/operation/add',
-    update_operate: API_PRE + '/operation/modifyinfo',
+    get_operate_info: API_PRE + '/operation/modifyinfo',
+    update_operate: API_PRE + '/operation/operationmodifyinfomessage',
     customer_list: API_PRE + '/agent/list',
     customer_list_all: API_PRE + '/customer/all',
     customer_list_by_operate: API_PRE + '/operate/list',
@@ -71,5 +72,13 @@ export default {
     doc_upload: API_PRE + '/doc/upload',
     doc_download: API_PRE + '/doc/download',
     get_myclient_balance: API_PRE + '/seat/balance',
-    get_tel: API_PRE + '/seat/getseatphone'
+    get_tel: API_PRE + '/seat/getseatphone',
+    get_tel_prefix: API_PRE + '/callCenter/getPhonePrefix',
+    filter_product_1: API_PRE + '/filtertag/products',
+    filter_product_2: API_PRE + '/filtertag/product',
+    filter_prefer_1: API_PRE + '/filtertag/preferences',
+    filter_prefer_2: API_PRE + '/filtertag/preference',
+    filter_area: API_PRE + '/filtertag/region',
+    filter_customers: API_PRE + '/filtertag/selectnumber',
+    filter_save:API_PRE + '/filtertag/save'
 }

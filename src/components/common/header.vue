@@ -1,11 +1,12 @@
 <template>
     <div class="header">
+        <slot></slot>
         <ul class="header-content">
             <li @click.stop="slideDown" :class="{'li-hover':show}">
                 <i class="icon login-icon"></i>
                 <div class="quit" @click.stop>
                     <p :title="user">{{user.length>9? user.substr(0,6)+'…':user}}</p>
-                    <router-link to="/agent/index" class="my" v-if="type==1">
+                    <router-link to="/agent/index" class="my" v-if="type==1&&yunying_role[5]">
                         <i class="icon icon05"></i>
                         <span>代理管理</span>
                     </router-link>
@@ -47,7 +48,7 @@
     import API from 'src/services/api'
     import Vue from 'vue'
     export default {
-        data: function () {
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 username: user.user_name,
@@ -57,14 +58,19 @@
                 downloadApi: API.doc_download
             }
         },
+        computed: {
+            yunying_role() {
+                return this.$store.state.yunying_role
+            }
+        },
         methods: {
-            slideDown: function () {
+            slideDown() {
                 this.show = true
             },
-            slideUp: function () {
+            slideUp() {
                 this.show = false
             },
-            logout: function () {
+            logout() {
                 this.show = false
                 let _this = this
 
@@ -99,7 +105,7 @@
                 this.$store.commit('SHOW_CALL_SET')
             }
         },
-        created: function () {
+        created() {
             let _this = this
             Vue.nextTick(function () {
                 document.addEventListener('click', function () {
