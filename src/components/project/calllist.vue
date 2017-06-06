@@ -246,7 +246,21 @@
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                         }
                                         window.mycomm_agent.on_login_f = function (evt) {
-                                            _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能不能使用')
+                                            let msg = '服务暂不可用，请联系管理员'
+                                            switch(evt.params.err_num){
+                                                case 404: 
+                                                    msg = 'IP电话/软电话/分机没有注册，请根据IP电话机内置说明书进行配置，如有疑问请联系管理员'
+                                                    break
+                                                case 409: 
+                                                    msg = '该分机已经被其他坐席使用，请联系管理员'
+                                                    break
+                                                case 503: 
+                                                    msg = '服务暂不可用，请联系管理员'
+                                                    break
+                                                default:
+                                                    msg = '服务暂不可用，请联系管理员'
+                                            }
+                                            _this.$refs.alert.$emit('show', msg)
                                         }
                                         window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                     }
