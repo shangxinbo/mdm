@@ -102,7 +102,7 @@
                 if (value) {
                     return callResultConf[value]
                 } else {
-                    return '未拨打'
+                    return '未拨通'
                 }
             },
             md5Tel(value) {
