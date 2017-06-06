@@ -112,14 +112,14 @@
 
 
                 //定时退出 
-                // setInterval(() => {
-                //     mAjax(this, {
-                //         url: API.get_myclient_balance,
-                //         success: data => {
-                //             //console.log(123)
-                //         }
-                //     })
-                // }, 30 * 1000)
+                setInterval(() => {
+                    mAjax(this, {
+                        url: API.get_myclient_balance,
+                        success: data => {
+                            //console.log(123)
+                        }
+                    })
+                }, 30 * 1000)
             }
             //坐席登录外呼中心 end
 
