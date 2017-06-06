@@ -82,6 +82,9 @@
             },
             tel_pre:function(){
                 return this.$store.state.tel_pre
+            },
+            seat_info:function(){
+                return this.$store.state.callInfo
             }
         },
         components: {
@@ -176,21 +179,20 @@
             call(id, tel) {
                 let _this = this
                 let uuid = ''
+                
+
                 window.mycomm_agent.on_dial_s = function (evt) {
                     _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
                 }
                 window.mycomm_agent.on_dial_f = function (evt) {
                     _this.$store.commit('SHOW_TOAST', evt.params.err_des)
+                    window.mycomm_agent.logout()
                 }
 
-                //用户接通
-                window.mycomm_agent.on_user_answer = function (evt) {
-                    console.log('on_user_answer')
-                }
                 //用户接通后挂断
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
-                    console.log('on_agent_ext_hangup')
                     _this.$store.commit('CHANGE_DIAL_STATUS', false)
+                    window.mycomm_agent.logout()
                     mAjax(_this, {
                         url: API.add_call_job,
                         data: {
@@ -200,22 +202,6 @@
                             console.log('拨叫任务处理完毕')
                         }
                     })
-                    window.mycomm_agent.wrap_up(0)
-                }
-                //拨打失败
-                window.mycomm_agent.on_agent_dialout_fail = function (evt) {
-                    console.log('on_agent_dialout_fail')
-                }
-                //外呼成功
-                window.mycomm_agent.on_agent_dialout_succ = function (evt) {
-                    console.log('on_agent_dialout_succ')
-                }
-                //拨通后响铃
-                window.mycomm_agent.on_agent_ext_ringing = function (evt) {
-                    console.log('on_agent_ext_ringing')
-                }
-                window.mycomm_agent.on_stop_three_way_fail = function (evt) {
-                    console.log('on_call_agent_fail')
                 }
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
@@ -249,12 +235,20 @@
                                         id: id
                                     },
                                     success: data => {
-                                        window.mycomm_agent.wrap_up(0)
+                                        let info = this.seat_info
+                                        
                                         let tel_all = data.data.telephone
                                         if(this.tel_pre){
                                             tel_all = this.tel_pre + tel_all
                                         }
-                                        window.mycomm_agent.dial(tel_all, 'geo', 'great')
+                                        window.mycomm_agent.wrap_up(0)
+                                        window.mycomm_agent.on_login_s = function (evt) {
+                                            window.mycomm_agent.dial(tel_all, 'geo', 'great')
+                                        }
+                                        window.mycomm_agent.on_login_f = function (evt) {
+                                            _this.$refs.alert.$emit('show', '登录外呼平台异常，外呼功能不能使用')
+                                        }
+                                        window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                     }
                                 })
                             } else {
