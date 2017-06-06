@@ -244,6 +244,14 @@
                                         window.mycomm_agent.wrap_up(0)
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
+                                            setInterval(() => {  //延长用户有效期
+                                                mAjax(this, {
+                                                    url: API.get_myclient_balance,
+                                                    success: data => {
+                                                        //console.log(123)
+                                                    }
+                                                })
+                                            }, 30 * 1000)
                                         }
                                         window.mycomm_agent.on_login_f = function (evt) {
                                             let msg = '服务暂不可用，请联系管理员'
