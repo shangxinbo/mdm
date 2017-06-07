@@ -60,17 +60,20 @@
         methods: {
             sure() {
                 let _this = this
+                this.error_clue = ''
+                this.error_call = ''
+                this.error_seat = ''
 
                 //表单验证格式
-                if (isNaN(this.clue) || this.clue < 0) {
+                if (!this.clue||isNaN(this.clue) || this.clue < 0) {
                     this.error_clue = '单价格式不正确'
                     return false
                 }
-                if (isNaN(this.call) || this.call < 0) {
+                if (!this.call||isNaN(this.call) || this.call < 0) {
                     this.error_call = '单价格式不正确'
                     return false
                 }
-                if (isNaN(this.seat) || this.seat < 0) {
+                if (!this.seat||isNaN(this.seat) || this.seat < 0) {
                     this.error_seat = '单价格式不正确'
                     return false
                 }
