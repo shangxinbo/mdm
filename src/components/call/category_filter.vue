@@ -15,7 +15,7 @@
                 </div>
             </li>
             <li>
-                <button class="btn blue" type="button" @click="search">
+                <button class="btn blue" type="button" @click="submit">
                     <span>
                         <i class="icon search"></i>查询
                     </span>
@@ -78,7 +78,6 @@
             },
             submit() {
                 let obj = {
-                    search_name: this.search_name,
                     startTime: this.startTime,
                     endTime: this.endTime
                 }

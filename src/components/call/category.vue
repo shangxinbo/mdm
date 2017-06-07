@@ -7,8 +7,8 @@
             <div class="title-warp">{{project_name}}的话务</div>
             <div class="data-property">
                 <categoryFilter @submit="search"></categoryFilter>
-                 <div class="data-export" v-if="list.length>0">
-                     <ul>
+                <div class="data-export" v-if="list.length>0">
+                    <ul>
                         <li>
                             <span class="t">参与坐席</span>
                             <span class="num">{{head.seat_num}}</span>
@@ -31,7 +31,11 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+search_project_id+'&search_start_time='+search_start_time+'&search_end_time='+search_end_time + '&category='+category" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
+                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+ project_id+'&search_start_time='+start_time+'&search_end_time='+end_time + '&category='+category"
+                        class="btn blue btn-export">
+                        <span>
+                            <i class="icon icon-export"></i>导出</span>
+                    </a>
                 </div>
             </div>
             <div class="data-warp">
@@ -62,7 +66,7 @@
                     </table>
                     <p class="no-data" v-else>暂无数据</p>
                 </div>
-                <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
+                <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
         <confirm ref="confirm"></confirm>
@@ -83,18 +87,14 @@
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 list: [],
-                head :[],
+                head: [],
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
-                client_name : '',
-                agent_name : '',
-                project_name : '',
-                search_start_time : '',
-                search_end_time : '',
-                api: {
-                    customerList: API.customer_list_all,
-                }
+                project_name: '',
+                project_id: '',
+                start_time: '',
+                end_time: ''
             }
         },
         watch: {
@@ -110,35 +110,30 @@
             alert,
         },
         methods: {
-            init : function() {
-                this.search_name = this.$route.query.search_name?this.$route.query.search_name:''
+            init() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.search_agent_id = this.$route.query.search_agent_id===undefined ?'': this.$route.query.search_agent_id
-                this.agent_name = this.$route.query.agent_name ? this.$route.query.agent_name : ''
-                this.search_client_id = this.$route.query.search_client_id===undefined ?'': this.$route.query.search_client_id
-                this.client_name = this.$route.query.client_name ? this.$route.query.client_name : ''
                 this.project_name = this.$route.query.project_name ? this.$route.query.project_name : ''
-                this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : ''
-                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
-                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
-                this.category = this.userType == 3 ? 1 :(this.search_agent_id ? 2:3)
+                this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
+                this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
+                this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
+                this.category = this.userType == 3 ? 1 : (this.search_agent_id ? 2 : 3)
                 this.refresh()
                 this.heads()
             },
-            refresh: function () {
+            refresh() {
                 let _this = this
-                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
-                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
+                let start_time = typeof (this.start_time) == 'string' ? this.start_time : dateFormat(this.start_time)
+                let end_time = typeof (this.end_time) == 'string' ? this.end_time : dateFormat(this.end_time)
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
-                        search_name : _this.search_name ,
-                        search_agent_id: _this.search_agent_id  ,
-                        search_client_id : _this.search_client_id  ,
-                        search_project_id : _this.search_project_id  ,
+                        search_name: _this.search_name,
+                        search_agent_id: _this.search_agent_id,
+                        search_client_id: _this.search_client_id,
+                        search_project_id: _this.search_project_id,
                         search_start_time: start_time,
                         search_end_time: end_time,
-                        category : _this.category,
+                        category: _this.category,
                         page: _this.currentPage,
                     },
                     success: (data) => {
@@ -152,20 +147,18 @@
                     }
                 })
             },
-            heads : function () {
+            heads() {
                 let _this = this
-                let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
-                let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 mAjax(this, {
                     url: API.call_head,
                     data: {
-                        category : _this.category,
-                        search_name: _this.search_name ,
-                        search_client_id: _this.search_client_id ,
-                        search_agent_id: _this.search_agent_id ,
-                        search_project_id : _this.search_project_id ,
-                        search_start_time:start_time,
-                        search_end_time: end_time
+                        category: _this.category,
+                        search_name: _this.search_name,
+                        search_client_id: _this.search_client_id,
+                        search_agent_id: _this.search_agent_id,
+                        search_project_id: _this.search_project_id,
+                        search_start_time: _this.start_time,
+                        search_end_time: _this.end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
@@ -176,34 +169,20 @@
                     }
                 })
             },
-            jump(num) {
-                let obj = Object.assign({}, this.$route.query, { page: num })
-                this.$router.replace({
-                    name: this.$route.name,
-                    query: obj
-                })
-            },
-            search() {
-                let search_client_id = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : this.search_client_id
-                let start_time = this.search_start_time
-                let end_time = this.search_end_time
-                let query = Object.assign({}, this.$route.query, {
-                    search_name: this.search_name,
-                    search_client_id: search_client_id,
-                    search_agent_id: this.search_agent_id,
-                    search_project_id : this.search_project_id,
-                    search_start_time: start_time,
-                    search_end_time: end_time,
-                    page: 1,
-                    category : this.category,
-                })
+            search(param) {
+                let query
+                if (!isNaN(param)) {
+                    query = Object.assign({}, this.$route.query, { page: param })
+                } else {
+                    query = Object.assign({}, this.$route.query, param, { page: 1 })
+                }
                 this.$router.replace({
                     name: this.$route.name,
                     query: query
                 })
             }
         },
-        created: function () {
+        created() {
             this.init()
             let _this = this
             document.onkeyup = function (evt) {

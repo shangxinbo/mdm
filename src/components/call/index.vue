@@ -46,7 +46,7 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <router-link :to="{path : '/call/cate',query : {search_project_id:item.id,project_name:item.name}}">{{item.name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : {project_id:item.id,project_name:item.name}}">{{item.name}}</router-link>
                                 </td>
                                 <td v-if="userType==1">
                                     <router-link :to="{path : '/call/cate',query : {search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
