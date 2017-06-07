@@ -245,7 +245,7 @@
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                             setInterval(() => {  //延长用户有效期
-                                                mAjax(this, {
+                                                mAjax(_this, {
                                                     url: API.get_myclient_balance,
                                                     success: data => {
                                                         //console.log(123)
