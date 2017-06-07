@@ -108,10 +108,12 @@
             let _this = this
             this.$on('show', function (id, company, balance) {
                 _this.id = id
-                // _this.money = ''
-                // _this.money_error = ''
-                // _this.company = company
-                // _this.balance = balance
+                _this.clue = ''
+                _this.call = ''
+                _this.seat = ''
+                _this.error_clue = ''
+                _this.error_call = ''
+                _this.error_seat = ''
                 _this.style = 'block'
                 _this.$store.commit('SHOW_LAYER')
 
