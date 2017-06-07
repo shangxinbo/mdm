@@ -125,13 +125,10 @@
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
-                        search_name: _this.search_name,
-                        search_agent_id: _this.search_agent_id,
-                        search_client_id: _this.search_client_id,
-                        search_project_id: _this.search_project_id,
+                        search_project_id: _this.project_id,
                         search_start_time: start_time,
                         search_end_time: end_time,
-                        category: _this.category,
+                        category: 1,
                         page: _this.currentPage,
                     },
                     success: (data) => {
@@ -150,11 +147,8 @@
                 mAjax(this, {
                     url: API.call_head,
                     data: {
-                        category: _this.category,
-                        search_name: _this.search_name,
-                        search_client_id: _this.search_client_id,
-                        search_agent_id: _this.search_agent_id,
-                        search_project_id: _this.search_project_id,
+                        category: 1,
+                        search_project_id: _this.project_id,
                         search_start_time: _this.start_time,
                         search_end_time: _this.end_time
                     },
