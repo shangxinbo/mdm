@@ -31,7 +31,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+ project_id+'&search_start_time='+start_time+'&search_end_time='+end_time + '&category=1"
+                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+start_time+'&search_end_time='+end_time + '&category=1'"
                         class="btn blue btn-export">
                         <span>
                             <i class="icon icon-export"></i>导出</span>
