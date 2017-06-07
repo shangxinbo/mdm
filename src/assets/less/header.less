@@ -4,16 +4,16 @@
   height: 70px;
   position: absolute;
   top: 0;
-  z-index: 3;
+  z-index: 5;
   .icon{
     .flo();
     background: url('@{url}/header-icon.png') no-repeat;
   }
   h1{
-    width: 163px;
+    width: 137px;
     height: 34px;
     position: absolute;
-    top: 50px;
+    top: 28px;
     left: 45px;
     a{
       display: block;
@@ -34,6 +34,19 @@
     width: 39px;
     height: 39px;
     background-position: 0 0;
+  }
+  .name{
+    position: absolute;
+    display: none;
+    top: 32px;
+    left: -4px;
+    min-width: 47px;
+    line-height: 21px;
+    background-color: #7a9dbc;
+    border-radius: 4px;
+    color: @whiteColor;
+    text-align: center;
+    white-space: nowrap;
   }
   li{
     float: left;
@@ -71,6 +84,14 @@
       }
       &>div{
         display: block;
+      }
+    }
+    &.user-name{
+      .name{
+        display: block;
+      }
+      .quit{
+        top: 65px;
       }
     }
   }
@@ -125,6 +146,9 @@
         .icon07{
           background-position: -58px -60px;
         }
+        .icon08{
+          background-position: -58px -80px;
+        }
       }
     }
     .icon{
@@ -154,6 +178,9 @@
     .icon07{
       background-position: -37px -60px;
     }
+    .icon08{
+      background-position: -37px -80px;
+    }
     span{
       display: inline-block;
       vertical-align: top;
@@ -161,4 +188,8 @@
       text-align: left;
     }
   }
+}
+.header-screening{
+  border-bottom: 1px solid #c7d8e9;
+  height: 87px;
 }

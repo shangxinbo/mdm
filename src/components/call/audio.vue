@@ -165,8 +165,6 @@
                 })
             },
             playAudio(url) {
-                //this.playUrl = url
-                //this.playUrl = 'http://96.f.1ting.com/593786c0/7a207fa267fa55bfee795b1d3f9c328b/zzzzzmp3/2017fJun/05X/05e_Zero/01.mp3'
                 let dom = document.querySelector('#audio')
                 dom.src = url
                 dom.play()

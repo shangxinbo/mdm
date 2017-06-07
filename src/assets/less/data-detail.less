@@ -34,6 +34,10 @@
         line-height: 41px;
         color: @grayColor;
         display: inline-block;
+        .or{
+          display: inline-block;
+          padding: 0 10px;
+        }
         a{
           color: @blueColor;
           margin-right: 20px;
@@ -52,7 +56,7 @@
           }
         }
         .btn{
-          margin: 0 20px 0 0;
+          margin: 20px 20px 0 0;
           line-height: 41px;
           width: 120px;
           font-size: 16px;
@@ -139,20 +143,69 @@
             height: 20px;
             font-size: 16px;
           }
+          .data-marketing{
+            padding: 30px 0 0 30px;
+            .data-section{
+              .data-in{
+                li{
+                  &.checked{
+                    .hang-input{
+                      display: block;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .data-section{
+            dt{
+              line-height: 17px;
+              font-size: 14px;
+            }
+            dd{
+              padding: 10px 20px 20px;
+            }
+          }
           .data-in{
-            margin-top: 20px;
             min-width: 300px;
+            overflow: hidden;
+            background-color: #f4f4f4;
+            padding-top: 20px;
             li{
               float: left;
-              padding: 0 10px 20px 30px;
+              padding: 0 10px 20px 20px;
               font-size: 14px;
+              height: auto;
+              line-height: 30px;
+              min-width: 100px;
+              .sign{
+                padding: 0 5px 0 10px;
+              }
+              span{
+                height: 30px;
+                line-height: 31px;
+              }
               input.text{
-                margin: 0 10px;
-                min-width: 60px;
-                max-width: 100px;
+                margin: 0 10px 0 0;
+                min-width: 50px;
+                max-width: 80px;
                 height: 30px;
                 line-height: 30px;
-                width: 80px;
+                width: 60px;
+                vertical-align: top;
+                padding: 0 5px;
+              }
+              .hang-check,.hang-input{
+                float: left;
+              }
+              .hang-check{
+                padding-right: 30px;
+                .icon{
+                  margin-top: 5px;
+                }
+              }
+              .hang-input{
+                display: none;
               }
             }
           }
@@ -224,7 +277,12 @@
   .data-text{
     &>li{
       .input-warp{
-        padding-right: 500px;
+        padding-right: 550px;
+      }
+      &.li-radio{
+        .input-warp{
+          padding-right: 450px;
+        }
       }
     }
   }

@@ -1,5 +1,5 @@
 @import (reference) "base.less";
-.check-warp .icon,.btn .icon,.radio-warp .icon{
+.btn .icon,.radio-warp .icon{
   .flo();
   background: url('@{url}/dialog-icon.png') no-repeat 0 0;
 }
@@ -42,7 +42,6 @@ textarea{
   height: 118px;
   padding: 8px 10px;
   line-height: 26px;
-  margin-bottom: 20px;
 }
 .calendar-warp {
   position: relative;
@@ -89,7 +88,7 @@ textarea{
   .radio{
     display: none;
   }
-  .icon{
+  &>.icon{
     .wh(20px);
     display: inline-block;
     vertical-align: top;
@@ -97,45 +96,53 @@ textarea{
     margin-right: 10px;
   }
   &.radio-active{
-    .icon{
+    &>.icon{
       background-position: -58px -54px;
     }
   }
 }
 .check-warp{
   position: relative;
+  .icon {
+    .wh(17px);
+    float: left;
+    margin-right: 10px;
+    background-position: 0 -55px;
+  }
+  .checked{
+    .icon{
+      background-position: -19px -55px;
+    }
+    .clue{
+      display: block;
+    }
+  }
+  span {
+    display: inline-block;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    color: @grayColor;
+  }
   li{
     float: left;
     height: 43px;
     overflow: hidden;
     min-width: 50%;
+    position: relative;
     p {
       display: inline-block;
       height: 43px;
       border-radius: 4px;
       cursor: pointer;
       padding-right: 10px;
-      span {
-        display: inline-block;
-        font-size: 14px;
+      span{
         line-height: 43px;
-        overflow: hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
-        color: @grayColor;
       }
     }
-    .icon {
-      .wh(17px);
-      float: left;
+    .icon{
       margin-top: 13px;
-      margin-right: 10px;
-      background-position: 0 -55px;
-    }
-    &.checked{
-      .icon{
-        background-position: -19px -55px;
-      }
     }
   }
 }
@@ -200,6 +207,9 @@ textarea{
     }
     &.edit{
       background-position: -101px 0;
+    }
+    &.recharge{
+      background-position: -128px 0;
     }
   }
 }

@@ -5,14 +5,15 @@
   padding: 20px 0;
   position: relative;
   span{
-    display: inline-block;
-    padding-right: 10px;
-    &.name{
+    &.name, &.num{
+      display: inline-block;
+      padding-right: 10px;
       font-size: 16px;
+    }
+    &.name{
       color: @grayColor2;
     }
     &.num{
-      font-size: 16px;
       em{
         display: inline-block;
         font-size: 24px;
@@ -54,5 +55,10 @@
       top:12px;
       background-position: -34px 0;
     }
+  }
+  .btn-recharge{
+    position: absolute;
+    top: 20px;
+    right: 0;
   }
 }
