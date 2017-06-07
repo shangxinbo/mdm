@@ -22,6 +22,7 @@ const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const call_cate = resolve => System.import('components/call/category.vue')
+const call_seat = resolve => System.import('components/call/audio.vue')
 const expense_project = resolve => System.import('components/expense/project.vue')
 const expense_seat = resolve => System.import('components/expense/seat.vue')
 const expense_balance = resolve => System.import('components/expense/balance.vue')
@@ -52,6 +53,7 @@ let mRouter = new Router({
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/call/index', name: 'call_index', component: call_index },
                 { path: '/call/cate', name: 'call_cate', component: call_cate },
+                { path: '/call/seat', name: 'call_seat', component: call_seat },
                 { path: '/expense/project', name: 'expense_project', component: expense_project },
                 { path: '/expense/seat', name: 'expense_seat', component: expense_seat },
                 { path: '/expense/balance', name: 'expense_balance', component: expense_balance },

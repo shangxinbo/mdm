@@ -77,7 +77,6 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import mselect from 'components/utils/select'
     import categoryFilter from './category_filter'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
@@ -104,7 +103,6 @@
         },
         components: {
             pages,
-            mselect,
             categoryFilter,
             confirm,
             alert,
