@@ -31,7 +31,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+ project_id+'&search_start_time='+start_time+'&search_end_time='+end_time + '&category='+category"
+                    <a :href="'/teltraffic/categoryExport' + '?search_project_id='+ project_id+'&search_start_time='+start_time+'&search_end_time='+end_time + '&category=1"
                         class="btn blue btn-export">
                         <span>
                             <i class="icon icon-export"></i>导出</span>
@@ -114,7 +114,6 @@
                 this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
                 this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
                 this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
-                this.category = this.userType == 3 ? 1 : (this.search_agent_id ? 2 : 3)
                 this.refresh()
                 this.heads()
             },
