@@ -12,7 +12,7 @@ module.exports = function (req, res) {
             "avg_call_time": "0天0时1分" //平均时长
         },
         "list":{
-            "total": 1,
+            "total": 120,
             "per_page": 15,
             "current_page": 1,
             "last_page": 1,
@@ -26,8 +26,8 @@ module.exports = function (req, res) {
                     "created_at": "@ctitle",
                     "dial_status": '@int(1,10)',
                     "telephone_crypt": "ca6b594c5feb0d33",
-                    "file_mp3_url": "@int(0,1000)",
-                    "file_down_url": "@int(0,1000)",
+                    "file_mp3_url": "http://96.f.1ting.com/593786c0/7a207fa267fa55bfee795b1d3f9c328b/zzzzzmp3/2017fJun/05X/05e_Zero/01.mp3",
+                    "file_down_url": "http://96.f.1ting.com/593786c0/7a207fa267fa55bfee795b1d3f9c328b/zzzzzmp3/2017fJun/05X/05e_Zero/01.mp3",
                     "call_time": "0分钟"
                 }
             ]

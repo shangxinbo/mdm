@@ -4,27 +4,27 @@
             <div class="title-warp">坐席1的话务</div>
             <div class="data-property">
                 <audioFilter @submit="search"></audioFilter>
-                <div class="data-export">
+                <div class="data-export" v-if="list.length>0">
                     <ul>
                         <li>
                             <span class="t">外呼次数</span>
-                            <span class="num">1000</span>
+                            <span class="num">{{head.call_num}}</span>
                         </li>
                         <li>
                             <span class="t">拨通次数</span>
-                            <span class="num">800</span>
+                            <span class="num">{{head.effect_call_num}}</span>
                         </li>
                         <li>
                             <span class="t">拨通率</span>
-                            <span class="num">80%</span>
+                            <span class="num">{{head.effect_call_rate}}%</span>
                         </li>
                         <li>
                             <span class="t">通话时长</span>
-                            <span class="num">12小时46分</span>
+                            <span class="num">{{head.call_time}}</span>
                         </li>
                         <li>
                             <span class="t">平均通话</span>
-                            <span class="num">10分</span>
+                            <span class="num">{{head.avg_call_time}}</span>
                         </li>
                     </ul>
                     <div class="btn-export">
@@ -38,7 +38,7 @@
             <div class="data-warp">
                 <div class="data-table">
                     <!--<p class="no-data">暂无数据</p>-->
-                    <table cellspacing="0" cellpadding="0">
+                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
                                 <th>手机号</th>
@@ -47,96 +47,34 @@
                                 <th>拨打结果</th>
                                 <th class="w160">通话录音</th>
                             </tr>
-                            <tr>
-                                <td>138****5556</td>
-                                <td>2017-03-14</td>
-                                <td>13分</td>
-                                <td>已拨通</td>
+                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
+                                <td>{{item.telephone_crypt}}</td>
+                                <td>{{item.created_at}}</td>
+                                <td>{{item.call_time}}</td>
+                                <td>{{item.dial_status}}</td>
                                 <td>
-                                    <a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);">
+                                    <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url)">
                                         <span class="notice">
                                             <i class="icon play"></i>
                                         </span>
                                         <span class="audio-txt">播放</span>
                                     </a>
-                                    <a href="#">
+                                    <a :href="item.file_down_url">
                                         <span class="notice">
                                             <i class="icon download"></i>
                                         </span>下载</a>
-                                    <audio class="audio" src="../static/audio/audio.mp3"></audio>
-                                </td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>138****5556</td>
-                                <td>2017-03-14</td>
-                                <td>13分</td>
-                                <td>已拨通</td>
-                                <td>
-                                    <a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);">
-                                        <span class="notice">
-                                            <i class="icon play"></i>
-                                        </span>
-                                        <span class="audio-txt">播放</span>
-                                    </a>
-                                    <a href="#">
-                                        <span class="notice">
-                                            <i class="icon download"></i>
-                                        </span>下载</a>
-                                    <audio class="audio" src="../static/audio/audio.mp3"></audio>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>138****5556</td>
-                                <td>2017-03-14</td>
-                                <td>13分</td>
-                                <td>空号</td>
-                                <td>
-                                    <a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);">
-                                        <span class="notice">
-                                            <i class="icon play"></i>
-                                        </span>
-                                        <span class="audio-txt">播放</span>
-                                    </a>
-                                    <a href="#">
-                                        <span class="notice">
-                                            <i class="icon download"></i>
-                                        </span>下载</a>
-                                    <audio class="audio" src="../static/audio/audio.mp3"></audio>
-                                </td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>138****5556</td>
-                                <td>2017-03-14</td>
-                                <td>13分</td>
-                                <td>停机</td>
-                                <td>
-                                    <a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);">
-                                        <span class="notice">
-                                            <i class="icon play"></i>
-                                        </span>
-                                        <span class="audio-txt">播放</span>
-                                    </a>
-                                    <a href="#">
-                                        <span class="notice">
-                                            <i class="icon download"></i>
-                                        </span>下载</a>
-                                    <audio class="audio" src="../static/audio/audio.mp3"></audio>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <p class="no-data" v-else>暂无数据</p>
                 </div>
-                <div class="page">
-                    <a class="prev disabled" href="javascript:void(0);">上一页</a>
-                    <a href="javascript:void(0);" class="active">1</a>
-                    <a href="javascript:void(0);">2</a>
-                    <a href="javascript:void(0);">3</a>
-                    <span>...</span>
-                    <a href="javascript:void(0);">19</a>
-                    <a class="next" href="javascript:void(0);">下一页</a>
-                </div>
+                <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
+        <audio id="audio" class="audio"></audio>
+        <confirm ref="confirm"></confirm>
+        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
@@ -165,6 +103,11 @@
         watch: {
             $route: function () {
                 this.init()
+            },
+            playUrl() {
+                this.$nextTick(function () {
+                    document.querySelector('#audio').play()
+                })
             }
         },
         components: {
@@ -186,7 +129,7 @@
             refresh() {
                 let _this = this
                 mAjax(this, {
-                    url: API.call_cate,
+                    url: API.call_audio,
                     data: {
                         project_id: _this.project_id,
                         client_id: _this.client_id,
@@ -220,6 +163,13 @@
                     name: this.$route.name,
                     query: query
                 })
+            },
+            playAudio(url) {
+                //this.playUrl = url
+                //this.playUrl = 'http://96.f.1ting.com/593786c0/7a207fa267fa55bfee795b1d3f9c328b/zzzzzmp3/2017fJun/05X/05e_Zero/01.mp3'
+                let dom = document.querySelector('#audio')
+                dom.src = url
+                dom.play()
             }
         },
         created() {
