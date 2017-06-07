@@ -28,7 +28,7 @@
                         </li>
                     </ul>
                     <div class="btn-export">
-                        <a href="javascript:void(0);" class="btn blue">
+                        <a :href="exportUrl" target="_blank" class="btn blue">
                             <span>
                                 <i class="icon icon-export"></i>导出</span>
                         </a>
@@ -103,11 +103,11 @@
         watch: {
             $route: function () {
                 this.init()
-            },
-            playUrl() {
-                this.$nextTick(function () {
-                    document.querySelector('#audio').play()
-                })
+            }
+        },
+        computed:{
+            exportUrl(){
+                return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.client_id}&start_time=${this.start_time}&end_time=${this.end_time}`
             }
         },
         components: {
