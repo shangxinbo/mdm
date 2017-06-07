@@ -1,7 +1,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">坐席1的话务</div>
+            <div class="title-warp">{{seat_name}}的话务</div>
             <div class="data-property">
                 <audioFilter @submit="search"></audioFilter>
                 <div class="data-export" v-if="list.length>0">
@@ -93,7 +93,7 @@
                 userType: user.type,
                 currentPage: 1,
                 totalPage: 1,
-                project_name: '',
+                seat_name: '',
                 project_id: '',
                 status: '',
                 start_time: '',
@@ -107,7 +107,7 @@
         },
         computed:{
             exportUrl(){
-                return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.client_id}&start_time=${this.start_time}&end_time=${this.end_time}`
+                return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.seat_id}&start_time=${this.start_time}&end_time=${this.end_time}`
             }
         },
         components: {
@@ -120,7 +120,8 @@
             init() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
-                this.client_id = this.$route.query.client_id ? this.$route.query.client_id : ''
+                this.seat_id = this.$route.query.seat_id ? this.$route.query.seat_id : ''
+                this.seat_name = this.$route.query.seat_name ? this.$route.query.seat_name : ''
                 this.status = this.$route.query.result ? this.$route.query.result : ''
                 this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
                 this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
@@ -132,7 +133,7 @@
                     url: API.call_audio,
                     data: {
                         project_id: _this.project_id,
-                        client_id: _this.client_id,
+                        client_id: _this.seat_id,
                         phone: '',
                         status: _this.status,
                         start_time: this.start_time,

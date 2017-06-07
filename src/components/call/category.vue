@@ -53,7 +53,7 @@
                                 <th>平均通话</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.name}}</td>
+                                <td><router-link :to="{path:'/call/seat',query:{project_id:project_id,seat_id:item.id,seat_name:item.name}}">{{item.name}}</router-link></td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
                                 <td>{{item.effect_call_rate}}%</td>
