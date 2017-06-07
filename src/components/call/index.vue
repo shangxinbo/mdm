@@ -5,7 +5,7 @@
     <div class="warp">
         <div class="main">
             <div class="title-warp" v-if="userType==4">我的话务</div>
-            <div class="title-warp" v-else>话务管理</div>
+            <div class="title-warp" v-else>{{client_name?client_name+'的话务':(agent_name?agent_name+'的话务':'话务管理')}}</div>
             <div class="data-property">
                 <indexFilter @submit="search"></indexFilter>
                 <div class="data-export" v-if="list.length>0">
@@ -33,8 +33,8 @@
                         <tbody>
                             <tr>
                                 <th width="14%">项目名称</th>
-                                <th width="14%" v-if="userType==1">客户名称</th>
-                                <th width="11%" v-if="userType==1">所属代理</th>
+                                <th width="14%" v-if="userType==1&&!client_id">客户名称</th>
+                                <th width="11%" v-if="userType==1&&!agent_id&&!client_id">所属代理</th>
                                 <th width="5%">外呼次数</th>
                                 <th width="5%">拨通次数</th>
                                 <th width="10%">拨通率</th>
@@ -48,11 +48,11 @@
                                 <td>
                                     <router-link :to="{path : '/call/cate',query : {project_id:item.id,project_name:item.name}}">{{item.name}}</router-link>
                                 </td>
-                                <td v-if="userType==1">
-                                    <router-link :to="{path : '/call/cate',query : {search_client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
+                                <td v-if="userType==1&&!client_id">
+                                    <router-link :to="{path : '/call/index',query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
-                                <td v-if="userType==1">
-                                    <router-link :to="{ path : '/call/cate',query : {search_agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
+                                <td v-if="userType==1&&!agent_id&&!client_id">
+                                    <router-link :to="{ path : '/call/index',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -89,6 +89,10 @@
                 list: [],
                 head: [],
                 userType: user.type,
+                agent_id:'',
+                agent_name:'',
+                client_id:'',
+                client_name:'',
                 currentPage: 1,
                 totalPage: 1
             }
@@ -120,6 +124,10 @@
         methods: {
             init() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.agent_id = this.$route.query.agent_id
+                this.agent_name = this.$route.query.agent_name
+                this.client_id = this.$route.query.client_id
+                this.client_name = this.$route.query.client_name
                 this.render()
                 this.heads()
             },

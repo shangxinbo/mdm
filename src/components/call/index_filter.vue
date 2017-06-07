@@ -7,11 +7,11 @@
                     <input class="text" v-model="search_name" type="text">
                 </div>
             </li>
-            <li v-if="userType==1">
+            <li v-if="userType==1&&!client_id">
                 <label class="name">客户</label>
                 <mselect ref="customerSelect" :api="api.customerList" :id="search_client_id"></mselect>
             </li>
-            <li v-if="userType==1">
+            <li v-if="userType==1&&!agent_id&&!client_id">
                 <label class="name">代理</label>
                 <mselect ref="agentSelect" :api="api.agentList" :id="search_agent_id"></mselect>
             </li>
@@ -54,6 +54,8 @@
                 search_name: '',
                 search_agent_id: '',
                 searchclient_id: '',
+                agent_id:'',
+                client_id:'',
                 api: {
                     customerList: API.customer_list_all,
                     agentList: API.angent_list_all,
@@ -89,6 +91,8 @@
                 this.search_name = this.$route.query.search_name ? this.$route.query.search_name : ''
                 this.search_agent_id = this.$route.query.search_agent_id === undefined ? '' : this.$route.query.search_agent_id
                 this.search_client_id = this.$route.query.search_client_id === undefined ? '' : this.$route.query.search_client_id
+                this.agent_id = this.$route.query.agent_id
+                this.client_id = this.$route.query.client_id
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.max_start = this.endTime
