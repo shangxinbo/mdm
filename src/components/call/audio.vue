@@ -52,13 +52,13 @@
                                 <td>{{item.call_time}}</td>
                                 <td>{{item.dial_status}}</td>
                                 <td>
-                                    <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
+                                    <a v-if="item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
                                         <span class="notice">
                                             <i class="icon play"></i>
                                         </span>
                                         <span class="audio-txt">播放</span>
                                     </a>
-                                    <a :href="item.file_down_url">
+                                    <a v-if="item.file_down_url" :href="item.file_down_url">
                                         <span class="notice">
                                             <i class="icon download"></i>
                                         </span>下载</a>
@@ -107,7 +107,7 @@
         },
         computed: {
             exportUrl() {
-                return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.seat_id}&start_time=${this.start_time}&end_time=${this.end_time}`
+                return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.seat_id}&start_time=${this.start_time}&end_time=${this.end_time}&status=${this.status}&phone=`
             }
         },
         components: {
