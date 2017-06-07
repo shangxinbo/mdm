@@ -50,7 +50,7 @@
                                 <td>{{item.telephone_crypt}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td>{{item.call_time}}</td>
-                                <td>{{item.dial_status}}</td>
+                                <td>{{item.dial_status|resultText}}</td>
                                 <td>
                                     <a v-if="item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
                                         <span class="notice">
@@ -81,6 +81,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import audioFilter from './audio_filter'
+    import callResultConf from '../project/callResultConf'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     export default {
@@ -108,6 +109,11 @@
         computed: {
             exportUrl() {
                 return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.seat_id}&start_time=${this.start_time}&end_time=${this.end_time}&status=${this.status}&phone=`
+            }
+        },
+        filters:{
+            resultText(val){
+                return callResultConf[val]
             }
         },
         components: {
@@ -144,7 +150,7 @@
                         if (data.code == 200) {
                             _this.list = data.data.list.data
                             _this.head = data.data.count
-                            _this.totalPage = data.data.list.total
+                            _this.totalPage = data.data.list.total/data.data.list.per_page
                         } else {
                             _this.list = []
                             _this.head = null
