@@ -37,7 +37,6 @@
             </div>
             <div class="data-warp">
                 <div class="data-table">
-                    <!--<p class="no-data">暂无数据</p>-->
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
@@ -53,7 +52,7 @@
                                 <td>{{item.call_time}}</td>
                                 <td>{{item.dial_status}}</td>
                                 <td>
-                                    <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url)">
+                                    <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
                                         <span class="notice">
                                             <i class="icon play"></i>
                                         </span>
@@ -72,7 +71,7 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <audio id="audio" class="audio"></audio>
+        <audio id="audio" class="audio" @ended="end"></audio>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
     </div>
@@ -97,7 +96,8 @@
                 project_id: '',
                 status: '',
                 start_time: '',
-                end_time: ''
+                end_time: '',
+                playNow: -1
             }
         },
         watch: {
@@ -105,8 +105,8 @@
                 this.init()
             }
         },
-        computed:{
-            exportUrl(){
+        computed: {
+            exportUrl() {
                 return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.seat_id}&start_time=${this.start_time}&end_time=${this.end_time}`
             }
         },
@@ -165,10 +165,43 @@
                     query: query
                 })
             },
-            playAudio(url) {
+            playAudio(url, index, evt) {
                 let dom = document.querySelector('#audio')
-                dom.src = url
-                dom.play()
+
+                let audios = document.querySelectorAll('.btn-audio')
+                for (let i = 0; i < audios.length; i++) {
+                    let item = audios[i]
+                    let span = item.querySelectorAll('span')
+                    span[0].querySelector('i').className = 'icon play'
+                    span[1].innerHTML = '播放'
+                }
+
+                let span = evt.currentTarget.querySelectorAll('span')
+                if (index == this.playNow) {
+                    dom.pause()
+                    span[0].querySelector('i').className = 'icon play'
+                    span[1].innerHTML = '播放'
+                    this.playNow = -1
+                } else {
+                    if (dom.getAttribute('src') != url) {
+                        dom.src = url
+                        dom.load()
+                    }
+                    dom.play()
+                    span[0].querySelector('i').className = 'icon pause'
+                    span[1].innerHTML = '暂停'
+                    this.playNow = index
+                }
+            },
+            end() {
+                let audios = document.querySelectorAll('.btn-audio')
+                for (let i = 0; i < audios.length; i++) {
+                    let item = audios[i]
+                    let span = item.querySelectorAll('span')
+                    span[0].querySelector('i').className = 'icon play'
+                    span[1].innerHTML = '播放'
+                }
+                this.playNow = -1
             }
         },
         created() {

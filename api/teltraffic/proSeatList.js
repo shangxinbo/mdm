@@ -26,8 +26,8 @@ module.exports = function (req, res) {
                     "created_at": "@ctitle",
                     "dial_status": '@int(1,10)',
                     "telephone_crypt": "ca6b594c5feb0d33",
-                    "file_mp3_url": "http://96.f.1ting.com/593786c0/7a207fa267fa55bfee795b1d3f9c328b/zzzzzmp3/2017fJun/05X/05e_Zero/01.mp3",
-                    "file_down_url": "http://96.f.1ting.com/593786c0/7a207fa267fa55bfee795b1d3f9c328b/zzzzzmp3/2017fJun/05X/05e_Zero/01.mp3",
+                    "file_mp3_url": "http://61.182.143.234/mp3.9ku.com/m4a/66985.m4a?@int(1,100)",
+                    "file_down_url": "http://61.182.143.234/mp3.9ku.com/m4a/66985.m4a",
                     "call_time": "0分钟"
                 }
             ]
