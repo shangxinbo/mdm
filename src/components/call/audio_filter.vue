@@ -9,11 +9,11 @@
                 <label class="name">拨打日期</label>
                 <div class="input-warp date-warp">
                     <div class="calendar-warp w45">
-                        <datepicker addClass="date" :init="startTime" :weeks="weeks" :months="months" :buttons="buttons" :max="maxStart" @change="setStartTime"></datepicker>
+                        <datepicker addClass="date" :init="start_time" :weeks="weeks" :months="months" :buttons="buttons" :max="maxStart" @change="setStartTime"></datepicker>
                     </div>
                     <em class="or">至</em>
                     <div class="calendar-warp w45">
-                        <datepicker addClass="date" :init="endTime" :weeks="weeks" :months="months" :buttons="buttons" :min="minEnd" :max="maxEnd"
+                        <datepicker addClass="date" :init="end_time" :weeks="weeks" :months="months" :buttons="buttons" :min="minEnd" :max="maxEnd"
                             @change="setEndTime"></datepicker>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
         data: function () {
             let now = moment().format('YYYY-MM-DD')
             return {
-                startTime: '',
-                endTime: '',
+                start_time: '',
+                end_time: '',
                 maxStart: now,
                 minEnd: '',
                 maxEnd: now,
@@ -77,23 +77,23 @@
         },
         methods: {
             init() {
-                this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
-                this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
-                this.max_start = this.endTime
-                this.min_end = this.startTime
+                this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
+                this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
+                this.max_start = this.end_time
+                this.min_end = this.start_time
             },
             setStartTime(value) {
-                this.startTime = value
+                this.start_time = value
                 this.minEnd = value
             },
             setEndTime(value) {
-                this.endTime = value
+                this.end_time = value
                 this.maxStart = value
             },
             submit() {
                 let obj = {
-                    startTime: this.startTime,
-                    endTime: this.endTime,
+                    start_time: this.start_time,
+                    end_time: this.end_time,
                     result:this.$refs.resultSelect.selected.id
                 }
                 this.$emit('submit', obj)
