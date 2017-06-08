@@ -186,7 +186,7 @@
                 if (index == this.playNow) {
                     dom.pause()
                     span[0].querySelector('i').className = 'icon play'
-                    span[1].innerHTML = '播放'
+                    span[1].innerHTML = '继续播放'
                     this.playNow = -1
                 } else {
                     if (dom.getAttribute('src') != url) {
