@@ -53,7 +53,7 @@
                 userType: user.type,
                 search_name: '',
                 search_agent_id: '',
-                searchclient_id: '',
+                search_client_id: '',
                 agent_id:'',
                 client_id:'',
                 api: {
@@ -97,6 +97,7 @@
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.max_start = this.endTime
                 this.min_end = this.startTime
+                console.log(this.search_client_id)
             },
             setStartTime(value) {
                 this.startTime = value

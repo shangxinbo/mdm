@@ -49,10 +49,10 @@
                                     <router-link :to="{path : '/call/cate',query : {project_id:item.id,project_name:item.name}}">{{item.name}}</router-link>
                                 </td>
                                 <td v-if="userType==1&&!client_id">
-                                    <router-link :to="{path : '/call/index',query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
+                                    <router-link :to="{query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="userType==1&&!agent_id&&!client_id">
-                                    <router-link :to="{ path : '/call/index',query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
+                                    <router-link :to="{query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -103,9 +103,9 @@
                 let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
                 let api
                 if(this.$route.query.client_id){
-                    api = '/teltraffic/categoryExport?category=3'
+                    api = '/teltraffic/categoryExport?category=3&'
                 }else if(this.$route.query.agent_id){
-                    api = '/teltraffic/categoryExport?category=2'
+                    api = '/teltraffic/categoryExport?category=2&'
                 }else{
                     api = '/teltraffic/export?'
                 }
@@ -142,14 +142,14 @@
                 this.heads()
             },
             render() {
-                let search_agent_id = this.$route.query.search_agent_id === undefined ? '' : this.$route.query.search_agent_id
-                let search_client_id = this.$route.query.search_client_id === undefined ? '' : this.$route.query.search_client_id
+                let client_id = this.$route.query.client_id?this.$route.query.client_id:(this.$route.query.search_client_id?this.$route.query.search_client_id:'')
+                let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
                 mAjax(this, {
                     url: API.call_list,
                     data: {
                         search_name: this.$route.query.search_name,
-                        search_client_id: search_client_id,
-                        search_agent_id: search_agent_id,
+                        search_client_id: client_id,
+                        search_agent_id: agent_id,
                         search_start_time: this.$route.query.startTime,
                         search_end_time: this.$route.query.endTime,
                         page: this.currentPage,
@@ -166,14 +166,14 @@
                 })
             },
             heads() {
-                let search_agent_id = this.$route.query.search_agent_id === undefined ? '' : this.$route.query.search_agent_id
-                let search_client_id = this.$route.query.search_client_id === undefined ? '' : this.$route.query.search_client_id
+                let client_id = this.$route.query.client_id?this.$route.query.client_id:(this.$route.query.search_client_id?this.$route.query.search_client_id:'')
+                let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
                 mAjax(this, {
                     url: API.call_head,
                     data: {
                         search_name: this.$route.query.search_name,
-                        search_client_id: search_client_id,
-                        search_agent_id: search_agent_id,
+                        search_client_id: client_id,
+                        search_agent_id: agent_id,
                         search_start_time: this.$route.query.startTime,
                         search_end_time: this.$route.query.end_time
                     },
