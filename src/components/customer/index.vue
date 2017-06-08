@@ -65,7 +65,7 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <editDialog ref="editDialog"></editDialog>
+        <editDialog ref="editDialog" @success="editOver"></editDialog>
         <resetPassDialog ref="resetPassDialog"></resetPassDialog>
         <addSeatDialog ref="addSeatDialog"></addSeatDialog>
         <activeSeatDialog ref="activeSeatDialog"></activeSeatDialog>
@@ -151,6 +151,9 @@
             },
             showEditDialog(id) {
                 this.$refs.editDialog.$emit('show', id)
+            },
+            editOver() {
+                this.$store.commit('SHOW_TOAST','修改信息成功')
             },
             showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
