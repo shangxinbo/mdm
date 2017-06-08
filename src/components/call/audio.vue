@@ -28,7 +28,7 @@
                         </li>
                     </ul>
                     <div class="btn-export">
-                        <a :href="exportUrl" target="_blank" class="btn blue">
+                        <a :href="exportUrl" class="btn blue">
                             <span>
                                 <i class="icon icon-export"></i>导出</span>
                         </a>
