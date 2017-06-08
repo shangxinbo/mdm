@@ -99,10 +99,12 @@
         },
         computed: {
             downUrl() {
+                let client_id = this.$route.query.client_id?this.$route.query.client_id:(this.$route.query.search_client_id?this.$route.query.search_client_id:'')
+                let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
                 return '/teltraffic/export?'
                     + 'search_name=' + (this.$route.query.search_name?this.$route.query.search_name:'')
-                    + '&search_client_id=' + (this.$route.query.search_client_id?this.$route.query.search_client_id:'')
-                    + '&search_agent_id=' + (this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
+                    + '&search_client_id=' + client_id
+                    + '&search_agent_id=' + agent_id
                     + '&search_start_time=' + (this.$route.query.startTime?this.$route.query.startTime:'')
                     + '&search_end_time=' + (this.$route.query.endTime?this.$route.query.endTime:'')
             }
