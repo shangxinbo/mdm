@@ -18,7 +18,7 @@
                             <span class="t">通话时长</span>
                             <span class="num">{{head.charge_time}}</span>
                         </li>
-                        <a :href="downUrl" class="btn blue btn-export">
+                        <a :href="downUrl" target="_blank" class="btn blue btn-export">
                             <span>
                                 <i class="icon icon-export"></i>导出
                             </span>
@@ -100,11 +100,11 @@
         computed: {
             downUrl() {
                 return '/teltraffic/export?'
-                    + 'search_name=' + this.$route.query.search_name
-                    + '&search_client_id=' + this.$route.query.search_client_id
-                    + '&search_agent_id=' + this.$route.query.search_agent_id
-                    + '&search_start_time=' + this.$route.query.startTime
-                    + '&search_end_time=' + this.$route.query.endTime
+                    + 'search_name=' + (this.$route.query.search_name?this.$route.query.search_name:'')
+                    + '&search_client_id=' + (this.$route.query.search_client_id?this.$route.query.search_client_id:'')
+                    + '&search_agent_id=' + (this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
+                    + '&search_start_time=' + (this.$route.query.startTime?this.$route.query.startTime:'')
+                    + '&search_end_time=' + (this.$route.query.endTime?this.$route.query.endTime:'')
             }
         },
         watch: {
