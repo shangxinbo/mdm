@@ -82,9 +82,9 @@
                     url: API.change_price,
                     data: {
                         id: this.id,
-                        clue_price: this.clue,
-                        tel_price: this.call,
-                        seat_price: this.seat
+                        clue_price: this.clue.trim(),
+                        tel_price: this.call.trim(),
+                        seat_price: this.seat.trim()
                     },
                     success: data => {
                         if (data.code == 200) {
