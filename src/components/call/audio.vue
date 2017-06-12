@@ -40,7 +40,7 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th>手机号</th>
+                                <th>拨打资源</th>
                                 <th>拨打时间</th>
                                 <th>通话时长</th>
                                 <th>拨打结果</th>

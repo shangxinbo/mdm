@@ -31,7 +31,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+start_time+'&search_end_time='+end_time + '&category=1'"
+                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+startTime+'&search_end_time='+endTime + '&category=1'"
                         class="btn blue btn-export">
                         <span>
                             <i class="icon icon-export"></i>导出</span>
@@ -93,8 +93,8 @@
                 totalPage: 1,
                 project_name: '',
                 project_id: '',
-                start_time: '',
-                end_time: ''
+                startTime: '',
+                endTime: ''
             }
         },
         watch: {
@@ -113,21 +113,19 @@
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.project_name = this.$route.query.project_name ? this.$route.query.project_name : ''
                 this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
-                this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
-                this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
+                this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
+                this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.refresh()
                 this.heads()
             },
             refresh() {
                 let _this = this
-                let start_time = typeof (this.start_time) == 'string' ? this.start_time : dateFormat(this.start_time)
-                let end_time = typeof (this.end_time) == 'string' ? this.end_time : dateFormat(this.end_time)
                 mAjax(this, {
                     url: API.call_cate,
                     data: {
                         search_project_id: _this.project_id,
-                        search_start_time: start_time,
-                        search_end_time: end_time,
+                        search_start_time: this.startTime,
+                        search_end_time: this.endTime,
                         category: 1,
                         page: _this.currentPage,
                     },
@@ -149,8 +147,8 @@
                     data: {
                         category: 1,
                         search_project_id: _this.project_id,
-                        search_start_time: _this.start_time,
-                        search_end_time: _this.end_time
+                        search_start_time: _this.startTime,
+                        search_end_time: _this.endTime
                     },
                     success: (data) => {
                         if (data.code == 200) {
