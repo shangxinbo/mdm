@@ -35,7 +35,6 @@ body{
 }
 .main{
   padding: 0 50px 30px;
-    position: relative;
 }
 @import "dialog.less"; // 弹窗样式
 @import "input.less";
@@ -58,6 +57,7 @@ body{
 .current{  //当前位置
     position: absolute;
     margin-top: -40px;
+    z-index: 6;
     a,span{
         font-size: 12px;
         display: inline-block;
