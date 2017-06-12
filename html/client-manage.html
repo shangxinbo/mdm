@@ -208,21 +208,79 @@
     </div>
     <div class="dialog-body">
         <div class="dialog-allocation">
+            <ul class="mode">
+                <li>
+                    <label>项目线索量</label>
+                    <div class="input-warp">
+                        <p class="text"> 8888</p>
+                    </div>
+                </li>
+                <li>
+                    <label>线索分配方式</label>
+                    <div class="input-warp">
+                        <div class="select-warp seat-select">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                            <p class="all"><span>平均分配</span></p>
+                            <div class="select-ul">
+                                <div class="scroll-warp scrollBar">
+                                    <ul>
+                                        <li onclick="tagCutover(this,'select-cutover1')">平均分配</li>
+                                        <li onclick="tagCutover(this,'select-cutover2')">自定义平配</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
             <div class="title">中国电信项目1分配给以下坐席拨打</div>
-            <div class="check-warp">
-                <div class="scroll-warp scrollBar">
-                    <ul class="scroll-content screening-item">
-                        <li class="checked"><p><i class="icon"></i><span>坐席1</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席2</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席3</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席4</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席5</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席6</span></p></li>
-                    </ul>
+            <div class="cutover">
+                <div class="select-cutover1">
+                    <div class="check-warp">
+                        <div class="scroll-warp scrollBar">
+                            <ul class="scroll-content screening-item">
+                                <li class="checked"><p><i class="icon"></i><span>坐席1</span></p>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席3</span></p>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li> <p><i class="icon"></i><span>坐席6</span></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dialog-select">
+                        <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="dialog-select">
-                <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                <div class="select-cutover2" style="display: none">
+                    <div class="check-warp">
+                        <div class="scroll-warp scrollBar">
+                            <ul class="scroll-content screening-item">
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席1</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席3</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席6</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="notice"><i class="icon"></i>分配线索量之和不等于项目线索量。分配线索量之和 8880，项目线索量 8888</p>
+                    <div class="dialog-select">
+                        <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -344,6 +402,14 @@
         var idW = -(ids.width()/2);
         $('<div id="shadowLayer"></div>').appendTo("body").show();
         ids.show().css({ "margin-left": idW,"margin-top": idH });
+    }
+    //标签切换
+    function tagCutover(c,d){
+        $(c).attr("class");
+        $(c).parent().children().removeClass("active");
+        $(c).addClass("active");
+        $("."+d).parent().children().hide();
+        $("."+d).show();
     }
 </script>
 </body>

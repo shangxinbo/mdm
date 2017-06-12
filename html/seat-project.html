@@ -124,6 +124,17 @@
         <button class="btn blue" type="button" onclick="hideDialog('callTips');">关闭</button>
     </div>
 </div>
+<!-- 提醒弹窗 坐席失效-->
+<div class="dialog" id="callTipsInvalid">
+    <div class="dialog-body">
+        <div class="pop-default nop10">
+            <p class="title"><span><i class="icon tips"></i>您的坐席账号已失效，请尽快联系相关人员进行激活以免影响您的正常使用</span></p>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <button class="btn blue" type="button" onclick="hideDialog('callTipsInvalid');">关闭</button>
+    </div>
+</div>
 <!-----------------------header下拉弹窗------------------------->
 <!-- 通话设置弹窗 -->
 <div class="dialog" id="callSetting">
@@ -216,7 +227,7 @@
             $(this).parents().find(".select-open .all span").html($(this).text());
             $(this).parents().find(".select-warp").removeClass("select-open");
         });
-        getWindow('callTips');
+        getWindow('callTipsInvalid');
     });
     //弹窗
     function getWindow(id,c) {
