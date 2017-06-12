@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cmn-Hans">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>geo易获客</title>
+    <link rel="shortcut icon" href="../static/favicon.ico">
+    <link rel="bookmark" href="../static/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css">
+    <link rel="stylesheet" type="text/css"  href="../static/css/data-cloud.css">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="../static/js/lib/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="header">
+    <ul class="header-content">
+        <li class="user-name">
+            <i class="icon login-icon"></i>
+            <span class="name">运营</span>
+            <div class="quit">
+                <p title="Hi，hahaha">Hi，hahaha</p>
+                <a href="client-my.html" class="my"><i class="icon icon03"></i><span>我的账号</span></a>
+                <a href="client-myseat.html" class="my"><i class="icon icon04"></i><span>我的坐席</span></a>
+                <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
+                <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
+                <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="navbox">
+    <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
+    <ul>
+        <li>
+            <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
+        </li>
+        <li>
+            <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
+        </li>
+        <li class="active">
+            <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
+        </li>
+        <li>
+            <a href="operate-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
+        </li>
+    </ul>
+</div>
+<div class="warp">
+    <div class="main">
+        <div class="current"><a href="operate-telephone.html">话务管理</a><a href="operate-telephone-agent.html">代理1的话务</a><a href="operate-telephone-client.html">中国电信的话务</a><a href="operate-telephone-single.html">中国电信项目1的话务</a><span>坐席1的话务</span></div>
+        <div class="title-warp">坐席1的话务</div>
+        <div class="data-property">
+            <form>
+                <ul class="data-text">
+                    <li>
+                        <label class="name">手机号</label>
+                        <div class="input-warp"><input class="text" type="text"></div>
+                    </li>
+                    <li>
+                        <label class="name">拨打结果</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                            <li>已拨通</li>
+                                            <li>空号</li>
+                                            <li>停机</li>
+                                            <li>关机</li>
+                                            <li>占线</li>
+                                            <li>无人接听</li>
+                                            <li>其他无接通</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">拨打日期</label>
+                        <div class="input-warp date-warp">
+                            <div class="calendar-warp w45">
+                                <input class="date" type="text" value="2016-12-01">
+                            </div>
+                            <em class="or">至</em>
+                            <div class="calendar-warp w45">
+                                <input class="date" type="text" value="2016-12-07">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
+                    </li>
+                </ul>
+            </form>
+            <div class="data-export">
+                <ul>
+                    <li>
+                        <span class="t">外呼次数</span><span class="num">1000</span>
+                    </li>
+                    <li>
+                        <span class="t">拨通次数</span><span class="num">800</span>
+                    </li>
+                    <li>
+                        <span class="t">拨通率</span><span class="num">80%</span>
+                    </li>
+                    <li>
+                        <span class="t">通话时长</span><span class="num">12小时46分</span>
+                    </li>
+                    <li>
+                        <span class="t">平均通话</span><span class="num">10分</span>
+                    </li>
+                </ul>
+                <div class="btn-export">
+                    <a href="javascript:void(0);" class="btn blue "><span><i class="icon icon-export"></i>批量下载录音</span></a>
+                    <a href="javascript:void(0);" class="btn blue"><span><i class="icon icon-export"></i>导出</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="data-warp">
+            <div class="data-table">
+                <!--<p class="no-data">暂无数据</p>-->
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                    <tr><th>手机号</th><th>拨打时间</th><th>通话时长</th><th>拨打结果</th><th class="w160">通话录音</th></tr>
+                    <tr>
+                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td>已拨通</td>
+                        <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                            <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                        </td>
+                    </tr>
+                    <tr class="tr2">
+                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td>已拨通</td>
+                        <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                            <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a href="javascript:void(0);" onclick="getWindow('singleTelephone');">138****5556</a></td><td>2017-03-14</td><td>13分</td><td>空号</td>
+                        <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                            <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                        </td>
+                    </tr>
+                    <tr class="tr2">
+                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td>停机</td>
+                        <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                            <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page">
+                <a class="prev disabled" href="javascript:void(0);">上一页</a>
+                <a href="javascript:void(0);" class="active">1</a>
+                <a href="javascript:void(0);">2</a>
+                <a href="javascript:void(0);">3</a>
+                <span>...</span>
+                <a href="javascript:void(0);">19</a>
+                <a class="next" href="javascript:void(0);">下一页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 单线索的话务 弹窗-->
+<div class="dialog" id="singleTelephone">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>138***5556 拨打详情</h4>
+    </div>
+    <div class="dialog-body">
+        <div class="dialog-seat-list">
+            <div class="data-export">
+                <ul>
+                    <li>
+                        <span class="t">项目名称</span><span class="num">中国电信项目1</span>
+                    </li>
+                    <li>
+                        <span class="t">拨通次数</span><span class="num">3</span>
+                    </li>
+                </ul>
+                <div class="btn-export">
+                    <a href="javascript:void(0);" class="btn blue "><span><i class="icon icon-export"></i>批量下载录音</span></a>
+                    <a href="javascript:void(0);" class="btn blue"><span><i class="icon icon-export"></i>导出</span></a>
+                </div>
+            </div>
+            <div class="data-table">
+                <table cellspacing="0" cellpadding="0">
+                    <tr><th class="w160">拨打时间</th><th class="w110">通话时长</th><th class="w110">拨打结果</th><th>通话录音</th></tr>
+                </table>
+            </div>
+            <div class="scroll-warp scrollBar w640">
+                <div class="data-table check-warp">
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td class="w160">2017-03-14</td><td class="w110">13分</td><td class="w110">已拨通</td>
+                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                                <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                            </td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="w160">2017-03-14</td><td class="w110">13分</td><td class="w110">空号</td>
+                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                                <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w160">2017-03-14</td><td class="w110">13分</td><td class="w110">停机</td>
+                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                                <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 单线索的话务弹窗-->
+<!-----------------------header下拉弹窗------------------------->
+<!-- 修改密码弹窗 -->
+<div class="dialog" id="editPassword">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>修改密码</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>原密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>新密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+            <li>
+                <label>确认密码</label>
+                <div class="input-warp">
+                    <input class="text" type="text" value="">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="getWindow('editPasswordSucc','tips-succ');">确定</a>
+        <a class="btn" href="javascript:void(0);" onclick="hideDialog('editPassword');">取消</a>
+    </div>
+</div>
+<!-- 修改密码成功弹窗-->
+<div class="dialog tips-succ" id="editPasswordSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>密码修改成功</span></p>
+        </div>
+    </div>
+</div>
+<!-----------------------header下拉弹窗 end------------------------->
+<script type="text/javascript" src="../static/js/lib/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../static/js/lib/scrollBar.js"></script>
+<script type="text/javascript" >
+    $(document).ready(function(){
+        $(".header-content li").click(function(){
+            $(this).toggleClass('li-hover').siblings().removeClass("li-hover");
+            setTimeout("$('.header-content li').removeClass('li-hover');",2500);
+        });
+        $(".select-warp p").click(function(){
+            if($(this).parent().hasClass("select-open")){
+                $(this).parent().removeClass("select-open");
+
+            }else{
+                $(this).parent().addClass("select-open");
+            }
+        });
+        $(".select-ul li").click(function(){
+            $(this).parents().find(".select-open .all span").html($(this).text());
+            $(this).parents().find(".select-warp").removeClass("select-open");
+        });
+    });
+    //音频播放
+    function audioControl(c,d){
+        var thisCurrent= $(c).parent();
+        var allTag=  $(".data-warp td");
+        var allAudio=allTag.find("audio");
+        var thisAudio=thisCurrent.find("audio");
+        var num=allAudio.length;
+        if(thisCurrent.hasClass("active") &&  thisCurrent.hasClass("paused")){
+            thisCurrent.removeClass('paused');
+            $(c).find(".audio-txt").text("播放");
+            $(c).find(".icon").removeClass('pause');
+            $(c).find(".icon").addClass('play');
+            thisAudio[0].pause();
+        }else{
+            if(thisCurrent.hasClass("active")){
+                thisCurrent.addClass('paused');
+                thisCurrent.find(".btn-audio .audio-txt").text("播放");
+                thisCurrent.find(".btn-audio .icon").removeClass('pause');
+                thisCurrent.find(".btn-audio .icon").addClass('play');
+                thisAudio[0].play();
+                $(c).find(".audio-txt").text("暂停");
+                $(c).find(".icon").removeClass('play');
+                $(c).find(".icon").addClass('pause');
+                thisAudio[0].onended = function() {
+                    thisAudio[0].pause();
+                    thisAudio[0].currentTime=0;
+                    thisCurrent.removeClass('paused');
+                    thisCurrent.removeClass('active');
+                    thisCurrent.find(".btn-audio .audio-txt").text("播放");
+                    thisCurrent.find(".btn-audio .icon").removeClass('pause');
+                    thisCurrent.find(".btn-audio .icon").addClass('play');
+                };
+            }else{
+                for(var i =0;i<num;i++){
+                    allAudio[i].pause();
+                    allAudio[i].currentTime=0;
+                    allTag.removeClass('paused');
+                    allTag.removeClass('active');
+                    allTag.find(".btn-audio .audio-txt").text("播放");
+                    allTag.find(".btn-audio .icon").removeClass('pause');
+                    allTag.find(".btn-audio .icon").addClass('play');
+                }
+                thisAudio[0].play();
+                thisCurrent.addClass('active');
+                thisCurrent.addClass('paused');
+                $(c).find(".audio-txt").text("暂停");
+                $(c).find(".icon").removeClass('play');
+                $(c).find(".icon").addClass('pause');
+                thisAudio[0].onended = function() {
+                    thisAudio[0].pause();
+                    thisAudio[0].currentTime=0;
+                    thisCurrent.removeClass('paused');
+                    thisCurrent.removeClass('active');
+                    thisCurrent.find(".btn-audio .audio-txt").text("播放");
+                    thisCurrent.find(".btn-audio .icon").removeClass('pause');
+                    thisCurrent.find(".btn-audio .icon").addClass('play');
+                };
+            }
+        }
+    }
+    //弹窗
+    function getWindow(id,c) {
+        if($('#shadowLayer').length == 0){
+            showDialog(id);
+        }else{
+            $(".dialog").hide();
+            var ids = $("#" + id);
+            var idH = -(ids.height()/2);
+            var idW = -(ids.width()/2);
+            ids.show().css({ "margin-left": idW,"margin-top": idH });
+            if(c=='tips-succ'){
+                setTimeout("$('.tips-succ').hide();$('#shadowLayer').remove();",1500);
+            }
+        }
+        $("#"+id+" .dialog-close").click(function () {
+            hideDialog(id);
+        });
+        $("#shadowLayer").click(function () {
+            hideDialog(id);
+        });
+    }
+    function hideDialog(id,c){
+        $("#"+id).hide();
+        $("#shadowLayer").remove();
+    }
+    function showDialog(id){
+        var ids = $("#" + id);
+        var idH = -(ids.height()/2);
+        var idW = -(ids.width()/2);
+        $('<div id="shadowLayer"></div>').appendTo("body").show();
+        ids.show().css({ "margin-left": idW,"margin-top": idH });
+    }
+</script>
+</body>
+</html>

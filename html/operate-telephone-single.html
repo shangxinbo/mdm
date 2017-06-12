@@ -22,7 +22,8 @@
             <span class="name">运营</span>
             <div class="quit">
                 <p title="Hi，hahaha">Hi，hahaha</p>
-                <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
+                <a href="client-my.html" class="my"><i class="icon icon03"></i><span>我的账号</span></a>
+                <a href="client-myseat.html" class="my"><i class="icon icon04"></i><span>我的坐席</span></a>
                 <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
                 <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
                 <a href="login.html"><i class="icon icon02"></i><span>退 出</span></a>
@@ -49,53 +50,20 @@
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">话务管理</div>
+        <div class="current"><a href="operate-telephone.html">话务管理</a><a href="operate-telephone-agent.html">代理1的话务</a><a href="operate-telephone-client.html">中国电信的话务</a><span>中国电信项目1的话务</span></div>
+        <div class="title-warp">中国电信项目1的话务</div>
         <div class="data-property">
             <form>
                 <ul class="data-text">
                     <li>
-                        <label class="name">项目名称</label>
-                        <div class="input-warp"><input class="text" type="text"></div>
-                    </li>
-                    <li>
-                        <label class="name">客户名称</label>
-                        <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>全部</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">所属代理</label>
-                        <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>全部</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
                         <label class="name">日期</label>
                         <div class="input-warp date-warp">
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.01">
+                                <input class="date" type="text" value="2016-12-01">
                             </div>
                             <em class="or">至</em>
                             <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.07">
+                                <input class="date" type="text" value="2016-12-07">
                             </div>
                         </div>
                     </li>
@@ -107,10 +75,19 @@
             <div class="data-export">
                 <ul>
                     <li>
+                        <span class="t">参与坐席</span><span class="num">3</span>
+                    </li>
+                    <li>
                         <span class="t">拨通次数</span><span class="num">800</span>
                     </li>
                     <li>
+                        <span class="t">拨通率</span><span class="num">80%</span>
+                    </li>
+                    <li>
                         <span class="t">通话时长</span><span class="num">12小时46分</span>
+                    </li>
+                    <li>
+                        <span class="t">平均通话</span><span class="num">10分</span>
                     </li>
                 </ul>
                 <a href="javascript:void(0);" class="btn blue btn-export"><span><i class="icon icon-export"></i>导出</span></a>
@@ -121,12 +98,11 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>项目名称</th><th>客户名称</th><th>所属代理</th><th>外呼次数</th><th>拨通次数</th><th>拨通率</th><th>呼损次数</th><th>呼损率</th><th>通话时长</th><th>平均通话</th><th>参与坐席</th></tr>
-                    <tr><td><a href="operate-telephone-single.html">中国电信项目1</a></td><td><a href="operate-telephone-client.html">中国电信</a></td><td><a href="operate-telephone-agent.html">代理1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>3</td></tr>
-                    <tr class="tr2"><td><a href="operate-telephone-single.html">中国电信项目1</a></td><td><a href="operate-telephone-client.html">中国电信</a></td><td><a href="operate-telephone-agent.html">代理1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>3</td></tr>
-                    <tr><td><a href="operate-telephone-single.html">中国电信项目1</a></td><td><a href="operate-telephone-client.html">中国电信</a></td><td><a href="operate-telephone-agent.html">代理1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>3</td></tr>
-                    <tr class="tr2"><td><a href="operate-telephone-single.html">中国电信项目1</a></td><td><a href="operate-telephone-client.html">中国电信</a></td><td><a href="operate-telephone-agent.html">代理1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>3</td></tr>
-                    <tr class="tr2"><td><a href="operate-telephone-single.html">中国电信项目1</a></td><td><a href="operate-telephone-client.html">中国电信</a></td><td><a href="operate-telephone-agent.html">代理1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td><td>3</td></tr>
+                    <tr><th>参与坐席</th><th>外呼次数</th><th>拨通次数</th><th>拨通率</th><th>呼损次数</th><th>呼损率</th><th>通话时长</th><th>平均通话</th></tr>
+                    <tr><td><a href="operate-telephone-single-seat.html">坐席1</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td></tr>
+                    <tr class="tr2"><td><a href="operate-telephone-single-seat.html">坐席2</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td></tr>
+                    <tr><td><a href="operate-telephone-single-seat.html">坐席3</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td></tr>
+                    <tr class="tr2"><td><a href="operate-telephone-single-seat.html">坐席4</a></td><td>1000</td><td>800</td><td>80%</td><td>200</td><td>20%</td><td>12小时46分</td><td>10分</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -205,11 +181,6 @@
         $(".select-ul li").click(function(){
             $(this).parents().find(".select-open .all span").html($(this).text());
             $(this).parents().find(".select-warp").removeClass("select-open");
-        });
-        $(".notice i.tips").hover(function(){
-            $(this).next().show();
-        },function () {
-            $(this).next().hide();
         });
     });
     //弹窗
