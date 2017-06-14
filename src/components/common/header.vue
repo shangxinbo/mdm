@@ -86,16 +86,6 @@
                 this.show = false
                 let _this = this
 
-                if (_this.$store.state.callInfo) { //退出外呼平台
-                    window.mycomm_agent.on_logout_s = function () {
-                        console.log('成功')
-                    }
-                    window.mycomm_agent.on_logout_f = function (evt) {
-                        console.log(evt)
-                    }
-                    window.mycomm_agent.logout()
-                    _this.$store.commit('RESET_CALLINFO', null)
-                }
                 mAjax(this, {
                     url: API.logout,
                     success: function (data) {

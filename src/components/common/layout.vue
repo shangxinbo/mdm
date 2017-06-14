@@ -77,31 +77,7 @@
                     url: API.get_seat_sign,
                     success: data => {
                         let info = data.data
-                        
                         _this.$store.commit('RESET_CALLINFO', info)
-                        window.mycomm_agent.on_login_s = function (evt) {
-                            //_this.$store.commit('RESET_CALLINFO', info)
-                        }
-                        window.mycomm_agent.on_login_f = function (evt) {
-                            let msg = '服务暂不可用，请联系管理员'
-                            switch(evt.params.err_num){
-                            case 404: 
-                                msg = 'IP电话/软电话/分机没有注册，请根据IP电话机内置说明书进行配置，如有疑问请联系管理员'
-                                break
-                            case 409: 
-                                msg = '该分机已经被其他坐席使用，请联系管理员'
-                                break
-                            case 503: 
-                                msg = '服务暂不可用，请联系管理员'
-                                break
-                            default:
-                                msg = '服务暂不可用，请联系管理员'
-                            }
-                            _this.$refs.alert.$emit('show', msg)
-                        }
-
-                        window.mycomm_agent.set_wrap_up_time(0)
-                        window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                     },
                     error: err => {
                         _this.error = err.message
@@ -124,34 +100,8 @@
                 // })
                 _this.$store.commit('SET_TEL_PREFIX', null)
 
-
-                //定时退出 
-                setInterval(() => {
-                    let now = new Date().getTime()
-                    console.log(now-window.login_timer)
-                    if ((now - window.login_timer) > 20 * 60 * 1000) {  //20无操作退出
-                        localStorage.removeItem('user')
-                        sessionStorage.clear()
-                        window.location.reload()
-                    } else {                                            //看登录是否有效
-                        mAjax(this, {
-                            url: API.get_myclient_balance,
-                            success: data => {
-                                //console.log(123)
-                            }
-                        })
-                    }
-                }, 30 * 1000)
-
-                window.login_timer = new Date().getTime()
-                document.body.addEventListener('mouseover', function () {
-                    window.login_timer = new Date().getTime()
-                    console.log(window.login_timer)
-                })
-
             }
             //坐席登录外呼中心 end
-
         }
     }
 
