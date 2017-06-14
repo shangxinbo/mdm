@@ -1,6 +1,8 @@
 module.exports = function () {
     return {
-        "cti_server": "113.209.64.109:17010",
+        "cti_server": "113.209.64.109",
+        "cti_port":17010,
+        "ip_port":5060,
         "agent_id": 'a1064',
         "agent_name": "1064",
         "password": "Jiao@20170420",
