@@ -51,6 +51,7 @@
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num,item.seat_price)">开坐席</a>
                                     <a v-if="item.audit_status==1&&item.expire_seat_num>0" href="javascript:void(0);" @click="showActiveSeatDialog(item.id,item.company,item.seat_price)">激活坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(item.id,item.company,item.balance)">调价</a>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
@@ -70,6 +71,7 @@
         <addSeatDialog ref="addSeatDialog"></addSeatDialog>
         <activeSeatDialog ref="activeSeatDialog"></activeSeatDialog>
         <rechargeDialog ref="rechargeDialog"></rechargeDialog>
+        <changePriceDialog ref="changePriceDialog"></changePriceDialog>
     </div>
 </template>
 <script>
@@ -81,6 +83,7 @@
     import addSeatDialog from './dialog/addSeat'
     import activeSeatDialog from './dialog/activeSeat'
     import rechargeDialog from './dialog/recharge'
+    import changePriceDialog from './dialog/changePrice'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
 
@@ -164,6 +167,9 @@
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
+            showChangePriceDialog(id, company, balance){
+                this.$refs.changePriceDialog.$emit('show', id, company, balance)
+            },
             showReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'block'
             },
@@ -187,7 +193,8 @@
             resetPassDialog,
             addSeatDialog,
             activeSeatDialog,
-            rechargeDialog
+            rechargeDialog,
+            changePriceDialog
         },
     }
 

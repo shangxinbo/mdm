@@ -20,11 +20,11 @@
                 <li class="w100">
                     <label>线索状态</label>
                     <div class="input-warp">
-                        <label class="radio-warp" :class="{'radio-active':clueStatus}" for="hadFinish" @click="chooseStatus(1)">
+                        <label class="radio-warp" :class="{'radio-active':clueStatus==1}" for="hadFinish" @click="chooseStatus(1)">
                             <i class="icon"></i>
                             <span class="radioname">已完成</span>
                         </label>
-                        <label class="radio-warp" :class="{'radio-active':!clueStatus}" for="notFinish" @click="chooseStatus(0)">
+                        <label class="radio-warp" :class="{'radio-active':clueStatus==0}" for="notFinish" @click="chooseStatus(0)">
                             <i class="icon"></i>
                             <span class="radioname">未完成</span>
                         </label>
@@ -75,7 +75,7 @@
                 id: '',
                 tel: '',
                 projectName: '',
-                clueStatus: 1,
+                clueStatus: null,
                 callResult: 1,
                 des: '',
                 error: ''
@@ -106,12 +106,18 @@
             },
             sure: function () {
                 let _this = this
-                if (this.des.length > 100) {
-                    this.error = '备注不能超过100个字符'
+                if(this.clueStatus==null){
+                    this.error = '线索状态必须要选择'
                     return false
-                } else {
-                    this.error = ''
+                }else{
+                    if(this.des.length>100){
+                        this.error = '备注不能超过100个字符'
+                        return false
+                    }else{
+                        this.error = ''
+                    }
                 }
+                
                 mAjax(this, {
                     url: API.project_call_modify,
                     data: {

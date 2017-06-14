@@ -201,8 +201,8 @@
                 this.client_name = this.$route.query.client_name ? this.$route.query.client_name : ''
                 this.project_name = this.$route.query.project_name ? this.$route.query.project_name : ''
                 this.search_project_id = this.$route.query.search_project_id ? this.$route.query.search_project_id : ''
-                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
-                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
+                this.search_end_time = this.$route.query.search_end_time ?  dateFormat(this.$route.query.search_end_time) : ''
+                this.search_start_time = this.$route.query.search_start_time ?  dateFormat(this.$route.query.search_start_time) : ''
                 this.category = this.userType == 3 ? 1 :(this.search_agent_id ? 2:3)
                 this.refresh()
                 this.heads()

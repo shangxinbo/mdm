@@ -4,8 +4,7 @@
             <div class="pop-default nop10">
                 <p class="title">
                     <span>
-                        <i class="icon tips"></i>您的余额不足，请尽快联系相关人员进行充值
-                        <br/>以免影响您的正常使用</span>
+                        <i class="icon tips"></i>您的余额不足，请尽快联系相关人员进行充值,以免影响您的正常使用</span>
                 </p>
             </div>
         </div>

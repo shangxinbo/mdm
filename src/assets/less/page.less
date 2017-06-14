@@ -11,7 +11,9 @@
   a{
     display: inline-block;
     vertical-align: top;
-    .wh(28px);
+      height: 28px;
+      min-width: 12px;
+      padding: 0 8px;
     background-color: lighten(@pageBg,3%);
     border: 1px solid #d8d9de;
     border-radius: 4px;
@@ -22,9 +24,6 @@
     margin: 0 4px;
     &:hover{
       background-color: @pageBg;
-    }
-    &.prev,&.next{
-      width: 66px;
     }
     &.active{
       cursor: default;

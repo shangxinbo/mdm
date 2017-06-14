@@ -35,6 +35,20 @@
     height: 39px;
     background-position: 0 0;
   }
+  .name{
+    display: inline-block;
+    position: absolute;
+    display: none;
+    top: 32px;
+    left: -4px;
+    min-width: 47px;
+    line-height: 21px;
+    background-color: #7a9dbc;
+    border-radius: 4px;
+    color: @whiteColor;
+    text-align: center;
+    white-space: nowrap;
+  }
   li{
     float: left;
     height: 39px;
@@ -71,6 +85,14 @@
       }
       &>div{
         display: block;
+      }
+    }
+    &.user-name{
+      .name{
+        display: block;
+      }
+      .quit{
+        top: 65px;
       }
     }
   }
