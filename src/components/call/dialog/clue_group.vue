@@ -18,7 +18,7 @@
                         </li>
                     </ul>
                     <div class="btn-export">
-                        <a href="javascript:void(0);" class="btn blue">
+                        <a :href="exportUrl" class="btn blue">
                             <span>
                                 <i class="icon icon-export"></i>导出</span>
                         </a>
@@ -34,8 +34,8 @@
                         </tr>
                     </table>
                 </div>
-                <div class="scroll-warp scrollBar w640">
-                    <div class="data-table check-warp">
+                <div class="scroll-warp scrollBar w640" style="overflow-y:auto">
+                    <div class="data-table">
                         <table cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr v-for="(item,index) in list" :class="{tr2:index%2}">
@@ -43,7 +43,7 @@
                                     <td class="w110">{{item.call_time}}</td>
                                     <td class="w110">{{item.dial_status|resultText}}</td>
                                     <td>
-                                        <a v-if="item.file_mp3_url"  class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
+                                        <a v-if="item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
                                             <span class="notice">
                                                 <i class="icon play"></i>
                                             </span>
@@ -76,12 +76,14 @@
                 success_num: 0,
                 tel: '',
                 list: [],
-                playNow:-1
+                playNow:-1,
+                id:''
             }
         },
         created() {
             this.$on('show', (id, tel) => {
                 this.tel = tel
+                this.id = id
                 mAjax(this, {
                     url: API.call_phone_audio,
                     data: {
@@ -98,9 +100,18 @@
                 })
             })
         },
+        updated: function () {
+            let dialog = this.$el
+            let dh = dialog.offsetHeight, dw = dialog.offsetWidth
+            this.offsetLeft = -dw / 2 + 'px'
+            this.offsetTop = -dh / 2 + 'px'
+        },
         computed: {
             projectName() {
                 return this.$route.query.crumb_project_name
+            },
+            exportUrl() {
+                return `${API.call_audio_phone_export}?id=${this.id}`
             }
         },
         filters: {
@@ -110,7 +121,7 @@
         },
         methods: {
             close() {
-                this.style = 'none'
+                this.show = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
             playAudio(url, index, evt) {

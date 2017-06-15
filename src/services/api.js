@@ -68,6 +68,7 @@ export default {
     call_audio: API_PRE + '/teltraffic/proSeatList',
     call_phone_audio: API_PRE + '/teltraffic/proSeatPhoneList',
     call_audio_export: API_PRE + '/teltraffic/proSeatList_export',
+    call_audio_phone_export: API_PRE + '/teltraffic/proSeatPhone_export',
     get_seat_sign: API_PRE + '/callCenter/getSignInData',
     save_call_uuid: API_PRE + '/callCenter/saveCallUuid',
     add_call_job: API_PRE + '/callCenter/addJob',
