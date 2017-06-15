@@ -68,14 +68,29 @@
                 if (!this.clue||isNaN(this.clue) || this.clue < 0) {
                     this.error_clue = '单价格式不正确'
                     return false
+                }else{
+                    if(this.clue>999.99){
+                        this.error_clue = '单价值过大，请保证单价值小于999.99'
+                        return false
+                    }
                 }
                 if (!this.call||isNaN(this.call) || this.call < 0) {
                     this.error_call = '单价格式不正确'
                     return false
+                }else{
+                    if(this.call>99.99){
+                        this.error_call = '单价值过大，请保证单价值小于99.99'
+                        return false
+                    }
                 }
                 if (!this.seat||isNaN(this.seat) || this.seat < 0) {
                     this.error_seat = '单价格式不正确'
                     return false
+                }else{
+                    if(this.seat>9999.99){
+                        this.error_seat = '单价值过大，请保证单价值小于9999.99'
+                        return false
+                    }
                 }
 
                 mAjax(this, {

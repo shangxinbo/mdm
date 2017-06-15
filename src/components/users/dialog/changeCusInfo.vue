@@ -151,7 +151,6 @@
         created: function () {
             let _this = this
             this.$on('show', function (obj) {
-                console.log(obj.id)
                 _this.style = 'block'
                 _this.id = obj.id
                 _this.username = obj.user_name

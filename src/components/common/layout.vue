@@ -26,7 +26,7 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
+    import { mAjax, getCookie } from 'src/services/functions'
 
     export default {
         data: function () {
@@ -52,6 +52,25 @@
         },
         created: function () {
             let _this = this
+                
+            if(this.userType==1){
+                let user = JSON.parse(localStorage.getItem('user'))
+                mAjax(this,{
+                    url:API.get_operate_info,
+                    data:{
+                        id:user.id
+                    },
+                    success:data=>{
+                        if(data.data.rule){
+                            let arr = data.data.rule.split(',')
+                            user.rule = data.data.rule
+                            localStorage.setItem('user',JSON.stringify(user))
+                            this.$store.commit('CHANGE_POWER',arr)
+                        }
+                    }
+                })
+            }
+
             //坐席登录外呼中心 start
             if (this.userType == 4) {
                 mAjax(_this, {
@@ -59,34 +78,28 @@
                     success: data => {
                         let info = data.data
                         _this.$store.commit('RESET_CALLINFO', info)
-                        window.mycomm_agent.on_login_s = function (evt) {
-                            //_this.$store.commit('RESET_CALLINFO', info)
-                        }
-                        window.mycomm_agent.on_login_f = function (evt) {
-                            let msg = '服务暂不可用，请联系管理员'
-                            switch(evt.params.err_num){
-                            case 404: 
-                                msg = 'IP电话/软电话/分机没有注册，请根据IP电话机内置说明书进行配置，如有疑问请联系管理员'
-                                break
-                            case 409: 
-                                msg = '该分机已经被其他坐席使用，请联系管理员'
-                                break
-                            case 503: 
-                                msg = '服务暂不可用，请联系管理员'
-                                break
-                            default:
-                                msg = '服务暂不可用，请联系管理员'
-                            }
-                            _this.$refs.alert.$emit('show', msg)
-                        }
-                        
-                        window.mycomm_agent.set_wrap_up_time(0)
-                        window.mycomm_agent.login(info.cti_server, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                     },
                     error: err => {
                         _this.error = err.message
                     }
                 })
+                
+                // 获取前缀
+                // mAjax(_this, {
+                //     url: API.get_tel_prefix,
+                //     success: data => {
+                //         if (data.code == 200) {
+                //             _this.$store.commit('SET_TEL_PREFIX', data.data.prefix)
+                //         } else {
+                //             _this.$store.commit('SET_TEL_PREFIX', null)
+                //         }
+                //     },
+                //     error: err => {
+                //         _this.$store.commit('SET_TEL_PREFIX', null)
+                //     }
+                // })
+                _this.$store.commit('SET_TEL_PREFIX', null)
+
             }
             //坐席登录外呼中心 end
         }

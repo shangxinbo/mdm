@@ -21,25 +21,25 @@
                 </li>
             </template>
             <template v-if="type==1">
-                <li :class="{active:path.startsWith('/customer')}">
+                <li v-if="yunying_role[1]" :class="{active:path.startsWith('/customer')}">
                     <router-link to="/customer/index">
                         <i class="icon icon04"></i>
                         <span>客户管理</span>
                     </router-link>
                 </li>
-                <li :class="{active:path.startsWith('/project')}">
+                <li v-if="yunying_role[2]" :class="{active:path.startsWith('/project')}">
                     <router-link to="/project/index">
                         <i class="icon icon01"></i>
                         <span>项目管理</span>
                     </router-link>
                 </li>
-                <li :class="{active:path.startsWith('/call')}">
+                <li v-if="yunying_role[3]" :class="{active:path.startsWith('/call')}">
                     <router-link to="/call/index">
                         <i class="icon icon02"></i>
                         <span>话务管理</span>
                     </router-link>
                 </li>
-                <li :class="{active:path.startsWith('/expense')}">
+                <li v-if="yunying_role[4]" :class="{active:path.startsWith('/expense')}">
                     <router-link to="/expense/project">
                         <span>
                             <i class="icon icon03"></i>计费管理
@@ -130,18 +130,21 @@
     import logo from 'assets/img/logo.png'
 
     export default {
-        data: function () {
+        data() {
             return {
                 logo: logo,
                 type: 2
             }
         },
         computed: {
-            path: function () {
+            path() {
                 return this.$route.path
+            },
+            yunying_role() {
+                return this.$store.state.yunying_role
             }
         },
-        created: function () {
+        created() {
             let user = JSON.parse(localStorage.getItem('user'))
             this.type = user.type
         }

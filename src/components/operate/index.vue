@@ -20,6 +20,7 @@
                                 <th>姓名</th>
                                 <th>邮箱</th>
                                 <th>手机号</th>
+                                <th>权限</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -28,6 +29,7 @@
                                 <td>{{item.user_name}}</td>
                                 <td>{{item.mail}}</td>
                                 <td>{{item.tel}}</td>
+                                <td>{{item.rule}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td>
                                     <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user,item.user_name,item.mail,item.tel)">修改信息</a>

@@ -1,6 +1,10 @@
 <template>
     <div class="dialog" :style="{display:style}" style="margin-left:-259px;margin-top:-181px;">
         <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
+        <div v-show="loadNow" style="position: absolute;background: rgba(255,255,255,0.5);width: 100%;height: 100%;z-index: 100;border-radius: 10px;">           
+            <img style="position:absolute;top:50%;left:50%;margin-left:-50px;" :src="loading" />
+            <div style="position: absolute;top: 50%;left: 50%;width: 200px;text-align: center;margin-left: -100px;margin-top: 16px;font-size: 15px;color: #808080;">正在加载中…</div>
+        </div>
         <div class="dialog-header">
             <h4>新开坐席</h4>
         </div>
@@ -41,6 +45,7 @@
     import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
+    import loading from 'assets/img/loading.gif'
 
     export default {
         data() {
@@ -63,7 +68,9 @@
                     {id:"8",name:"8"},
                     {id:"9",name:"9"},
                     {id:"10",name:"10"}
-                ]
+                ],
+                loading:loading,
+                loadNow:false
             }
         },
         computed: {
@@ -73,7 +80,6 @@
                 } else {
                     return 0
                 }
-
             }
         },
         methods: {
@@ -86,6 +92,7 @@
             },
             sure() {
                 let _this = this
+                this.loadNow = true
                 mAjax(this, {
                     url: API.add_seat,
                     data: {
@@ -93,6 +100,7 @@
                         new_seat_num: this.$refs.seatNumSelect.selected.id
                     },
                     success: data => {
+                        this.loadNow = false
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '新开坐席成功')
@@ -102,7 +110,8 @@
                         }
                     },
                     error: err => {
-                        console.log(err)
+                        this.loadNow = false
+                        _this.add_error = err.toString()
                     }
                 })
             }

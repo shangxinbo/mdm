@@ -36,11 +36,11 @@
                             </div>
                         </li>
                         <li>
-                            <button class="btn blue" type="button" @click="search">
+                            <a class="btn blue" type="button" @click="search">
                                 <span>
                                     <i class="icon search"></i>查询
                                 </span>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </form>
@@ -175,8 +175,8 @@
             init: function () {
                 this.search_agent_id = this.$route.query.search_agent_id===undefined ?'': this.$route.query.search_agent_id
                 this.search_client_id = this.$route.query.search_client_id===undefined ?'': this.$route.query.search_client_id
-                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
-                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
+                this.search_end_time = this.$route.query.search_end_time ? dateFormat(this.$route.query.search_end_time) : ''
+                this.search_start_time = this.$route.query.search_start_time ? dateFormat(this.$route.query.search_start_time) : ''
                 this.search_name = this.$route.query.search_name ? this.$route.query.search_name : ''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.refresh()

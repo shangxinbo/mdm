@@ -47,7 +47,8 @@
                 company: '',
                 balance: '',
                 money: '',
-                money_error: ''
+                money_error: '',
+                ajax:false
             }
         },
         methods: {
@@ -65,7 +66,8 @@
                         return false
                     }
                 }
-
+                if(this.ajax) return false
+                this.ajax = true
                 let _this = this
                 mAjax(this, {
                     url: API.recharge,
@@ -74,6 +76,7 @@
                         amount: this.money
                     },
                     success: data => {
+                        this.ajax = false
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '充值成功')

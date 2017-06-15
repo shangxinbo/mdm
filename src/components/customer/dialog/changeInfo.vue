@@ -144,16 +144,9 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '修改信息成功')
-                            let user = JSON.parse(localStorage.getItem('user'))
-                            if (user.type == 3) {
-                                _this.$router.push('/project/index')
-                            } else {
-                                _this.$router.replace('/customer/index')
-                            }
-
+                            _this.$emit('success')
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.self_addr_error = data.message
                         }
                     },
                     error: err => {

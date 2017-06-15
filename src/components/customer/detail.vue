@@ -139,7 +139,7 @@
                 </div>
             </div>
         </div>
-        <editDialog ref="editDialog"></editDialog>
+        <editDialog ref="editDialog" @success="editOver"></editDialog>
         <alert ref="alert"></alert>
     </div>
 </template>
@@ -148,7 +148,7 @@
     import API from 'src/services/api'
     import editDialog from './dialog/changeInfo'
     import alert from 'components/dialog/alert'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -183,6 +183,17 @@
         methods: {
             showEditDialog() {
                 this.$refs.editDialog.$emit('show', this.$route.params.id)
+            },
+            editOver() {
+                let _this = this
+                this.$refs.alert.$emit('show', '修改信息成功', () => {
+                    let user = JSON.parse(localStorage.getItem('user'))
+                    if (user.type == 3) {
+                        _this.$router.push('/project/index')
+                    } else {
+                        _this.$router.replace('/customer/index')
+                    }
+                })
             }
         },
         created: function () {
