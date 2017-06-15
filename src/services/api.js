@@ -66,6 +66,7 @@ export default {
     call_cate: API_PRE + '/teltraffic/category',
     call_head: API_PRE + '/teltraffic/heads',
     call_audio: API_PRE + '/teltraffic/proSeatList',
+    call_phone_audio: API_PRE + '/teltraffic/proSeatPhoneList',
     call_audio_export: API_PRE + '/teltraffic/proSeatList_export',
     get_seat_sign: API_PRE + '/callCenter/getSignInData',
     save_call_uuid: API_PRE + '/callCenter/saveCallUuid',
@@ -82,7 +83,7 @@ export default {
     filter_prefer_2: API_PRE + '/filtertag/preference',
     filter_area: API_PRE + '/filtertag/region',
     filter_customers: API_PRE + '/filtertag/selectnumber',
-    filter_save:API_PRE + '/filtertag/save',
+    filter_save: API_PRE + '/filtertag/save',
     get_login_status: API_PRE + '/user/status',
     change_price: API_PRE + '/operate/modifyprice'
 }

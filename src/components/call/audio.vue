@@ -48,7 +48,7 @@
                                 <th class="w160">通话录音</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.telephone_crypt}}</td>
+                                <td style="text-decoration:underline;color:blue;cursor:pointer" @click="group(item.id,item.telephone_crypt)">{{item.telephone_crypt}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td>{{item.call_time}}</td>
                                 <td>{{item.dial_status|resultText}}</td>
@@ -75,6 +75,7 @@
         <audio id="audio" class="audio" @ended="end"></audio>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
+        <clueGroup ref="clueGroup"></clueGroup>
     </div>
 </template>
 <script>
@@ -86,6 +87,7 @@
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     import crumbs from './crumbs'
+    import clueGroup from './dialog/clue_group'
     export default {
         data() {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -113,8 +115,8 @@
                 return `${API.call_audio_export}?page=${this.currentPage}&project_id=${this.project_id}&client_id=${this.seat_id}&start_time=${this.start_time}&end_time=${this.end_time}&status=${this.status}&phone=`
             }
         },
-        filters:{
-            resultText(val){
+        filters: {
+            resultText(val) {
                 return callResultConf[val]
             }
         },
@@ -123,7 +125,8 @@
             audioFilter,
             confirm,
             alert,
-            crumbs
+            crumbs,
+            clueGroup
         },
         methods: {
             init() {
@@ -153,7 +156,7 @@
                         if (data.code == 200) {
                             _this.list = data.data.list.data
                             _this.head = data.data.count
-                            _this.totalPage = data.data.list.total/data.data.list.per_page
+                            _this.totalPage = data.data.list.total / data.data.list.per_page
                         } else {
                             _this.list = []
                             _this.head = null
@@ -211,6 +214,9 @@
                     span[1].innerHTML = '播放'
                 }
                 this.playNow = -1
+            },
+            group(id,tel) {
+                this.$refs.clueGroup.$emit('show',id,tel)
             }
         },
         created() {
