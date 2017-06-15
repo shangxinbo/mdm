@@ -4,6 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
+            <crumbs></crumbs>
             <div class="title-warp">{{project_name}}的话务</div>
             <div class="data-property">
                 <categoryFilter @submit="search"></categoryFilter>
@@ -53,7 +54,9 @@
                                 <th>平均通话</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td v-if="userType!=4"><router-link :to="{path:'/call/seat',query:{project_id:project_id,seat_id:item.seat_id,seat_name:item.name}}">{{item.name}}</router-link></td>
+                                <td v-if="userType!=4">
+                                    <router-link :to="{path:'/call/seat',query:Object.assign({project_id:project_id,seat_id:item.seat_id,seat_name:item.name,crumb_seat_id:item.seat_id,crumb_seat_name:item.name},crumbs)}">{{item.name}}</router-link>
+                                </td>
                                 <td v-else>{{item.name}}</td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -81,6 +84,7 @@
     import categoryFilter from './category_filter'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
+    import crumbs from './crumbs'
 
     export default {
         data() {
@@ -107,6 +111,25 @@
             categoryFilter,
             confirm,
             alert,
+            crumbs
+        },
+        computed: {
+            crumbs() {
+                let obj = {}
+                if (this.$route.query.crumb_agent_id) {
+                    obj.crumb_agent_id = this.$route.query.crumb_agent_id
+                    obj.crumb_agent_name = this.$route.query.crumb_agent_name
+                }
+                if (this.$route.query.crumb_client_id) {
+                    obj.crumb_client_id = this.$route.query.crumb_client_id
+                    obj.crumb_client_name = this.$route.query.crumb_client_name
+                }
+                if (this.$route.query.crumb_project_id) {
+                    obj.crumb_project_id = this.$route.query.crumb_project_id
+                    obj.crumb_project_name = this.$route.query.crumb_project_name
+                }
+                return obj
+            }
         },
         methods: {
             init() {

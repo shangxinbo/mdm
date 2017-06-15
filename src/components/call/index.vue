@@ -47,13 +47,13 @@
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
-                                    <router-link :to="{path : '/call/cate',query : {project_id:item.id,project_name:item.name}}">{{item.name}}</router-link>
+                                    <router-link :to="{path : '/call/cate',query : Object.assign({project_id:item.id,project_name:item.name,crumb_project_id:item.id,crumb_project_name:item.name},crumbs)}">{{item.name}}</router-link>
                                 </td>
                                 <td v-if="userType==1&&!client_id">
-                                    <router-link :to="{query : {client_id:item.client_id,client_name:item.client_name}}">{{item.client_name}}</router-link>
+                                    <router-link :to="{query : Object.assign({client_id:item.client_id,client_name:item.client_name,crumb_client_id:item.client_id,crumb_client_name:item.client_name},crumbs)}">{{item.client_name}}</router-link>
                                 </td>
                                 <td v-if="userType==1&&!agent_id&&!client_id">
-                                    <router-link :to="{query : {agent_id:item.agency_id,agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
+                                    <router-link :to="{query : {agent_id:item.agency_id,agent_name:item.agency_name,crumb_agent_id:item.agency_id,crumb_agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
                                 </td>
                                 <td>{{item.call_times}}</td>
                                 <td>{{item.effect_call_times}}</td>
@@ -117,6 +117,18 @@
                         + '&search_agent_id=' + agent_id
                         + '&search_start_time=' + (this.$route.query.startTime?this.$route.query.startTime:'')
                         + '&search_end_time=' + (this.$route.query.endTime?this.$route.query.endTime:'')
+            },
+            crumbs(){
+                let obj = {}
+                if(this.$route.query.crumb_agent_id){
+                    obj.crumb_agent_id = this.$route.query.crumb_agent_id
+                    obj.crumb_agent_name= this.$route.query.crumb_agent_name
+                }
+                if(this.$route.query.crumb_client_id){
+                    obj.crumb_client_id = this.$route.query.crumb_client_id
+                    obj.crumb_client_name= this.$route.query.crumb_client_name
+                }
+                return obj
             }
         },
         watch: {

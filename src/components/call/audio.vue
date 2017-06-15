@@ -1,6 +1,7 @@
 <template>
     <div class="warp">
         <div class="main">
+            <crumbs></crumbs>
             <div class="title-warp">{{seat_name}}的话务</div>
             <div class="data-property">
                 <audioFilter @submit="search"></audioFilter>
@@ -84,6 +85,7 @@
     import callResultConf from '../project/callResultConf'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
+    import crumbs from './crumbs'
     export default {
         data() {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -121,6 +123,7 @@
             audioFilter,
             confirm,
             alert,
+            crumbs
         },
         methods: {
             init() {
