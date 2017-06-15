@@ -1,5 +1,5 @@
 <template>
-    <div class="current">
+    <div class="current" v-if="userType==1">
         <router-link v-if="agent.id||client.id||project.id||seat.id" to="/call/index">话务管理</router-link>
         <template v-if="agent.id">
             <router-link v-if="client.id||project.id||seat.id" :to="{path:'/call/index', query : {agent_id:agent.id,agent_name:agent.name,crumb_agent_id:agent.id,crumb_agent_name:agent.name}}">{{agent.name}}的话务</router-link>
@@ -19,7 +19,10 @@
 <script>
     export default {
         data() {
-            return {}
+            let user = JSON.parse(localStorage.getItem('user'))
+            return {
+                userType: user.type
+            }
         },
         computed: {
             agent() {
@@ -29,7 +32,6 @@
                 }
             },
             client() {
-                console.log(123)
                 return {
                     id: this.$route.query.crumb_client_id,
                     name: this.$route.query.crumb_client_name
