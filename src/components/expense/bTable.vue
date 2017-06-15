@@ -54,14 +54,14 @@
         filters: {
             fiterCode: function (value) {
                 switch (value) {
-                case 1:
-                    return '座席'
-                case 2:
-                    return '线索'
-                case 3:
-                    return '通话'
-                default:
-                    return '暂无'
+                    case 1:
+                        return '座席'
+                    case 2:
+                        return '线索'
+                    case 3:
+                        return '通话'
+                    default:
+                        return '暂无'
                 }
             }
         },

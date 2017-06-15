@@ -38,13 +38,15 @@
     import API from 'src/services/api'
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 style: 'none',
                 id: '',
                 name: '',
                 list: {},
                 checked: [],
-                error: ''
+                error: '',
+                userType:user.type
             }
         },
         computed: {
@@ -115,8 +117,9 @@
                 }
             }
         },
-        created: function () {
+        created() {
             let _this = this
+            if(this.userType!=3) return false
             mAjax(this, {
                 url: API.seat_list,
                 success: data => {
@@ -129,7 +132,6 @@
             this.$on('show', function (id, name) {
                 _this.id = id
                 _this.name = name
-                console.log(123)
                 mAjax(_this, {
                     url: API.seat_binding,
                     data: {

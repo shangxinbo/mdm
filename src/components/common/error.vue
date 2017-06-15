@@ -12,9 +12,14 @@
                     <img :src="bg">
                 </p>
                 <div class="data-search">
-                    <router-link to="/">
-                        <button class="btn green" type="button">返回首页</button>
-                    </router-link>
+                    <div style="width:230px;margin:0 auto">
+                        <router-link to="/">
+                            <button class="btn green" style="float:left" type="button">返回首页</button>
+                        </router-link>
+                        <router-link to="/login">
+                            <button class="btn green" style="float:right" type="button">重新登录</button>
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,14 +41,14 @@
             msg: function () {
                 let msg = this.$route.query.msg
                 switch (this.code) {
-                case '404':
-                    return '页面未找到'
-                case '403':
-                    return '您的访问不被允许'
-                case '500':
-                    return '程序未知错误'
-                default:
-                    return msg ? msg : ''
+                    case '404':
+                        return '页面未找到'
+                    case '403':
+                        return '您的访问不被允许'
+                    case '500':
+                        return '程序未知错误'
+                    default:
+                        return msg ? msg : ''
                 }
             }
         }

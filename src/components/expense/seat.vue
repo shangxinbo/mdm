@@ -36,11 +36,11 @@
                             </div>
                         </li>
                         <li>
-                            <button class="btn blue" type="button" @click="search">
+                            <a class="btn blue" type="button" @click="search">
                                 <span>
                                     <i class="icon search"></i>查询
                                 </span>
-                            </button>
+                            </a>
                         </li>
                     </ul>
                 </form>
@@ -129,7 +129,6 @@
                         from: new Date()
                     }
                 }
-
             },
             datepicker_disabled2: function () {
                 let start = this.search_start_time

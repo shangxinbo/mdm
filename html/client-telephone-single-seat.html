@@ -136,7 +136,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td>空号</td>
+                        <td><a href="javascript:void(0);" onclick="getWindow('singleTelephone');">138****5556</a></td><td>2017-03-14</td><td>13分</td><td>空号</td>
                         <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
                             <audio class="audio" src="../static/audio/audio.mp3"></audio>
                         </td>
@@ -163,6 +163,63 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 单线索的话务 弹窗-->
+<div class="dialog" id="singleTelephone">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>138***5556 拨打详情</h4>
+    </div>
+    <div class="dialog-body">
+        <div class="dialog-seat-list">
+            <div class="data-export">
+                <ul>
+                    <li>
+                        <span class="t">项目名称</span><span class="num">中国电信项目1</span>
+                    </li>
+                    <li>
+                        <span class="t">拨通次数</span><span class="num">3</span>
+                    </li>
+                </ul>
+                <div class="btn-export">
+                    <a href="javascript:void(0);" class="btn blue "><span><i class="icon icon-export"></i>批量下载录音</span></a>
+                    <a href="javascript:void(0);" class="btn blue"><span><i class="icon icon-export"></i>导出</span></a>
+                </div>
+            </div>
+            <div class="data-table">
+                <table cellspacing="0" cellpadding="0">
+                    <tr><th class="w160">拨打时间</th><th class="w110">通话时长</th><th class="w110">拨打结果</th><th>通话录音</th></tr>
+                </table>
+            </div>
+            <div class="scroll-warp scrollBar w640">
+                <div class="data-table check-warp">
+                    <table cellspacing="0" cellpadding="0">
+                        <tbody>
+                        <tr>
+                            <td class="w160">2017-03-14</td><td class="w110">13分</td><td class="w110">已拨通</td>
+                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                                <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                            </td>
+                        </tr>
+                        <tr class="tr2">
+                            <td class="w160">2017-03-14</td><td class="w110">13分</td><td class="w110">空号</td>
+                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                                <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="w160">2017-03-14</td><td class="w110">13分</td><td class="w110">停机</td>
+                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                                <audio class="audio" src="../static/audio/audio.mp3"></audio>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 单线索的话务弹窗-->
 <!-----------------------header下拉弹窗------------------------->
 <!-- 修改密码弹窗 -->
 <div class="dialog" id="editPassword">
@@ -321,4 +378,8 @@
     }
 </script>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> feature/PD-1454

@@ -233,14 +233,6 @@
         &.date{
           height: 41px;
           line-height: 39px\9;
-          float: left;
-        }
-      }
-      em{
-        &.or{
-          height: 41px;
-          line-height: 41px;
-          line-height: 39px\9;
         }
       }
     }
@@ -261,37 +253,17 @@
       }
     }
     .unit-warp{
-      padding-right: 10px;
+      padding-right: 30px;
       position: relative;
-      float: left;
       span{
         font-size: 14px;
-        line-height: 30px;
-        &.name{
-          padding-right: 10px;
-          color: @grayColor2;
-        }
       }
       input{
         &.text{
-          min-width: 50px;
-          max-width: 80px;
-          width: 60px;
-          margin:0 5px;
-          vertical-align: top;
-          padding: 0 5px;
-        }
-      }
-    }
-    .recharge-warp{
-      input{
-        &.text{
-          width: auto;
           height: 41px;
           line-height: 39px\9;
-          max-width:200px;
-          margin:0 5px;
-          font-size: 16px;
+          max-width:150px;
+          margin:0 10px;
         }
       }
     }
@@ -407,16 +379,6 @@
       .inputbox{
         .txt{
           width: 280px;
-        }
-      }
-    }
-  }
-  &.dialog-client-add,&.dialog-manua-add{
-    &>li{
-      &.hang{
-        min-height: 40px;
-        .dialog-select{
-          padding-top: 10px;
         }
       }
     }
@@ -542,6 +504,25 @@
       }
     }
   }
+
+}
+.dialog-seat-list{
+    width: 640px;
+    padding-bottom: 40px;
+    .scroll-warp{
+        max-height: 210px;
+    }
+    .data-export{
+        padding-right: 250px;
+        ul{
+            li{
+                margin: 0 20px 0 0;
+                .num{
+                    font-size: 16px;
+                }
+            }
+        }
+    }
 }
 .dialog-client{
   width: 700px;
@@ -551,93 +532,93 @@
   }
 }
 .dialog-allocation{
-  width: 600px;
-  padding-bottom: 20px;
-  .mode{
-    width: 100%;
-    display: inline-block;
-    &>li{
-      position: relative;
-      float: left;
-      padding: 0 40px 20px 0;
-      label{
-        height: 30px;
-        font-size: 14px;
-        line-height: 30px;
-        color: @grayColor2;
-        float: left;
-        padding-right: 10px;
-      }
-      .input-warp{
-        float: left;
-        .text{
-          height: 30px;
-          font-size: 16px;
-          line-height: 30px;
-        }
-        .seat-select{
-          width: 120px;
-        }
-      }
-    }
-  }
-  .title{
-    font-size: 16px;
-    padding-bottom: 10px;
-    color: @grayColor;
-  }
-  .check-warp{
-    height: 140px;
-    .clue{
-      position: absolute;
-      top: 7px;
-      right: 10px;
-      display: none;
-      span{
+    width: 600px;
+    padding-bottom: 20px;
+    .mode{
+        width: 100%;
         display: inline-block;
-        line-height: 30px;
-        font-size: 14px;
-        color: @grayColor2;
-        float: left;
-        padding-right: 10px;
-      }
-      input{
-        &.text{
-          width: 60px;
-          min-width: 60px;
-          padding: 0 5px;
+        &>li{
+            position: relative;
+            float: left;
+            padding: 0 40px 20px 0;
+            label{
+                height: 30px;
+                font-size: 14px;
+                line-height: 30px;
+                color: @grayColor2;
+                float: left;
+                padding-right: 10px;
+            }
+            .input-warp{
+                float: left;
+                .text{
+                    height: 30px;
+                    font-size: 16px;
+                    line-height: 30px;
+                }
+                .seat-select{
+                    width: 120px;
+                }
+            }
         }
-      }
     }
-  }
-  .notice .icon{
-    .flo();
-    background: url('@{url}/data-icon.png') no-repeat 0 0;
-  }
-  .notice{
-    color: @redColor;
-    font-size: 12px;
-    line-height: 32px;
-    display: inline-block;
-    padding: 0 15px 0 38px;
-    background-color: #fffae5;
-    border: 1px solid #f0ebd5;
-    position: relative;
-    i{
-      .wh(17px);
-      display: inline-block;
-      position: absolute;
-      top:7px;
-      left: 12px;
+    .title{
+        font-size: 16px;
+        padding-bottom: 10px;
+        color: @grayColor;
     }
-  }
-  .select-cutover2{
     .check-warp{
-      span {
-        max-width: 130px;
-      }
+        height: 140px;
+        .clue{
+            position: absolute;
+            top: 7px;
+            right: 10px;
+            display: none;
+            span{
+                display: inline-block;
+                line-height: 30px;
+                font-size: 14px;
+                color: @grayColor2;
+                float: left;
+                padding-right: 10px;
+            }
+            input{
+                &.text{
+                    width: 60px;
+                    min-width: 60px;
+                    padding: 0 5px;
+                }
+            }
+        }
     }
-  }
+    .notice .icon{
+        .flo();
+        background: url('@{url}/data-icon.png') no-repeat 0 0;
+    }
+    .notice{
+        color: @redColor;
+        font-size: 12px;
+        line-height: 32px;
+        display: inline-block;
+        padding: 0 15px 0 38px;
+        background-color: #fffae5;
+        border: 1px solid #f0ebd5;
+        position: relative;
+        i{
+            .wh(17px);
+            display: inline-block;
+            position: absolute;
+            top:7px;
+            left: 12px;
+        }
+    }
+    .select-cutover2{
+        .check-warp{
+            span {
+                max-width: 130px;
+            }
+        }
+    }
 }
 .pop-manager{
   padding: 70px 60px;
@@ -738,4 +719,3 @@
     }
   }
 }
-
