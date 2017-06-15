@@ -4,6 +4,7 @@
 <template>
     <div class="warp">
         <div class="main">
+            <crumbs></crumbs>
             <div class="title-warp" v-if="userType==4">我的话务</div>
             <div class="title-warp" v-else>{{client_name?client_name+'的话务':(agent_name?agent_name+'的话务':'话务管理')}}</div>
             <div class="data-property">
@@ -81,6 +82,7 @@
     import indexFilter from './index_filter'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
+    import crumbs from './crumbs'
 
     export default {
         data() {
@@ -127,6 +129,7 @@
             indexFilter,
             confirm,
             alert,
+            crumbs
         },
         created() {
             this.init()
