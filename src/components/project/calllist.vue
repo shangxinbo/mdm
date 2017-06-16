@@ -229,7 +229,7 @@
                     success: data => {
                         if (data.code == 200) {
                             if (data.data.balance <= 0) {
-                                _this.$refs.alert.$emit('show', '客户账户余额不足,暂不能拨打')
+                                _this.$refs.alert.$emit('show', '您的账号已经没有费用，请联系管理员')
                             } else if (!data.data.valid) {
                                 _this.$refs.alert.$emit('show', '坐席已失效,暂不能拨打')
                             } else {
