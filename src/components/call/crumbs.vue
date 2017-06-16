@@ -1,5 +1,5 @@
 <template>
-    <div class="current" v-if="userType==1">
+    <div class="current">
         <router-link v-if="agent.id||client.id||project.id||seat.id" to="/call/index">话务管理</router-link>
         <template v-if="agent.id">
             <router-link v-if="client.id||project.id||seat.id" :to="{path:'/call/index', query : {agent_id:agent.id,agent_name:agent.name,crumb_agent_id:agent.id,crumb_agent_name:agent.name}}">{{agent.name}}的话务</router-link>
