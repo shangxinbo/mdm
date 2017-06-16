@@ -156,7 +156,7 @@
                         if (data.code == 200) {
                             _this.list = data.data.list.data
                             _this.head = data.data.count
-                            _this.totalPage = data.data.list.total / data.data.list.per_page
+                            _this.totalPage = Math.ceil(data.data.list.total / data.data.list.per_page)
                         } else {
                             _this.list = []
                             _this.head = null
