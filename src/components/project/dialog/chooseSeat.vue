@@ -35,8 +35,8 @@
                         </ul>
                     </div>
                 </div>
-                <p class="notice">
-                    <i class="icon"></i>分配线索量之和不等于未拨打线索量。分配线索量之和 8880，未拨打线索量 8888</p>
+                <p class="notice" v-show="error">
+                    <i class="icon"></i>{{error}}</p>
                 <div class="dialog-select">
                     <div class="checkall" :class="{checked:checkedAllStatus}">
                         <i class="icon" @click="toggleAll"></i>
@@ -91,24 +91,59 @@
             },
             sure: function () {
                 let _this = this
-                // if (this.checked.length <= 0) {
-                //     return false
-                // }
-                // mAjax(this, {
-                //     url: API.seat_tobind,
-                //     data: {
-                //         id: this.id,
-                //         seat_id: this.checked
-                //     },
-                //     success: data => {
-                //         if (data.code == 200) {
-                //             _this.close()
-                //             _this.$store.commit('SHOW_TOAST', '操作成功')
-                //         } else {
-                //             _this.$store.commit('SHOW_TOAST', data.message)
-                //         }
-                //     }
-                // })
+                let arr = []
+                if (this.assignType == 1) {
+                    this.seat.forEach(item => {
+                        if (item.checked) {
+                            arr.push(item.key)
+                        }
+                    })
+                    if (arr.length <= 0) {
+                        return false
+                    }
+                } else {
+                    this.seat.forEach(item => {
+                        if (item.checked) {
+                            arr.push({ id: item.key, num: item.num })
+                        }
+                    })
+
+                    let total = 0
+                    let reg = /^[1-9][0-9]*$/
+                    for (let i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i].num)) {
+                            this.error = '请保证每个坐席分配到的线索数值是正整数'
+                            return false
+                        } else {
+                            total = total + parseInt(arr[i].num)
+                        }
+                    }
+                    if (arr.length <= 0) {
+                        return false
+                    } else {
+                        if (total != this.clue_num) {
+                            this.error = `分配线索量之和不等于未拨打线索量。分配线索量之和 ${total}，未拨打线索量 ${this.clue_num}`
+                            return false
+                        }
+                    }
+                }
+                mAjax(this, {
+                    url: API.seat_tobind,
+                    data: {
+                        id: this.id,
+                        type: this.assignType == 1 ? 0 : 1,
+                        seat_id: arr,
+                        seat_conf:arr
+                    },
+                    success: data => {
+                        if (data.code == 200) {
+                            _this.close()
+                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
             },
             toggleChecked(item) {
                 item.checked = !item.checked
@@ -121,6 +156,7 @@
             },
             changeAssignType(val) {
                 this.assignType = val.id
+                this.error = ''
             }
         },
         created() {
