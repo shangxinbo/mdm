@@ -102,6 +102,10 @@
                                 span[0].querySelector('i').className = 'icon play'
                                 span[1].innerHTML = '播放'
                             }
+                            let dom = document.querySelector('#audio')
+                            dom.pause()
+                            dom.src = ''
+                            this.playNow = -1
                             this.$store.commit('SHOW_LAYER')
                         }
                     }
@@ -133,6 +137,7 @@
                 this.$store.commit('HIDE_LAYER')
                 let dom = document.querySelector('#audio')
                 dom.pause()
+                dom.src = ''
                 this.playNow = -1
             },
             playAudio(url, index, evt) {
