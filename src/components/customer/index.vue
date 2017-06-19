@@ -51,7 +51,7 @@
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num,item.seat_price)">开坐席</a>
                                     <a v-if="item.audit_status==1&&item.expire_seat_num>0" href="javascript:void(0);" @click="showActiveSeatDialog(item.id,item.company,item.seat_price)">激活坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(item.id,item.company,item.balance)">调价</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(item.id,item.company,item.balance,item.seat_price,item.clue_price,item.tel_price)">调价</a>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==2" :to="'/customer/add/' + item.id">重新申请</router-link>
@@ -170,8 +170,8 @@
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
-            showChangePriceDialog(id, company, balance){
-                this.$refs.changePriceDialog.$emit('show', id, company, balance)
+            showChangePriceDialog(id, company, balance,seat_price,clue_price,call_price){
+                this.$refs.changePriceDialog.$emit('show', id, company, balance,seat_price,clue_price,call_price)
             },
             showReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'block'
