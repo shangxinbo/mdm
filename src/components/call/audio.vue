@@ -230,6 +230,14 @@
                 if (evt.keyCode == 13)
                     _this.search()
             }
+        },
+        beforeRouteUpdate(to,from,next){  //路由切换终端播放录音
+            console.log(123)
+            this.playNow = -1
+            let dom = document.querySelector('#audio')
+            dom.pause()
+            dom.src = ''
+            next()
         }
     }
 
