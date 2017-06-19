@@ -214,6 +214,7 @@
                     span[1].innerHTML = '播放'
                 }
                 this.playNow = -1
+                this.$refs.clueGroup.playNow = -1
             },
             group(id,tel) {
                 this.$refs.clueGroup.$emit('show',id,tel)

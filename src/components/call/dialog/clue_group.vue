@@ -38,7 +38,7 @@
                     <div class="data-table">
                         <table cellspacing="0" cellpadding="0">
                             <tbody>
-                                <tr v-for="(item,index) in list" :class="{tr2:index%2}">
+                                <tr v-for="(item,index) in list" :index="index" :class="{tr2:index%2}">
                                     <td class="w160">{{item.created_at}}</td>
                                     <td class="w110">{{item.call_time}}</td>
                                     <td class="w110">{{item.dial_status|resultText}}</td>
@@ -94,6 +94,14 @@
                             this.show = 'block' 
                             this.list = data.data.list
                             this.success_num = data.data.count
+
+                            let audios = document.querySelectorAll('.btn-audio')
+                            for (let i = 0; i < audios.length; i++) {
+                                let item = audios[i]
+                                let span = item.querySelectorAll('span')
+                                span[0].querySelector('i').className = 'icon play'
+                                span[1].innerHTML = '播放'
+                            }
                             this.$store.commit('SHOW_LAYER')
                         }
                     }
@@ -123,6 +131,9 @@
             close() {
                 this.show = 'none'
                 this.$store.commit('HIDE_LAYER')
+                let dom = document.querySelector('#audio')
+                dom.pause()
+                this.playNow = -1
             },
             playAudio(url, index, evt) {
                 let dom = document.querySelector('#audio')
