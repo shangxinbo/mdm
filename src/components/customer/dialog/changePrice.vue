@@ -92,14 +92,15 @@
                         return false
                     }
                 }
-
+                
+                console.log(this.seat,this.call,this.clue)
                 mAjax(this, {
                     url: API.change_price,
                     data: {
                         id: this.id,
-                        clue_price: this.clue.trim(),
-                        tel_price: this.call.trim(),
-                        seat_price: this.seat.trim()
+                        clue_price: this.clue.toString().trim(),
+                        tel_price: this.call.toString().trim(),
+                        seat_price: this.seat.toString().trim()
                     },
                     success: data => {
                         if (data.code == 200) {
@@ -121,11 +122,11 @@
         },
         created() {
             let _this = this
-            this.$on('show', function (id, company, balance) {
+            this.$on('show', function (id, company, balance,seat,clue,call) {
                 _this.id = id
-                _this.clue = ''
-                _this.call = ''
-                _this.seat = ''
+                _this.clue = clue?Number(clue):''
+                _this.call = call?Number(call):''
+                _this.seat = seat?Number(seat):''
                 _this.error_clue = ''
                 _this.error_call = ''
                 _this.error_seat = ''
