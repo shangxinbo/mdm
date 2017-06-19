@@ -217,6 +217,9 @@
                 this.$refs.clueGroup.playNow = -1
             },
             group(id,tel) {
+                this.playNow = -1
+                let dom = document.querySelector('#audio')
+                dom.src = ''
                 this.$refs.clueGroup.$emit('show',id,tel)
             }
         },
