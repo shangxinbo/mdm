@@ -237,6 +237,13 @@
             let dom = document.querySelector('#audio')
             dom.pause()
             dom.src = ''
+            let audios = document.querySelectorAll('.btn-audio')
+            for (let i = 0; i < audios.length; i++) {
+                let item = audios[i]
+                let span = item.querySelectorAll('span')
+                span[0].querySelector('i').className = 'icon play'
+                span[1].innerHTML = '播放'
+            }
             next()
         }
     }
