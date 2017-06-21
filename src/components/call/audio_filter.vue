@@ -2,6 +2,10 @@
     <form>
         <ul class="data-text">
             <li>
+                <label class="name">拨打资源</label>
+                <div class="input-warp"><input class="text" type="text" v-model="tel" /></div>
+            </li>
+            <li>
                 <label class="name">拨打结果</label>
                 <mselect ref="resultSelect" :initlist="resultList" :id="dialStatus"></mselect>
             </li>
@@ -59,7 +63,8 @@
                     cancel: '取消'
                 },
                 resultList: resultList,
-                dialStatus: ''
+                dialStatus: '',
+                tel:''
             }
         },
         created() {
@@ -81,6 +86,7 @@
                 this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
                 this.max_start = this.end_time
                 this.min_end = this.start_time
+                this.tel = this.$route.query.tel?this.$route.query.tel:''
             },
             setStartTime(value) {
                 this.start_time = value
@@ -95,6 +101,11 @@
                     start_time: this.start_time,
                     end_time: this.end_time,
                     result:this.$refs.resultSelect.selected.id
+                }
+                if(this.tel){
+                    obj.tel = this.tel
+                }else{
+                    obj.tel = ''
                 }
                 this.$emit('submit', obj)
             }

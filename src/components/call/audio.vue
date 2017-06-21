@@ -48,7 +48,11 @@
                                 <th class="w160">通话录音</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td style="text-decoration:underline;color:blue;cursor:pointer" @click="group(item.id,item.telephone_crypt)">{{item.telephone_crypt}}</td>
+                                <td>
+                                    <a href="javascript:void(0)" @click="group(item.id,item.telephone_crypt)">
+                                    {{item.telephone_crypt}}
+                                    </a>
+                                </td>
                                 <td>{{item.created_at}}</td>
                                 <td>{{item.call_time}}</td>
                                 <td>{{item.dial_status|resultText}}</td>
@@ -102,6 +106,7 @@
                 status: '',
                 start_time: '',
                 end_time: '',
+                tel:'',
                 playNow: -1
             }
         },
@@ -137,6 +142,7 @@
                 this.status = this.$route.query.result ? this.$route.query.result : ''
                 this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
                 this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
+                this.tel = this.$route.query.tel? this.$route.query.tel:''
                 this.refresh()
             },
             refresh() {
@@ -146,7 +152,7 @@
                     data: {
                         project_id: _this.project_id,
                         client_id: _this.seat_id,
-                        phone: '',
+                        phone: _this.tel,
                         status: _this.status,
                         start_time: this.start_time,
                         end_time: this.end_time,
