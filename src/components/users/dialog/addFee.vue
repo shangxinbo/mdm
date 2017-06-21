@@ -43,8 +43,11 @@
                     <div class="input-warp">
                         <p class="text">¥{{detail.price}}</p>
                     </div>
+
                 </li>
             </ul>
+            <p class="error" v-show="error">
+                <i class="icon"></i>{{error}}</p>
         </div>
         <div class="dialog-footer">
             <a class="btn blue" href="javascript:void(0);" @click="sure">续费</a>
@@ -60,7 +63,8 @@
             return {
                 style: 'none',
                 id: '',
-                detail: {}
+                detail: {},
+                error: ''
             }
         },
         methods: {
@@ -69,17 +73,21 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure() {
+                this.error = ''
                 mAjax(this, {
                     url: API.operate_active_seat,
                     data: {
                         seat_id: this.id
                     },
                     success: data => {
-                        this.close()
+
                         if (data.code == 200) {
+                            this.close()
                             this.$store.commit('SHOW_TOAST', '续费成功')
                         } else {
-                            this.$store.commit('SHOW_TOAST', data.message)
+                            console.log(data.message)
+                            let error = data.message
+                            this.error = data.message
                         }
                     }
                 })
