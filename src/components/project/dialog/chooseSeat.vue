@@ -124,6 +124,8 @@
                         if (total != this.clue_num) {
                             this.error = `分配线索量之和不等于未拨打线索量。分配线索量之和 ${total}，未拨打线索量 ${this.clue_num}`
                             return false
+                        }else{
+                            this.error = ''
                         }
                     }
                 }
