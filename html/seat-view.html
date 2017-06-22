@@ -44,46 +44,10 @@
 <div class="warp">
     <div class="main">
         <div class="title-warp">中国电信项目1外呼列表</div>
-        <div class="tag-nav">
-            <a href="javascript:void(0);" class="active" onclick="tagCutover(this,'cutover-tab01')">未拨打</a>
-            <a href="javascript:void(0);" onclick="tagCutover(this,'cutover-tab02')">已拨打</a>
-        </div>
         <div class="data-property">
             <form>
                 <div class="cutover">
-                    <ul class="data-text cutover-tab01">
-                        <li>
-                            <label class="name"> 归属地</label>
-                            <div class="input-warp">
-                                <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                    <p class="all"><span>全部</span></p>
-                                    <div class="select-ul">
-                                        <div class="scroll-warp scrollBar">
-                                            <ul>
-                                                <li>全部</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <label class="name">分配日期</label>
-                            <div class="input-warp date-warp">
-                                <div class="calendar-warp w45">
-                                    <input class="date" type="text" value="2016.12.01">
-                                </div>
-                                <em class="or">至</em>
-                                <div class="calendar-warp w45">
-                                    <input class="date" type="text" value="2016.12.07">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
-                        </li>
-                    </ul>
-                    <ul class="data-text cutover-tab02" style="display: none">
+                    <ul class="data-text">
                         <li>
                             <label class="name"> 归属地</label>
                             <div class="input-warp">
@@ -164,33 +128,14 @@
                     </ul>
                 </div>
             </form>
-
         </div>
         <div class="data-warp">
             <div class="cutover">
-                <div class="data-table cutover-tab01">
+                <div class="data-table">
                     <div class="data-export">
                         <ul>
                             <li>
                                 <span class="t">已拨打</span><span class="num">1000</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--<p class="no-data">暂无数据</p>-->
-                    <table cellspacing="0" cellpadding="0">
-                        <tbody>
-                        <tr><th>拨打资源</th><th>归属地</th><th>分配日期</th><th>操作</th></tr>
-                        <tr><td>138****5556</td><td>北京</td><td>2017-03-16</td><td><a href="seat-list-detail.html"><span class="notice"><i class="icon phone"></i></span>拨打</a></td></tr>
-                        <tr class="tr2"><td>138****5556</td><td>湘潭</td><td>2017-03-16</td><td><a href="seat-list-detail.html"><span class="notice"><i class="icon phone"></i></span>拨打</a></td></tr>
-                        <tr><td>138****5556</td><td>洛阳</td><td>2017-03-16</td><td><a href="seat-list-detail.html"><span class="notice"><i class="icon phone"></i></span>拨打</a></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="data-table cutover-tab02" style="display: none">
-                    <div class="data-export">
-                        <ul>
-                            <li>
-                                <span class="t">未拨打</span><span class="num">2000</span>
                             </li>
                         </ul>
                     </div>
@@ -205,7 +150,6 @@
                         <tr><td>138****5556</td><td>北京</td><td>女士</td><td>1</td><td>2017-03-16 10:20</td><td>13分</td><td class="tl">备注备注</td><td class="tl">【待跟进】通话中断</td><td><a href="seat-list-detail.html"><span class="notice"><i class="icon phone"></i></span>拨打</a><a href="seat-list-view.html">查看</a></td></tr>
                         <tr class="tr2"><td>138****5556</td><td>北京</td><td>张先生</td><td>1</td><td>2017-03-16 10:20</td><td>6分</td><td class="tl">备注备注.</td><td class="tl">【待跟进】有意向-继续联系</td><td><a href="seat-list-detail.html"><span class="notice"><i class="icon phone"></i></span>拨打</a><a href="seat-list-view.html">查看</a></td></tr>
                         <tr><td>138****5556</td><td>北京</td><td>张先生</td><td>1</td><td>2017-03-16 10:20</td><td>1分</td><td class="tl"></td><td class="tl">【失败】同行业</td><td><a href="seat-list-detail.html"><span class="notice"><i class="icon phone"></i></span>拨打</a><a href="seat-list-view.html">查看</a></td></tr>
-
                         </tbody>
                     </table>
                 </div>
@@ -223,8 +167,122 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 拨打详情弹窗 -->
+<div class="dialog" id="dialDetail">
+    <div class="dialog-header">
+        <h4>拨打详情</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li class="w50">
+                <label>手机号</label>
+                <div class="input-warp">
+                    <p class="text">138****5556</p>
+                </div>
+            </li>
+            <li class="w50">
+                <label>项目名称</label>
+                <div class="input-warp">
+                    <p class="text">中国电信项目1</p>
+                </div>
+            </li>
+            <li class="w100">
+                <label>线索状态</label>
+                <div class="input-warp">
+                    <label onclick="tradioCutover(this)" class="radio-warp" for="hadFinish">
+                        <input type="radio" name="sendMode" class="radio" id="hadFinish" value="sendBatch"><i class="icon"></i><span class="radioname">已完成</span>
+                    </label>
+                    <label onclick="tradioCutover(this)" class="radio-warp" for="notFinish">
+                        <input type="radio" name="sendMode" class="radio" id="notFinish" value="sendSingle"><i class="icon"></i><span class="radioname">未完成</span>
+                    </label>
+                </div>
+            </li>
+            <li>
+                <label>拨打结果</label>
+                <div class="input-warp">
+                    <label onclick="tradioCutover(this)" class="radio-warp" for="hadDial">
+                        <input type="radio" name="sendMode" class="radio" id="hadDial" value="sendBatch"><i class="icon"></i><span class="radioname">已拨通</span>
+                    </label>
+                    <label onclick="tradioCutover(this)" class="radio-warp" for="notDial">
+                        <input type="radio" name="sendMode" class="radio" id="notDial" value="sendSingle"><i class="icon"></i><span class="radioname">未拨通</span>
+                    </label>
+                    <div class="select-warp dial-select">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                        <p class="all"><span>空号</span></p>
+                        <div class="select-ul">
+                            <div class="scroll-warp scrollBar">
+                                <ul>
+                                    <li>空号</li>
+                                    <li>停机</li>
+                                    <li>关机</li>
+                                    <li>占线</li>
+                                    <li>无人接听</li>
+                                    <li>其他无接通</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
-
+                </div>
+            </li>
+            <li class="cl">
+                <label>备注说明<em class="tips">（选填）</em></label>
+                <div class="input-warp">
+                    <textarea></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="error-warp"><p class="error">请选择线索状态</p></div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="hideDialog('dialDetail');">保存</a>
+    </div>
+</div>
+<!-- 拨打详情弹窗 End -->
+<!-- 拨打详情查看弹窗 -->
+<div class="dialog" id="dialDetailView">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>拨打详情</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li class="w50">
+                <label>手机号</label>
+                <div class="input-warp">
+                    <p class="text">138****5556</p>
+                </div>
+            </li>
+            <li class="w50">
+                <label>项目名称</label>
+                <div class="input-warp">
+                    <p class="text">中国电信项目1</p>
+                </div>
+            </li>
+            <li class="w100">
+                <label>线索状态</label>
+                <div class="input-warp">
+                    <p class="text">未完成</p>
+                </div>
+            </li>
+            <li>
+                <label>拨打结果</label>
+                <div class="input-warp">
+                    <p class="text">已拨通</p>
+                </div>
+            </li>
+            <li class="cl">
+                <label>备注说明</label>
+                <div class="input-warp">
+                    <p class="text">客户对本产品有感兴趣，想先了解一下，3天后跟进拨打</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="dialog-footer">
+        <a class="btn blue" href="javascript:void(0);" onclick="hideDialog('dialDetailView');getWindow('dialDetail','notClose');"><span><i class="icon phone"></i>拨打</span></a>
+    </div>
+</div>
+<!-- 拨打详情查看弹窗 End -->
 <!-----------------------header下拉弹窗------------------------->
 <!-- 通话设置弹窗 -->
 <div class="dialog" id="callSetting">

@@ -21,7 +21,7 @@
             <i class="icon login-icon"></i>
             <span class="name">运营</span>
             <div class="quit">
-                <p title="Hi，hahaha">Hi，hahaha</p>
+                <!--<p title="Hi，hahaha">Hi，hahaha</p>-->
                 <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
                 <a href="javascript:void(0);" class="manual"><i class="icon icon07"></i><span>操作手册</span></a>
                 <a href="javascript:void(0);" onclick="getWindow('editPassword');" class="edit"><i class="icon icon01"></i><span>修改密码</span></a>
@@ -33,19 +33,11 @@
 <div class="navbox">
     <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
     <ul>
-        <li>
+        <li class="active">
             <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
         </li>
-        <li class="active">
+        <li>
             <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
-            <ul>
-                <li class="active">
-                    <a href="operate-project.html"><span><i class="icon icon01-1"></i>外呼项目</span></a>
-                </li>
-                <li>
-                    <a href="operate-project-sms.html"><span><i class="icon icon01-2"></i>短信项目</span></a>
-                </li>
-            </ul>
         </li>
         <li>
             <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
@@ -57,16 +49,33 @@
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">代理1的外呼项目</div>
-        <div class="data-property">
+        <div class="title-warp">新建客户</div>
+        <div class="data-detail">
             <form>
                 <ul class="data-text">
                     <li>
-                        <label class="name">项目名称</label>
+                        <label class="name">所属代理</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>总代</li>
+                                            <li>代理1</li>
+                                            <li>代理2</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">账号</label>
                         <div class="input-warp"><input class="text" type="text"></div>
                     </li>
                     <li>
-                        <label class="name">客户名称</label>
+                        <label class="name">客户类型</label>
                         <div class="input-warp">
                             <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
                                 <p class="all"><span>全部</span></p>
@@ -74,6 +83,9 @@
                                     <div class="scroll-warp scrollBar">
                                         <ul>
                                             <li>全部</li>
+                                            <li>类型1</li>
+                                            <li>类型2</li>
+                                            <li>类型3</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -81,142 +93,126 @@
                         </div>
                     </li>
                     <li>
-                        <label class="name">项目状态</label>
+                        <label class="name">公司名称</label>
                         <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>全部</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                            <li>待审核</li>
-                                            <li>未通过</li>
-                                            <li>准备中</li>
-                                            <li>进行中</li>
-                                            <li>已暂停</li>
-                                            <li>已结束</li>
-                                        </ul>
+                            <input class="text" type="text">
+                            <p class="tips">务必与营业执照保持一致</p>
+                            <!--<p class="error">输入有误</p>-->
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">法人</label>
+                        <div class="input-warp">
+                            <input class="text" type="text">
+                            <p class="tips">务必与营业执照保持一致</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">经营范围</label>
+                        <div class="input-warp">
+                            <input class="text" type="text">
+                            <p class="tips">务必与营业执照保持一致</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">办公地点</label>
+                        <div class="input-warp">
+                            <input class="text long" type="text">
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">营业执照</label>
+                        <div class="input-warp">
+                            <div class="file-box">
+                                <div class="inputbox "><!-- 在div上加上class（active）上传成功 -->
+                                    <span name="textfield" id="textfield" class="txt"></span>
+                                    <div class="mainbox">
+                                        <span class="button1">上传文件</span>
+                                        <span class="button2">重新上传</span>
+                                        <input type="file" name="fileField" class="file" id="fileField" size="28" onchange="sa(this.value)">
                                     </div>
                                 </div>
+                               <span class="icon succ" style="display: block"></span><!--上传成功显示-->
                             </div>
+                            <p class="tips">正副本均可，照片复印件均可，jpg或png格式</p>
+                            <p class="error">上传失败</p>
                         </div>
                     </li>
                     <li>
-                        <label class="name">创建日期</label>
-                        <div class="input-warp date-warp">
-                            <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016-12-01">
-                            </div>
-                            <em class="or">至</em>
-                            <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016-12-07">
+                        <label class="name">其他资质</label>
+                        <div class="input-warp">
+                            <div class="file-box">
+                                <div class="inputbox "><!-- 在div上加上class（active）上传成功 -->
+                                    <span name="textfield" class="txt"></span>
+                                    <div class="mainbox">
+                                        <span class="button1">上传文件</span>
+                                        <span class="button2">重新上传</span>
+                                        <input type="file" name="fileField" class="file" size="28" onchange="sa(this.value)">
+                                    </div>
+                                </div>
+                                <!--<span class="icon succ"></span>--><!--上传成功显示-->
+                                <p class="tips">jpg或png格式</p>
                             </div>
                         </div>
                     </li>
+                </ul>
+                <div class="title-info">联系人信息</div>
+                <ul class="data-text">
                     <li>
-                        <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
+                        <label class="name">姓名</label>
+                        <div class="input-warp"><input class="text" type="text"></div>
+                    </li>
+                    <li>
+                        <label class="name">邮箱</label>
+                        <div class="input-warp"><input class="text" type="text"></div>
+                    </li>
+                    <li>
+                        <label class="name">手机号</label>
+                        <div class="input-warp"><input class="text" type="text"></div>
+                    </li>
+                    <li>
+                        <label class="name">归属地</label>
+                        <div class="input-warp"><input class="text" type="text"></div>
+                    </li>
+                    <li>
+                        <label class="name">所在位置</label>
+                        <div class="input-warp">
+                            <input class="text long" type="text">
+                        </div>
+                    </li>
+                </ul>
+                <div class="title-info">服务报价</div>
+                <ul class="data-text">
+                    <li class="li-service">
+                        <ul>
+                            <li>
+                                <span>线索单价</span><span class="sign">&yen;</span><input class="text" type="text"><span>/条</span>
+                            </li>
+                            <li>
+                                <span>话费单价</span><span class="sign">&yen;</span><input class="text" type="text"><span>/分钟</span>
+                            </li>
+                            <li>
+                                <span>坐席单价</span><span class="sign">&yen;</span><input class="text" type="text"><span>/个/月</span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="li-btn">
+                        <div class="input-warp">
+                            <button class="btn blue" type="button" onclick="getWindow('submitSucc','tips-succ');">提交</button>
+                        </div>
                     </li>
                 </ul>
             </form>
-            <div class="data-export">
-                <ul>
-                    <li>
-                       <span class="t">项目数</span><span class="num">300</span>
-                    </li>
-                    <li>
-                        <span class="t">进行中项目</span><span class="num">240</span>
-                    </li>
-                    <li>
-                        <span class="t">线索量</span><span class="num">28000</span>
-                    </li>
-                    <li>
-                        <span class="t">剩余线索</span><span class="num">28000</span>
-                    </li>
-                    <li>
-                        <span class="t">拨通线索</span><span class="num">20000</span>
-                    </li>
-                    <li>
-                        <span class="t">有效率</span><span class="num">80%</span>
-                    </li>
-                    <li>
-                        <span class="t">挂机短信</span><span class="num">1000</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="data-warp">
-            <div class="data-table">
-                <!--<p class="no-data">暂无数据</p>-->
-                <table cellspacing="0" cellpadding="0">
-                    <tbody>
-                    <tr><th>项目名称</th><th>客户名称</th><th>创建日期</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>项目坐席</th><th>操作</th></tr>
-                        <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="operate-project-examine.html">审核</a></td></tr>
-                    <tr class="tr2"><td><a href="operate-project-fail.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>未通过</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr class="tr2"><td><a href="operate-project-ongoing.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td><a href="javascript:void(0);" onclick="getWindow('projectPause');">暂停</a></td></tr>
-                    <tr><td><a href="operate-project-ongoing.html">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td><a href="javascript:void(0);" onclick="getWindow('projectPause');">暂停</a></td></tr>
-                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>3</td><td><a href="javascript:void(0);" onclick="getWindow('projectStart');">开启</a></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td><a href="#">中国电信</a></td><td>2017-03-16</td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="page">
-                <a class="prev disabled" href="javascript:void(0);">上一页</a>
-                <a href="javascript:void(0);" class="active">1</a>
-                <a href="javascript:void(0);">2</a>
-                <a href="javascript:void(0);">3</a>
-                <span>...</span>
-                <a href="javascript:void(0);">19</a>
-                <a class="next" href="javascript:void(0);">下一页</a>
-            </div>
         </div>
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
-<!-- 使用挂机短信弹窗 -->
-<div class="dialog" id="projectSms">
-    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+<!-- 客户资料已提交审核弹窗-->
+<div class="dialog tips-succ" id="submitSucc">
     <div class="dialog-body">
         <div class="pop-default">
-            <p><span>确定中国电信项目1要使用挂机短信？</span></p>
+            <p class="title"><span><i class="icon succ"></i>新建客户成功</span></p>
         </div>
-    </div>
-    <div class="dialog-footer">
-        <button class="btn blue" type="button" onclick="getWindow('projectSms-succ','tips-succ');">确定</button>
-        <button class="btn" type="button" onclick="hideDialog('projectSms');">取消</button>
-    </div>
-</div>
-<div class="dialog tips-succ" id="projectSms-succ">
-    <div class="dialog-body">
-        <div class="pop-default">
-            <p class="title"><span><i class="icon succ"></i>挂机短信设置成功</span></p>
-        </div>
-    </div>
-</div>
-<!-- 暂停项目弹窗 -->
-<div class="dialog" id="projectPause">
-    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
-    <div class="dialog-body">
-        <div class="pop-default">
-            <p><span>确定要暂停该项目？</span></p>
-        </div>
-    </div>
-    <div class="dialog-footer">
-        <button class="btn blue" type="button">确定</button>
-        <button class="btn" type="button" onclick="hideDialog('projectPause');">取消</button>
-    </div>
-</div>
-<!-- 开启项目弹窗 -->
-<div class="dialog" id="projectStart">
-    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
-    <div class="dialog-body">
-        <div class="pop-default">
-            <p><span>确定要开启该项目？</span></p>
-        </div>
-    </div>
-    <div class="dialog-footer">
-        <button class="btn blue" type="button">确定</button>
-        <button class="btn" type="button" onclick="hideDialog('projectStart');">取消</button>
     </div>
 </div>
 <!-----------------------header下拉弹窗------------------------->
@@ -286,7 +282,7 @@
     //弹窗
     function getWindow(id,c) {
         if($('#shadowLayer').length == 0){
-            showDialog(id);
+            showDialog(id,c);
         }else{
             $(".dialog").hide();
             var ids = $("#" + id);
@@ -308,12 +304,15 @@
         $("#"+id).hide();
         $("#shadowLayer").remove();
     }
-    function showDialog(id){
+    function showDialog(id,c){
         var ids = $("#" + id);
         var idH = -(ids.height()/2);
         var idW = -(ids.width()/2);
         $('<div id="shadowLayer"></div>').appendTo("body").show();
         ids.show().css({ "margin-left": idW,"margin-top": idH });
+        if(c=='tips-succ'){
+            setTimeout("$('.tips-succ').hide();$('#shadowLayer').remove();",1500);
+        }
     }
 </script>
 </body>

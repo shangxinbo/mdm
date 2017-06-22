@@ -125,6 +125,28 @@ textarea{
     white-space:nowrap;
     color: @grayColor;
   }
+    .icon {
+        .wh(17px);
+        float: left;
+        margin-right: 10px;
+        background-position: 0 -55px;
+    }
+    .checked{
+        .icon{
+            background-position: -19px -55px;
+        }
+        .clue{
+            display: block;
+        }
+    }
+    span {
+        display: inline-block;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        color: @grayColor;
+    }
   li{
     float: left;
     height: 43px;
@@ -159,15 +181,15 @@ textarea{
 .btn{
   display: block;
   background-color: #FFF;
-  border: 1px solid #d8dde5;
+    border: 2px solid @blueColor;
   border-radius: 30px;
-  color: @grayColor;
+  color: @blueColor;
   font-size: 14px;
   line-height: 28px;
   position: relative;
   font-family: @YaHei;
   cursor: pointer;
-  min-width: 88px;
+  min-width: 100px;
   margin: 0 auto;
   text-align: center;
   &:hover{
@@ -176,6 +198,7 @@ textarea{
     background-color: #EDECF5;
     border-color: #EDECF5;
     color: #8b8da6;
+      cursor: auto;
   }
   &.blue,&.green{
     background-color: @blueColor;
@@ -221,6 +244,19 @@ textarea{
     &.recharge{
       background-position: -128px 0;
     }
+      &.phone{
+          background-position: -102px -55px;
+          width: 12px;
+          height: 17px;
+          margin-top: -8px;
+      }
+      &.hangup{
+          background-position: -118px -55px;
+          width: 17px;
+          height: 17px;
+          margin-top: -8px;
+          left: -4px;
+      }
   }
 }
 .sms-push,.news-qual,.news-account{

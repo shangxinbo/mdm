@@ -19,11 +19,7 @@
     <ul class="header-content">
         <li class="user-name">
             <i class="icon login-icon"></i>
-<<<<<<< HEAD
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <span class="name">运营</span>
-=======
             <span class="name">运营</span>
->>>>>>> feature/PD-1454
             <div class="quit">
                 <!--<p title="Hi，hahaha">Hi，hahaha</p>-->
                 <a href="operate-agent.html" class="my"><i class="icon icon05"></i><span>代理管理</span></a>
@@ -42,7 +38,6 @@
         </li>
         <li>
             <a href="operate-project.html"><span><i class="icon icon01"></i>项目管理</span></a>
-
         </li>
         <li>
             <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
@@ -94,7 +89,7 @@
                         </div>
                     </li>
                     <li>
-                        <label class="name">客户状态</label>
+                        <label class="name">项目状态</label>
                         <div class="input-warp">
                             <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
                                 <p class="all"><span>全部</span></p>
@@ -104,57 +99,13 @@
                                             <li>全部</li>
                                             <li>待审核</li>
                                             <li>未通过</li>
-                                            <li>已开通</li>
+                                            <li>准备中</li>
+                                            <li>进行中</li>
+                                            <li>已暂停</li>
+                                            <li>已结束</li>
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">营销方式</label>
-                        <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>全部</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                            <li>外呼营销</li>
-                                            <li>短信营销</li>
-                                            <li>外呼+短信</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">挂机短信</label>
-                        <div class="input-warp">
-                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                <p class="all"><span>全部</span></p>
-                                <div class="select-ul">
-                                    <div class="scroll-warp scrollBar">
-                                        <ul>
-                                            <li>全部</li>
-                                            <li>已开通</li>
-                                            <li>未开通</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <label class="name">创建日期</label>
-                        <div class="input-warp date-warp">
-                            <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016-12-01">
-                            </div>
-                            <em class="or">至</em>
-                            <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016-12-07">
                             </div>
                         </div>
                     </li>
@@ -169,18 +120,13 @@
                        <span class="t">客户数</span><span class="num">80</span>
                     </li>
                     <li>
-                        <span class="t">外呼项目</span><span class="num">40</span>
-                    </li>
-                    <li>
-                        <span class="t">短信项目</span><span class="num">80</span>
+                        <span class="t">进行中项目</span><span class="num">240</span>
                     </li>
                     <li>
                         <span class="t">在用坐席</span><span class="num">280</span>
                     </li>
                 </ul>
-                <div class="add-explain">
-                    <a href="javascript:void(0);" onclick="getWindow('originalClient');">未建挂机短信模板客户</a>
-                </div>
+                <a href="operate-add.html" class="btn blue btn-export"><span><i class="icon add"></i>新建客户</span></a>
             </div>
         </div>
         <div class="data-warp">
@@ -191,9 +137,9 @@
                     <tr><th>客户名称</th><th>所属代理</th><th>类型</th><th>创建日期</th><th>状态</th><th>进行中项目</th><th>现有坐席</th><th>余额</th><th>操作</th></tr>
                     <tr><td><a href="#">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td><a href="operate-manage-examine.html">审核</a></td></tr>
                     <tr class="tr2"><td><a href="#">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td></tr>
-                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td class="red">&yen;888.88<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a><a href="javascript:void(0);" onclick="getWindow('pricing');">调价</a></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="operate-manage-agent.html">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td class="red">&yen;888.88<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a><a href="javascript:void(0);" onclick="getWindow('pricing');">调价</a><a href="operate-afresh.html" >编辑</a></td></tr>
                     <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">总代</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a><a href="javascript:void(0);" onclick="getWindow('pricing');">调价</a></td></tr>
-                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a><a href="javascript:void(0);" onclick="getWindow('pricing');">调价</a></td></tr>
+                    <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('activateSeat');">激活坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a><a href="javascript:void(0);" onclick="getWindow('pricing');">调价</a><a href="operate-afresh.html" >编辑</a></td></tr>
                     <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
                     <tr><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
                     <tr class="tr2"><td><a href="operate-manage-detail.html">北京字节跳动科技有限公司</a></td><td><a href="#">代理1</a></td><td>旅游</td><td>2017-03-16</td><td>已开通</td><td>3</td><td>2</td><td>&yen;1000.88</td><td><a href="javascript:void(0);" onclick="getWindow('openSeat');">开坐席</a><a href="javascript:void(0);" onclick="getWindow('recharge');">充值</a></td></tr>
@@ -329,7 +275,7 @@
         <button class="btn" type="button" onclick="hideDialog('activateSeat');">取消</button>
     </div>
 </div>
-<!-- 坐席激活成功弹窗-->
+<!-- 坐席激活弹窗-->
 <div class="dialog tips-succ" id="activateSeatSucc">
     <div class="dialog-body">
         <div class="pop-default">
