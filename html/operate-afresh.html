@@ -33,7 +33,7 @@
 <div class="navbox">
     <h1><a href="#" title="geo易获客" class="logo"><img src="../static/img/logo.png" alt="geo易获客" /></a></h1>
     <ul>
-        <li>
+        <li class="active">
             <a href="operate-manage.html"><span><i class="icon icon04"></i>客户管理</span></a>
         </li>
         <li>
@@ -42,29 +42,17 @@
         <li>
             <a href="operate-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
         </li>
-        <li class="active">
+        <li>
             <a href="operate-charging.html"><span><i class="icon icon03"></i>计费管理</span></a>
-            <ul>
-                <li>
-                    <a href="operate-charging.html"><span><i class="icon icon03-1"></i>项目计费</span></a>
-                </li>
-                <li class="active">
-                    <a href="operate-charging-seat.html"><span><i class="icon icon03-2"></i>坐席计费</span></a>
-                </li>
-            </ul>
         </li>
     </ul>
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">坐席计费</div>
-        <div class="data-property">
+        <div class="title-warp">新建客户</div>
+        <div class="data-detail">
             <form>
                 <ul class="data-text">
-                    <li>
-                        <label class="name">客户名称</label>
-                        <div class="input-warp"><input class="text" type="text"></div>
-                    </li>
                     <li>
                         <label class="name">所属代理</label>
                         <div class="input-warp">
@@ -73,7 +61,9 @@
                                 <div class="select-ul">
                                     <div class="scroll-warp scrollBar">
                                         <ul>
-                                            <li>全部</li>
+                                            <li>总代</li>
+                                            <li>代理1</li>
+                                            <li>代理2</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -81,59 +71,122 @@
                         </div>
                     </li>
                     <li>
-                        <label class="name">开通日期</label>
-                        <div class="input-warp date-warp">
-                            <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.01">
-                            </div>
-                            <em class="or">至</em>
-                            <div class="calendar-warp w45">
-                                <input class="date" type="text" value="2016.12.07">
+                        <label class="name">账号</label>
+                        <div class="input-warp"><input class="text" type="text" value="eeexwe"></div>
+                    </li>
+                    <li>
+                        <label class="name">客户类型</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>旅游</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                            <li>类型1</li>
+                                            <li>类型2</li>
+                                            <li>类型3</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <button class="btn blue" type="button" ><span><i class="icon search"></i>查询</span></button>
+                        <label class="name">公司名称</label>
+                        <div class="input-warp">
+                            <input class="text" type="text" value="北京字节跳动科技有限公司">
+                            <p class="tips">务必与营业执照保持一致</p>
+                            <!--<p class="error">输入有误</p>-->
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">法人</label>
+                        <div class="input-warp">
+                            <input class="text" type="text" value="张三">
+                            <p class="tips">务必与营业执照保持一致</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">经营范围</label>
+                        <div class="input-warp">
+                            <input class="text" type="text" value="互联网">
+                            <p class="tips">务必与营业执照保持一致</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">办公地点</label>
+                        <div class="input-warp">
+                            <input class="text long" type="text" value="北京市东城区东直门外大街46号天恒大厦A座1208">
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">营业执照</label>
+                        <div class="input-warp">
+                            <p class="text"><a href="../static/img/img-qual.jpg" target="_blank">查看</a><a href="../static/img/img-qual.jpg" target="_blank">重新上传</a></p>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">其他资质</label>
+                        <div class="input-warp">
+                            <div class="file-box">
+                                <div class="inputbox "><!-- 在div上加上class（active）上传成功 -->
+                                    <span name="textfield" class="txt"></span>
+                                    <div class="mainbox">
+                                        <span class="button1">选择文件</span>
+                                        <span class="button2" style="display: block">重新上传</span>
+                                        <input type="file" name="fileField" class="file" size="28" onchange="sa(this.value)">
+                                    </div>
+                                </div>
+                                <span class="icon succ" style="display: block"></span><!--上传成功显示-->
+                                <div class="img"><a href="../static/img/img-qual.jpg" target="_blank"><img src="../static/img/img-qual.jpg"></a></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="title-info">联系人信息</div>
+                <ul class="data-text">
+                    <li>
+                        <label class="name">姓名</label>
+                        <div class="input-warp"><input class="text" type="text" value="张三"></div>
+                    </li>
+                    <li>
+                        <label class="name">邮箱</label>
+                        <div class="input-warp"><input class="text" type="text" value="zhangsan@133.com"></div>
+                    </li>
+                    <li>
+                        <label class="name">手机号</label>
+                        <div class="input-warp"><input class="text" type="text" value="13811145569"></div>
+                    </li>
+                    <li>
+                        <label class="name">归属地</label>
+                        <div class="input-warp"><input class="text" type="text" value="北京"></div>
+                    </li>
+                    <li>
+                        <label class="name">所在位置</label>
+                        <div class="input-warp">
+                            <input class="text long" type="text" value="北京市西城区西直门内大街33号">
+                        </div>
+                    </li>
+                    <li class="li-btn">
+                        <div class="input-warp">
+                            <button class="btn blue" type="button" onclick="getWindow('submitSucc','tips-succ');">提交</button>
+                        </div>
                     </li>
                 </ul>
             </form>
-            <div class="data-export">
-                <ul>
-                    <li>
-                        <span class="t">开通数量</span><span class="num">8</span>
-                    </li>
-                    <li>
-                        <span class="t">开通费用</span><span class="num">&yen;3000.00</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="data-warp">
-            <div class="data-table">
-                <!--<p class="no-data">暂无数据</p>-->
-                <table cellspacing="0" cellpadding="0">
-                    <tbody>
-                    <tr><th>客户名称</th><th>所属代理</th><th>开通坐席数</th><th>坐席单价</th><th>开通费用</th><th>开通日期</th><th>开通月数</th><th>失效月期</th></tr>
-                    <tr><td><a href="operate-charging-seat-client.html">中国电信</a></td><td><a href="operate-charging-seat-agent.html">代理1</a></td><td>1</td><td>¥200/月</td><td>¥200</td><td>2017-03-16</td><td>2</td><td>2017-03-16</td></tr>
-                    <tr class="tr2"><td><a href="operate-charging-seat-client.html">中国电信</a></td><td><a href="operate-charging-seat-agent.html">代理1</a></td><td>1</td><td>¥200/月</td><td>¥200</td><td>2017-03-16</td><td>2</td><td>2017-03-16</td></tr>
-                    <tr><td><a href="operate-charging-seat-client.html">中国电信</a></td><td><a href="operate-charging-seat-agent.html">代理1</a></td><td>1</td><td>¥200/月</td><td>¥200</td><td>2017-03-16</td><td>2</td><td>2017-03-16</td></tr>
-                    <tr class="tr2"><td><a href="operate-charging-seat-client.html">中国电信</a></td><td><a href="operate-charging-seat-agent.html">代理1</a></td><td>1</td><td>¥200/月</td><td>¥200</td><td>2017-03-16</td><td>2</td><td>2017-03-16</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="page">
-                <a class="prev disabled" href="javascript:void(0);">上一页</a>
-                <a href="javascript:void(0);" class="active">1</a>
-                <a href="javascript:void(0);">2</a>
-                <a href="javascript:void(0);">3</a>
-                <span>...</span>
-                <a href="javascript:void(0);">19</a>
-                <a class="next" href="javascript:void(0);">下一页</a>
-            </div>
         </div>
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
+<!-- 客户资料已提交审核弹窗-->
+<div class="dialog tips-succ" id="submitSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>编辑客户成功</span></p>
+        </div>
+    </div>
+</div>
 <!-----------------------header下拉弹窗------------------------->
 <!-- 修改密码弹窗 -->
 <div class="dialog" id="editPassword">
@@ -197,12 +250,11 @@
             $(this).parents().find(".select-open .all span").html($(this).text());
             $(this).parents().find(".select-warp").removeClass("select-open");
         });
-
     });
     //弹窗
     function getWindow(id,c) {
         if($('#shadowLayer').length == 0){
-            showDialog(id);
+            showDialog(id,c);
         }else{
             $(".dialog").hide();
             var ids = $("#" + id);
@@ -224,12 +276,15 @@
         $("#"+id).hide();
         $("#shadowLayer").remove();
     }
-    function showDialog(id){
+    function showDialog(id,c){
         var ids = $("#" + id);
         var idH = -(ids.height()/2);
         var idW = -(ids.width()/2);
         $('<div id="shadowLayer"></div>').appendTo("body").show();
         ids.show().css({ "margin-left": idW,"margin-top": idH });
+        if(c=='tips-succ'){
+            setTimeout("$('.tips-succ').hide();$('#shadowLayer').remove();",1500);
+        }
     }
 </script>
 </body>
