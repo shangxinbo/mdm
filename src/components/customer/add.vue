@@ -16,7 +16,7 @@
                             <label class="name">客户类型</label>
                             <mselect ref="typeSelect" :api="api.typeSelect" :id="type" :error="type_error"></mselect>
                         </li>
-                        <li v-if="userType==1">
+                        <li v-if="userType==1&&!id">
                             <label class="name">所属代理</label>
                             <mselect ref="agentSelect" :api="agentApi" :id="agentId" :hideAll="true"></mselect>
                         </li>
@@ -127,39 +127,22 @@
                                 <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                             </div>
                         </li>
-                        <li v-if="userType==1">
-                            <label class="name">审核状态</label>
-                            <mselect ref="statusSelect" :initlist="statusList" :id="statusId" :hideAll="true"></mselect>
-                        </li>
-                        <li class="li-service">
+                    </ul>
+                    <div class="title-info" v-if="userType==1&&!id">服务报价</div>
+                    <ul class="data-text">
+                        <li class="li-service" v-if="userType==1&&!id">
                             <ul>
                                 <li>
-                                    <span>线索单价</span>
-                                    <span class="sign">&yen;</span>
-                                    <input class="text" type="text">
-                                    <span>/条</span>
+                                    <span>线索单价</span><span class="sign">&yen;</span><input class="text" type="text" v-model="clue_price" /><span>/条</span>
                                 </li>
                                 <li>
-                                    <span>话费单价</span>
-                                    <span class="sign">&yen;</span>
-                                    <input class="text" type="text">
-                                    <span>/分钟</span>
+                                    <span>话费单价</span><span class="sign">&yen;</span><input class="text" type="text" v-model="tel_price"/><span>/分钟</span>
                                 </li>
                                 <li>
-                                    <span>坐席单价</span>
-                                    <span class="sign">&yen;</span>
-                                    <input class="text" type="text">
-                                    <span>/个/月</span>
+                                    <span>坐席单价</span><span class="sign">&yen;</span><input class="text" type="text" v-model="seat_price" /><span>/个/月</span>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="li-service" style="overflow:hidden">
-                            <ul>
-                                <li style="position:relative;padding-left:86px;">
-                                    <span style="position:absolute;left:30px;">拒绝原因</span>
-                                    <textarea style="margin:0 10px;min-width:450px;"></textarea>
-                                </li>
-                            </ul>
+                             <p v-if="price_error" class="error">{{price_error}}</p>
                         </li>
                         <li class="li-btn">
                             <div class="input-warp">
@@ -182,11 +165,7 @@
     import REG from 'src/services/reg'
 
     let agentApi = API.angent_list_all
-    let statusList = [
-        { id: "0", name: "待审核" },
-        { id: "1", name: "通过" },
-        { id: "2", name: "未通过" }
-    ]
+
     function scrollTop(todo, num) {
         if (todo) {
             let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
@@ -200,8 +179,11 @@
                 userType: user.type,
                 agentApi: agentApi,
                 agentId: 1,
-                statusList: statusList,
-                statusId: 1,
+                chooseAgent:1,
+                clue_price:'',
+                tel_price:'',
+                seat_price:'',
+                price_error:'',
                 user: '',
                 user_error: '',
                 type: '',
@@ -429,6 +411,34 @@
                     api = API.customer_modify
                 } else {
                     data.append('user', this.user)
+                }
+                if(this.userType==1&&!this.id){
+                    data.append('agent_id',this.chooseAgent)
+                    if (!this.clue_price) {
+                        this.price_error = '线索单价必填'
+                        return false
+                    } else if (!this.tel_price) {
+                        this.price_error = '话费单价必填'
+                        return false
+                    } else if (!this.seat_price) {
+                        this.price_error = '坐席单价必填'
+                        return false
+                    } else {
+                        if (isNaN(this.clue_price) || isNaN(this.tel_price) || isNaN(this.seat_price)) {
+                            this.price_error = '单价必须是数值'
+                            return false
+                        } else {
+                            if(this.clue_price>=0&&this.tel_price>=0&&this.seat_price>=0){
+                                this.price_error = ''
+                            }else{
+                                this.price_error = '单价必须大于等于0'
+                                return false
+                            }
+                        }
+                    }
+                    data.append('clue_price',this.clue_price)
+                    data.append('tel_price',this.tel_price)
+                    data.append('seat_price',this.seat_price)
                 }
                 data.append('type', this.$refs.typeSelect.selected.id)
                 data.append('company', this.company)
