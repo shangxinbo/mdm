@@ -14,7 +14,7 @@
                 <span class="num">{{data.seat}}</span>
             </li>
         </ul>
-        <router-link v-if="userType==2" to="/customer/add" class="btn blue btn-export">
+        <router-link v-if="userType==2||userType==1" to="/customer/add" class="btn blue btn-export">
             <span>
                 <i class="icon add"></i>新建客户
             </span>

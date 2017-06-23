@@ -16,6 +16,10 @@
                             <label class="name">客户类型</label>
                             <mselect ref="typeSelect" :api="api.typeSelect" :id="type" :error="type_error"></mselect>
                         </li>
+                        <li v-if="userType==1">
+                            <label class="name">所属代理</label>
+                            <mselect ref="agentSelect" :api="agentApi" :id="agentId" :hideAll="true"></mselect>
+                        </li>
                         <li>
                             <label class="name">公司名称</label>
                             <div class="input-warp">
@@ -123,6 +127,40 @@
                                 <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                             </div>
                         </li>
+                        <li v-if="userType==1">
+                            <label class="name">审核状态</label>
+                            <mselect ref="statusSelect" :initlist="statusList" :id="statusId" :hideAll="true"></mselect>
+                        </li>
+                        <li class="li-service">
+                            <ul>
+                                <li>
+                                    <span>线索单价</span>
+                                    <span class="sign">&yen;</span>
+                                    <input class="text" type="text">
+                                    <span>/条</span>
+                                </li>
+                                <li>
+                                    <span>话费单价</span>
+                                    <span class="sign">&yen;</span>
+                                    <input class="text" type="text">
+                                    <span>/分钟</span>
+                                </li>
+                                <li>
+                                    <span>坐席单价</span>
+                                    <span class="sign">&yen;</span>
+                                    <input class="text" type="text">
+                                    <span>/个/月</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="li-service" style="overflow:hidden">
+                            <ul>
+                                <li style="position:relative;padding-left:86px;">
+                                    <span style="position:absolute;left:30px;">拒绝原因</span>
+                                    <textarea style="margin:0 10px;min-width:450px;"></textarea>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="li-btn">
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
@@ -142,6 +180,13 @@
     import alert from 'components/dialog/alert'
     import axios from 'axios'
     import REG from 'src/services/reg'
+
+    let agentApi = API.angent_list_all
+    let statusList = [
+        { id: "0", name: "待审核" },
+        { id: "1", name: "通过" },
+        { id: "2", name: "未通过" }
+    ]
     function scrollTop(todo, num) {
         if (todo) {
             let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
@@ -150,7 +195,13 @@
     }
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
+                userType: user.type,
+                agentApi: agentApi,
+                agentId: 1,
+                statusList: statusList,
+                statusId: 1,
                 user: '',
                 user_error: '',
                 type: '',
@@ -393,7 +444,7 @@
                 data.append('application_addr', this.self_addr)
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
-                        _this.$refs.alert.$emit('show','客户资料已提交审核', () => {
+                        _this.$refs.alert.$emit('show', '客户资料已提交审核', () => {
                             _this.$router.push('/customer/index')
                         })
                     } else {
