@@ -141,7 +141,9 @@
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
-                        } else {
+                        } else if(data.code==600){
+                            _this.$store.commit('SHOW_TOAST', '拨打资源数量在变动中，请刷新页面后，尝试重新分配')
+                        }else {
                             _this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
@@ -158,6 +160,11 @@
             },
             changeAssignType(val) {
                 this.assignType = val.id
+                if(val.id==2){
+                    this.seat.forEach((item,index,arr)=>{
+                        item.num = ''
+                    })
+                }
                 this.error = ''
             }
         },
