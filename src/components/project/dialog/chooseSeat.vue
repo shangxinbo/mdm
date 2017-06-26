@@ -138,6 +138,7 @@
                         seat_conf:arr
                     },
                     success: data => {
+                        console.log(data.code)
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
@@ -205,6 +206,7 @@
                         if (data.code == 200) {
                             _this.checked = data.data
                             _this.seat.forEach((item, index, arr) => {
+                                item.checked= false
                                 for (var i = 0; i < data.data.length; i++) {
                                     if (item.key == data.data[i]) {
                                         item.checked = true
