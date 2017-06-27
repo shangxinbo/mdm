@@ -239,6 +239,12 @@
                                         id: id
                                     },
                                     success: data => {
+                                        mAjax(this,{
+                                            url:API.dial_pre,
+                                            data:{
+                                                id:id
+                                            }
+                                        })
                                         let info = this.seat_info
 
                                         let tel_all = data.data.telephone
