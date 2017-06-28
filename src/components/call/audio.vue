@@ -76,7 +76,7 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <audio id="audio" class="audio" @ended="end"></audio>
+        <audio controls="controls" style="position: absolute;top: 225px;right: 172px;" id="audio" class="audio" @ended="end"></audio>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
         <clueGroup ref="clueGroup"></clueGroup>
