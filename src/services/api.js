@@ -86,5 +86,6 @@ export default {
     filter_customers: API_PRE + '/filtertag/selectnumber',
     filter_save: API_PRE + '/filtertag/save',
     get_login_status: API_PRE + '/user/status',
-    change_price: API_PRE + '/operate/modifyprice'
+    change_price: API_PRE + '/operate/modifyprice',
+    dial_pre: API_PRE + '/seat/changestatus'
 }

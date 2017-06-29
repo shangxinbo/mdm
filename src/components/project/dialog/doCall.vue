@@ -124,7 +124,8 @@
                         id: this.id,
                         clue_status: this.clueStatus,
                         dial_status: this.callResult == 1 ? 1 : this.$refs.callResultSelect.selected.id,
-                        remarks: this.des
+                        remarks: this.des,
+                        sound_code:this.uuid
                     },
                     success: data => {
                         if (data.code == 200) {

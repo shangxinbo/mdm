@@ -228,17 +228,27 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            if (data.data.balance && data.data.balance > 0) {
+                            if (data.data.balance <= 0) {
+                                _this.$refs.alert.$emit('show', '您的账号已经没有费用，请联系管理员')
+                            } else if (!data.data.valid) {
+                                _this.$refs.alert.$emit('show', '坐席已失效,暂不能拨打')
+                            } else {
                                 mAjax(this, {
                                     url: API.get_tel,
                                     data: {
                                         id: id
                                     },
                                     success: data => {
+                                        mAjax(this,{
+                                            url:API.dial_pre,
+                                            data:{
+                                                id:id
+                                            }
+                                        })
                                         let info = this.seat_info
-                                        
+
                                         let tel_all = data.data.telephone
-                                        if(this.tel_pre){
+                                        if (this.tel_pre) {
                                             tel_all = this.tel_pre + tel_all
                                         }
                                         window.mycomm_agent.wrap_up(0)
@@ -255,14 +265,14 @@
                                         }
                                         window.mycomm_agent.on_login_f = function (evt) {
                                             let msg = '服务暂不可用，请联系管理员'
-                                            switch(evt.params.err_num){
-                                                case 404: 
+                                            switch (evt.params.err_num) {
+                                                case 404:
                                                     msg = 'IP电话/软电话/分机没有注册，请根据IP电话机内置说明书进行配置，如有疑问请联系管理员'
                                                     break
-                                                case 409: 
+                                                case 409:
                                                     msg = '该分机已经被其他坐席使用，请联系管理员'
                                                     break
-                                                case 503: 
+                                                case 503:
                                                     msg = '服务暂不可用，请联系管理员'
                                                     break
                                                 default:
@@ -273,11 +283,9 @@
                                         window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                     }
                                 })
-                            } else {
-                                _this.$refs.alert.$emit('show', '客户账户余额不足,暂不能拨打')
                             }
                         } else {
-                            _this.$refs.alert.$emit('show', '获取客户账户余额失败,暂不能拨打')
+                            _this.$refs.alert.$emit('show', '获取坐席账户状态失败,暂不能拨打')
                         }
                     }
                 })
