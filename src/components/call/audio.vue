@@ -50,7 +50,7 @@
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
                                     <a href="javascript:void(0)" @click="group(item.id,item.telephone_crypt)">
-                                    {{item.telephone_crypt}}
+                                        {{item.telephone_crypt}}
                                     </a>
                                 </td>
                                 <td>{{item.created_at}}</td>
@@ -76,7 +76,8 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <audio controls="true" style="position: fixed;top: 67px;right: 165px;z-index:100000;width:400px;" id="audio" class="audio" @ended="end"></audio>
+        <audio controls="true" style="position: fixed;top: 67px;right: 165px;z-index:100000;width:400px;" id="audio" class="audio"
+            @play="play" @pause="pause" @ended="end"></audio>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
         <clueGroup ref="clueGroup"></clueGroup>
@@ -106,7 +107,7 @@
                 status: '',
                 start_time: '',
                 end_time: '',
-                tel:'',
+                tel: '',
                 playNow: -1
             }
         },
@@ -142,7 +143,7 @@
                 this.status = this.$route.query.result ? this.$route.query.result : ''
                 this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
                 this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
-                this.tel = this.$route.query.tel? this.$route.query.tel:''
+                this.tel = this.$route.query.tel ? this.$route.query.tel : ''
                 this.refresh()
             },
             refresh() {
@@ -185,15 +186,15 @@
             },
             playAudio(url, index, evt) {
                 let dom = document.querySelector('#audio')
-
                 let audios = document.querySelectorAll('.btn-audio')
                 for (let i = 0; i < audios.length; i++) {
                     let item = audios[i]
                     let span = item.querySelectorAll('span')
                     span[0].querySelector('i').className = 'icon play'
                     span[1].innerHTML = '播放'
+                    item.removeAttribute('id')
                 }
-
+                evt.currentTarget.id = "currentplay"
                 let span = evt.currentTarget.querySelectorAll('span')
                 if (index == this.playNow) {
                     dom.pause()
@@ -222,11 +223,21 @@
                 this.playNow = -1
                 this.$refs.clueGroup.playNow = -1
             },
-            group(id,tel) {
+            pause() {
+                let audio = document.querySelector('#currentplay')
+                audio.querySelector('i').className = 'icon play'
+                audio.innerHTML = '继续播放'
+            },
+            play() {
+                let audio = document.querySelector('#currentplay')
+                audio.querySelector('i').className = 'icon pause'
+                audio.innerHTML = '暂停'
+            },
+            group(id, tel) {
                 this.playNow = -1
                 let dom = document.querySelector('#audio')
                 dom.src = ''
-                this.$refs.clueGroup.$emit('show',id,tel)
+                this.$refs.clueGroup.$emit('show', id, tel)
             }
         },
         created() {
@@ -237,7 +248,7 @@
                     _this.search()
             }
         },
-        beforeRouteUpdate(to,from,next){  //路由切换终端播放录音
+        beforeRouteUpdate(to, from, next) {  //路由切换终端播放录音
             this.playNow = -1
             let dom = document.querySelector('#audio')
             dom.pause()
