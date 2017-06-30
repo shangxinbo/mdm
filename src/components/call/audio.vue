@@ -76,7 +76,7 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <audio controls="controls" style="position: absolute;top: 67px;right: 165px;z-index:100000;width:400px;" id="audio" class="audio" @ended="end"></audio>
+        <audio controls="true" style="position: fixed;top: 67px;right: 165px;z-index:100000;width:400px;" id="audio" class="audio" @ended="end"></audio>
         <confirm ref="confirm"></confirm>
         <alert ref="alert"></alert>
         <clueGroup ref="clueGroup"></clueGroup>
@@ -238,11 +238,11 @@
             }
         },
         beforeRouteUpdate(to,from,next){  //路由切换终端播放录音
-            console.log(123)
             this.playNow = -1
             let dom = document.querySelector('#audio')
             dom.pause()
             dom.src = ''
+            dom.load()
             let audios = document.querySelectorAll('.btn-audio')
             for (let i = 0; i < audios.length; i++) {
                 let item = audios[i]
