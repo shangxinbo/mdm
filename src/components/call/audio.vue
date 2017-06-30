@@ -241,7 +241,7 @@
             this.playNow = -1
             let dom = document.querySelector('#audio')
             dom.pause()
-            dom.src = ''
+            dom.removeAttribute('src')
             dom.load()
             let audios = document.querySelectorAll('.btn-audio')
             for (let i = 0; i < audios.length; i++) {
