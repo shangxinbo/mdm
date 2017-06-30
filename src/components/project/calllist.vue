@@ -243,6 +243,9 @@
                                             url:API.dial_pre,
                                             data:{
                                                 id:id
+                                            },
+                                            success:data=>{
+                                                let a = 1
                                             }
                                         })
                                         let info = this.seat_info
