@@ -189,6 +189,7 @@
                 let audios = document.querySelectorAll('.btn-audio')
                 let span = evt.currentTarget.querySelectorAll('span')
                 let text = span[1].innerText
+                dom.style.display = 'inline-block'
                 for (let i = 0; i < audios.length; i++) {
                     let item = audios[i]
                     let span = item.querySelectorAll('span')
@@ -247,7 +248,10 @@
             group(id, tel) {
                 this.playNow = -1
                 let dom = document.querySelector('#audio')
-                dom.src = ''
+                dom.pause()
+                dom.removeAttribute('src')
+                dom.load()
+                dom.style.display = 'none'
                 this.$refs.clueGroup.$emit('show', id, tel)
             }
         },
@@ -265,6 +269,7 @@
             dom.pause()
             dom.removeAttribute('src')
             dom.load()
+            dom.style.display = 'none'
             let audios = document.querySelectorAll('.btn-audio')
             for (let i = 0; i < audios.length; i++) {
                 let item = audios[i]

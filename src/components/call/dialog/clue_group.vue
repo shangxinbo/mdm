@@ -137,7 +137,9 @@
                 this.$store.commit('HIDE_LAYER')
                 let dom = document.querySelector('#audio')
                 dom.pause()
-                dom.src = ''
+                dom.removeAttribute('src')
+                dom.load()
+                dom.style.display = 'none'
                 this.playNow = -1
             },
             playAudio(url, index, evt) {
@@ -153,7 +155,7 @@
                     item.removeAttribute('id')
                 }
                 evt.currentTarget.id = "currentplay"
-                
+                dom.style.display='inline-block'
                 if(text=='暂停'){
                     dom.pause()
                 }else{
