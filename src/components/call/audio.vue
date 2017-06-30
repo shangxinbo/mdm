@@ -187,6 +187,8 @@
             playAudio(url, index, evt) {
                 let dom = document.querySelector('#audio')
                 let audios = document.querySelectorAll('.btn-audio')
+                let span = evt.currentTarget.querySelectorAll('span')
+                let text = span[1].innerText
                 for (let i = 0; i < audios.length; i++) {
                     let item = audios[i]
                     let span = item.querySelectorAll('span')
@@ -195,22 +197,31 @@
                     item.removeAttribute('id')
                 }
                 evt.currentTarget.id = "currentplay"
-                let span = evt.currentTarget.querySelectorAll('span')
-                if (index == this.playNow) {
+                if(text=='暂停'){
                     dom.pause()
-                    span[0].querySelector('i').className = 'icon play'
-                    span[1].innerHTML = '继续播放'
-                    this.playNow = -1
-                } else {
+                }else{
+
                     if (dom.getAttribute('src') != url) {
                         dom.src = url
                         dom.load()
                     }
                     dom.play()
-                    span[0].querySelector('i').className = 'icon pause'
-                    span[1].innerHTML = '暂停'
-                    this.playNow = index
                 }
+                // if (index == this.playNow) {
+                //     dom.pause()
+                //     span[0].querySelector('i').className = 'icon play'
+                //     span[1].innerHTML = '继续播放'
+                //     this.playNow = -1
+                // } else {
+                //     if (dom.getAttribute('src') != url) {
+                //         dom.src = url
+                //         dom.load()
+                //     }
+                //     dom.play()
+                //     span[0].querySelector('i').className = 'icon pause'
+                //     span[1].innerHTML = '暂停'
+                //     this.playNow = index
+                // }
             },
             end() {
                 let audios = document.querySelectorAll('.btn-audio')
@@ -224,14 +235,14 @@
                 this.$refs.clueGroup.playNow = -1
             },
             pause() {
-                let audio = document.querySelector('#currentplay')
-                audio.querySelector('i').className = 'icon play'
-                audio.innerHTML = '继续播放'
+                let audio = document.querySelectorAll('#currentplay span')
+                audio[0].querySelector('i').className = 'icon play'
+                audio[1].innerHTML = '继续播放'
             },
             play() {
-                let audio = document.querySelector('#currentplay')
-                audio.querySelector('i').className = 'icon pause'
-                audio.innerHTML = '暂停'
+                let audio = document.querySelectorAll('#currentplay span')
+                audio[0].querySelector('i').className = 'icon pause'
+                audio[1].innerHTML = '暂停'
             },
             group(id, tel) {
                 this.playNow = -1
