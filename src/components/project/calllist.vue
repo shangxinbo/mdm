@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <doCallDialog ref="doCallDialog" :uuid="uuid"></doCallDialog>
+        <doCallDialog ref="doCallDialog" :uuid="uuid" :historyid="history_id"></doCallDialog>
         <callViewDialog ref="callViewDialog" @callThis="call"></callViewDialog>
         <alert ref="alert"></alert>
     </div>
@@ -60,7 +60,7 @@
     import callResultConf from './callResultConf'
     import md5 from 'js-md5'
     export default {
-        data(){
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 project: {
@@ -73,17 +73,18 @@
                 clue_status: '',
                 list: [],
                 uuid: '',
-                end: ''
+                end: '',
+                history_id:''
             }
         },
         computed: {
             dialing: function () {
                 return this.$store.state.dialing
             },
-            tel_pre:function(){
+            tel_pre: function () {
                 return this.$store.state.tel_pre
             },
-            seat_info:function(){
+            seat_info: function () {
                 return this.$store.state.callInfo
             }
         },
@@ -179,7 +180,7 @@
             call(id, tel) {
                 let _this = this
                 let uuid = ''
-                
+
 
                 window.mycomm_agent.on_dial_s = function (evt) {
                     _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
@@ -206,8 +207,8 @@
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     _this.uuid = evt.params.channel_uuid
-                    let tel = evt.params.dest_number.replace(_this.tel_pre,'')
-                    _this.$store.commit('CHANGE_DIAL_STATUS',true)
+                    let tel = evt.params.dest_number.replace(_this.tel_pre, '')
+                    _this.$store.commit('CHANGE_DIAL_STATUS', true)
                     mAjax(_this, {
                         url: API.save_call_uuid,
                         data: {
@@ -239,21 +240,25 @@
                                         id: id
                                     },
                                     success: data => {
-                                        mAjax(this,{
-                                            url:API.dial_pre,
-                                            data:{
-                                                id:id
+                                        mAjax(this, {
+                                            url: API.dial_pre,
+                                            data: {
+                                                id: id
                                             },
-                                            success:data=>{
+                                            success: data => {
                                                 let a = 1
                                             }
                                         })
+
+
                                         let info = this.seat_info
 
                                         let tel_all = data.data.telephone
+
                                         if (this.tel_pre) {
                                             tel_all = this.tel_pre + tel_all
                                         }
+
                                         window.mycomm_agent.wrap_up(0)
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
@@ -283,7 +288,24 @@
                                             }
                                             _this.$refs.alert.$emit('show', msg)
                                         }
-                                        window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+
+                                        mAjax(this, {
+                                            url: API.save_dial_history,
+                                            data: {
+                                                phone: data.data.telephone,
+                                                id: this.project.id,
+                                                seat_id: this.user_id
+                                            },
+                                            success: data => {
+                                                if (data.code == 200) {
+                                                    this.history_id = data.data.id
+                                                    window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                                }else{
+                                                    console.log('保存记录失败')
+                                                }
+
+                                            }
+                                        })
                                     }
                                 })
                             }

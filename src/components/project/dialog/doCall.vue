@@ -81,7 +81,7 @@
                 error: ''
             }
         },
-        props: ['uuid'],
+        props: ['uuid','historyid'],
         computed: {
             dialing: function () {
                 return this.$store.state.dialing
@@ -125,7 +125,7 @@
                         clue_status: this.clueStatus,
                         dial_status: this.callResult == 1 ? 1 : this.$refs.callResultSelect.selected.id,
                         remarks: this.des,
-                        sound_code:this.uuid
+                        sound_code:this.historyid
                     },
                     success: data => {
                         if (data.code == 200) {
