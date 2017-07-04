@@ -190,7 +190,7 @@
                     window.mycomm_agent.logout()
                 }
 
-                //用户接通后挂断
+                //坐席挂断
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     _this.$store.commit('CHANGE_DIAL_STATUS', false)
                     window.mycomm_agent.logout()
@@ -293,8 +293,7 @@
                                             url: API.save_dial_history,
                                             data: {
                                                 phone: data.data.telephone,
-                                                id: this.project.id,
-                                                seat_id: this.user_id
+                                                project_id: this.project.id
                                             },
                                             success: data => {
                                                 if (data.code == 200) {

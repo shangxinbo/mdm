@@ -87,5 +87,6 @@ export default {
     filter_save: API_PRE + '/filtertag/save',
     get_login_status: API_PRE + '/user/status',
     change_price: API_PRE + '/operate/modifyprice',
-    dial_pre: API_PRE + '/seat/changestatus'
+    dial_pre: API_PRE + '/seat/changestatus',
+    save_dial_history: API_PRE + '/callCenter/saveTelephoneRecord'
 }
