@@ -213,8 +213,7 @@
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: _this.uuid,
-                            phone: tel,
-                            project_id: _this.project.id
+                            id: _this.history_id
                         },
                         success: data => {
                             console.log('已经记录任务')
