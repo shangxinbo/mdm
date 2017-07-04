@@ -81,7 +81,7 @@
                 error: ''
             }
         },
-        props: ['uuid','historyid'],
+        props: ['uuid', 'historyid'],
         computed: {
             dialing: function () {
                 return this.$store.state.dialing
@@ -106,18 +106,18 @@
             },
             sure: function () {
                 let _this = this
-                if(this.clueStatus==null){
+                if (this.clueStatus == null) {
                     this.error = '线索状态必须要选择'
                     return false
-                }else{
-                    if(this.des.length>100){
+                } else {
+                    if (this.des.length > 100) {
                         this.error = '备注不能超过100个字符'
                         return false
-                    }else{
+                    } else {
                         this.error = ''
                     }
                 }
-                
+
                 mAjax(this, {
                     url: API.project_call_modify,
                     data: {
@@ -125,27 +125,12 @@
                         clue_status: this.clueStatus,
                         dial_status: this.callResult == 1 ? 1 : this.$refs.callResultSelect.selected.id,
                         remarks: this.des,
-                        sound_code:this.historyid
+                        sound_code: this.historyid
                     },
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-
-                            // if (_this.dialing) {
-                            //     mAjax(this, {
-                            //         url: API.add_call_job,
-                            //         data: {
-                            //             call_uuid: _this.uuid
-                            //         },
-                            //         success: data => {
-                            //             _this.$store.commit('SHOW_TOAST', '操作成功')
-                            //             console.log('拨叫任务处理完毕')
-                            //         }
-                            //     })
-                            //     _this.$store.commit('CHANGE_DIAL_STATUS',false)
-                            // } else {
-                            //     _this.$store.commit('SHOW_TOAST', '操作成功')
-                            // }
+                            window.mycomm_agent.drop()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
 
                         } else {
@@ -168,7 +153,7 @@
                 _this.tel = tel
                 _this.projectName = projectName
                 _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')       
+                _this.$store.commit('SHOW_LAYER')
             })
         }
     }
