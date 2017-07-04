@@ -74,7 +74,7 @@
                 list: [],
                 uuid: '',
                 end: '',
-                history_id:''
+                history_id: ''
             }
         },
         computed: {
@@ -182,9 +182,7 @@
                 let uuid = ''
 
 
-                window.mycomm_agent.on_dial_s = function (evt) {
-                    _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
-                }
+
                 window.mycomm_agent.on_dial_f = function (evt) {
                     _this.$store.commit('SHOW_TOAST', evt.params.err_des)
                     window.mycomm_agent.logout()
@@ -259,6 +257,24 @@
                                         }
 
                                         window.mycomm_agent.wrap_up(0)
+                                        window.mycomm_agent.on_dial_s = function (evt) {
+                                            mAjax(this, {
+                                                url: API.save_dial_history,
+                                                data: {
+                                                    phone: data.data.telephone,
+                                                    project_id: this.project.id
+                                                },
+                                                success: data => {
+                                                    if (data.code == 200) {
+                                                        this.history_id = data.data.id
+                                                    } else {
+                                                        console.log('保存记录失败')
+                                                    }
+
+                                                }
+                                            })
+                                            _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
+                                        }
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                             setInterval(() => {  //延长用户有效期
@@ -288,22 +304,8 @@
                                             _this.$refs.alert.$emit('show', msg)
                                         }
 
-                                        mAjax(this, {
-                                            url: API.save_dial_history,
-                                            data: {
-                                                phone: data.data.telephone,
-                                                project_id: this.project.id
-                                            },
-                                            success: data => {
-                                                if (data.code == 200) {
-                                                    this.history_id = data.data.id
-                                                    window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
-                                                }else{
-                                                    console.log('保存记录失败')
-                                                }
+                                        window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
 
-                                            }
-                                        })
                                     }
                                 })
                             }
