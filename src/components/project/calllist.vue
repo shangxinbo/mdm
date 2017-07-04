@@ -258,15 +258,15 @@
 
                                         window.mycomm_agent.wrap_up(0)
                                         window.mycomm_agent.on_dial_s = function (evt) {
-                                            mAjax(this, {
+                                            mAjax(_this, {
                                                 url: API.save_dial_history,
                                                 data: {
                                                     phone: data.data.telephone,
-                                                    project_id: this.project.id
+                                                    project_id: _this.project.id
                                                 },
                                                 success: data => {
                                                     if (data.code == 200) {
-                                                        this.history_id = data.data.id
+                                                        _this.history_id = data.data.id
                                                     } else {
                                                         console.log('保存记录失败')
                                                     }
