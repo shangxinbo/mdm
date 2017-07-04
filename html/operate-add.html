@@ -182,23 +182,35 @@
                     </li>
                 </ul>
                 <div class="title-info">服务报价</div>
-                <ul class="data-text">
-                    <li class="li-service">
-                        <ul>
-                            <li>
-                                <span>线索单价</span><span class="sign">&yen;</span><input class="text" type="text"><span>/条</span>
-                            </li>
-                            <li>
-                                <span>话费单价</span><span class="sign">&yen;</span><input class="text" type="text"><span>/分钟</span>
-                            </li>
-                            <li>
-                                <span>坐席单价</span><span class="sign">&yen;</span><input class="text" type="text"><span>/个/月</span>
-                            </li>
-                        </ul>
+                <ul class="data-text data-view">
+                    <li class="li-radio li-service">
+                            <div class="radio-warp">
+                                <div class="data-marketing check-warp">
+                                    <dl class="data-section">
+                                        <dd>
+                                            <ul class="data-in">
+                                                <li>
+                                                    <span>线索单价</span><span class="sign">¥</span><input class="text" type="text"><span>/条</span>
+                                                </li>
+                                                <li>
+                                                    <span>话费单价</span><span class="sign">¥</span><input class="text" type="text"><span>/分钟</span>
+                                                </li>
+                                                <li>
+                                                    <span>坐席单价</span><span class="sign">¥</span><input class="text" type="text"><span>/个/月</span>
+                                                </li>
+                                                <li class="checked">
+                                                    <div class="hang-check"><i class="icon"></i><span>开通挂机短信</span></div>
+                                                    <div class="hang-input"><span>挂机短信单价</span><span class="sign">¥</span><input class="text" type="text"><span>/条</span></div>
+                                                </li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
                     </li>
-                    <li class="li-btn">
+                    <li class="">
                         <div class="input-warp">
-                            <button class="btn blue" type="button" onclick="getWindow('submitSucc','tips-succ');">提交</button>
+                            <button class="btn blue" type="button" onclick="getWindow('submitSucc');">提交</button>
                         </div>
                     </li>
                 </ul>

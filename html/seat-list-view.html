@@ -57,7 +57,10 @@
                             <div class="input-warp"><p class="text">湘潭</p></div>
                         </div>
                         <div class="fl-in">
-                            <button class="btn blue" type="button"><span><i class="icon phone"></i>拨打</span></button>
+                            <a class="btn blue" href="seat-list-detail.html"><span><i class="icon phone"></i>拨打</span></a>
+                        </div>
+                        <div class="fl-in">
+                            <a class="btn-sms" href="javascript:void(0);" onclick="getWindow('dialMessage');"><span><i class="icon sms"></i>发短信</span></a>
                         </div>
                     </li>
                 </ul>
@@ -92,7 +95,52 @@
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
-
+<!-- 发短信弹窗 -->
+<div class="dialog" id="dialMessage">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>发短信</h4>
+    </div>
+    <div class="dialog-body">
+        <ul class="query-warp">
+            <li>
+                <label>短信模板</label>
+                <div class="input-warp">
+                    <div class="select-warp dial-select-sms">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                        <p class="all"><span>挂机短信模板1</span></p>
+                        <div class="select-ul">
+                            <div class="scroll-warp scrollBar">
+                                <ul>
+                                    <li>挂机短信模板1</li>
+                                    <li>挂机短信模板2</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="sms-phone">
+            <div class="inrr">
+                <i class="bg-up"></i><i class="bg-down"></i>
+                <p>【集奥聚合】</p>
+                <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX <a href="">http://www.geotmt.com/ </a> 退订TD</p>
+            </div>
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <button class="btn blue" type="button" onclick="getWindow('dialMessageSucc','tips-succ');">发送</button>
+        <button class="btn" type="button" onclick="hideDialog('dialMessage');">取消</button>
+    </div>
+</div>
+<div class="dialog tips-succ" id="dialMessageSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>短信发送成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 发短信弹窗 End -->
 <!-- 拨打过程中关闭弹窗 -->
 <div class="dialog" id="callBack">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
@@ -131,6 +179,12 @@
                 <label class="w110">主机</label>
                 <div class="input-warp w240">
                     <p class="text">101.222.333.222</p>
+                </div>
+            </li>
+            <li>
+                <label class="w110">端口</label>
+                <div class="input-warp w240">
+                    <p class="text">5060</p>
                 </div>
             </li>
             <li>

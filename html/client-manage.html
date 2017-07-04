@@ -35,14 +35,6 @@
     <ul>
         <li class="active">
             <a href="client-manage.html"><span><i class="icon icon01"></i>项目管理</span></a>
-            <ul>
-                <li class="active">
-                    <a href="client-manage.html"><span><i class="icon icon01-1"></i>外呼项目</span></a>
-                </li>
-                <li>
-                    <a href="client-manage-sms.html"><span><i class="icon icon01-2"></i>短信项目</span></a>
-                </li>
-            </ul>
         </li>
         <li>
             <a href="client-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
@@ -54,7 +46,7 @@
 </div>
 <div class="warp">
     <div class="main">
-        <div class="title-warp">外呼项目</div>
+        <div class="title-warp">项目管理</div>
         <div class="data-property">
             <form>
                 <ul class="data-text">
@@ -114,14 +106,14 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>项目名称</th><th>创建日期</th><th>状态</th><th>线索量</th><th>剩余线索</th><th>拨通线索</th><th>有效率</th><th>通话时长</th><th>剩余时间</th><th>项目坐席</th><th>操作</th></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td>2017-03-16</td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr class="tr2"><td><a href="client-fail.html">中国电信项目1</a></td><td>2017-03-16</td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="javascript:void(0);" onclick="getWindow('dialogAfresh');">重新申请</a></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td>2017-03-16</td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                    <tr class="tr2"><td><a href="client-ongoing.html">中国电信项目1</a></td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配坐席</a></td></tr>
-                    <tr><td><a href="client-ongoing.html">中国电信项目1</a></td><td>2017-03-16</td><td>进行中</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配坐席</a></td></tr>
-                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td>2017-03-16</td><td>已暂停</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td></td></tr>
-                    <tr><td><a href="#">中国电信项目1</a></td><td>2017-03-16</td><td>已结束</td><td>3000</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td></tr>
+                    <tr><th>项目名称</th><th>状态</th><th>资源总量</th><th>未分配</th><th>未拨打</th><th>已拨通</th><th>拨通率</th><th>通话时长</th><th>项目剩余时间</th><th>项目坐席</th><th>挂机短信</th><th>操作</th></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td>待审核</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="tr2"><td><a href="client-fail.html">中国电信项目1</a></td><td>未通过<span class="notice"><i class="icon tips"></i><em>为通过原因未通过原因</em></span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><a href="javascript:void(0);" onclick="getWindow('dialogAfresh');">重新申请</a></td></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td>准备中</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                    <tr class="tr2"><td><a href="client-ongoing.html">中国电信项目1</a></td><td>进行中</td><td>3000</td><td>500</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td>300</td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配线索</a></td></tr>
+                    <tr><td><a href="client-ongoing.html">中国电信项目1</a></td><td>进行中</td><td>3000</td><td>500</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td></td><td><a href="javascript:void(0);" onclick="getWindow('dialogAllocation');">分配线索</a><a href="javascript:void(0);" onclick="getWindow('dialogRecycle');">回收线索</a></td></tr>
+                    <tr class="tr2"><td><a href="#">中国电信项目1</a></td><td>已暂停</td><td>3000</td><td>500</td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>未分配</td><td>300</td><td></td></tr>
+                    <tr><td><a href="#">中国电信项目1</a></td><td>已结束</td><td>3000</td><td></td><td>2000</td><td>800</td><td>80%</td><td>12小时46分</td><td>9时9分9秒</td><td>2</td><td>300</td><td></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -193,6 +185,11 @@
                     <p class="tips block">最多输入600个字符，已经输入0个字符</p>
                 </div>
             </li>
+            <li class="hang">
+                <div class="dialog-select">
+                    <div class="checkall checked"><i class="icon"></i><span>使用挂机短信</span></div><!-- 选中增加 checked -->
+                </div>
+            </li>
         </ul>
     </div>
     <div class="dialog-footer">
@@ -208,21 +205,15 @@
         </div>
     </div>
 </div>
-<!-- 分配坐席弹窗 -->
+<!-- 分配线索弹窗 -->
 <div class="dialog" id="dialogAllocation">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
     <div class="dialog-header">
-        <h4>分配坐席</h4>
+        <h4>分配线索</h4>
     </div>
     <div class="dialog-body">
         <div class="dialog-allocation">
             <ul class="mode">
-                <li>
-                    <label>未拨打线索量</label>
-                    <div class="input-warp">
-                        <p class="text"> 8888</p>
-                    </div>
-                </li>
                 <li>
                     <label>线索分配方式</label>
                     <div class="input-warp">
@@ -240,20 +231,37 @@
                     </div>
                 </li>
             </ul>
+            <ul class="mode">
+                <li>
+                    <label>项目线索量</label>
+                    <div class="input-warp">
+                        <p class="text"> 8888</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="select-cutover1">
+                        <label>本次分配线索</label>
+                        <div class="input-warp">
+                            <input class="text" type="text" style="width: 120px; min-width: 120px">
+                        </div>
+                    </div>
+                    <div class="select-cutover2" style="display: none"></div>
+                </li>
+            </ul>
             <div class="title">中国电信项目1分配给以下坐席拨打</div>
             <div class="cutover">
                 <div class="select-cutover1">
                     <div class="check-warp">
                         <div class="scroll-warp scrollBar">
                             <ul class="scroll-content screening-item">
-                                <li class="checked"><p><i class="icon"></i><span>坐席1</span></p>
+                                <li class="checked"><p><i class="icon"></i><span>中国电信坐席001</span></p>
                                 </li>
-                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
-                                <li><p><i class="icon"></i><span>坐席3</span></p>
+                                <li><p><i class="icon"></i><span>中国电信坐席002</span></p></li>
+                                <li><p><i class="icon"></i><span>中国电信坐席003</span></p>
                                 </li>
-                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
-                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
-                                <li> <p><i class="icon"></i><span>坐席6</span></p>
+                                <li><p><i class="icon"></i><span>中国电信坐席004</span></p></li>
+                                <li><p><i class="icon"></i><span>中国电信坐席005</span></p></li>
+                                <li> <p><i class="icon"></i><span>中国电信坐席006</span></p>
                                 </li>
                             </ul>
                         </div>
@@ -267,24 +275,23 @@
                         <div class="scroll-warp scrollBar">
                             <ul class="scroll-content screening-item">
                                 <li class="checked">
-                                    <p><i class="icon"></i><span>坐席1</span></p>
+                                    <p><i class="icon"></i><span>中国电信坐席001</span></p>
                                     <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
                                 </li>
-                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li><p><i class="icon"></i><span>中国电信坐席002</span></p></li>
                                 <li class="checked">
-                                    <p><i class="icon"></i><span>坐席3</span></p>
+                                    <p><i class="icon"></i><span>中国电信坐席003</span></p>
                                     <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
                                 </li>
-                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
-                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li><p><i class="icon"></i><span>中国电信坐席004</span></p></li>
+                                <li><p><i class="icon"></i><span>中国电信坐席005</span></p></li>
                                 <li class="checked">
-                                    <p><i class="icon"></i><span>坐席6</span></p>
+                                    <p><i class="icon"></i><span>中国电信坐席006</span></p>
                                     <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <p class="notice"><i class="icon"></i>分配线索量之和不等于未拨打线索量。分配线索量之和 8880，未拨打线索量 8888</p>
                     <div class="dialog-select">
                         <div class="checkall"><i class="icon"></i><span>全选</span></div>
                     </div>
@@ -300,12 +307,71 @@
         <button class="btn" type="button" onclick="hideDialog('dialogAllocation');">取消</button>
     </div>
 </div>
-<!-- 分配坐席弹窗 End -->
-<!-- 分配坐席成功弹窗-->
+<!-- 分配线索弹窗 End -->
+<!-- 分配线索成功弹窗-->
 <div class="dialog tips-succ" id="dialogAllocationSucc">
     <div class="dialog-body">
         <div class="pop-default">
-            <p class="title"><span><i class="icon succ"></i>坐席分配成功</span></p>
+            <p class="title"><span><i class="icon succ"></i>分配线索成功</span></p>
+        </div>
+    </div>
+</div>
+<!-- 回收线索弹窗 -->
+<div class="dialog" id="dialogRecycle">
+    <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
+    <div class="dialog-header">
+        <h4>回收线索</h4>
+    </div>
+    <div class="dialog-body">
+        <div class="dialog-recycle">
+            <div class="title">回收以下坐席的未拨打线索</div>
+            <div class="check-warp">
+                <ul>
+                    <li class="checked">
+                        <p><i class="icon"></i><span class="name">中国电信坐席001</span></p>
+                        <p class="dial"><span>未拨打</span><span class="num">200</span></p>
+                    </li>
+                    <li>
+                        <p><i class="icon"></i><span class="name">中国电信坐席002</span></p>
+                        <p class="dial"><span>未拨打</span><span class="num">200</span></p>
+                    </li>
+                    <li class="checked">
+                        <p><i class="icon"></i><span class="name">中国电信坐席003</span></p>
+                        <p class="dial"><span>未拨打</span><span class="num">200</span></p>
+                    </li>
+                    <li>
+                        <p><i class="icon"></i><span class="name">中国电信坐席004</span></p>
+                        <p class="dial"><span>未拨打</span><span class="num">200</span></p>
+                    </li>
+                    <li>
+                        <p><i class="icon"></i><span class="name">中国电信坐席005</span></p>
+                        <p class="dial"><span>未拨打</span><span class="num">200</span></p>
+                    </li>
+                    <li class="checked">
+                        <p><i class="icon"></i><span class="name">中国电信坐席006</span></p>
+                        <p class="dial"><span>未拨打</span><span class="num">200</span></p>
+                    </li>
+                </ul>
+                <div class="recycle-all">
+                    <span>回收线索</span><span class="num">600</span>
+                    <span class="tips">回收的线索会变成未分配线索，可以再次分配。</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="dialog-footer">
+        <!--<button class="btn disabled" type="button"  disabled="disabled" >确定</button>--><!--不可用状态-->
+        <button class="btn blue" type="button" onclick="getWindow('dialogRecycleSucc','tips-succ');">确定</button>
+        <button class="btn" type="button" onclick="hideDialog('dialogRecycle');">取消</button>
+    </div>
+</div>
+<!-- 分配线索弹窗 End -->
+<!-- 分配线索成功弹窗-->
+<div class="dialog tips-succ" id="dialogRecycleSucc">
+    <div class="dialog-body">
+        <div class="pop-default">
+            <p class="title"><span><i class="icon succ"></i>线索回收成功</span></p>
         </div>
     </div>
 </div>

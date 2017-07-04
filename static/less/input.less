@@ -1,5 +1,5 @@
 @import (reference) "base.less";
-.btn .icon,.radio-warp .icon{
+.check-warp .icon,.btn .icon,.radio-warp .icon{
   .flo();
   background: url('@{url}/dialog-icon.png') no-repeat 0 0;
 }
@@ -103,28 +103,6 @@ textarea{
 }
 .check-warp{
   position: relative;
-  .icon {
-    .wh(17px);
-    float: left;
-    margin-right: 10px;
-    background-position: 0 -55px;
-  }
-  .checked{
-    .icon{
-      background-position: -19px -55px;
-    }
-    .clue{
-      display: block;
-    }
-  }
-  span {
-    display: inline-block;
-    font-size: 14px;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    color: @grayColor;
-  }
     .icon {
         .wh(17px);
         float: left;
@@ -159,11 +137,19 @@ textarea{
       border-radius: 4px;
       cursor: pointer;
       padding-right: 10px;
-      span{
+      span {
+        display: inline-block;
+        font-size: 14px;
         line-height: 43px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        color: @grayColor;
       }
     }
-    .icon{
+    .icon {
+      .wh(17px);
+      float: left;
       margin-top: 13px;
       margin-right: 10px;
       background-position: 0 -55px;
@@ -241,9 +227,6 @@ textarea{
     &.edit{
       background-position: -101px 0;
     }
-    &.recharge{
-      background-position: -128px 0;
-    }
       &.phone{
           background-position: -102px -55px;
           width: 12px;
@@ -257,6 +240,12 @@ textarea{
           margin-top: -8px;
           left: -4px;
       }
+    &.hook{
+      background-position: -144px 0;
+      width: 15px;
+      height: 14px;
+      margin-top: -7px;
+    }
   }
 }
 .sms-push,.news-qual,.news-account{
