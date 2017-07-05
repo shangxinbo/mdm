@@ -88,7 +88,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import audioFilter from './audio_filter'
-    import callResultConf from '../project/callResultConf'
+    import callResultConf from '../project/call/callResultConf'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     import crumbs from './crumbs'

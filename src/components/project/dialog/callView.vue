@@ -50,7 +50,7 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import callResultConf from '../callResultConf'
+    import callResultConf from '../call/callResultConf'
     import md5 from 'js-md5'
     export default {
         data: () => {

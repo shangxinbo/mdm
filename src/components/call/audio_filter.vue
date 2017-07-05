@@ -35,7 +35,7 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import callResultConf from '../project/callResultConf'
+    import callResultConf from '../project/call/callResultConf'
     import datepicker from 'components/utils/datepicker'
     import moment from 'moment'
 

@@ -85,11 +85,11 @@
     import pages from 'components/common/pages'
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
-    import chooseSeatDialog from './dialog/chooseSeat'
+    import chooseSeatDialog from '../dialog/chooseSeat'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
     import seatData from './seat'
-    import saveByOptional from './create/save_optional'
+    import saveByOptional from '../create/save_optional'
 
     export default {
         data() {

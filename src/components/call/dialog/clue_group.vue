@@ -66,7 +66,7 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import callResultConf from '../../project/callResultConf'
+    import callResultConf from '../../project/call/callResultConf'
     export default {
         data() {
             return {
