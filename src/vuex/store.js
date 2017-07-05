@@ -37,7 +37,7 @@ const mutations = {
     SHOW_TOAST(state,msg,during) {
         state.toast = {
             msg:msg,
-            during:during?during:1000
+            during:during?during:3000
         }
     },
     HIDE_TOAST(state) {

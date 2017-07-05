@@ -6,19 +6,37 @@
         </div>
         <div class="dialog-body">
             <div class="dialog-allocation">
+                <ul class="mode">
+                    <li>
+                        <label>未拨打线索量</label>
+                        <div class="input-warp">
+                            <p class="text">{{clue_num}}</p>
+                        </div>
+                    </li>
+                    <li>
+                        <label>线索分配方式</label>
+                        <mselect :hideAll="true" :addClass="'seat-select'" :id="assignType" :initlist="assignTypeList" @change="changeAssignType"></mselect>
+                    </li>
+                </ul>
                 <div class="title">{{name}}分配给以下坐席拨打</div>
                 <div class="check-warp">
                     <div class="scroll-warp scrollBar" style="overflow-y: auto">
                         <ul class="scroll-content screening-item">
                             <li v-for="(item,index) in seat" :class="{checked:item.checked}">
                                 <p>
-                                    <i class="icon" @click="toggleChecked(item.key)"></i>
+                                    <i class="icon" @click="toggleChecked(item)"></i>
                                     <span>{{item.val}}</span>
                                 </p>
+                                <div class="clue" v-show="assignType==2">
+                                    <span>分配线索</span>
+                                    <input class="text" type="text" v-model="item.num">
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <p class="notice" v-show="error">
+                    <i class="icon"></i>{{error}}</p>
                 <div class="dialog-select">
                     <div class="checkall" :class="{checked:checkedAllStatus}">
                         <i class="icon" @click="toggleAll"></i>
@@ -28,7 +46,7 @@
             </div>
         </div>
         <div class="dialog-footer">
-            <button class="btn" :class="{blue:checked.length>0,disabled:checked.length==0}" type="button" @click="sure">确定</button>
+            <button class="btn" type="button" @click="sure">确定</button>
             <button class="btn" type="button" @click="close">取消</button>
         </div>
     </div>
@@ -36,6 +54,7 @@
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
+    import mselect from 'components/utils/select'
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -43,24 +62,18 @@
                 style: 'none',
                 id: '',
                 name: '',
-                list: {},
-                checked: [],
+                seat: [],
                 error: '',
-                userType:user.type
+                userType: user.type,
+                clue_num: 0,
+                assignTypeList: [
+                    { id: 1, name: '平均分配' },
+                    { id: 2, name: '自定义分配' }
+                ],
+                assignType: 1  //默认是平均分配
             }
         },
         computed: {
-            seat: function () {
-                let arr = []
-                for (let i in this.list) {
-                    arr.push({
-                        key: i,
-                        val: this.list[i],
-                        checked: this.checked.findIndex(n => n == i) >= 0
-                    })
-                }
-                return arr
-            },
             checkedAllStatus: function () {
                 let all = true
                 this.seat.forEach(e => {
@@ -78,60 +91,114 @@
             },
             sure: function () {
                 let _this = this
-                if (this.checked.length <= 0) {
-                    return false
+                let arr = []
+                if (this.assignType == 1) {
+                    this.seat.forEach(item => {
+                        if (item.checked) {
+                            arr.push(item.key)
+                        }
+                    })
+                    if (arr.length <= 0) {
+                        return false
+                    }
+                } else {
+                    this.seat.forEach(item => {
+                        if (item.checked) {
+                            arr.push({ id: item.key, num: item.num })
+                        }
+                    })
+
+                    let total = 0
+                    let reg = /^[1-9][0-9]*$/
+                    for (let i = 0; i < arr.length; i++) {
+                        if (!reg.test(arr[i].num)) {
+                            this.error = '请保证每个坐席分配到的线索数值是正整数'
+                            return false
+                        } else {
+                            total = total + parseInt(arr[i].num)
+                        }
+                    }
+                    if (arr.length <= 0) {
+                        return false
+                    } else {
+                        if (total != this.clue_num) {
+                            this.error = `分配线索量之和不等于未拨打线索量。分配线索量之和 ${total}，未拨打线索量 ${this.clue_num}`
+                            return false
+                        }else{
+                            this.error = ''
+                        }
+                    }
                 }
                 mAjax(this, {
                     url: API.seat_tobind,
                     data: {
                         id: this.id,
-                        seat_id: this.checked
+                        type: this.assignType == 1 ? 0 : 1,
+                        seat_id: arr,
+                        seat_conf:arr
                     },
                     success: data => {
+                        console.log(data.code)
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
-                        } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                        } else if(data.code==600){
+                            _this.close()
+                            _this.$store.commit('SHOW_TOAST', '拨打资源数量在变动中,请刷新页面后，尝试重新分配')
+                        }else {
+                            _this.error = data.message
+                            //_this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
             },
-            toggleChecked(id) {
-                let index = this.checked.findIndex(n => n == id)
-                if (index >= 0) {
-                    this.checked.splice(index, 1)
-                } else {
-                    this.checked.push(id)
-                }
+            toggleChecked(item) {
+                item.checked = !item.checked
             },
             toggleAll() {
-                if (this.checkedAllStatus) {
-                    this.checked = []
-                } else {
-                    let arr = []
-                    for (let i in this.list) {
-                        arr.push(i)
-                    }
-                    this.checked = arr
+                let all = this.checkedAllStatus
+                this.seat.forEach((item, index, arr) => {
+                    item.checked = !all
+                })
+            },
+            changeAssignType(val) {
+                this.assignType = val.id
+                if(val.id==2){
+                    this.seat.forEach((item,index,arr)=>{
+                        item.num = ''
+                    })
                 }
+                this.error = ''
             }
         },
         created() {
             let _this = this
-            if(this.userType!=3) return false
+            if (this.userType != 3) return false
             mAjax(this, {
                 url: API.seat_list,
                 success: data => {
-                    if (data.code == 200)
-                        _this.list = data.data
-                    else
-                        _this.list = {}
+                    if (data.code == 200) {
+                        let arr = []
+                        for (let i in data.data) {
+                            arr.push({
+                                key: i,
+                                val: data.data[i],
+                                checked: false,
+                                num: ''
+                            })
+                        }
+                        _this.seat = arr
+                    } else {
+                        _this.seat = []
+                    }
                 }
             })
-            this.$on('show', function (id, name) {
+            this.$on('show', function (id, name, clue) {
                 _this.id = id
                 _this.name = name
+                _this.clue_num = clue
+                _this.assignType = 1
+                _this.error = ''
                 mAjax(_this, {
                     url: API.seat_binding,
                     data: {
@@ -140,6 +207,14 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.checked = data.data
+                            _this.seat.forEach((item, index, arr) => {
+                                item.checked= false
+                                for (var i = 0; i < data.data.length; i++) {
+                                    if (item.key == data.data[i]) {
+                                        item.checked = true
+                                    }
+                                }
+                            })
                             _this.style = 'block'
                             _this.$store.commit('SHOW_LAYER')
                         } else {
@@ -148,6 +223,9 @@
                     }
                 })
             })
+        },
+        components: {
+            mselect
         }
     }
 

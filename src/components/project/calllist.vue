@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <doCallDialog ref="doCallDialog" :uuid="uuid"></doCallDialog>
+        <doCallDialog ref="doCallDialog" :uuid="uuid" :historyid="history_id"></doCallDialog>
         <callViewDialog ref="callViewDialog" @callThis="call"></callViewDialog>
         <alert ref="alert"></alert>
     </div>
@@ -60,7 +60,7 @@
     import callResultConf from './callResultConf'
     import md5 from 'js-md5'
     export default {
-        data(){
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 project: {
@@ -73,17 +73,18 @@
                 clue_status: '',
                 list: [],
                 uuid: '',
-                end: ''
+                end: '',
+                history_id: ''
             }
         },
         computed: {
             dialing: function () {
                 return this.$store.state.dialing
             },
-            tel_pre:function(){
+            tel_pre: function () {
                 return this.$store.state.tel_pre
             },
-            seat_info:function(){
+            seat_info: function () {
                 return this.$store.state.callInfo
             }
         },
@@ -179,17 +180,15 @@
             call(id, tel) {
                 let _this = this
                 let uuid = ''
-                
 
-                window.mycomm_agent.on_dial_s = function (evt) {
-                    _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
-                }
+
+
                 window.mycomm_agent.on_dial_f = function (evt) {
                     _this.$store.commit('SHOW_TOAST', evt.params.err_des)
                     window.mycomm_agent.logout()
                 }
 
-                //用户接通后挂断
+                //坐席挂断
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     _this.$store.commit('CHANGE_DIAL_STATUS', false)
                     window.mycomm_agent.logout()
@@ -206,14 +205,13 @@
 
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     _this.uuid = evt.params.channel_uuid
-                    let tel = evt.params.dest_number.replace(_this.tel_pre,'')
-                    _this.$store.commit('CHANGE_DIAL_STATUS',true)
+                    let tel = evt.params.dest_number.replace(_this.tel_pre, '')
+                    _this.$store.commit('CHANGE_DIAL_STATUS', true)
                     mAjax(_this, {
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: _this.uuid,
-                            phone: tel,
-                            project_id: _this.project.id
+                            id: _this.history_id
                         },
                         success: data => {
                             console.log('已经记录任务')
@@ -228,20 +226,55 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            if (data.data.balance && data.data.balance > 0) {
+                            if (data.data.balance <= 0) {
+                                _this.$refs.alert.$emit('show', '您的账号已经没有费用，请联系管理员')
+                            } else if (!data.data.valid) {
+                                _this.$refs.alert.$emit('show', '坐席已失效,暂不能拨打')
+                            } else {
                                 mAjax(this, {
                                     url: API.get_tel,
                                     data: {
                                         id: id
                                     },
                                     success: data => {
+                                        mAjax(this, {
+                                            url: API.dial_pre,
+                                            data: {
+                                                id: id
+                                            },
+                                            success: data => {
+                                                let a = 1
+                                            }
+                                        })
+
+
                                         let info = this.seat_info
-                                        
+
                                         let tel_all = data.data.telephone
-                                        if(this.tel_pre){
+
+                                        if (this.tel_pre) {
                                             tel_all = this.tel_pre + tel_all
                                         }
+
                                         window.mycomm_agent.wrap_up(0)
+                                        window.mycomm_agent.on_dial_s = function (evt) {
+                                            mAjax(_this, {
+                                                url: API.save_dial_history,
+                                                data: {
+                                                    phone: data.data.telephone,
+                                                    project_id: _this.project.id
+                                                },
+                                                success: data => {
+                                                    if (data.code == 200) {
+                                                        _this.history_id = data.data.id
+                                                    } else {
+                                                        console.log('保存记录失败')
+                                                    }
+
+                                                }
+                                            })
+                                            _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
+                                        }
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                             setInterval(() => {  //延长用户有效期
@@ -255,14 +288,14 @@
                                         }
                                         window.mycomm_agent.on_login_f = function (evt) {
                                             let msg = '服务暂不可用，请联系管理员'
-                                            switch(evt.params.err_num){
-                                                case 404: 
+                                            switch (evt.params.err_num) {
+                                                case 404:
                                                     msg = 'IP电话/软电话/分机没有注册，请根据IP电话机内置说明书进行配置，如有疑问请联系管理员'
                                                     break
-                                                case 409: 
+                                                case 409:
                                                     msg = '该分机已经被其他坐席使用，请联系管理员'
                                                     break
-                                                case 503: 
+                                                case 503:
                                                     msg = '服务暂不可用，请联系管理员'
                                                     break
                                                 default:
@@ -270,14 +303,14 @@
                                             }
                                             _this.$refs.alert.$emit('show', msg)
                                         }
+
                                         window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+
                                     }
                                 })
-                            } else {
-                                _this.$refs.alert.$emit('show', '客户账户余额不足,暂不能拨打')
                             }
                         } else {
-                            _this.$refs.alert.$emit('show', '获取客户账户余额失败,暂不能拨打')
+                            _this.$refs.alert.$emit('show', '获取坐席账户状态失败,暂不能拨打')
                         }
                     }
                 })

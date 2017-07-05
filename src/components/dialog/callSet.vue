@@ -5,11 +5,18 @@
             <h4>通话设置</h4>
         </div>
         <div class="dialog-body">
-            <ul class="query-warp">
+            <div v-if="!host" style="width:335px;height:240px;text-align:center;line-height:200px;font-size:16px;">通话设置获取失败</div>
+            <ul v-else class="query-warp">
                 <li>
                     <label class="w110">主机</label>
                     <div class="input-warp w240">
                         <p class="text">{{host}}</p>
+                    </div>
+                </li>
+                <li>
+                    <label class="w110">端口</label>
+                    <div class="input-warp w240">
+                        <p class="text">{{port}}</p>
                     </div>
                 </li>
                 <li>
@@ -32,15 +39,18 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
-        computed:{
-            host:function(){
-                return this.$store.state.callInfo ? this.$store.state.callInfo.cti_server + ':' + this.$store.state.callInfo.ip_port :''
+        computed: {
+            host: function () {
+                return this.$store.state.callInfo ? this.$store.state.callInfo.cti_server : ''
             },
-            user:function(){
-                return this.$store.state.callInfo ? this.$store.state.callInfo.agent_id:''
+            port() {
+                return this.$store.state.callInfo ? this.$store.state.callInfo.ip_port : ''
             },
-            password:function(){
-                return this.$store.state.callInfo ? this.$store.state.callInfo.password:''
+            user: function () {
+                return this.$store.state.callInfo ? this.$store.state.callInfo.agent_id : ''
+            },
+            password: function () {
+                return this.$store.state.callInfo ? this.$store.state.callInfo.password : ''
             },
             style: function () {
                 return this.$store.state.showCallSet ? 'block' : 'none'
@@ -50,7 +60,7 @@
             style: function (newVal, oldVal) {
                 if (newVal == 'block') {
                     this.$store.commit('SHOW_LAYER')
-                }else{
+                } else {
                     this.$store.commit('HIDE_LAYER')
                 }
             }

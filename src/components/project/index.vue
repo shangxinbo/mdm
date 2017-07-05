@@ -65,8 +65,7 @@
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
-                                    <!--<a v-if="item.audit_status==-3" href="javascript:void(0);" @click="resend(item.id)">重新申请</a>-->
-                                    <a v-if="item.status==1&&myseatNum>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name)">分配坐席</a>
+                                    <a v-if="item.status==1&&myseatNum>0&&item.clue_odd_num>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name,item.clue_odd_num)">分配坐席</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -199,8 +198,8 @@
                     })
                 })
             },
-            assignSeat(id, name) {
-                this.$refs.chooseSeatDialog.$emit('show', id, name)
+            assignSeat(id, name,clue) {
+                this.$refs.chooseSeatDialog.$emit('show', id, name,clue)
             },
             showReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'block'
