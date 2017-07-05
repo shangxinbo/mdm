@@ -31,6 +31,9 @@ module.exports = function (req, res) {
                     "expire_seat_num":"@int(0,1)",
                     "is_hang_message_up": "@int(0,1)",   //是否开启挂机短信
                     "seat_price":"200",
+                    "tel_price": "12",
+                    "clue_price":"1",
+                    "hang_up_message_price":"123",
                     "created_at": '@date("yyyy-MM-dd HH:mm:ss")'
                 }
             ]
