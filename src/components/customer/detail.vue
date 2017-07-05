@@ -85,6 +85,12 @@
                             </div>
                         </li>
                         <li v-if="detail.audit_status!=2">
+                            <label class="name">挂机短信</label>
+                            <div class="input-warp">
+                                <p class="text">{{detail.is_hang_up_message==1?'已开通':'未开通'}}</p>
+                            </div>
+                        </li>
+                        <li v-if="detail.audit_status!=2">
                             <label class="name">线索单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.clue_price}}/条</p>
@@ -100,6 +106,12 @@
                             <label class="name">坐席单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.seat_price}}/个/月</p>
+                            </div>
+                        </li>
+                        <li v-if="detail.audit_status!=2">
+                            <label class="name">挂机短信单价</label>
+                            <div class="input-warp">
+                                <p class="text">￥{{detail.hang_up_message_price}}/条</p>
                             </div>
                         </li>
                     </ul>
@@ -171,7 +183,9 @@
                     mail: '',
                     tel: '',
                     location: '',
-                    application_addr: ''
+                    application_addr: '',
+                    is_hang_up_message:0,
+                    hang_up_message_price:''
                 },
                 userType: user.type
             }
