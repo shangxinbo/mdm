@@ -117,10 +117,10 @@
                     type: this.$route.query.typeId,
                     audit_status: this.$route.query.statusId,
                     superior_id: this.agent_id ? this.agent_id : this.$route.query.agentId,
-                    created_at_start:this.$route.query.startTime?this.$route.query.startTime:'',
-                    created_at_end:this.$route.query.endTime?this.$route.query.endTime:''
+                    created_at_start: this.$route.query.startTime ? this.$route.query.startTime : '',
+                    created_at_end: this.$route.query.endTime ? this.$route.query.endTime : ''
                 }
-                if(this.$route.query.hangup){
+                if (this.$route.query.hangup) {
                     obj.is_hang_up_messge = this.$route.query.hangup
                 }
                 mAjax(this, {
@@ -211,6 +211,10 @@
             changePriceDialog,
             noTemplateListDialog
         },
+        beforeRouteLeave(to, from, next) {
+            this.$store.commit('HIDE_LAYER')
+            next()
+        }
     }
 
 </script>
