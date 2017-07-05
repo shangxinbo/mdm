@@ -15,7 +15,7 @@
             </li>
         </ul>
         <div class="add-explain">
-            <a href="javascript:void(0);" @click="noTemplate">未建挂机短信模板客户</a>
+            <a href="javascript:void(0);" v-if="userType==1" @click="noTemplate">未建挂机短信模板客户</a>
             <router-link v-if="userType==2||userType==1" to="/customer/add" class="btn blue">
                 <span>
                     <i class="icon add"></i>新建客户
