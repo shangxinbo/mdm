@@ -51,8 +51,36 @@
             <form>
                 <ul class="data-text">
                     <li>
-                        <label class="name">手机号</label>
-                        <div class="input-warp"><input class="text" type="text"></div>
+                        <label class="name">归属地</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="name">性别</label>
+                        <div class="input-warp">
+                            <div class="select-warp ">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                                <p class="all"><span>全部</span></p>
+                                <div class="select-ul">
+                                    <div class="scroll-warp scrollBar">
+                                        <ul>
+                                            <li>全部</li>
+                                            <li>男</li>
+                                            <li>女</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                     <li>
                         <label class="name">拨打结果</label>
@@ -131,25 +159,25 @@
                 <!--<p class="no-data">暂无数据</p>-->
                 <table cellspacing="0" cellpadding="0">
                     <tbody>
-                    <tr><th>手机号</th><th>拨打时间</th><th>通话时长</th><th class="w300 tl">拨打结果</th><th class="w160">通话录音</th></tr>
+                    <tr><th>拨打资源</th><th>归属地</th><th>称呼</th><th>已拨打次数</th><th>拨打时间</th><th>通话时长</th><th class="w160">备注</th><th class="tl">拨打结果</th><th>通话录音</th></tr>
                     <tr>
-                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td class="tl">【成功】其他</td>
+                        <td>138****5556</td><td>北京</td><td>张先生</td><td>1</td><td>【2017 - 03 - 14】10:20</td><td>13分</td><td class="tl">备注备注备注备注备注备注备注备注...</td><td class="tl">【成功】其他</td>
                         <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
                             <audio class="audio" src="../static/audio/audio.mp3"></audio>
                         </td>
                     </tr>
                     <tr class="tr2">
-                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td class="tl">【成功】其他</td>
+                        <td><a href="javascript:void(0);" onclick="getWindow('singleTelephone');">138****5556</a></td><td>湘潭</td><td>李女士</td><td>3</td><td>【2017 - 03 - 14】10:20</td><td>13分</td><td class="tl">备注</td><td class="tl">【成功】其他</td>
                         <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
                             <audio class="audio" src="../static/audio/audio.mp3"></audio>
                         </td>
                     </tr>
                     <tr>
-                        <td><a href="javascript:void(0);" onclick="getWindow('singleTelephone');">138****5556</a></td><td>2017-03-14</td><td>13分</td><td class="tl">【待跟进】无人接听</td>
+                        <td><a href="javascript:void(0);" onclick="getWindow('singleTelephone');">138****5556</a></td><td>洛阳</td><td>先生</td><td>1</td><td>【2017 - 03 - 14】10:20</td><td>13分</td><td class="tl"></td><td class="tl">【待跟进】无人接听</td>
                         <td></td>
                     </tr>
                     <tr class="tr2">
-                        <td>138****5556</td><td>2017-03-14</td><td>13分</td><td class="tl">【待跟进】有意向-继续联系</td>
+                        <td>138****5556</td><td>北京</td><td>先生</td><td>1</td><td>【2017 - 03 - 14】10:20</td><td>2分</td><td class="tl"></td><td class="tl">【待跟进】有意向-继续联系</td>
                         <td></td>
                     </tr>
                     </tbody>
@@ -182,6 +210,12 @@
                         <span class="t">项目名称</span><span class="num">中国电信项目1</span>
                     </li>
                     <li>
+                        <span class="t">称呼</span><span class="num">张先生</span>
+                    </li>
+                    <li>
+                        <span class="t">归属地</span><span class="num">北京</span>
+                    </li>
+                    <li>
                         <span class="t">外呼次数</span><span class="num">3</span>
                     </li>
                 </ul>
@@ -192,7 +226,7 @@
             </div>
             <div class="data-table">
                 <table cellspacing="0" cellpadding="0">
-                    <tr><th class="w160">拨打时间</th><th class="w80">通话时长</th><th class="w190 tl">拨打结果</th><th>通话录音</th></tr>
+                    <tr><th class="w160">拨打时间</th><th class="w80">通话时长</th><th>备注</th><th class="w160 tl">拨打结果</th><th class="w200">通话录音</th></tr>
                 </table>
             </div>
             <div class="scroll-warp scrollBar">
@@ -200,18 +234,18 @@
                     <table cellspacing="0" cellpadding="0">
                         <tbody>
                         <tr>
-                            <td class="w160">2017-03-14</td><td class="w80">13分</td><td class="w190 tl">【成功】其他</td>
-                            <td><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
+                            <td class="w160">【2017 - 03 - 14】10:20</td><td class="w80">13分</td><td class="tl">备注备注备注备注备注备注备注备注...</td><td class="w160 tl">【成功】其他</td>
+                            <td class="w200"><a class="btn-audio" href="javascript:void(0);" onclick="audioControl(this);"><span class="notice"><i class="icon play"></i></span><span class="audio-txt">播放</span></a><a href="#"><span class="notice"><i class="icon download"></i></span>下载</a>
                                 <audio class="audio" src="../static/audio/audio.mp3" controls="controls"></audio>
                             </td>
                         </tr>
                         <tr class="tr2">
-                            <td class="w160">2017-03-14</td><td class="w80">13分</td><td class="w190 tl">【成功】其他</td>
-                            <td></td>
+                            <td class="w160">【2017 - 03 - 14】10:20</td><td class="w80">13分</td><td class="tl">备注</td><td class="w160 tl">【成功】其他</td>
+                            <td class="w200"></td>
                         </tr>
                         <tr>
-                            <td class="w160">2017-03-14</td><td class="w80">13分</td><td class="w190 tl">【待跟进】无人接听</td>
-                            <td></td>
+                            <td class="w160">【2017 - 03 - 14】10:20</td><td class="w80">13分</td><td class="tl"></td><td class="w160 tl">【待跟进】无人接听</td>
+                            <td class="w200"></td>
                         </tr>
                         </tbody>
                     </table>
