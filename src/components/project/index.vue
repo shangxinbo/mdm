@@ -15,9 +15,7 @@
                             <tr>
                                 <th width="10%">项目名称</th>
                                 <th width="10%" v-if="!customer_id&&userType==1">客户名称</th>
-                                <th width="10%" v-if="!agent_id&&!customer_id&&userType==1">所属代理</th>
                                 <th width="5%">类型</th>
-                                <th width="10%">创建日期</th>
                                 <th width="5%">状态</th>
                                 <th width="5%">线索量</th>
                                 <th width="5%">剩余线索</th>
@@ -26,6 +24,8 @@
                                 <th width="7%">通话时长</th>
                                 <th width="7%">剩余时间</th>
                                 <th width="6%" v-if="userType!=4">项目坐席</th>
+                                <th width="6%" v-if="userType!=4">挂机短信</th>
+                                <th width="6%" v-if="userType!=4">留资</th>
                                 <th width="10%">操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
@@ -36,11 +36,7 @@
                                 <td v-if="!customer_id&&userType==1">
                                     <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
                                 </td>
-                                <td v-if="!agent_id&&!customer_id&&userType==1">
-                                    <router-link :to="{query:{agent_id:item.agency_id,agent_name:item.agency}}">{{item.agency}}</router-link>
-                                </td>
                                 <td>{{item.project_type}}</td>
-                                <td>{{item.created_at.substr(0,10)}}</td>
                                 <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
                                     <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
                                         <i class="icon tips"></i>
@@ -54,6 +50,8 @@
                                 <td>{{item.call_time&&(item.status==1||item.status==3) ? item.call_time:'--'}}</td>
                                 <td>{{item.odd_time?item.odd_time:'--'}}</td>
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
+                                <td v-if="userType!=4">{{item.hangUpSms}}</td>
+                                <td v-if="userType!=4">{{item.leftInfo}}</td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1&&item.audit_status==-2" href="javascript:void(0);" @click="stop(item.id)">暂停</a>

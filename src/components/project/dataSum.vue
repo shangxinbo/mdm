@@ -10,20 +10,28 @@
                 <span class="num">{{data.projectStatusIngTotal}}</span>
             </li>
             <li>
-                <span class="t">线索量</span>
+                <span class="t">资源总量</span>
                 <span class="num">{{data.clueNumTotal}}</span>
             </li>
             <li>
-                <span class="t">剩余线索</span>
+                <span class="t">未拨打</span>
                 <span class="num">{{data.oddNumTotal}}</span>
             </li>
             <li>
-                <span class="t">拨通线索</span>
+                <span class="t">已拨通</span>
                 <span class="num">{{data.connectNumTotal}}</span>
             </li>
             <li>
-                <span class="t">有效率</span>
+                <span class="t">拨通率</span>
                 <span class="num">{{data.clueValidPercent}}%</span>
+            </li>
+            <li>
+                <span class="t">挂机短信</span>
+                <span class="num">{{data.hangUpSms}}</span>
+            </li>
+            <li>
+                <span class="t">留资</span>
+                <span class="num">{{data.leftInfo}}</span>
             </li>
         </ul>
     </div>

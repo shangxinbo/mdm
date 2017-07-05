@@ -10,7 +10,9 @@ module.exports = function (req, res) {
             "clueNumTotal": "@int(1000,10000)",
             "oddNumTotal": "@int(1000,10000)",
             "connectNumTotal": "@int(1000,10000)",
-            "clueValidPercent": "@int(1000,10000)"
+            "clueValidPercent": "@int(1000,10000)",
+            "hangUpSms":"@int(1000,10000)",
+            "leftInfo":"@int(1000,10000)",
         },
         "page": {
             "total": 100
@@ -50,7 +52,9 @@ module.exports = function (req, res) {
                 "clue_connect_num": 1,
                 "clue_odd_num": 998,
                 "agency": "代理1",
-                "agency_id": 123
+                "agency_id": 123,
+                "hangUpSms":123,
+                "leftInfo":123
             }
         ]
     })
