@@ -1,7 +1,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">新建客户</div>
+            <div class="title-warp">{{title}}</div>
             <div class="data-detail">
                 <form>
                     <ul class="data-text">
@@ -15,6 +15,10 @@
                         <li>
                             <label class="name">客户类型</label>
                             <mselect ref="typeSelect" :api="api.typeSelect" :id="type" :error="type_error"></mselect>
+                        </li>
+                        <li v-if="userType==1">
+                            <label class="name">所属代理</label>
+                            <mselect ref="agentSelect" :api="agentApi" :id="agentId" :hideAll="true"></mselect>
                         </li>
                         <li>
                             <label class="name">公司名称</label>
@@ -123,6 +127,32 @@
                                 <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                             </div>
                         </li>
+                    </ul>
+                    <div class="title-info" v-if="userType==1&&!id">服务报价</div>
+                    <ul class="data-text">
+                        <li class="li-service" v-if="userType==1&&!id">
+                            <ul>
+                                <li>
+                                    <span>线索单价</span>
+                                    <span class="sign">&yen;</span>
+                                    <input class="text" type="text" v-model="clue_price" />
+                                    <span>/条</span>
+                                </li>
+                                <li>
+                                    <span>话费单价</span>
+                                    <span class="sign">&yen;</span>
+                                    <input class="text" type="text" v-model="tel_price" />
+                                    <span>/分钟</span>
+                                </li>
+                                <li>
+                                    <span>坐席单价</span>
+                                    <span class="sign">&yen;</span>
+                                    <input class="text" type="text" v-model="seat_price" />
+                                    <span>/个/月</span>
+                                </li>
+                            </ul>
+                            <p v-if="price_error" class="error">{{price_error}}</p>
+                        </li>
                         <li class="li-btn">
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
@@ -142,6 +172,9 @@
     import alert from 'components/dialog/alert'
     import axios from 'axios'
     import REG from 'src/services/reg'
+
+    let agentApi = API.angent_list_all
+
     function scrollTop(todo, num) {
         if (todo) {
             let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
@@ -150,7 +183,17 @@
     }
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
+                title:'新建客户',
+                userType: user.type,
+                agentApi: agentApi,
+                agentId: 1,
+                chooseAgent: 1,
+                clue_price: '',
+                tel_price: '',
+                seat_price: '',
+                price_error: '',
                 user: '',
                 user_error: '',
                 type: '',
@@ -379,6 +422,36 @@
                 } else {
                     data.append('user', this.user)
                 }
+                if (this.userType == 1) {
+                    data.append('agent_id', this.chooseAgent)
+                    if (!this.id) {
+                        if (!this.clue_price) {
+                            this.price_error = '线索单价必填'
+                            return false
+                        } else if (!this.tel_price) {
+                            this.price_error = '话费单价必填'
+                            return false
+                        } else if (!this.seat_price) {
+                            this.price_error = '坐席单价必填'
+                            return false
+                        } else {
+                            if (isNaN(this.clue_price) || isNaN(this.tel_price) || isNaN(this.seat_price)) {
+                                this.price_error = '单价必须是数值'
+                                return false
+                            } else {
+                                if (this.clue_price >= 0 && this.tel_price >= 0 && this.seat_price >= 0) {
+                                    this.price_error = ''
+                                } else {
+                                    this.price_error = '单价必须大于等于0'
+                                    return false
+                                }
+                            }
+                        }
+                        data.append('clue_price', this.clue_price)
+                        data.append('tel_price', this.tel_price)
+                        data.append('seat_price', this.seat_price)
+                    }
+                }
                 data.append('type', this.$refs.typeSelect.selected.id)
                 data.append('company', this.company)
                 data.append('legal', this.legal)
@@ -393,7 +466,7 @@
                 data.append('application_addr', this.self_addr)
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
-                        _this.$refs.alert.$emit('show','客户资料已提交审核', () => {
+                        _this.$refs.alert.$emit('show', '客户资料已提交审核', () => {
                             _this.$router.push('/customer/index')
                         })
                     } else {
@@ -408,6 +481,7 @@
             let id = this.$route.params.id
             let _this = this
             if (id) {
+                this.title = '编辑客户'
                 mAjax(this, {
                     url: API.customer_detail,
                     data: {
@@ -429,6 +503,7 @@
                             _this.self_addr = detail.application_addr
                             _this.edit_licence = detail.licence
                             _this.edit_qualification = detail.qualification
+                            _this.agentId = detail.agent_id
                         } else {
                             _this.$refs.alert.$emit('show', data.message)
                         }

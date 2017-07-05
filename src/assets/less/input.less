@@ -159,15 +159,15 @@ textarea{
 .btn{
   display: block;
   background-color: #FFF;
-  border: 1px solid #d8dde5;
+    border: 2px solid @blueColor;
   border-radius: 30px;
-  color: @grayColor;
+  color: @blueColor;
   font-size: 14px;
   line-height: 28px;
   position: relative;
   font-family: @YaHei;
   cursor: pointer;
-  min-width: 88px;
+  min-width: 100px;
   margin: 0 auto;
   text-align: center;
   &:hover{
@@ -176,6 +176,7 @@ textarea{
     background-color: #EDECF5;
     border-color: #EDECF5;
     color: #8b8da6;
+      cursor: auto;
   }
   &.blue,&.green{
     background-color: @blueColor;
@@ -221,6 +222,19 @@ textarea{
     &.recharge{
       background-position: -128px 0;
     }
+      &.phone{
+          background-position: -102px -55px;
+          width: 12px;
+          height: 17px;
+          margin-top: -8px;
+      }
+      &.hangup{
+          background-position: -118px -55px;
+          width: 17px;
+          height: 17px;
+          margin-top: -8px;
+          left: -4px;
+      }
   }
 }
 .sms-push,.news-qual,.news-account{

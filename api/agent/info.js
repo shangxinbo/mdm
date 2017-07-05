@@ -11,12 +11,12 @@ module.exports = function (req, res) {
         "store_addr": "",//办公地点
         "licence": "http://www.baidu.com",   //营业执照
         "qualification": "",//其他资质
-        "user_name": "光头强",//姓名
+        "user_name": "光头强123123",//姓名
         "mail": "gunt@123.com",//邮箱
         "tel": "13623433",//手机号
         "location": "",//归属地
         "application_addr": "",//所在位置
-        "user": "光头强",//
+        "user": "光头强111",//
         "created_at": "2017-04-01 12:17:22"
     }
 }
