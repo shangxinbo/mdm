@@ -115,7 +115,7 @@
                                                         <input class="text" v-model="seat_price" type="text">
                                                         <span>元/个/月</span>
                                                     </li>
-                                                    <li :class="{checked:sms==1}">
+                                                    <li class="block" :class="{checked:sms==1}">
                                                         <div class="hang-check">
                                                             <i class="icon" @click="toggleSms"></i>
                                                             <span>开通挂机短信</span>
