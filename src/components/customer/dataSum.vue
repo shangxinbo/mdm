@@ -14,11 +14,14 @@
                 <span class="num">{{data.seat}}</span>
             </li>
         </ul>
-        <router-link v-if="userType==2||userType==1" to="/customer/add" class="btn blue btn-export">
-            <span>
-                <i class="icon add"></i>新建客户
-            </span>
-        </router-link>
+        <div class="add-explain">
+            <a href="javascript:void(0);" @click="noTemplate">未建挂机短信模板客户</a>
+            <router-link v-if="userType==2||userType==1" to="/customer/add" class="btn blue">
+                <span>
+                    <i class="icon add"></i>新建客户
+                </span>
+            </router-link>
+        </div>
     </div>
 </template>
 <script>
@@ -32,6 +35,11 @@
             list:{
                 type: Array,
                 require:true
+            }
+        },
+        methods:{
+            noTemplate(){
+                this.$emit('showNoTemplate')
             }
         }
     }

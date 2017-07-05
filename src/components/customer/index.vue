@@ -4,7 +4,7 @@
             <div class="title-warp">{{ agent_name ? agent_name + '的客户' : '客户管理' }}</div>
             <div class="data-property">
                 <searchForm ref="searchForm" :userType="userType" @submit="search" />
-                <dataSum :data="sum" :userType="userType" :list="list"></dataSum>
+                <dataSum :data="sum" :userType="userType" :list="list" @showNoTemplate="showNoTemplateDialog"></dataSum>
             </div>
             <div class="data-warp">
                 <div class="data-table">
@@ -12,12 +12,12 @@
                         <tbody>
                             <tr>
                                 <th width="15%">客户名称</th>
-                                <th width="15%" v-if="userType==1&&!agent_id">所属代理</th>
                                 <th width="10%">类型</th>
-                                <th width="10%">创建日期</th>
+                                <th width="10%" v-if="userType==2">创建日期</th>
                                 <th width="10%">状态</th>
+                                <th width="10%" v-if="userType==1">挂机短信</th>
                                 <th width="5%" v-if="userType==1">进行中项目</th>
-                                <th width="5%" v-if="userType==1">现有坐席</th>
+                                <th width="5%" v-if="userType==1">在用坐席</th>
                                 <th width="10%">余额</th>
                                 <th width="15%">操作</th>
                             </tr>
@@ -25,11 +25,8 @@
                                 <td>
                                     <router-link :to="'/customer/detail/'+ item.id">{{item.company}}</router-link>
                                 </td>
-                                <td v-if="userType==1&&!agent_id">
-                                    <router-link :to="{query:{agent_id:item.superior_id,agent_name:item.agent_name}}">{{item.agent_name}}</router-link>
-                                </td>
                                 <td>{{item.type}}</td>
-                                <td>{{item.created_at.substr(0,10)}}</td>
+                                <td v-if="userType==2">{{item.created_at.substr(0,10)}}</td>
                                 <td v-if="item.audit_status==1">通过</td>
                                 <td v-else-if="item.audit_status==2">未通过
                                     <span class="notice" @mouseover="showReason" @mouseout="hideReason">
@@ -38,11 +35,13 @@
                                     </span>
                                 </td>
                                 <td v-else>待审核</td>
+                                <td v-if="userType==1">{{item.is_hang_message_up==0?'未开通':'已开通'}}</td>
                                 <td v-if="userType==1">{{item.audit_status==1?item.conduct_project:''}}</td>
                                 <td v-if="userType==1">{{item.audit_status==1?item.seat_num:''}}</td>
                                 <td v-if="item.audit_status==1" :class="{red:item.balance<1000}">¥{{item.balance}}
                                     <span v-if="item.balance<1000" @mouseover="showReason" @mouseout="hideReason" class="notice">
-                                        <i class="icon tips"></i><em>请及时充值</em>
+                                        <i class="icon tips"></i>
+                                        <em>请及时充值</em>
                                     </span>
                                 </td>
                                 <td v-else></td>
@@ -73,6 +72,7 @@
         <activeSeatDialog ref="activeSeatDialog"></activeSeatDialog>
         <rechargeDialog ref="rechargeDialog"></rechargeDialog>
         <changePriceDialog ref="changePriceDialog"></changePriceDialog>
+        <noTemplateListDialog ref="noTemplateListDialog"></noTemplateListDialog>
     </div>
 </template>
 <script>
@@ -85,6 +85,7 @@
     import activeSeatDialog from './dialog/activeSeat'
     import rechargeDialog from './dialog/recharge'
     import changePriceDialog from './dialog/changePrice'
+    import noTemplateListDialog from './dialog/notmplist'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
 
@@ -110,15 +111,21 @@
             },
             refresh() {
                 let api = this.userType == 1 ? API.customer_list_by_operate : API.customer_list
+                let obj = {
+                    page: this.currentPage,
+                    company: this.$route.query.customerName,
+                    type: this.$route.query.typeId,
+                    audit_status: this.$route.query.statusId,
+                    superior_id: this.agent_id ? this.agent_id : this.$route.query.agentId,
+                    created_at_start:this.$route.query.startTime?this.$route.query.startTime:'',
+                    created_at_end:this.$route.query.endTime?this.$route.query.endTime:''
+                }
+                if(this.$route.query.hangup){
+                    obj.is_hang_up_messge = this.$route.query.hangup
+                }
                 mAjax(this, {
                     url: api,
-                    data: {
-                        page: this.currentPage,
-                        company: this.$route.query.customerName,
-                        type: this.$route.query.typeId,
-                        audit_status: this.$route.query.statusId,
-                        superior_id: this.agent_id ? this.agent_id : this.$route.query.agentId
-                    },
+                    data: obj,
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
@@ -157,7 +164,7 @@
                 this.$refs.editDialog.$emit('show', id)
             },
             editOver() {
-                this.$store.commit('SHOW_TOAST','修改信息成功')
+                this.$store.commit('SHOW_TOAST', '修改信息成功')
             },
             showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
@@ -171,8 +178,11 @@
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
-            showChangePriceDialog(id, company, balance,seat_price,clue_price,call_price){
-                this.$refs.changePriceDialog.$emit('show', id, company, balance,seat_price,clue_price,call_price)
+            showChangePriceDialog(id, company, balance, seat_price, clue_price, call_price) {
+                this.$refs.changePriceDialog.$emit('show', id, company, balance, seat_price, clue_price, call_price)
+            },
+            showNoTemplateDialog() {
+                this.$refs.noTemplateListDialog.$emit('show')
             },
             showReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'block'
@@ -198,7 +208,8 @@
             addSeatDialog,
             activeSeatDialog,
             rechargeDialog,
-            changePriceDialog
+            changePriceDialog,
+            noTemplateListDialog
         },
     }
 
