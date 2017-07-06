@@ -17,10 +17,10 @@
                                 <th width="10%" v-if="!customer_id&&userType==1">客户名称</th>
                                 <th width="5%">类型</th>
                                 <th width="5%">状态</th>
-                                <th width="5%">线索量</th>
-                                <th width="5%">剩余线索</th>
-                                <th width="5%">拨通线索</th>
-                                <th width="5%">有效率</th>
+                                <th width="5%">资源总量</th>
+                                <th width="5%">未拨打</th>
+                                <th width="5%">已拨通</th>
+                                <th width="5%">拨通率</th>
                                 <th width="7%">通话时长</th>
                                 <th width="7%">剩余时间</th>
                                 <th width="6%" v-if="userType!=4">项目坐席</th>
@@ -51,7 +51,7 @@
                                 <td>{{item.odd_time?item.odd_time:'--'}}</td>
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
                                 <td v-if="userType!=4">
-                                    <router-link :to="{path:'/project/sms',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
+                                    <router-link :to="{path:'/project/sms/list',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
                                 </td>
                                 <td v-if="userType!=4">
                                     <router-link :to="{path:'/project/leftinfo',query:{project:item.id}}">{{item.leftInfo}}</router-link>
