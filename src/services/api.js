@@ -89,5 +89,7 @@ export default {
     change_price: API_PRE + '/operate/modifyprice',
     dial_pre: API_PRE + '/seat/changestatus',
     save_dial_history: API_PRE + '/callCenter/saveTelephoneRecord',
-    no_sms_template_customer: API_PRE + '/sms/no_client_list'
+    no_sms_template_customer: API_PRE + '/sms/no_client_list',
+    sms_record_list: API_PRE + '/sms/record_list',
+    seat_list_by_project: API_PRE + '/seat/list'
 }

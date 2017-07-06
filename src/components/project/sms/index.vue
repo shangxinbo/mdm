@@ -3,71 +3,20 @@
         <div class="main">
             <div class="title-warp">挂机短信管理</div>
             <div class="data-property">
-                <form>
-                    <ul class="data-text">
-                        <li>
-                            <label class="name">手机号</label>
-                            <div class="input-warp">
-                                <input class="text" type="text">
-                            </div>
-                        </li>
-                        <li>
-                            <label class="name">坐席</label>
-                            <div class="input-warp">
-                                <div class="select-warp ">
-                                    <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                    <p class="all">
-                                        <span>全部</span>
-                                    </p>
-                                    <div class="select-ul">
-                                        <div class="scroll-warp scrollBar">
-                                            <ul>
-                                                <li>全部</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <label class="name">短信内容</label>
-                            <div class="input-warp">
-                                <input class="text" type="text">
-                            </div>
-                        </li>
-                        <li>
-                            <label class="name">发送日期</label>
-                            <div class="input-warp date-warp">
-                                <div class="calendar-warp w45">
-                                    <input class="date" type="text" value="2016-12-01">
-                                </div>
-                                <em class="or">至</em>
-                                <div class="calendar-warp w45">
-                                    <input class="date" type="text" value="2016-12-07">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <button class="btn blue" type="button">
-                                <span>
-                                    <i class="icon search"></i>查询</span>
-                            </button>
-                        </li>
-                    </ul>
-                </form>
+                <searchForm @submit="search"></searchForm>
                 <div class="data-export">
                     <ul>
-                        <li>
+                        <li v-if="clientName">
                             <span class="t">客户名称</span>
-                            <span class="num">中国电信</span>
+                            <span class="num">{{clientName}}</span>
                         </li>
-                        <li>
+                        <li v-if="projectName">
                             <span class="t">项目名称</span>
-                            <span class="num">中国电信项目1</span>
+                            <span class="num">{{projectName}}</span>
                         </li>
-                        <li>
+                        <li v-if="total>0">
                             <span class="t">发送记录</span>
-                            <span class="num">300</span>
+                            <span class="num">{{total}}</span>
                         </li>
                     </ul>
                     <a href="javascript:void(0);" class="btn blue btn-export">
@@ -78,8 +27,7 @@
             </div>
             <div class="data-warp">
                 <div class="data-table">
-                    <!--<p class="no-data">暂无数据</p>-->
-                    <table cellspacing="0" cellpadding="0">
+                    <table v-if="list.length>0" cellspacing="0" cellpadding="0">
                         <tbody>
                             <tr>
                                 <th>手机号</th>
@@ -87,79 +35,99 @@
                                 <th>短信内容</th>
                                 <th>发送时间</th>
                             </tr>
-                            <tr>
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr>
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr>
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr>
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr>
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>159****0025</td>
-                                <td>XCR001</td>
-                                <td>内容内容内容内容内容内容内容内容内容内容内容内</td>
-                                <td>【2017-06-25】16:03:30</td>
+                            <tr v-for="item in list">
+                                <td>{{item.telephone_crypt}}</td>
+                                <td>{{item.seat_name}}</td>
+                                <td>{{item.preview_content}}</td>
+                                <td>{{item.created_at}}</td>
                             </tr>
                         </tbody>
                     </table>
+                    <p v-else class="no-data">暂无数据</p>
                 </div>
-                <div class="page">
-                    <a class="prev disabled" href="javascript:void(0);">上一页</a>
-                    <a href="javascript:void(0);" class="active">1</a>
-                    <a href="javascript:void(0);">2</a>
-                    <a href="javascript:void(0);">3</a>
-                    <span>...</span>
-                    <a href="javascript:void(0);">19</a>
-                    <a class="next" href="javascript:void(0);">下一页</a>
-                </div>
+                <pages :total="totalPage" :current="page" @jump='search'></pages>
             </div>
         </div>
     </div>
 </template>
+<script>
+    import { mAjax, dateFormat } from 'src/services/functions'
+    import API from 'src/services/api'
+    import pages from 'components/common/pages'
+    import searchForm from './searchForm'
+    export default {
+        data() {
+            return {
+                list: [],
+                page:1,
+                totalPage:1,
+                total:'',
+                projectName:'',
+                clientName:''
+            }
+        },
+        created() {
+            this.init()
+        },
+        methods: {
+            init() {
+
+                let client_id = this.$route.query.client
+                let project_id = this.$route.query.project
+                let tel = this.$route.query.tel
+                let seat = this.$route.query.seat
+                let content = this.$route.query.content
+                let startTime = this.$route.query.startTime
+                let endTime = this.$route.query.endTime
+                this.page = this.$route.query.page
+                
+                mAjax(this, {
+                    url: API.sms_record_list,
+                    data: {
+                        client_id: client_id,
+                        project_id: project_id,
+                        phone: tel,
+                        seat_id: seat,
+                        content: content,
+                        start_time: startTime,
+                        end_time: endTime,
+                        page:this.page
+                    },
+                    success: data => {
+                        if(data.code==200){
+                            this.list = data.data.rows.data
+                            this.totalPage = Math.ceil(data.data.rows.total/data.data.rows.per_page)
+                            this.total = data.data.rows.total
+                            this.clientName = data.data.client_name
+                            this.projectName = data.data.project_name
+                        }else{
+                            this.list = []
+                        }
+                    }
+                })
+            },
+            search(param) {
+                let query
+                if (!isNaN(param)) {
+                    query = Object.assign({}, this.$route.query, { page: param })
+                } else {
+                    query = Object.assign({}, this.$route.query, param, { page: 1 })
+                }
+                this.$router.replace({
+                    name: this.$route.name,
+                    query: query
+                })
+            },
+        },
+        watch: {
+            $route: function () {
+                this.init()
+            }
+        },
+        components: {
+            searchForm,
+            pages
+        }
+    }
+
+</script>
