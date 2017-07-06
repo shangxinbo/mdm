@@ -25,7 +25,7 @@
                                 <th width="7%">剩余时间</th>
                                 <th width="6%" v-if="userType!=4">项目坐席</th>
                                 <th width="6%" v-if="userType!=4">挂机短信</th>
-                                <th width="6%" v-if="userType!=4">留资</th>
+                                <th width="6%" v-if="userType==1">留资</th>
                                 <th width="10%">操作</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
@@ -53,7 +53,7 @@
                                 <td v-if="userType!=4">
                                     <router-link :to="{path:'/project/sms/list',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
                                 </td>
-                                <td v-if="userType!=4">
+                                <td v-if="userType==1">
                                     <router-link :to="{path:'/project/leftinfo',query:{project:item.id}}">{{item.leftInfo}}</router-link>
                                 </td>
                                 <td v-if="userType==1">
