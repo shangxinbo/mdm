@@ -258,21 +258,6 @@
 
                                         window.mycomm_agent.wrap_up(0)
                                         window.mycomm_agent.on_dial_s = function (evt) {
-                                            mAjax(_this, {
-                                                url: API.save_dial_history,
-                                                data: {
-                                                    phone: data.data.telephone,
-                                                    project_id: _this.project.id
-                                                },
-                                                success: data => {
-                                                    if (data.code == 200) {
-                                                        _this.history_id = data.data.id
-                                                    } else {
-                                                        console.log('保存记录失败')
-                                                    }
-
-                                                }
-                                            })
                                             _this.$refs.doCallDialog.$emit('show', id, tel, _this.project.name)
                                         }
                                         window.mycomm_agent.on_login_s = function (evt) {
@@ -304,8 +289,22 @@
                                             _this.$refs.alert.$emit('show', msg)
                                         }
 
-                                        window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                        mAjax(_this, {
+                                            url: API.save_dial_history,
+                                            data: {
+                                                phone: data.data.telephone,
+                                                project_id: _this.project.id
+                                            },
+                                            success: data => {
+                                                if (data.code == 200) {
+                                                    _this.history_id = data.data.id
+                                                    window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                                } else {
+                                                    console.log('保存记录失败')
+                                                }
 
+                                            }
+                                        })
                                     }
                                 })
                             }
