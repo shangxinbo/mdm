@@ -9,6 +9,7 @@
             <th>状态</th>
             <th>线索计费</th>
             <th>通话计费</th>
+            <th>挂机短信计费</th>
         </tr>
         <tr v-for="(item,index) in list" :class="{tr2:index%2}">
             <td>{{item.name}}</td>
@@ -26,6 +27,7 @@
             <td>{{item.status_name}}</td>
             <td>¥{{item.clue_charging}}</td>
             <td>¥{{item.call_charging}}</td>
+            <td>¥{{item.message_charging}}</td>
         </tr>
         </tbody>
         <confirm ref="confirm"></confirm>

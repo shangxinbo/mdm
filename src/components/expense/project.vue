@@ -62,6 +62,9 @@
                         <li>
                             <span class="t">通话计费</span><span class="num">¥{{sum.call_charging}}</span>
                         </li>
+                        <li>
+                            <span class="t">挂机短信计费</span><span class="num">¥{{sum.message_charging}}</span>
+                        </li>
                     </ul>
                     <div class="add-explain" v-if="userType==3">
                         <router-link to="/expense/doc">收费说明</router-link>
@@ -212,7 +215,8 @@
                             _this.list = data.data.charging.data
                             _this.sum = {
                                 clue_charging: data.data.clue_charging,
-                                call_charging: data.data.call_charging
+                                call_charging: data.data.call_charging,
+                                message_charging:data.data.message_charging
                             }
                             _this.totalPage = Math.ceil(data.data.charging.total / data.data.charging.per_page)
                         } else {
