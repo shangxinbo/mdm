@@ -19,7 +19,7 @@
                             <span class="num">{{total}}</span>
                         </li>
                     </ul>
-                    <a href="javascript:void(0);" class="btn blue btn-export">
+                    <a :href="exportUrl" class="btn blue btn-export">
                         <span>
                             <i class="icon icon-export"></i>导出</span>
                     </a>
@@ -59,48 +59,60 @@
         data() {
             return {
                 list: [],
-                page:1,
-                totalPage:1,
-                total:'',
-                projectName:'',
-                clientName:''
+                page: 1,
+                totalPage: 1,
+                total: '',
+                projectName: '',
+                clientName: '',
+                client_id: '',
+                project_id: '',
+                tel: '',
+                seat: '',
+                content: '',
+                startTime: '',
+                endTime: '',
             }
         },
         created() {
             this.init()
         },
+        computed: {
+            exportUrl() {
+                return `${API.sms_record_export}?page=${this.page}&project_id=${this.project_id}&client_id=${this.client_id}&start_time=${this.startTime}&end_time=${this.endTime}&phone=${this.tel}&content=${this.content}&seat_id=${this.seat}`
+            }
+        },
         methods: {
             init() {
 
-                let client_id = this.$route.query.client
-                let project_id = this.$route.query.project
-                let tel = this.$route.query.tel
-                let seat = this.$route.query.seat
-                let content = this.$route.query.content
-                let startTime = this.$route.query.startTime
-                let endTime = this.$route.query.endTime
-                this.page = this.$route.query.page
-                
+                this.client_id = this.$route.query.client ? this.$route.query.client : ''
+                this.project_id = this.$route.query.project ? this.$route.query.project : ''
+                this.tel = this.$route.query.tel ? this.$route.query.tel : ''
+                this.seat = this.$route.query.seat ? this.$route.query.seat : ''
+                this.content = this.$route.query.content ? this.$route.query.content : ''
+                this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
+                this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
+                this.page = this.$route.query.page ? this.$route.query.page : 1
+
                 mAjax(this, {
                     url: API.sms_record_list,
                     data: {
-                        client_id: client_id,
-                        project_id: project_id,
-                        phone: tel,
-                        seat_id: seat,
-                        content: content,
-                        start_time: startTime,
-                        end_time: endTime,
-                        page:this.page
+                        client_id: this.client_id,
+                        project_id: this.project_id,
+                        phone: this.tel,
+                        seat_id: this.seat,
+                        content: this.content,
+                        start_time: this.startTime,
+                        end_time: this.endTime,
+                        page: this.page
                     },
                     success: data => {
-                        if(data.code==200){
+                        if (data.code == 200) {
                             this.list = data.data.rows.data
-                            this.totalPage = Math.ceil(data.data.rows.total/data.data.rows.per_page)
+                            this.totalPage = Math.ceil(data.data.rows.total / data.data.rows.per_page)
                             this.total = data.data.rows.total
                             this.clientName = data.data.client_name
                             this.projectName = data.data.project_name
-                        }else{
+                        } else {
                             this.list = []
                         }
                     }

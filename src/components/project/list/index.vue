@@ -50,7 +50,9 @@
                                 <td>{{item.call_time&&(item.status==1||item.status==3) ? item.call_time:'--'}}</td>
                                 <td>{{item.odd_time?item.odd_time:'--'}}</td>
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
-                                <td v-if="userType!=4">{{item.hangUpSms}}</td>
+                                <td v-if="userType!=4">
+                                    <router-link :to="{path:'/project/sms',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
+                                </td>
                                 <td v-if="userType!=4">{{item.leftInfo}}</td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>

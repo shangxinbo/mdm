@@ -91,5 +91,6 @@ export default {
     save_dial_history: API_PRE + '/callCenter/saveTelephoneRecord',
     no_sms_template_customer: API_PRE + '/sms/no_client_list',
     sms_record_list: API_PRE + '/sms/record_list',
+    sms_record_export: API_PRE + '/sms/record_list_export',
     seat_list_by_project: API_PRE + '/seat/list'
 }
