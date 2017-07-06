@@ -1,33 +1,20 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">新建模板</div>
+            <div class="title-warp">{{id?'编辑模板':'新建模板'}}</div>
             <div class="data-detail">
                 <form>
                     <ul class="data-text">
                         <li>
                             <label class="name">模板名称</label>
                             <div class="input-warp">
-                                <input class="text" type="text">
+                                <input class="text" v-model="name" type="text">
+                                <p v-if="error_name" class="tips block error">{{error_name}}</p>
                             </div>
                         </li>
                         <li>
                             <label class="name">客户名称</label>
-                            <div class="input-warp">
-                                <div class="select-warp ">
-                                    <!-- 在div上加上class（select-open）显示出ul列表 -->
-                                    <p class="all">
-                                        <span>请选择</span>
-                                    </p>
-                                    <div class="select-ul">
-                                        <div class="scroll-warp scrollBar">
-                                            <ul>
-                                                <li>中国电信</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <mselect ref="clientSelect" :api="clientApi" :id="client" :error="error_client"></mselect>
                         </li>
                         <li>
                             <label class="name">短信类型</label>
@@ -38,22 +25,24 @@
                         <li>
                             <label class="name">短信文本</label>
                             <div class="input-warp">
-                                <textarea></textarea>
-                                <p class="tips block">最多录入70个字符，已经输入0个字符</p>
+                                <textarea v-model="content"></textarea>
+                                <p class="tips block">已经输入{{contentLength}}个字符</p>
+                                <p v-if="error_content" class="tips block error">{{error_content}}</p>
                             </div>
                         </li>
                         <li>
                             <label class="name">短信链接</label>
                             <div class="input-warp">
-                                <input class="text" type="text">
+                                <input class="text" v-model="url" type="text">
                                 <p class="tips block">如有短信链接，务必在短信文本中对应位置加入链接占位符#url#</p>
-                                <!--<p class="tips block error">请输入正确的链接</p>-->
+                                <p v-if="error_url" class="tips block error">{{error_url}}</p>
                             </div>
                         </li>
                         <li>
                             <label class="name">短信签名</label>
                             <div class="input-warp">
-                                <input class="text" type="text">
+                                <input class="text" v-model="sign" type="text">
+                                <p v-if="error_sign" class="tips block error">{{error_sign}}</p>
                             </div>
                         </li>
                     </ul>
@@ -61,26 +50,24 @@
                         <li class="li-radio">
                             <label class="name">模板状态</label>
                             <div class="input-warp">
-                                <label onclick="tagCutover(this)" class="radio-warp radio-inline" for="mode1">
-                                    <input type="radio" name="sendMode" class="radio" id="mode1">
+                                <label class="radio-warp radio-inline" :class="{'radio-active':status==1}" @click="setStatus(1)">
                                     <i class="icon"></i>
                                     <span class="radioname">审核中</span>
                                 </label>
-                                <label onclick="tagCutover(this)" class="radio-warp radio-inline" for="mode2">
-                                    <input type="radio" name="sendMode" class="radio" id="mode2">
+                                <label class="radio-warp radio-inline" :class="{'radio-active':status==2}" @click="setStatus(2)">
                                     <i class="icon"></i>
                                     <span class="radioname">使用中</span>
                                 </label>
-                                <label onclick="tagCutover(this)" class="radio-warp radio-inline" for="mode3">
-                                    <input type="radio" name="sendMode" class="radio" id="mode3">
+                                <label class="radio-warp radio-inline" :class="{'radio-active':status==3}" @click="setStatus(3)">
                                     <i class="icon"></i>
                                     <span class="radioname">已禁用</span>
                                 </label>
+                                <p v-if="error_status" class="tips block error">{{error_status}}</p>
                             </div>
                         </li>
                         <li class="li-btn">
                             <div class="input-warp">
-                                <button class="btn blue" type="button" onclick="getWindow('submitSucc','tips-succ');">提交</button>
+                                <button class="btn blue" type="button" @click="submit">提交</button>
                             </div>
                         </li>
                     </ul>
@@ -89,12 +76,139 @@
                     <div class="inrr">
                         <i class="bg-up"></i>
                         <i class="bg-down"></i>
-                        <p>【集奥聚合】</p>
-                        <p>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                            <a href="">http://www.geotmt.com/ </a> 退订TD</p>
+                        <p v-show="sign">【{{sign}}】</p>
+                        <p v-show="content_view" v-html="content_view"></p>
                     </div>
                 </div>
             </div>
         </div>
+        <alert ref="alert"></alert>
     </div>
 </template>
+<script>
+    import { mAjax } from 'src/services/functions'
+    import API from 'src/services/api'
+    import mselect from 'components/utils/select'
+    import alert from 'components/dialog/alert'
+    export default {
+        data() {
+            return {
+                id: '',
+                name: '',
+                clientApi: API.sms_client_list,
+                client:'',
+                content: '',
+                url: '',
+                sign: '',
+                status: '',
+                error_name: '',
+                error_client: '',
+                error_content: '',
+                error_url: '',
+                error_sign:'',
+                error_status: ''
+            }
+        },
+        created() {
+            if (this.$route.query.id) {
+                this.id = this.$route.query.id
+                mAjax(this, {
+                    url: API.sms_template_detail,
+                    data: {
+                        id: this.id
+                    },
+                    success: data => {
+                        if(data.code==200){
+                            this.client = data.data.client_id
+                            this.name = data.data.name
+                            this.content = data.data.content
+                            this.url = data.data.url
+                            this.sign = data.data.sign
+                            this.status = data.data.status
+                        }
+                    }
+                })
+            }
+        },
+        computed: {
+            content_view() {
+                return this.content.replace(/#url#/, '<a href="'+ this.url +'"> t.cn/RK73y </a>')
+            },
+            contentLength(){
+                return this.content.replace(/#url#/,'12345678901234').length
+            }
+        },
+        methods: {
+            setStatus(num) {
+                this.status = num
+            },
+            submit() {
+                if (!this.name) {
+                    this.error_name = '请填写模板名称'
+                    return false
+                }else{
+                    this.error_name = ''
+                }
+                if (!this.$refs.clientSelect.selected.id) {
+                    this.error_client = '请选择客户'
+                    return false
+                }else{
+                    this.error_client = ''
+                }
+                if (!this.content) {
+                    this.error_content = '请填写短信内容'
+                }else{
+                    this.error_content = ''
+                }
+                if (this.url) {
+                    let reg = /(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/
+                    if (!reg.test(this.url)) {
+                        this.error_url = '链接格式不正确'
+                        return false
+                    }else{
+                        this.error_url = ''
+                    }
+                }else{
+                    this.error_url = ''
+                }
+                if (!this.status) {
+                    this.error_status = '请选择短信状态'
+                    return false
+                }else{
+                    this.error_status = ''
+                }
+
+                let obj = {
+                    name: this.name,
+                    client_id: this.$refs.clientSelect.selected.id,
+                    type: 1,
+                    content: this.content,
+                    url: this.url,
+                    sign: this.sign,
+                    status: this.status
+                }
+
+                if (this.id) {
+                    obj.id = this.id
+                }
+
+                mAjax(this, {
+                    url: API.sms_template_add,
+                    data: obj,
+                    success: data => {
+                        if (data.code == 200) {
+                            this.$refs.alert.$emit('show', this.id ? '编辑成功' : '新建成功', function () {
+                                this.$router.replace('/project/sms/template')
+                            })
+                        }
+                    }
+                })
+            }
+        },
+        components: {
+            mselect,
+            alert
+        }
+    }
+
+</script>

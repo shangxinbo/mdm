@@ -93,6 +93,9 @@ export default {
     sms_record_list: API_PRE + '/sms/record_list',
     sms_record_export: API_PRE + '/sms/record_list_export',
     sms_template_list: API_PRE + '/sms/template_list',
+    sms_template_add: API_PRE + '/sms/template_save',
+    sms_template_detail:API_PRE+ '/sms/template_find',
+    sms_client_list: API_PRE + '/sms/client_select',
     seat_list_by_project: API_PRE + '/project/getSeatByProject',
     left_info_list: API_PRE + '/sms/capital_list'
 }
