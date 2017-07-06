@@ -23,6 +23,7 @@ const project_add = resolve => System.import('components/project/add.vue')
 const project_create = resolve => System.import('components/project/create/index.vue')
 const project_hang_up_sms = resolve => System.import('components/project/sms/index.vue')
 const project_sms_template = resolve => System.import('components/project/sms/template.vue')
+const project_sms_template_add = resolve => System.import('components/project/sms/templateAdd.vue')
 const project_left_info = resolve => System.import('components/project/leftinfo/index.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const call_cate = resolve => System.import('components/call/category.vue')
@@ -57,6 +58,7 @@ let mRouter = new Router({
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/project/sms/list', name: 'project_hang_up_sms', component: project_hang_up_sms },
                 { path: '/project/sms/template', name: 'project_sms_template', component: project_sms_template },
+                { path: '/project/sms/template/add', name: 'project_sms_template_add', component: project_sms_template_add },
                 { path: '/project/leftinfo', name: 'project_left_info', component: project_left_info },
                 { path: '/call/index', name: 'call_index', component: call_index },
                 { path: '/call/cate', name: 'call_cate', component: call_cate },
