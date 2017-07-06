@@ -15,10 +15,10 @@
                             <span class="num">{{inuse}}</span>
                         </li>
                     </ul>
-                    <a class="btn blue btn-export">
+                    <router-link to="/project/sms/template/add" class="btn blue btn-export">
                         <span>
                             <i class="icon add"></i>新建模板</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <div class="data-warp">
@@ -39,7 +39,7 @@
                                 <td>{{item.content}}</td>
                                 <td>{{item.created_at}}</td>
                                 <td>{{item.status|statusText}}</td>
-                                <td><a href="javascript:void(0)">编辑</a></td>
+                                <td><router-link :to="{path:'/project/sms/template/add',query:{id:item.id}}">编辑</router-link></td>
                             </tr>
                         </tbody>
                     </table>

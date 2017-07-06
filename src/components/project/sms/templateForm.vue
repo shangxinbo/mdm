@@ -50,7 +50,7 @@
                 name: '',
                 client: '',
                 status: '',
-                clientApi: API.customer_list_all,
+                clientApi: API.sms_client_list,
                 statusList: [
                     {
                         id: 1,
