@@ -85,13 +85,13 @@
                         let arr = []
                         if (data.data instanceof Array) {
                             for (let i = 0; i < data.data.length; i++) {
-                                if (data.data[i].id!=undefined) {
+                                if (data.data[i].id != undefined) {
                                     arr.push({
                                         id: data.data[i].id,
-                                        name: data.data[i].name
+                                        name: data.data[i].name ? data.data[i].name : data.data[i].user
                                     })
                                 }
-                                if (data.data[i].code!=undefined) {
+                                if (data.data[i].code != undefined) {
                                     arr.push({
                                         id: data.data[i].code,
                                         name: data.data[i].desc
@@ -109,7 +109,7 @@
                         arr.sort((p, n) => {
                             return parseInt(n.id) - parseInt(p.id)
                         })
-                    
+
                         this.list = arr
                         let id = this.id
                         if (!id) return false

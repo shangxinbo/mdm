@@ -53,7 +53,9 @@
                                 <td v-if="userType!=4">
                                     <router-link :to="{path:'/project/sms',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
                                 </td>
-                                <td v-if="userType!=4">{{item.leftInfo}}</td>
+                                <td v-if="userType!=4">
+                                    <router-link :to="{path:'/project/leftinfo',query:{project:item.id}}">{{item.leftInfo}}</router-link>
+                                </td>
                                 <td v-if="userType==1">
                                     <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1&&item.audit_status==-2" href="javascript:void(0);" @click="stop(item.id)">暂停</a>

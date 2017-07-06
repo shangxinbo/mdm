@@ -22,6 +22,7 @@ const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const project_create = resolve => System.import('components/project/create/index.vue')
 const project_hang_up_sms = resolve => System.import('components/project/sms/index.vue')
+const project_left_info = resolve => System.import('components/project/leftinfo/index.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const call_cate = resolve => System.import('components/call/category.vue')
 const call_seat = resolve => System.import('components/call/audio.vue')
@@ -54,6 +55,7 @@ let mRouter = new Router({
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/project/sms/', name: 'project_hang_up_sms', component: project_hang_up_sms },
+                { path: '/project/leftinfo/', name: 'project_left_info', component: project_left_info },
                 { path: '/call/index', name: 'call_index', component: call_index },
                 { path: '/call/cate', name: 'call_cate', component: call_cate },
                 { path: '/call/seat', name: 'call_seat', component: call_seat },

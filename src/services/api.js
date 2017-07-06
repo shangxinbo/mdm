@@ -92,5 +92,6 @@ export default {
     no_sms_template_customer: API_PRE + '/sms/no_client_list',
     sms_record_list: API_PRE + '/sms/record_list',
     sms_record_export: API_PRE + '/sms/record_list_export',
-    seat_list_by_project: API_PRE + '/seat/list'
+    seat_list_by_project: API_PRE + '/project/getSeatByProject',
+    left_info_list: API_PRE + '/sms/capital_list'
 }
