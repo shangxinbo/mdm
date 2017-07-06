@@ -48,6 +48,12 @@
                             </div>
                         </li>
                         <li>
+                            <label class="name">使用挂机短信</label>
+                            <div class="input-warp">
+                                <p class="text">{{detail.is_hang_up_message==1?'使用':'不使用'}}</p>
+                            </div>
+                        </li>
+                        <li>
                             <label class="name">项目创建时间</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.created_at}}</p>
@@ -67,25 +73,25 @@
                         </li>
                         <template v-if="detail.status==1&&detail.audit_status==-2">
                             <li class="both">
-                                <label class="name">线索量</label>
+                                <label class="name">资源总量</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_num}}</p>
                                 </div>
                             </li>
                             <li>
-                                <label class="name">剩余线索</label>
+                                <label class="name">未拨打</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_odd_num}}</p>
                                 </div>
                             </li>
                             <li>
-                                <label class="name">拨通线索</label>
+                                <label class="name">已拨通</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_connect_num}}</p>
                                 </div>
                             </li>
                             <li>
-                                <label class="name">有效率</label>
+                                <label class="name">拨通率</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_valid_percent}}%</p>
                                 </div>
@@ -106,6 +112,12 @@
                                 <label class="name">项目坐席</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.project_seat_num}}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="name">挂机短信</label>
+                                <div class="input-warp">
+                                    <p class="text">{{detail.hang_up_message_num}}</p>
                                 </div>
                             </li>
                         </template>

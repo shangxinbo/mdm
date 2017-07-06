@@ -31,7 +31,7 @@ module.exports = function (req, res) {
                 "type": 1,
                 "total_start_time": "",
                 "last_pause_time": null,
-                "audit_status": 1,
+                "audit_status": '@int(-1,3)',
                 "audit_reason": "",
                 "auditor": 11,
                 "status": '@int(-3,3)',
