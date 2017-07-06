@@ -35,7 +35,7 @@
             </li>
         </ul>
         <div class="add-explain">
-            <a href="operate-sms-hook.html" class="btn blue"><span><i class="icon hook"></i>挂机短信模板管理</span></a>
+            <router-link to="/project/sms/template" class="btn blue"><span><i class="icon hook"></i>挂机短信模板管理</span></router-link>
         </div>
     </div>
 </template>
