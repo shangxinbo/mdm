@@ -71,7 +71,7 @@
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
                                     <a v-if="item.status==1&&myseatNum>0&&item.clue_odd_num>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name,item.clue_odd_num)">分配线索</a>
-                                    <a v-if="item.have_nodial_clues" href="javascript:void(0);" @click="assignSeat(item.id,item.name,item.clue_odd_num)">回收线索</a>
+                                    <a v-if="item.have_nodial_clues" href="javascript:void(0);" @click="recoverClues(item.id)">回收线索</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -85,6 +85,7 @@
         <alert ref="alert"></alert>
         <saveByOptional ref="optSaveDialog" @success="saveSuccess"></saveByOptional>
         <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
+        <recoveryCluesDialog ref="recoveryCluesDialog"></recoveryCluesDialog>
     </div>
 </template>
 <script>
@@ -94,6 +95,7 @@
     import confirm from 'components/dialog/confirm'
     import alert from 'components/dialog/alert'
     import chooseSeatDialog from '../dialog/chooseSeat'
+    import recoveryCluesDialog from '../dialog/recovery'
     import searchForm from './searchForm'
     import dataSum from './dataSum'
     import seatData from './seat'
@@ -224,6 +226,9 @@
             assignSeat(id, name,clue) {
                 this.$refs.chooseSeatDialog.$emit('show', id, name,clue)
             },
+            recoverClues(id){
+                this.$refs.recoveryCluesDialog.$emit('show',id)
+            },
             showReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'block'
             },
@@ -258,7 +263,8 @@
             searchForm,
             dataSum,
             seatData,
-            saveByOptional
+            saveByOptional,
+            recoveryCluesDialog
         }
     }
 
