@@ -57,7 +57,8 @@ module.exports = function (req, res) {
                 "leftInfo":123,
                 "is_hang_up_message":'@int(0,1)',
                 "undistributed":'@int(0,1000)',
-                "client_is_hang_up_message":'@int(0,1)'
+                "client_is_hang_up_message":'@int(0,1)',
+                "have_nodial_clues":'@int(0,1)'
             }
         ]
     })

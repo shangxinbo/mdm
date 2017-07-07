@@ -2,20 +2,30 @@
     <div class="dialog" :style="{display:style}" style="margin-left:-259px;margin-top:-181px;">
         <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
         <div class="dialog-header">
-            <h4>分配坐席</h4>
+            <h4>分配线索</h4>
         </div>
         <div class="dialog-body">
             <div class="dialog-allocation">
                 <ul class="mode">
                     <li>
-                        <label>未拨打线索量</label>
-                        <div class="input-warp">
-                            <p class="text">{{clue_num}}</p>
-                        </div>
-                    </li>
-                    <li>
                         <label>线索分配方式</label>
                         <mselect :hideAll="true" :addClass="'seat-select'" :id="assignType" :initlist="assignTypeList" @change="changeAssignType"></mselect>
+                    </li>
+                </ul>
+                <ul class="mode">
+                    <li>
+                        <label>项目线索量</label>
+                        <div class="input-warp">
+                            <p class="text"> {{clue_num}}</p>
+                        </div>
+                    </li>
+                    <li v-show="assignType==1">
+                        <div class="select-cutover1">
+                            <label>本次分配线索</label>
+                            <div class="input-warp">
+                                <input class="text" type="text" v-model="assign_clue_num" style="width: 120px; min-width: 120px">
+                            </div>
+                        </div>
                     </li>
                 </ul>
                 <div class="title">{{name}}分配给以下坐席拨打</div>
@@ -66,6 +76,7 @@
                 error: '',
                 userType: user.type,
                 clue_num: 0,
+                assign_clue_num:'',
                 assignTypeList: [
                     { id: 1, name: '平均分配' },
                     { id: 2, name: '自定义分配' }
@@ -92,6 +103,7 @@
             sure: function () {
                 let _this = this
                 let arr = []
+                let reg = /^[1-9][0-9]*$/
                 if (this.assignType == 1) {
                     this.seat.forEach(item => {
                         if (item.checked) {
@@ -101,6 +113,14 @@
                     if (arr.length <= 0) {
                         return false
                     }
+                    
+                    if(!reg.test(this.assign_clue_num)){
+                        this.error = '分配的线索数值需要是正整数'
+                        return false
+                    }else{
+                        this.error = ''
+                    }
+
                 } else {
                     this.seat.forEach(item => {
                         if (item.checked) {
@@ -109,7 +129,6 @@
                     })
 
                     let total = 0
-                    let reg = /^[1-9][0-9]*$/
                     for (let i = 0; i < arr.length; i++) {
                         if (!reg.test(arr[i].num)) {
                             this.error = '请保证每个坐席分配到的线索数值是正整数'
@@ -134,11 +153,13 @@
                     data: {
                         id: this.id,
                         type: this.assignType == 1 ? 0 : 1,
-                        seat_id: arr,
+                        seat_id: {
+                            num:this.assign_clue_num,
+                            ids:arr
+                        },
                         seat_conf:arr
                     },
                     success: data => {
-                        console.log(data.code)
                         if (data.code == 200) {
                             _this.close()
                             _this.$store.commit('SHOW_TOAST', '操作成功')
@@ -147,7 +168,6 @@
                             _this.$store.commit('SHOW_TOAST', '拨打资源数量在变动中,请刷新页面后，尝试重新分配')
                         }else {
                             _this.error = data.message
-                            //_this.$store.commit('SHOW_TOAST', data.message)
                         }
                     }
                 })
@@ -167,6 +187,8 @@
                     this.seat.forEach((item,index,arr)=>{
                         item.num = ''
                     })
+                }else{
+                    this.assign_clue_num = ''
                 }
                 this.error = ''
             }
