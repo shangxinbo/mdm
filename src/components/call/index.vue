@@ -19,6 +19,10 @@
                             <span class="t">通话时长</span>
                             <span class="num">{{head.charge_time}}</span>
                         </li>
+                        <li>
+                            <span class="t">挂机短信</span>
+                            <span class="num">{{head.message_num}}</span>
+                        </li>
                         <a :href="downUrl" class="btn blue btn-export">
                             <span>
                                 <i class="icon icon-export"></i>导出
@@ -43,6 +47,7 @@
                                 <th width="10%">呼损率</th>
                                 <th width="8%">通话时长</th>
                                 <th width="8%">平均通话</th>
+                                <th width="8%">挂机短信</th>
                                 <th width="10%" v-if="userType!=4">参与坐席</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
@@ -62,6 +67,7 @@
                                 <td>{{item.uneffect_call_rate}}%</td>
                                 <td>{{item.charge_time }}</td>
                                 <td>{{item.avg_time }}</td>
+                                <td>{{item.message_num }}</td>
                                 <td v-if="userType!=4">{{item.seat_num}}</td>
                             </tr>
                         </tbody>

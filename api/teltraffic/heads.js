@@ -6,6 +6,8 @@ module.exports = function (req, res) {
         "charge_time": "4分钟",
         "avg_time": "4分钟",
         "effect_call_rate": 66,
-        "seat_num": 8
+        "seat_num": 8,
+        "message_num": 100, //挂机短信数，
+        "info_num": 0  //留资数
     })
 }
