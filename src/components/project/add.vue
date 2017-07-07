@@ -1,6 +1,3 @@
-<style scoped lang="less">
-    @import '../../assets/less/other.less';
-</style>
 <template>
     <div class="warp">
         <div class="main">
@@ -54,8 +51,8 @@
                                 <p v-if="content_error" class="error">{{content_error}}</p>
                             </div>
                         </li>
-                        <li class="hang-check" :class="{checked:sms}">
-                            <div>
+                        <li class="check-warp" >
+                            <div class="hang-check" :class="{checked:sms}">
                                 <i class="icon" @click="useSms"></i>
                                 <span>使用挂机短信</span>
                             </div>
