@@ -58,6 +58,7 @@ export default {
     project_call_list: API_PRE + '/seat/outbound',
     project_call_modify: API_PRE + '/seat/modify',
     project_clue_info: API_PRE + '/seat/clueinfo',
+    project_set_sms: API_PRE + '/project/start_gj_sms',
     seat_list: API_PRE + '/project/seatlist',
     seat_binding: API_PRE + '/project/binding',
     seat_status: API_PRE + '/seat/status',

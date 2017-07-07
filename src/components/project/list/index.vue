@@ -18,6 +18,7 @@
                                 <th width="5%">类型</th>
                                 <th width="5%">状态</th>
                                 <th width="5%">资源总量</th>
+                                <th width="5%">未分配</th>
                                 <th width="5%">未拨打</th>
                                 <th width="5%">已拨通</th>
                                 <th width="5%">拨通率</th>
@@ -44,6 +45,7 @@
                                     </span>
                                 </td>
                                 <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
+                                <td>{{item.undistributed}}</td>
                                 <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
                                 <td>{{item.clue_connect_num?item.clue_connect_num:'--'}}</td>
                                 <td>{{item.clue_valid_percent?item.clue_valid_percent + '%':'--'}}</td>
@@ -60,6 +62,7 @@
                                     <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>
                                     <a v-if="item.status==1&&item.audit_status==-2" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
                                     <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
+                                    <a v-if="item.client_is_hang_up_message==1&&item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(item.id,item.name)">使用挂机短信</a>
                                 </td>
                                 <td v-else-if="userType==4">
                                     <router-link v-if="item.status==1" :to="'/project/call/?id='+ item.id +'&projectName=' + item.name ">外呼</router-link>
@@ -196,6 +199,23 @@
                                 })
                             else
                                 _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    })
+                })
+            },
+            useSms(id,name){
+                this.$refs.confirm.$emit('show',`确定${name}要使用挂机短信?`,()=>{
+                    mAjax(this,{
+                        url:API.project_set_sms,
+                        data:{
+                            project_id:id
+                        },
+                        success:data=>{
+                            if(data.code==200){
+                                this.$store.commit('SHOW_TOAST', '开启成功')
+                            }else{
+                                this.$store.commit('SHOW_TOAST', data.message)
+                            }
                         }
                     })
                 })

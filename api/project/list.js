@@ -54,7 +54,10 @@ module.exports = function (req, res) {
                 "agency": "代理1",
                 "agency_id": 123,
                 "hangUpSms":123,
-                "leftInfo":123
+                "leftInfo":123,
+                "is_hang_up_message":'@int(0,1)',
+                "undistributed":'@int(0,1000)',
+                "client_is_hang_up_message":'@int(0,1)'
             }
         ]
     })
