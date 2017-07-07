@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="dialog-footer">
-            <button class="btn" type="button" @click="sure">确定</button>
+            <button class="btn blue" type="button" @click="sure">确定</button>
             <button class="btn" type="button" @click="close">取消</button>
         </div>
     </div>
@@ -140,8 +140,8 @@
                     if (arr.length <= 0) {
                         return false
                     } else {
-                        if (total != this.clue_num) {
-                            this.error = `分配线索量之和不等于未拨打线索量。分配线索量之和 ${total}，未拨打线索量 ${this.clue_num}`
+                        if (total > this.clue_num) {
+                            this.error = `分配线索量之和大于未拨打线索量。分配线索量之和 ${total}，未拨打线索量 ${this.clue_num}`
                             return false
                         }else{
                             this.error = ''
@@ -220,6 +220,7 @@
                 _this.name = name
                 _this.clue_num = clue
                 _this.assignType = 1
+                _this.assign_clue_num = ''
                 _this.error = ''
                 mAjax(_this, {
                     url: API.seat_binding,
