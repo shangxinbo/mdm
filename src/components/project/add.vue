@@ -1,3 +1,6 @@
+<style scoped lang="less">
+    @import '../../assets/less/other.less';
+</style>
 <template>
     <div class="warp">
         <div class="main">
@@ -51,6 +54,12 @@
                                 <p v-if="content_error" class="error">{{content_error}}</p>
                             </div>
                         </li>
+                        <li class="hang-check" :class="{checked:sms}">
+                            <div>
+                                <i class="icon" @click="useSms"></i>
+                                <span>使用挂机短信</span>
+                            </div>
+                        </li>
                         <li>
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
@@ -69,6 +78,7 @@
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
     import alert from 'components/dialog/alert'
+    import background from 'assets/img/dialog-icon.png'
     export default {
         data: function () {
             return {
@@ -85,6 +95,8 @@
                 expectTime_error: '',
                 content: '',
                 content_error: '',
+                sms: 0,
+                sms_init: 0,
                 api: {
                     project_type: API.project_type_list
                 },
@@ -104,7 +116,12 @@
             alert
         },
         methods: {
-            submit: function () {
+            useSms() {
+                if (!this.sms_init) {
+                    this.sms = this.sms == 1 ? 0 : 1
+                }
+            },
+            submit() {
                 let reg = /^[a-zA-Z0-9\u4e00-\u9fa5]{4,20}$/
                 let reg_Inter = /^[1-9][0-9]*$/
                 let projectType = this.$refs.projectTypeSelect.selected.id
@@ -162,7 +179,8 @@
                     region: this.region,
                     expect_clue_num: this.expectClue,
                     expect_begin_time: time,
-                    desc: this.content
+                    desc: this.content,
+                    is_hang_up_message: this.sms
                 }
                 if (this.id) {
                     api = API.project_recheck
@@ -203,6 +221,8 @@
                             _this.expectClue = detail.expect_clue_num
                             _this.expectTime = detail.expect_begin_date
                             _this.content = detail.desc
+                            _this.sms = data.is_hang_up_message
+                            _this.sms_init = data.is_hang_up_message
                         }
                     }
                 })

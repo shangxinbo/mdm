@@ -1,0 +1,33 @@
+/*兼容旧版客户创建项目*/
+
+.hang-check .icon {
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    background: url(../img/dialog-icon.png) no-repeat 0 0;
+    background-position: 0 -55px;
+    width: 17px;
+    height: 17px;
+    float: left;
+    margin-top: 7px;
+    margin-right: 10px
+}
+
+.hang-check>div {
+    padding-left: 115px;
+}
+
+.hang-check.checked .icon {
+    background-position: -19px -55px;
+}
+
+.hang-check span {
+    height: 30px;
+    line-height: 31px;
+    display: inline-block;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #4c4c4c;
+}
