@@ -57,7 +57,7 @@
     import API from 'src/services/api'
     export default {
         data() {
-            let id = this.$router.query.id
+            let id = this.$route.query.id
             return {
                 id:id,
                 list:[]

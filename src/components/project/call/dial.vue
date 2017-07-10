@@ -35,7 +35,7 @@
                             <label class="name">
                                 <em>（选填）</em>称呼</label>
                             <div class="input-warp">
-                                <input class="text" type="text" v-model="new_call">
+                                <input class="text" type="text" v-model="variable.call">
                                 <label class="radio-warp" @click="chooseSex('男')" :class="{'radio-active':variable.sex=='男'}" for="male">
                                     <input type="radio" name="sendMode" class="radio" id="male" value="male">
                                     <i class="icon"></i>
@@ -51,7 +51,7 @@
                         <li class="li-fl">
                             <label class="name">拨打结果</label>
                             <mselect ref="result1Select" :api="api.getResult1" style="padding-right:10px;" @change="linkResult"></mselect>
-                            <mselect ref="result2Select" :api="api.getResult2" :param="param"></mselect>
+                            <mselect ref="result2Select" :api="api.getResult2" :param="variable.param"></mselect>
                             <div class="input-warp" v-show="variable.result_error">
                                 <p class="error">{{variable.result_error}}</p>
                             </div>
@@ -259,7 +259,7 @@
                             city: _this.search_city,
                             created_at_start: _this.startTime,
                             created_at_end: _this.endTime,
-                            cule_id: _this.id
+                            cule_id: _this.clue_id
                         }
                         if (_this.search.status) {
                             api = API.clue_get_next2
@@ -269,7 +269,7 @@
                                 gender: _this.search.sex,
                                 dial_at_start: _this.startTime,
                                 dial_at_end: _this.endTime,
-                                cule_id: _this.id,
+                                cule_id: _this.clue_id,
                                 dial_result_first: this.search.result1,
                                 dial_result_second: this.search.result2
                             }
@@ -364,7 +364,7 @@
                                 mAjax(this, {
                                     url: API.get_tel,
                                     data: {
-                                        id: _this.id
+                                        id: _this.clue_id
                                     },
                                     success: data => {
 
