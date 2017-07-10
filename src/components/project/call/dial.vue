@@ -66,14 +66,14 @@
                         </li>
                         <li class="li-btn">
                             <div class="input-warp input-fl">
-                                <button class="btn" :class="{disabled:!variable.complete}" type="button">保存并关闭</button>
-                                <button class="btn" :class="{disabled:!variable.complete}" type="button">保存并拨打下一个</button>
+                                <button class="btn" :class="{disabled:!variable.complete}" @click="saveAndExit" type="button">保存并关闭</button>
+                                <button class="btn" :class="{disabled:!variable.complete}" @click="saveAddNext" type="button">保存并拨打下一个</button>
                             </div>
                         </li>
                     </ul>
                 </form>
             </div>
-            <div class="data-warp">
+            <div class="data-warp" v-if="render.call_num">
                 <div class="data-table">
                     <div class="data-export">
                         <ul>
@@ -87,7 +87,7 @@
                             </li>
                         </ul>
                     </div>
-                    <clueHistory v-if="render.call_num"></clueHistory>
+                    <clueHistory></clueHistory>
                 </div>
             </div>
         </div>
@@ -323,7 +323,7 @@
                 }
 
                 window.mycomm_agent.on_drop_s = function (evt) {
-                    _this.complete = true
+                    _this.variable.complete = true
                 }
 
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
@@ -394,7 +394,7 @@
                                             success: data => {
                                                 if (data.code == 200) {
                                                     this.history_id = data.data.id
-                                                    //window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                                    window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                                 }
                                             }
                                         })

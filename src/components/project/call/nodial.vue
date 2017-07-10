@@ -9,7 +9,8 @@
                     <div class="data-export">
                         <ul>
                             <li>
-                                <span class="t">未拨打</span><span class="num">{{total}}</span>
+                                <span class="t">未拨打</span>
+                                <span class="num">{{total}}</span>
                             </li>
                         </ul>
                     </div>
@@ -26,7 +27,7 @@
                                 <td>{{item.city}}</td>
                                 <td>{{item.distribution_date}}</td>
                                 <td>
-                                    <a href="javascript:void(0);" @click="call(item.id,item.telephone)">
+                                    <a href="javascript:void(0);" @click="call(item.id,item.telephone_crypt,item.city,item.call,item.sex,item.call_num)">
                                         <span class="notice">
                                             <i class="icon phone"></i>
                                         </span>拨打
@@ -56,7 +57,7 @@
                 currentPage: 1,
                 totalPage: 1,
                 list: [],
-                total:0
+                total: 0
             }
         },
         created() {
@@ -110,8 +111,21 @@
                     }
                 })
             },
-            call(id, tel) {
-                console.log(123)
+            call(id, tel, city, call, sex, call_num) {
+                console.log(tel)
+                let query = Object.assign({}, this.$route.query, {
+                    project_id: '',
+                    projectName: this.$route.query.projectName,
+                    tel: tel,
+                    city: city,
+                    call: call,
+                    sex: sex,
+                    call_num: call_num
+                })
+                this.$router.push({
+                    path: '/project/dial',
+                    query: query
+                })
             }
         }
     }
