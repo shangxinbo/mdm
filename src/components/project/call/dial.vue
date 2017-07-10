@@ -1,7 +1,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">{{projectName}}拨打详情</div>
+            <div class="title-warp">{{render.projectName}}拨打详情</div>
             <div class="data-detail">
                 <form>
                     <ul class="data-text seat-text">
@@ -9,22 +9,22 @@
                             <div class="fl-in">
                                 <label class="name">拨打资源</label>
                                 <div class="input-warp">
-                                    <p class="text">{{tel}}</p>
+                                    <p class="text">{{render.tel}}</p>
                                 </div>
                             </div>
                             <div class="fl-in">
                                 <label class="name">归属地</label>
                                 <div class="input-warp">
-                                    <p class="text">{{city}}</p>
+                                    <p class="text">{{render.city}}</p>
                                 </div>
                             </div>
                             <div class="fl-in" v-if="dialing">
-                                <button class="btn red" type="button">
+                                <button class="btn red" type="button" @click="drop()">
                                     <span>
                                         <i class="icon hangup"></i>挂断</span>
                                 </button>
                             </div>
-                            <div class="fl-in" v-if="showsms">
+                            <div class="fl-in" v-if="variable.showsms">
                                 <a class="btn-sms" href="javascript:void(0);">
                                     <span>
                                         <i class="icon sms"></i>发短信</span>
@@ -35,13 +35,13 @@
                             <label class="name">
                                 <em>（选填）</em>称呼</label>
                             <div class="input-warp">
-                                <input class="text" type="text" value="">
-                                <label onclick="tradioCutover(this)" class="radio-warp" for="male">
-                                    <input type="radio" name="sendMode" class="radio" id="male" value="male" checked="checked">
+                                <input class="text" type="text" v-model="new_call">
+                                <label class="radio-warp" @click="chooseSex('男')" :class="{'radio-active':variable.sex=='男'}" for="male">
+                                    <input type="radio" name="sendMode" class="radio" id="male" value="male">
                                     <i class="icon"></i>
                                     <span class="radioname">先生</span>
                                 </label>
-                                <label onclick="tradioCutover(this)" class="radio-warp" for="female">
+                                <label class="radio-warp" @click="chooseSex('女')" :class="{'radio-active':variable.sex=='女'}" for="female">
                                     <input type="radio" name="sendMode" class="radio" id="female" value="female">
                                     <i class="icon"></i>
                                     <span class="radioname">女士</span>
@@ -50,20 +50,24 @@
                         </li>
                         <li class="li-fl">
                             <label class="name">拨打结果</label>
-                            <mselect ref="result1Select" :api="getResult1" :id="result1" style="padding-right:10px;" @change="linkResult"></mselect>
-                            <mselect ref="result2Select" :api="getResult2" :param="param" :id="result2"></mselect>
+                            <mselect ref="result1Select" :api="api.getResult1" style="padding-right:10px;" @change="linkResult"></mselect>
+                            <mselect ref="result2Select" :api="api.getResult2" :param="param"></mselect>
+                            <div class="input-warp" v-show="variable.result_error">
+                                <p class="error">{{variable.result_error}}</p>
+                            </div>
                         </li>
                         <li>
                             <label class="name">
                                 <em>（选填）</em>备注说明</label>
                             <div class="input-warp">
-                                <textarea></textarea>
+                                <textarea v-model="variable.desc"></textarea>
+                                <p v-if="variable.desc_error" class="error">{{variable.desc_error}}</p>
                             </div>
                         </li>
                         <li class="li-btn">
                             <div class="input-warp input-fl">
-                                <button class="btn disabled" type="button">保存并关闭</button>
-                                <button class="btn disabled" type="button">保存并拨打下一个</button>
+                                <button class="btn" :class="{disabled:!variable.complete}" type="button">保存并关闭</button>
+                                <button class="btn" :class="{disabled:!variable.complete}" type="button">保存并拨打下一个</button>
                             </div>
                         </li>
                     </ul>
@@ -75,66 +79,15 @@
                         <ul>
                             <li>
                                 <span class="t">已拨打次数</span>
-                                <span class="num">{{call_num}}</span>
+                                <span class="num">{{render.call_num}}</span>
                             </li>
                             <li>
                                 <span class="t">称呼</span>
-                                <span class="num">{{call}}</span>
+                                <span class="num">{{render.call}}</span>
                             </li>
                         </ul>
                     </div>
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>拨打时间</th>
-                                <th>拨打资源</th>
-                                <th>通话时长</th>
-                                <th class="tl">备注</th>
-                                <th class="tl">拨打结果</th>
-                                <th>通话录音</th>
-                            </tr>
-                            <tr v-for="item in list">
-                                <td>{{item.updated_at}}</td>
-                                <td>{{item.telephone_crypt}}</td>
-                                <td>{{item.call_time}}</td>
-                                <td class="tl">{{item.remarks}}</td>
-                                <td class="tl">【{{item.dial_result_first}}】{{item.dial_result_second }}</td>
-                                <td>
-                                    <a class="btn-audio" href="javascript:void(0);" onclick="getWindow('callAudio');">
-                                        <span class="notice">
-                                            <i class="icon play"></i>
-                                        </span>
-                                        <span class="audio-txt">播放</span>
-                                    </a>
-                                    <a href="#">
-                                        <span class="notice">
-                                            <i class="icon download"></i>
-                                        </span>下载</a>
-                                    <audio class="audio" src="../static/audio/audio.mp3"></audio>
-                                </td>
-                            </tr>
-                            <tr class="tr2">
-                                <td>2017-03-16 10:20</td>
-                                <td>138****5556</td>
-                                <td>6分</td>
-                                <td class="tl">备注</td>
-                                <td class="tl">【成功】有意向-条件不符</td>
-                                <td>
-                                    <a class="btn-audio" href="javascript:void(0);" onclick="getWindow('callAudio');">
-                                        <span class="notice">
-                                            <i class="icon play"></i>
-                                        </span>
-                                        <span class="audio-txt">播放</span>
-                                    </a>
-                                    <a href="#">
-                                        <span class="notice">
-                                            <i class="icon download"></i>
-                                        </span>下载</a>
-                                    <audio class="audio" src="../static/audio/audio.mp3"></audio>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <clueHistory v-if="render.call_num"></clueHistory>
                 </div>
             </div>
         </div>
@@ -146,32 +99,48 @@
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import alert from 'components/dialog/alert'
+    import clueHistory from './clueHistory'
     export default {
         data() {
-            let id = this.$route.query.id
-            let projectName = this.$route.query.projectName
-            let projectId = this.$route.query.projectId
-            let tel = this.$route.query.tel
-            let city = this.$route.query.city
-            let call = this.$route.query.call
-            let call_num = this.$route.query.call_num
             let user = localStorage.getItem('user')
             return {
-                id: id,
+                clue_id: '',
                 user_id: user.id,
-                projectId: projectId,
-                projectName: projectName,
-                tel: tel,
-                city: city,
-                getResult1: API.clue_get_result,
-                getResult2: API.clue_get_sub_result,
-                result1: '',
-                result2: '',
-                param: {},
-                call: call,
-                call_num: call_num,
-                list: [],
-                showsms:false
+                render: {
+                    projectId: '',
+                    projectName: '',
+                    tel: '',
+                    city: '',
+                    call: '',
+                    sex: '',
+                    call_num: ''
+                },
+                api: {
+                    getResult1: API.clue_get_result,
+                    getResult2: API.clue_get_sub_result,
+                },
+                variable: {
+                    param: {},
+                    showsms: false,
+                    complete: false,
+                    desc: '',
+                    result_error: '',
+                    desc_error: '',
+                    call: '',
+                    sex: ''
+                },
+                global: {
+                    history_id: ''
+                },
+                search: {
+                    city: '',
+                    startTime: '',
+                    endTime: '',
+                    sex: '',
+                    result1: '',
+                    result2: '',
+                    status: ''
+                }
             }
         },
         computed: {
@@ -187,35 +156,39 @@
         },
         watch: {
             dialing(newVal, oldVal) {
-                if(newVal==true){
+                if (newVal == true) {
                     this.showsms = true
                 }
             }
         },
         created() {
-            if (this.call_num > 0) {
-                mAjax(this, {
-                    url: API.clue_get_record,
-                    data: {
-                        clue_id: this.id
-                    },
-                    success: data => {
-                        if (data.code == 200) {
-                            this.list = data.data
-                        } else {
-                            this.list = []
-                        }
-                    }
-                })
+            this.clue_id = this.$route.query.id
+            this.render = {
+                projectId: this.$route.query.projectId,
+                projectName: this.$route.query.projectName,
+                tel: this.$route.query.tel,
+                city: this.$route.query.city,
+                call: this.$route.query.call,
+                sex: this.$route.query.sex,
+                call_num: this.$route.query.call_num
             }
-
+            this.search = {
+                city: this.$route.query.search_city,
+                startTime: this.$route.query.startTime,
+                endTime: this.$route.query.endTime,
+                sex: this.$route.query.search_sex,
+                result1: this.$route.query.search_result1,
+                result2: this.$route.query.search_result2,
+                status: this.$route.query.status
+            }
             this.init()
-
-
         },
         methods: {
+            drop() {
+                window.mycomm_agent.drop()
+            },
             linkResult(item) {
-                this.param = {
+                this.variable.param = {
                     pid: item.id
                 }
                 this.$nextTick(() => {
@@ -226,10 +199,106 @@
                     }
                 })
             },
+            chooseSex(str) {
+                this.variable.sex = str
+            },
+            save(callback) {
+                let _this = this
+                let result1 = this.$refs.result1Select.selected.id
+                let result2 = this.$refs.result2Select.selected.id
+                if (result1) {
+                    this.result_error = '拨打结果必须选择'
+                    return false
+                } else {
+                    if (this.desc.length > 100) {
+                        this.desc_error = '备注不能超过100个字符'
+                        return false
+                    } else {
+                        this.desc_error = ''
+                    }
+                }
+
+                mAjax(this, {
+                    url: API.project_call_modify,
+                    data: {
+                        id: this.clue_id,
+                        clue_status: 1,
+                        remarks: this.variable.desc,
+                        sound_code: this.global.history_id,
+                        call: this.variable.call,
+                        gender: this.variable.sex,
+                        dial_result_first: result1,
+                        dial_result_second: result2
+                    },
+                    success: data => {
+                        if (data.code == 200) {
+                            _this.close()
+                            if (callback) {
+                                callback()
+                            }
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+            },
+            saveAndExit() {
+                this.save(() => {
+                    this.$refs.alert.$emit('show', '操作成功', () => {
+                        window.history.back()
+                    })
+                })
+            },
+            saveAddNext() {
+                let _this = this
+                this.save(() => {
+                    _this.$refs.alert.$emit('show', '操作成功', () => {
+                        let api = API.clue_get_next1
+                        let obj = {
+                            project_id: _this.projectId,
+                            city: _this.search_city,
+                            created_at_start: _this.startTime,
+                            created_at_end: _this.endTime,
+                            cule_id: _this.id
+                        }
+                        if (_this.search.status) {
+                            api = API.clue_get_next2
+                            obj = {
+                                project_id: _this.projectId,
+                                city: _this.search_city,
+                                gender: _this.search.sex,
+                                dial_at_start: _this.startTime,
+                                dial_at_end: _this.endTime,
+                                cule_id: _this.id,
+                                dial_result_first: this.search.result1,
+                                dial_result_second: this.search.result2
+                            }
+                        }
+
+
+                        mAjax(_this, {
+                            url: api,
+                            data: obj,
+                            success: data => {
+                                if (data.code == 200) {
+                                    let query = Object.assign({}, _this.$route.query, { clue_id: data.data.id })
+                                    this.$router.replace({
+                                        name: this.$route.name,
+                                        query: query
+                                    })
+                                } else {
+                                    this.$refs.alert.$emit('show', data.message)
+                                }
+                            }
+                        })
+                    })
+                })
+            },
             init() {
                 let _this = this
                 let uuid = ''
-                let history_id = ''
+
+                window.mycomm_agent.wrap_up(0)
 
                 window.mycomm_agent.on_dial_f = function (evt) {
                     _this.$refs.alert.$emit('show', evt.params.err_des)
@@ -253,6 +322,10 @@
                     _this.$refs.alert.$emit('show', msg)
                 }
 
+                window.mycomm_agent.on_drop_s = function (evt) {
+                    _this.complete = true
+                }
+
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     _this.$store.commit('CHANGE_DIAL_STATUS', false)
                     window.mycomm_agent.logout()
@@ -271,7 +344,7 @@
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: uuid,
-                            id: history_id
+                            id: this.history_id
                         }
                     })
                 }
@@ -303,10 +376,6 @@
                                             tel_all = this.tel_pre + tel_all
                                         }
 
-                                        window.mycomm_agent.wrap_up(0)
-                                        window.mycomm_agent.on_dial_s = function (evt) {
-                                            //dial success
-                                        }
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                             setInterval(() => {  //延长用户有效期
@@ -324,7 +393,7 @@
                                             },
                                             success: data => {
                                                 if (data.code == 200) {
-                                                    history_id = data.data.id
+                                                    this.history_id = data.data.id
                                                     //window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                                 }
                                             }
@@ -342,7 +411,8 @@
         },
         components: {
             mselect,
-            alert
+            alert,
+            clueHistory
         }
     }
 
