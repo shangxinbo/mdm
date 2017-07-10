@@ -65,8 +65,8 @@
                                     <a v-if="item.client_is_hang_up_message==1&&item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(item.id,item.name)">使用挂机短信</a>
                                 </td>
                                 <td v-else-if="userType==4">
-                                    <router-link v-if="item.status==1" :to="'/project/call/?id='+ item.id +'&projectName=' + item.name ">外呼</router-link>
-                                    <router-link v-else :to="'/project/call/?id='+ item.id +'&projectName=' + item.name + '&clue_status=1&end=1'">查看</router-link>
+                                    <router-link v-if="item.status==1" :to="{path:'/project/call/nodial',query:{id:item.id,projectName:item.name}}">外呼</router-link>
+                                    <router-link v-else :to="{path:'project/call/enddial',query:{'id':item.id,projectName:item.name,end:1}}">查看</router-link>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>

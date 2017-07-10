@@ -56,6 +56,8 @@ export default {
     project_type_list: API_PRE + '/project/type',
     project_add: API_PRE + '/project/create',
     project_call_list: API_PRE + '/seat/outbound',
+    project_call_nodial_list: API_PRE + '/seat/getClueDialNo',
+    project_call_enddial_list: API_PRE + '/seat/getClueDialOk',
     project_call_modify: API_PRE + '/seat/modify',
     project_clue_info: API_PRE + '/seat/clueinfo',
     project_set_sms: API_PRE + '/project/start_gj_sms',
@@ -100,5 +102,8 @@ export default {
     sms_template_detail: API_PRE + '/sms/template_find',
     sms_client_list: API_PRE + '/sms/client_select',
     seat_list_by_project: API_PRE + '/project/getSeatByProject',
-    left_info_list: API_PRE + '/sms/capital_list'
+    left_info_list: API_PRE + '/sms/capital_list',
+    clue_attribution: API_PRE + '/clue/getAttribution',
+    clue_get_result: API_PRE + '/clue/getDialResults',
+    clue_get_sub_result: API_PRE + '/clue/getDialSubresults'
 }

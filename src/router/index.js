@@ -18,6 +18,8 @@ const cusmy = resolve => System.import('components/users/cusmy.vue')
 const myseat = resolve => System.import('components/users/myseat.vue')
 const project_list = resolve => System.import('components/project/list/index.vue')
 const project_call_list = resolve => System.import('components/project/call/index.vue')
+const project_call_no_dial = resolve => System.import('components/project/call/nodial.vue')
+const project_call_end_dial = resolve => System.import('components/project/call/enddial.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const project_create = resolve => System.import('components/project/create/index.vue')
@@ -53,7 +55,15 @@ let mRouter = new Router({
                 { path: '/user/cusmy', name: 'cusmy', component: cusmy },
                 { path: '/user/myseat', name: 'myseat', component: myseat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
-                { path: '/project/call/', name: 'project_call_list', component: project_call_list },
+                {
+                    path: '/project/call/',
+                    name: 'project_call_list',
+                    component: project_call_list,
+                    children: [
+                        { path: 'nodial/', name: 'project_call_no_dial', component: project_call_no_dial },
+                        { path: 'enddial/', name: 'project_call_end_dial', component: project_call_end_dial }
+                    ]
+                },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/project/sms/list', name: 'project_hang_up_sms', component: project_hang_up_sms },

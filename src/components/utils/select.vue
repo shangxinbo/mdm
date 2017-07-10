@@ -20,7 +20,7 @@
     import { mAjax } from 'src/services/functions'
     import Vue from 'vue'
     export default {
-        data: function () {
+        data() {
             return {
                 selected: {
                     id: '',
@@ -30,7 +30,7 @@
                 show: false
             }
         },
-        props: ['api', 'id', 'initlist', 'error', 'addClass', 'hideAll'],
+        props: ['api', 'param', 'id', 'initlist', 'error', 'addClass', 'hideAll'],
         watch: {
             id: function (newVal, oldVal) {
                 if (newVal === '') {
@@ -52,6 +52,9 @@
                 this.show = true
             },
             change: function (id, name) {
+                if(id==this.selected.id){
+                    return false
+                }
                 if (typeof (name) == 'object') {
                     this.selected = {
                         id: name.code,
@@ -65,62 +68,84 @@
                 }
                 this.$emit('change', this.selected)
                 this.show = false
-            }
-        },
-        created: function () {
-            let _this = this
-            if (this.initlist) {
-                this.list = this.initlist
-                let id = this.id
-                if (!id) return false
-                this.list.find((value, index, arr) => {
-                    if (value.id == id) {
-                        this.selected = value
-                    }
-                })
-            } else {
-                mAjax(this, {
-                    url: this.api,
-                    success: data => {
-                        let arr = []
-                        if (data.data instanceof Array) {
-                            for (let i = 0; i < data.data.length; i++) {
-                                if (data.data[i].id != undefined) {
-                                    arr.push({
-                                        id: data.data[i].id,
-                                        name: data.data[i].name ? data.data[i].name : data.data[i].user
-                                    })
-                                }
-                                if (data.data[i].code != undefined) {
-                                    arr.push({
-                                        id: data.data[i].code,
-                                        name: data.data[i].desc
-                                    })
-                                }
+            },
+            init() {
+                let _this = this
+                if (this.initlist) {
+                    this.list = this.initlist
+                    let id = this.id
+                    if (!id) return false
+                    this.list.find((value, index, arr) => {
+                        if (isNaN(id)) {
+                            if (value.name == id) {
+                                this.selected = value
                             }
                         } else {
-                            for (let i in data.data) {
-                                arr.push({
-                                    id: i,
-                                    name: data.data[i]
-                                })
-                            }
-                        }
-                        arr.sort((p, n) => {
-                            return parseInt(n.id) - parseInt(p.id)
-                        })
-
-                        this.list = arr
-                        let id = this.id
-                        if (!id) return false
-                        this.list.find((value, index, arr) => {
                             if (value.id == id) {
                                 this.selected = value
                             }
-                        })
-                    }
-                })
+                        }
+                    })
+                } else {
+                    mAjax(this, {
+                        url: this.api,
+                        data:this.param,
+                        success: data => {
+                            let arr = []
+                            if (data.data instanceof Array) {
+                                for (let i = 0; i < data.data.length; i++) {
+                                    if (data.data[i].id != undefined) {
+                                        arr.push({
+                                            id: data.data[i].id,
+                                            name: data.data[i].name ? data.data[i].name : data.data[i].user
+                                        })
+                                    } else if (data.data[i].code != undefined) {
+                                        arr.push({
+                                            id: data.data[i].code,
+                                            name: data.data[i].desc
+                                        })
+                                    } else {
+                                        arr.push({
+                                            id: i,
+                                            name: data.data[i]
+                                        })
+                                    }
+
+                                }
+                            } else {
+                                for (let i in data.data) {
+                                    arr.push({
+                                        id: i,
+                                        name: data.data[i]
+                                    })
+                                }
+                            }
+                            arr.sort((p, n) => {
+                                return parseInt(n.id) - parseInt(p.id)
+                            })
+
+                            this.list = arr
+                            let id = this.id
+                            if (!id) return false
+                            this.list.find((value, index, arr) => {
+                                if (isNaN(id)) {
+                                    if (value.name == id) {
+                                        this.selected = value
+                                    }
+                                } else {
+                                    if (value.id == id) {
+                                        this.selected = value
+                                    }
+                                }
+
+                            })
+                        }
+                    })
+                }
             }
+        },
+        created() {
+            this.init()
         },
         mounted: function () {
             let _this = this
