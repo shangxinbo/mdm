@@ -101,6 +101,8 @@ export default {
     sms_template_add: API_PRE + '/sms/template_save',
     sms_template_detail: API_PRE + '/sms/template_find',
     sms_client_list: API_PRE + '/sms/client_select',
+    sms_client_template_list: API_PRE + '/sms/template_select',
+    sms_send:API_PRE + '/sms/record_save',
     seat_list_by_project: API_PRE + '/project/getSeatByProject',
     left_info_list: API_PRE + '/sms/capital_list',
     clue_attribution: API_PRE + '/clue/getAttribution',

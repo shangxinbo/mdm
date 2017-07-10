@@ -6,6 +6,14 @@
         <div class="data-warp">
             <div class="cutover">
                 <div class="data-table cutover-tab01">
+                    <div class="data-export">
+                        <ul>
+                            <li>
+                                <span class="t">已拨打</span>
+                                <span class="num">{{total}}</span>
+                            </li>
+                        </ul>
+                    </div>
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
@@ -34,6 +42,10 @@
                                             <i class="icon phone"></i>
                                         </span>拨打
                                     </a>
+                                    <a href="javascript:void(0)" @click="sms(item.id)">
+                                        <span class="notice">
+                                            <i class="icon sms"></i>
+                                        </span>发短信</a>
                                     <a href="javascript:void(0);" @click="view(item.id)">查看</a>
                                 </td>
                             </tr>
@@ -44,12 +56,14 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
+        <smsDialog ref="smsDialog"></smsDialog>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
+    import smsDialog from '../dialog/sms'
     import searchForm from './form2'
     export default {
         data() {
@@ -60,7 +74,8 @@
                 result2: '',
                 currentPage: 1,
                 totalPage: 1,
-                list: []
+                list: [],
+                total: 0
             }
         },
         created() {
@@ -68,7 +83,8 @@
         },
         components: {
             pages,
-            searchForm
+            searchForm,
+            smsDialog
         },
         watch: {
             $route: function () {
@@ -113,11 +129,15 @@
                         if (data.code == 200) {
                             this.list = data.data.data
                             this.totalPage = Math.ceil(data.data.total / data.data.per_page)
+                            this.total = data.data.total
                         } else {
                             this.$refs.alert.$emit('show', data.message)
                         }
                     }
                 })
+            },
+            sms(id) {
+                this.$refs.smsDialog.$emit('show', id)
             }
         }
     }

@@ -6,6 +6,13 @@
         <div class="data-warp">
             <div class="cutover">
                 <div class="data-table cutover-tab01">
+                    <div class="data-export">
+                        <ul>
+                            <li>
+                                <span class="t">未拨打</span><span class="num">{{total}}</span>
+                            </li>
+                        </ul>
+                    </div>
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
@@ -48,7 +55,8 @@
                 city: '',
                 currentPage: 1,
                 totalPage: 1,
-                list: []
+                list: [],
+                total:0
             }
         },
         created() {
@@ -95,6 +103,7 @@
                         if (data.code == 200) {
                             this.list = data.data.data
                             this.totalPage = Math.ceil(data.data.total / data.data.per_page)
+                            this.total = data.data.total
                         } else {
                             this.$refs.alert.$emit('show', data.message)
                         }

@@ -65,8 +65,8 @@
                                     <a v-if="item.client_is_hang_up_message==1&&item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(item.id,item.name)">使用挂机短信</a>
                                 </td>
                                 <td v-else-if="userType==4">
-                                    <router-link v-if="item.status==1" :to="{path:'/project/call/nodial',query:{id:item.id,projectName:item.name}}">外呼</router-link>
-                                    <router-link v-else :to="{path:'project/call/enddial',query:{'id':item.id,projectName:item.name,end:1}}">查看</router-link>
+                                    <router-link v-if="item.status==1" :to="{path:'/project/call/nodial',query:{id:item.id,projectName:item.name,sms:item.client_is_hang_up_message==1&&item.is_hang_up_message==1}}">外呼</router-link>
+                                    <router-link v-else :to="{path:'/project/call/enddial',query:{'id':item.id,projectName:item.name,end:1,sms:item.client_is_hang_up_message==1&&item.is_hang_up_message==1}}">查看</router-link>
                                 </td>
                                 <td v-else>
                                     <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
@@ -150,6 +150,7 @@
                             this.list = data.data.data
                             this.sum = data.data.count
                             this.totalPage = Math.ceil(data.data.page.total / 10)
+                            sessionStorage.setItem('client_id',data.data.data[0].client_id) //给坐席备份下客户id
                         } else {
                             this.$refs.alert.$emit('show', data.message)
                         }

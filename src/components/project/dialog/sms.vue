@@ -1,0 +1,127 @@
+<template>
+    <div class="dialog" :style="{display:style}" style="margin-left:-259px;margin-top:-300px;">
+        <a href="javascript:void(0);" class="icon dialog-close" @click="close" title="关闭"></a>
+        <div class="dialog-header">
+            <h4>发短信</h4>
+        </div>
+        <div class="dialog-body">
+            <ul class="query-warp">
+                <li>
+                    <label>短信模板</label>
+                    <div class="input-warp">
+                        <div class="select-warp dial-select-sms" :class="{'select-open':selectShow}">
+                            <p class="all" @click.stop="showSelect">
+                                <span>{{selected.name}}</span>
+                            </p>
+                            <div class="select-ul">
+                                <div class="scroll-warp scrollBar">
+                                    <ul>
+                                        <li v-for="item in list" @click="change(item)">{{item.name}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="sms-phone">
+                <div class="inrr">
+                    <i class="bg-up"></i>
+                    <i class="bg-down"></i>
+                    <p>{{selected.preview_content}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="dialog-footer">
+            <button class="btn blue" type="button" @click="sure">发送</button>
+            <button class="btn" type="button" @click="close">取消</button>
+        </div>
+    </div>
+</template>
+<script>
+    import { mAjax } from 'src/services/functions'
+    import API from 'src/services/api'
+    import mselect from 'components/utils/select'
+    import Vue from 'vue'
+    export default {
+        data: function () {
+            return {
+                style: 'none',
+                id: '',
+                list: [],
+                selectShow: false,
+                selected: {
+                    id: '',
+                    name: '',
+                    preview_content: ''
+                }
+            }
+        },
+        methods: {
+            close: function () {
+                this.style = 'none'
+                this.$store.commit('HIDE_LAYER')
+            },
+            showSelect() {
+                this.selectShow = true
+            },
+            change(item) {
+                this.selected = item
+            },
+            sure: function () {
+                let client_id = sessionStorage.getItem('client_id')
+                mAjax(this, {
+                    url: API.sms_send,
+                    data: {
+                        clue_id: this.id,
+                        template_id: this.selected.id,
+                        client_id: client_id
+                    },
+                    success: data => {
+                        this.close()
+                        if (data.code == 200) {
+                            this.$store.commit('SHOW_TOAST', '短信发送成功')
+                        } else {
+                            this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+            }
+        },
+        created(id) {
+            let _this = this
+            this.id = id
+            this.$on('show', function () {
+                let client_id = sessionStorage.getItem('client_id')
+                mAjax(_this, {
+                    url: API.sms_client_template_list,
+                    data: {
+                        client_id: client_id
+                    },
+                    success: data => {
+                        if (data.code == 200) {
+                            _this.list = data.data
+                            _this.selected = data.data[0]
+                            _this.style = 'block'
+                            _this.$store.commit('SHOW_LAYER')
+                        } else {
+                            _this.$store.commit('SHOW_TOAST', data.message)
+                        }
+                    }
+                })
+            })
+        },
+        components: {
+            mselect
+        },
+        mounted() {
+            let _this = this
+            Vue.nextTick(() => {
+                document.addEventListener('click', () => {
+                    _this.selectShow = false
+                })
+            })
+        }
+    }
+
+</script>
