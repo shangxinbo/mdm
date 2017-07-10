@@ -107,5 +107,6 @@ export default {
     left_info_list: API_PRE + '/sms/capital_list',
     clue_attribution: API_PRE + '/clue/getAttribution',
     clue_get_result: API_PRE + '/clue/getDialResults',
-    clue_get_sub_result: API_PRE + '/clue/getDialSubresults'
+    clue_get_sub_result: API_PRE + '/clue/getDialSubresults',
+    clue_get_record: API_PRE + '/seat/getPhoneRecord'
 }

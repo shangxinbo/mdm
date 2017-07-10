@@ -20,6 +20,7 @@ const project_list = resolve => System.import('components/project/list/index.vue
 const project_call_list = resolve => System.import('components/project/call/index.vue')
 const project_call_no_dial = resolve => System.import('components/project/call/nodial.vue')
 const project_call_end_dial = resolve => System.import('components/project/call/enddial.vue')
+const project_dial = resolve => System.import('components/project/call/dial.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const project_create = resolve => System.import('components/project/create/index.vue')
@@ -61,9 +62,10 @@ let mRouter = new Router({
                     component: project_call_list,
                     children: [
                         { path: 'nodial/', name: 'project_call_no_dial', component: project_call_no_dial },
-                        { path: 'enddial/', name: 'project_call_end_dial', component: project_call_end_dial }
+                        { path: 'enddial/', name: 'project_call_end_dial', component: project_call_end_dial },
                     ]
                 },
+                { path: '/project/dial', name: 'project_dial', component: project_dial },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
                 { path: '/project/sms/list', name: 'project_hang_up_sms', component: project_hang_up_sms },

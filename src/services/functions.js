@@ -14,7 +14,9 @@ export const mAjax = (vm, options) => {
             } else if (data.data.code == 10005) {
                 vm.$router.replace('/error?code=403')
             } else {
-                options.success(body)
+                if (options.success) {
+                    options.success(body)
+                }
             }
         } else {
             vm.$router.replace('/error?code=' + data.status + '&msg=' + data.statusText)
@@ -226,14 +228,14 @@ export const dateFormat = (date) => {
     if (date instanceof Date) {
         let m = ''
         let d = ''
-        if(date.getMonth() < 9) {
-            m = "0"+ parseInt(date.getMonth()+1)
-        }else{
-            m = parseInt(date.getMonth()+1)
+        if (date.getMonth() < 9) {
+            m = "0" + parseInt(date.getMonth() + 1)
+        } else {
+            m = parseInt(date.getMonth() + 1)
         }
-        if(date.getDate() <= 9) {
-            d = "0"+date.getDate()
-        }else{
+        if (date.getDate() <= 9) {
+            d = "0" + date.getDate()
+        } else {
             d = date.getDate()
         }
         return date.getFullYear() + '-' + m + '-' + d
