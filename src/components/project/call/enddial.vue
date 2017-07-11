@@ -37,7 +37,7 @@
                                 <td>{{item.remarks}}</td>
                                 <td>【{{item.dial_result_first}}】{{item.dial_result_second}}</td>
                                 <td>
-                                    <a href="javascript:void(0);" @click="call(item.id,item.telephone)">
+                                    <a href="javascript:void(0);" @click="call(item.id,item.telephone_crypt,item.city,item.call,item.sex,item.dial_num)">
                                         <span class="notice">
                                             <i class="icon phone"></i>
                                         </span>拨打
@@ -138,6 +138,21 @@
             },
             sms(id) {
                 this.$refs.smsDialog.$emit('show', id)
+            },
+            call(id, tel, city, call, sex, call_num) {
+                let query = Object.assign({}, this.$route.query, {
+                    project_id: '',
+                    projectName: this.$route.query.projectName,
+                    tel: tel,
+                    city: city,
+                    call: call,
+                    sex: sex,
+                    call_num: call_num
+                })
+                this.$router.push({
+                    path: '/project/dial',
+                    query: query
+                })
             }
         }
     }

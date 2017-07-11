@@ -64,6 +64,7 @@
             }
         },
         created() {
+            console.log(123)
             mAjax(this, {
                 url: API.clue_get_record,
                 data: {

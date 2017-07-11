@@ -25,7 +25,7 @@
                                 </button>
                             </div>
                             <div class="fl-in" v-if="variable.showsms">
-                                <a class="btn-sms" href="javascript:void(0);">
+                                <a class="btn-sms" href="javascript:void(0);" @click="sms">
                                     <span>
                                         <i class="icon sms"></i>发短信</span>
                                 </a>
@@ -50,11 +50,9 @@
                         </li>
                         <li class="li-fl">
                             <label class="name">拨打结果</label>
-                            <mselect ref="result1Select" :api="api.getResult1" style="padding-right:10px;" @change="linkResult"></mselect>
+                            <mselect ref="result1Select" :api="api.getResult1" style="padding-right:10px;" @change="linkResult" ></mselect>
                             <mselect ref="result2Select" :api="api.getResult2" :param="variable.param"></mselect>
-                            <div class="input-warp" v-show="variable.result_error">
-                                <p class="error">{{variable.result_error}}</p>
-                            </div>
+                            <p class="error" style="padding-left:75px;" v-show="variable.result_error">{{variable.result_error}}</p>
                         </li>
                         <li>
                             <label class="name">
@@ -92,6 +90,7 @@
             </div>
         </div>
         <alert ref="alert"></alert>
+        <smsDialog ref="smsDialog"></smsDialog>
     </div>
 </template>
 <script>
@@ -100,6 +99,7 @@
     import mselect from 'components/utils/select'
     import alert from 'components/dialog/alert'
     import clueHistory from './clueHistory'
+    import smsDialog from '../dialog/sms'
     export default {
         data() {
             let user = localStorage.getItem('user')
@@ -157,7 +157,7 @@
         watch: {
             dialing(newVal, oldVal) {
                 if (newVal == true) {
-                    this.showsms = true
+                    this.variable.showsms = true
                 }
             }
         },
@@ -184,6 +184,10 @@
             this.init()
         },
         methods: {
+            sms() {
+                let id = this.clue_id
+                this.$refs.smsDialog.$emit('show', id)
+            },
             drop() {
                 window.mycomm_agent.drop()
             },
@@ -206,15 +210,16 @@
                 let _this = this
                 let result1 = this.$refs.result1Select.selected.id
                 let result2 = this.$refs.result2Select.selected.id
-                if (result1) {
-                    this.result_error = '拨打结果必须选择'
+                
+                if (!result1) {
+                    this.variable.result_error = '拨打结果必须选择'
                     return false
                 } else {
-                    if (this.desc.length > 100) {
-                        this.desc_error = '备注不能超过100个字符'
+                    if (this.variable.desc.length > 100) {
+                        this.variable.desc_error = '备注不能超过100个字符'
                         return false
                     } else {
-                        this.desc_error = ''
+                        this.variable.desc_error = ''
                     }
                 }
 
@@ -232,7 +237,6 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
                             if (callback) {
                                 callback()
                             }
@@ -242,15 +246,17 @@
                     }
                 })
             },
-            saveAndExit() {
+            saveAndExit(evt) {
+                if(evt.currentTarget.className.indexOf('disabled')>=0){ return false}
                 this.save(() => {
                     this.$refs.alert.$emit('show', '操作成功', () => {
                         window.history.back()
                     })
                 })
             },
-            saveAddNext() {
+            saveAddNext(evt) {
                 let _this = this
+                if(evt.currentTarget.className.indexOf('disabled')>=0){ return false}
                 this.save(() => {
                     _this.$refs.alert.$emit('show', '操作成功', () => {
                         let api = API.clue_get_next1
@@ -394,7 +400,7 @@
                                             success: data => {
                                                 if (data.code == 200) {
                                                     this.history_id = data.data.id
-                                                    window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                                    //window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                                 }
                                             }
                                         })
@@ -412,7 +418,8 @@
         components: {
             mselect,
             alert,
-            clueHistory
+            clueHistory,
+            smsDialog
         }
     }
 
