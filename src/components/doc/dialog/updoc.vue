@@ -40,7 +40,9 @@
         </div>
         <div class="dialog-footer">
             <a class="btn blue" v-if="!loading" href="javascript:void(0);" @click="sure">更新</a>
-            <a class="btn blue" v-else href="javascript:void(0);"><img style="margin-top:11px;" :src="loadimg" /></a>
+            <a class="btn blue" v-else href="javascript:void(0);">
+                <img style="margin-top:11px;" :src="loadimg" />
+            </a>
             <a class="btn" href="javascript:void(0);" @click="close">取消</a>
         </div>
     </div>
@@ -60,8 +62,8 @@
                 file: '',
                 file_name: '',
                 error: '',
-                loading:false,
-                loadimg:loadimg
+                loading: false,
+                loadimg: loadimg
             }
         },
         methods: {
@@ -83,7 +85,9 @@
                     _this.loading = false
                     if (res.status == 200 && res.data.code == 200) {
                         _this.close()
-                        _this.$store.commit('SHOW_TOAST', '操作手册更新成功')
+                        _this.$toast('操作手册更新成功', () => {
+                            window.location.reload()
+                        })
                     } else {
                         _this.error = res.data.message
                     }
@@ -94,16 +98,11 @@
             },
             selectFile(evt) {
                 let file = evt.target.files[0]
-                // let mimeArr = [
-                //     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                //     'application/msword',
-                //     'application/pdf'
-                // ]
-                if (file.name.endsWith('.doc')||file.name.endsWith('.docx')||file.name.endsWith('.pdf')) {
+                if (file.name.endsWith('.doc') || file.name.endsWith('.docx') || file.name.endsWith('.pdf')) {
                     this.error = ''
                     this.file_name = file.name
                     this.file = file
-                }else{
+                } else {
                     this.error = '请上传.doc,.docx,.pdf格式的文件'
                     this.file_name = ''
                 }

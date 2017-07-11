@@ -90,7 +90,7 @@
                     },
                     success: data => {
                         _this.close()
-                        _this.$store.commit('SHOW_TOAST', '密码重置成功')
+                        _this.$toast('密码重置成功')
                     },
                     error: err => {
                         console.log(err)

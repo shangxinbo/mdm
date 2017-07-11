@@ -82,21 +82,19 @@
                 </div>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import alert from 'components/dialog/alert'
     export default {
         data() {
             return {
                 id: '',
                 name: '',
                 clientApi: API.sms_client_list,
-                client:'',
+                client: '',
                 content: '',
                 url: '',
                 sign: '',
@@ -105,7 +103,7 @@
                 error_client: '',
                 error_content: '',
                 error_url: '',
-                error_sign:'',
+                error_sign: '',
                 error_status: ''
             }
         },
@@ -118,7 +116,7 @@
                         id: this.id
                     },
                     success: data => {
-                        if(data.code==200){
+                        if (data.code == 200) {
                             this.client = data.data.client_id
                             this.name = data.data.name
                             this.content = data.data.content
@@ -132,10 +130,10 @@
         },
         computed: {
             content_view() {
-                return this.content.replace(/#url#/, '<a href="'+ this.url +'"> t.cn/RK73y </a>')
+                return this.content.replace(/#url#/, '<a href="' + this.url + '"> t.cn/RK73y </a>')
             },
-            contentLength(){
-                return this.content.replace(/#url#/,'12345678901234').length
+            contentLength() {
+                return this.content.replace(/#url#/, '12345678901234').length
             }
         },
         methods: {
@@ -146,18 +144,18 @@
                 if (!this.name) {
                     this.error_name = '请填写模板名称'
                     return false
-                }else{
+                } else {
                     this.error_name = ''
                 }
                 if (!this.$refs.clientSelect.selected.id) {
                     this.error_client = '请选择客户'
                     return false
-                }else{
+                } else {
                     this.error_client = ''
                 }
                 if (!this.content) {
                     this.error_content = '请填写短信内容'
-                }else{
+                } else {
                     this.error_content = ''
                 }
                 if (this.url) {
@@ -165,16 +163,16 @@
                     if (!reg.test(this.url)) {
                         this.error_url = '链接格式不正确'
                         return false
-                    }else{
+                    } else {
                         this.error_url = ''
                     }
-                }else{
+                } else {
                     this.error_url = ''
                 }
                 if (!this.status) {
                     this.error_status = '请选择短信状态'
                     return false
-                }else{
+                } else {
                     this.error_status = ''
                 }
 
@@ -197,8 +195,9 @@
                     data: obj,
                     success: data => {
                         if (data.code == 200) {
-                            this.$refs.alert.$emit('show', this.id ? '编辑成功' : '新建成功', function () {
-                                this.$router.replace('/project/sms/template')
+                            let _this = this
+                            this.$toast(this.id ? '编辑成功' : '新建成功', function () {
+                                _this.$router.replace('/project/sms/template')
                             })
                         }
                     }
@@ -206,8 +205,7 @@
             }
         },
         components: {
-            mselect,
-            alert
+            mselect
         }
     }
 

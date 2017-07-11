@@ -205,7 +205,7 @@
                             _this.list = data.data.data
                             _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })
@@ -221,7 +221,7 @@
                             _this.customerInfo = data.data
                             _this.price = data.data.seat_price
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })
@@ -269,7 +269,7 @@
                                 cost: data.data.seat_price
                             }
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

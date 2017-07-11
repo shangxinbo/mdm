@@ -80,9 +80,9 @@
                     success: data => {
                         this.close()
                         if (data.code == 200) {
-                            this.$store.commit('SHOW_TOAST', '短信发送成功')
+                            this.$toast('短信发送成功')
                         } else {
-                            this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -105,7 +105,7 @@
                             _this.style = 'block'
                             _this.$store.commit('SHOW_LAYER')
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

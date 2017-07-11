@@ -24,13 +24,11 @@
                 <td>{{item.stop_time}}</td>
             </tr>
         </tbody>
-        <confirm ref="confirm"></confirm>
     </table>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import confirm from 'components/dialog/confirm'
     
     export default {
         props: ['list','type'],
@@ -39,12 +37,6 @@
             return {
                 userType: user.type,
             }
-        },
-        components:{
-            confirm
-        },
-        methods: {
-
         }
     }
 

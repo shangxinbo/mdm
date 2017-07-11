@@ -81,8 +81,6 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <confirm ref="confirm"></confirm>
-        <alert ref="alert"></alert>
         <saveByOptional ref="optSaveDialog" @success="saveSuccess"></saveByOptional>
         <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
         <recoveryCluesDialog ref="recoveryCluesDialog"></recoveryCluesDialog>
@@ -92,8 +90,6 @@
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
     import chooseSeatDialog from '../dialog/chooseSeat'
     import recoveryCluesDialog from '../dialog/recovery'
     import searchForm from './searchForm'
@@ -150,9 +146,9 @@
                             this.list = data.data.data
                             this.sum = data.data.count
                             this.totalPage = Math.ceil(data.data.page.total / 10)
-                            sessionStorage.setItem('client_id',data.data.data[0].client_id) //给坐席备份下客户id
+                            sessionStorage.setItem('client_id', data.data.data[0].client_id) //给坐席备份下客户id
                         } else {
-                            this.$refs.alert.$emit('show', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -171,7 +167,7 @@
             },
             stop(id) {
                 let _this = this
-                this.$refs.confirm.$emit('show', '是否要暂停该项目', function () {
+                this.$confirm('是否要暂停该项目', function () {
                     mAjax(_this, {
                         url: API.project_stop,
                         data: {
@@ -179,18 +175,18 @@
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$refs.alert.$emit('show', '已成功暂停', function () {
+                                _this.$toast('已成功暂停', function () {
                                     _this.refresh()
                                 })
                             else
-                                _this.$store.commit('SHOW_TOAST', data.message)
+                                _this.$toast(data.message)
                         }
                     })
                 })
             },
             start(id) {
                 let _this = this
-                this.$refs.confirm.$emit('show', '是否要开启该项目', function () {
+                this.$confirm('是否要开启该项目', function () {
                     mAjax(_this, {
                         url: API.project_start,
                         data: {
@@ -198,37 +194,39 @@
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$refs.alert.$emit('show', '已成功开启', function () {
+                                _this.$toast('已成功开启', function () {
                                     _this.refresh()
                                 })
                             else
-                                _this.$store.commit('SHOW_TOAST', data.message)
+                                _this.$toast(data.message)
                         }
                     })
                 })
             },
-            useSms(id,name){
-                this.$refs.confirm.$emit('show',`确定${name}要使用挂机短信?`,()=>{
-                    mAjax(this,{
-                        url:API.project_set_sms,
-                        data:{
-                            project_id:id
+            useSms(id, name) {
+                this.$confirm(`确定${name}要使用挂机短信?`, () => {
+                    mAjax(this, {
+                        url: API.project_set_sms,
+                        data: {
+                            project_id: id
                         },
-                        success:data=>{
-                            if(data.code==200){
-                                this.$store.commit('SHOW_TOAST', '开启成功')
-                            }else{
-                                this.$store.commit('SHOW_TOAST', data.message)
+                        success: data => {
+                            if (data.code == 200) {
+                                this.$toast('开启成功',()=>{
+                                    window.location.reload()
+                                })
+                            } else {
+                                this.$toast(data.message)
                             }
                         }
                     })
                 })
             },
-            assignSeat(id, name,clue) {
-                this.$refs.chooseSeatDialog.$emit('show', id, name,clue)
+            assignSeat(id, name, clue) {
+                this.$refs.chooseSeatDialog.$emit('show', id, name, clue)
             },
-            recoverClues(id){
-                this.$refs.recoveryCluesDialog.$emit('show',id)
+            recoverClues(id) {
+                this.$refs.recoveryCluesDialog.$emit('show', id)
             },
             showReason(evt) {
                 evt.currentTarget.querySelector('em').style.display = 'block'
@@ -239,11 +237,11 @@
             setMySeat(num) {
                 this.myseatNum = num
             },
-            resend(id){
-                this.$refs.optSaveDialog.$emit('show',id)
+            resend(id) {
+                this.$refs.optSaveDialog.$emit('show', id)
             },
-            saveSuccess(){
-                this.$refs.alert.$emit('show','项目已经提交审核',()=>{
+            saveSuccess() {
+                this.$toast('项目已经提交审核', () => {
                     window.location.reload()
                 })
             }
@@ -258,8 +256,6 @@
         },
         components: {
             pages,
-            confirm,
-            alert,
             chooseSeatDialog,
             searchForm,
             dataSum,

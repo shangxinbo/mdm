@@ -77,8 +77,6 @@
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <confirm ref="confirm"></confirm>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
@@ -86,8 +84,6 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import indexFilter from './index_filter'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
     import crumbs from './crumbs'
 
     export default {
@@ -145,8 +141,6 @@
         components: {
             pages,
             indexFilter,
-            confirm,
-            alert,
             crumbs
         },
         created() {

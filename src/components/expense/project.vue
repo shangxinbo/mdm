@@ -220,7 +220,7 @@
                             }
                             _this.totalPage = Math.ceil(data.data.charging.total / data.data.charging.per_page)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

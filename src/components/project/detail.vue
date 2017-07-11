@@ -138,8 +138,6 @@
 
             </div>
         </div>
-        <alert ref="alert"></alert>
-        <confirm ref="confirm"></confirm>
         <refuseDialog ref="refuseDialog"></refuseDialog>
         <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
     </div>
@@ -147,8 +145,6 @@
 <script>
     import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
     import refuseDialog from './dialog/refuse'
     import chooseSeatDialog from './dialog/chooseSeat'
     
@@ -182,15 +178,13 @@
             }
         },
         components: {
-            confirm,
-            alert,
             refuseDialog,
             chooseSeatDialog
         },
         methods: {
             accept(id) {
                 let _this = this
-                this.$refs.confirm.$emit('show', '确定要审核通过该项目？', function () {
+                this.$confirm('确定要审核通过该项目？', function () {
                     mAjax(this, {
                         url: API.preject_audit,
                         data: {
@@ -199,11 +193,11 @@
                         },
                         success: data => {
                             if (data.code == 200) {
-                                _this.$refs.alert.$emit('show', '已完成审核', function () {
+                                _this.$toast('已完成审核', function () {
                                     _this.$router.replace('/project/index')
                                 })
                             } else {
-                                _this.$store.commit('SHOW_TOAST', data.message)
+                                _this.$toast(data.message)
                             }
                         }
                     })
@@ -227,7 +221,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$store.commit('SHOW_TOAST', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

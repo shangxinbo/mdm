@@ -31,14 +31,11 @@
             <td>¥{{item.after_consume_money}}</td>
         </tr>
         </tbody>
-
-        <confirm ref="confirm"></confirm>
     </table>
 </template>
 <script>
     import {mAjax} from 'src/services/functions'
     import API from 'src/services/api'
-    import confirm from 'components/dialog/confirm'
     
     export default {
         props: ['list', 'type'],
@@ -47,9 +44,6 @@
             return {
                 userType: user.type,
             }
-        },
-        components: {
-            confirm
         },
         filters: {
             fiterCode: function (value) {
@@ -64,8 +58,7 @@
                         return '暂无'
                 }
             }
-        },
-        methods: {}
+        }
     }
 
 </script>

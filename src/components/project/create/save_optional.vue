@@ -211,7 +211,7 @@
                                 _this.content_error = ''
                                 _this.$store.commit('SHOW_LAYER')
                             } else {
-                                this.$store.commit('SHOW_TOAST', '获取项目信息失败')
+                                this.$toast('获取项目信息失败')
                             }
                         }
                     })

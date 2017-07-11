@@ -162,10 +162,12 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                            _this.$toast('操作成功',()=>{
+                                window.location.reload()
+                            })
                         } else if(data.code==600){
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '拨打资源数量在变动中,请刷新页面后，尝试重新分配')
+                            _this.$toast('拨打资源数量在变动中,请刷新页面后，尝试重新分配')
                         }else {
                             _this.error = data.message
                         }
@@ -241,7 +243,7 @@
                             _this.style = 'block'
                             _this.$store.commit('SHOW_LAYER')
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

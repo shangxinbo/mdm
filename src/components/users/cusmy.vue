@@ -92,14 +92,12 @@
             </div>
         </div>
         <editDialog ref="editDialog"></editDialog>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
     import API from 'src/services/api'
     import { mAjax } from 'src/services/functions'
     import editDialog from './dialog/changeCusInfo'
-    import alert from 'components/dialog/alert'
     
     export default {
         data: function () {
@@ -130,7 +128,6 @@
         },
         components: {
             editDialog,
-            alert
         },
         methods: {
             showEditDialog() {
@@ -145,7 +142,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$refs.alert.$emit('show', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

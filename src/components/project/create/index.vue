@@ -72,7 +72,6 @@
         <toast></toast>
         <changeMyPass></changeMyPass>
         <callSet></callSet>
-        <alert ref="alert"></alert>
         <balanceAlert></balanceAlert>
         <saveDialog ref="save" :cate="cate" :tunnel="tunnel" :area="area" :customers="customers" @success="saveSuccess"></saveDialog>
         <saveByOptional ref="optSaveDialog" @success="saveSuccessOpt"></saveByOptional>
@@ -82,9 +81,6 @@
 <script>
     import mheader from 'components/common/header.vue'
     import mfooter from 'components/common/footer.vue'
-    import toast from 'components/dialog/toast'
-    import alert from 'components/dialog/alert'
-    import confirm from 'components/dialog/confirm'
     import changeMyPass from 'components/dialog/changeMyPass'
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
@@ -126,7 +122,7 @@
                 },
                 loading: false,
                 lastGetCusTime: null,
-                canSave:false
+                canSave: false
             }
         },
         computed: {
@@ -215,7 +211,7 @@
                     if (l >= 0) this.cate.splice(l, 1)
                     this.getCustomers()
                 } else {
-                    this.$refs.alert.$emit('show', '请筛选至少一个分类')
+                    this.$alert('请筛选至少一个分类')
                 }
 
             },
@@ -239,25 +235,25 @@
                     let loadingTime = new Date().getTime()
                     this.lastGetCusTime = loadingTime
                     this.loading = true
-                    
+
                     let product = []
-                    this.cate.forEach(el =>{
+                    this.cate.forEach(el => {
                         product.push(el.code)
                     })
                     let data = {
                         date: this.date,
                         product: product
                     }
-                    if(this.tunnel.length>0){
+                    if (this.tunnel.length > 0) {
                         let preference = []
-                        this.tunnel.forEach(el =>{
+                        this.tunnel.forEach(el => {
                             preference.push(el.code)
                         })
                         data.preference = preference
                     }
-                    if(this.area.length>0){
+                    if (this.area.length > 0) {
                         let area = []
-                        this.area.forEach(el =>{
+                        this.area.forEach(el => {
                             area.push(el.code)
                         })
                         data.area = area
@@ -272,7 +268,7 @@
                             }
                             if (data.code == 200) {
                                 this.customers = data.data
-                                if(this.customers>0){
+                                if (this.customers > 0) {
                                     this.canSave = true
                                 }
                             } else {
@@ -292,14 +288,16 @@
             optionProject() {
                 this.$refs.optSaveDialog.$emit('show')
             },
-            saveSuccess(){
-                this.$refs.alert.$emit('show','新建项目成功',()=>{
-                    this.$router.replace('/project/index')
+            saveSuccess() {
+                let _this = this
+                this.$toast('新建项目成功', () => {
+                    _this.$router.replace('/project/index')
                 })
             },
-            saveSuccessOpt(){
-                this.$refs.alert.$emit('show','项目已经提交审核',()=>{
-                    this.$router.replace('/project/index')
+            saveSuccessOpt() {
+                let _this = this
+                this.$toast('项目已经提交审核', () => {
+                    _this.$router.replace('/project/index')
                 })
             }
         },
@@ -314,8 +312,6 @@
         components: {
             mheader,
             mfooter,
-            toast,
-            alert,
             changeMyPass,
             balanceAlert,
             callSet,

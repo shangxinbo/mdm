@@ -52,9 +52,11 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                            _this.$toast('操作成功',()=>{
+                                window.location.reload()
+                            })
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

@@ -112,7 +112,9 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '修改密码成功')
+                            _this.$toast('修改密码成功',()=>{
+                                window.location.reload()
+                            })
                         } else {
                             _this.repeat_error = data.message
                         }

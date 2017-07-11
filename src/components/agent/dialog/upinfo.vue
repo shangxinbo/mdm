@@ -216,8 +216,10 @@
                                 msg = 'ok'
                             }
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', msg)
-                            _this.$router.replace('/agent/index')
+                            _this.$toast(msg, () => {
+                                _this.$router.replace('/agent/index')
+                            })
+
                         } else {
                             _this.self_addr_error = data.message
                         }

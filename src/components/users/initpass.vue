@@ -48,7 +48,6 @@
                 </div>
             </div>
         </div>
-        <alert ref="alert"></alert>
         <div id="shadowLayer" v-if="layer"></div>
     </div>
 </template>
@@ -56,7 +55,6 @@
     import logo from 'assets/img/logo.png'
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import alert from 'components/dialog/alert'
     import REG from 'src/services/reg'
     export default {
         data: function () {
@@ -74,9 +72,6 @@
             layer:function(){
                 return this.$store.state.showLayer
             }
-        },
-        components:{
-            alert
         },
         methods: {
             submit: function () {
@@ -120,11 +115,11 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', '修改密码成功',()=>{
+                            _this.$toast('修改密码成功',()=>{
                                 _this.$router.replace('/')
                             })
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            _this.$toast(data.message)
                         }
                     },
                     error: err => {

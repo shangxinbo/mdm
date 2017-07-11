@@ -48,7 +48,7 @@
                 balance: '',
                 money: '',
                 money_error: '',
-                ajax:false
+                ajax: false
             }
         },
         methods: {
@@ -66,7 +66,7 @@
                         return false
                     }
                 }
-                if(this.ajax) return false
+                if (this.ajax) return false
                 this.ajax = true
                 let _this = this
                 mAjax(this, {
@@ -79,8 +79,10 @@
                         this.ajax = false
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '充值成功')
-                            _this.$router.replace('/customer/index') //TODO 刷新页面
+                            _this.$toast('充值成功', () => {
+                                _this.$router.replace('/customer/index') 
+                            })
+
                         } else {
                             _this.money_error = data.message
                         }

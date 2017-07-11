@@ -162,14 +162,12 @@
                 </form>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
     import { mAjax, isRealPhone, isEmail } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import alert from 'components/dialog/alert'
     import axios from 'axios'
     import REG from 'src/services/reg'
 
@@ -185,7 +183,7 @@
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
-                title:'新建客户',
+                title: '新建客户',
                 userType: user.type,
                 agentApi: agentApi,
                 agentId: 1,
@@ -277,7 +275,6 @@
         },
         components: {
             mselect,
-            alert
         },
         methods: {
             reUpload(num) {
@@ -466,14 +463,14 @@
                 data.append('application_addr', this.self_addr)
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
-                        _this.$refs.alert.$emit('show', '客户资料已提交审核', () => {
-                            _this.$router.push('/customer/index')
+                        _this.$toast('客户资料已提交审核', () => {
+                            _this.$router.replace('/customer/index')
                         })
                     } else {
                         _this.self_addr_error = res.data.message
                     }
                 }).catch(err => {
-                    _this.$refs.alert.$emit('show', '程序未知错误')
+                    _this.$toast('程序未知错误')
                 })
             }
         },
@@ -505,7 +502,7 @@
                             _this.edit_qualification = detail.qualification
                             _this.agentId = detail.agent_id
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

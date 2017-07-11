@@ -86,7 +86,7 @@
                             _this.list = data.data.data
                             _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })
@@ -101,7 +101,7 @@
                         if (data.code == 200) {
                             _this.customerInfo = data.data
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })
@@ -116,7 +116,7 @@
                         if (data.code == 200) {
                             _this.alarm = data.data.warning
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

@@ -90,7 +90,7 @@
                             _this.totalPage = Math.ceil(list.total / list.per_page)
                         } else {
                             _this.list = ''
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })

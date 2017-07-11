@@ -164,7 +164,9 @@
                 this.$refs.editDialog.$emit('show', id)
             },
             editOver() {
-                this.$store.commit('SHOW_TOAST', '修改信息成功')
+                this.$toast('修改信息成功', () => {
+                    window.location.reload()
+                })
             },
             showResetPassDialog(id, user) {
                 this.$refs.resetPassDialog.$emit('show', id, user)
@@ -178,8 +180,8 @@
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
-            showChangePriceDialog(id, company, balance, seat_price, clue_price, call_price,sms,sms_price) {
-                this.$refs.changePriceDialog.$emit('show', id, company, balance, seat_price, clue_price, call_price,sms,sms_price)
+            showChangePriceDialog(id, company, balance, seat_price, clue_price, call_price, sms, sms_price) {
+                this.$refs.changePriceDialog.$emit('show', id, company, balance, seat_price, clue_price, call_price, sms, sms_price)
             },
             showNoTemplateDialog() {
                 this.$refs.noTemplateListDialog.$emit('show')

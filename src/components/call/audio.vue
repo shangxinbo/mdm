@@ -78,8 +78,6 @@
         </div>
         <audio controls="true" style="position: fixed;top: 67px;right: 165px;z-index:100000;width:400px;" id="audio" class="audio"
             @play="play" @pause="pause" @ended="end"></audio>
-        <confirm ref="confirm"></confirm>
-        <alert ref="alert"></alert>
         <clueGroup ref="clueGroup"></clueGroup>
     </div>
 </template>
@@ -89,8 +87,6 @@
     import pages from 'components/common/pages'
     import audioFilter from './audio_filter'
     import callResultConf from '../project/call/callResultConf'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
     import crumbs from './crumbs'
     import clueGroup from './dialog/clue_group'
     export default {
@@ -129,8 +125,6 @@
         components: {
             pages,
             audioFilter,
-            confirm,
-            alert,
             crumbs,
             clueGroup
         },
@@ -198,9 +192,9 @@
                     item.removeAttribute('id')
                 }
                 evt.currentTarget.id = "currentplay"
-                if(text=='暂停'){
+                if (text == '暂停') {
                     dom.pause()
-                }else{
+                } else {
 
                     if (dom.getAttribute('src') != url) {
                         dom.src = url

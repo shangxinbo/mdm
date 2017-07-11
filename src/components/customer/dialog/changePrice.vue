@@ -142,7 +142,7 @@
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$store.commit('SHOW_TOAST', '价格已做调整')
+                            _this.$toast('价格已做调整')
                         } else {
                             _this.error_seat = data.message
                         }

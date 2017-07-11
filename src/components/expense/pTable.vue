@@ -30,13 +30,11 @@
             <td>¥{{item.message_charging}}</td>
         </tr>
         </tbody>
-        <confirm ref="confirm"></confirm>
     </table>
 </template>
 <script>
     import {mAjax, codeToName} from 'src/services/functions'
     import API from 'src/services/api'
-    import confirm from 'components/dialog/confirm'
     
     export default {
         props: ['list', 'type'],
@@ -46,15 +44,11 @@
                 userType: user.type,
             }
         },
-        components: {
-            confirm
-        },
         filters: {
             fiterCode: function (value) {
                 return codeToName(value)
             }
-        },
-        methods: {}
+        }
     }
 
 </script>

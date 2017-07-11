@@ -152,14 +152,12 @@
             </div>
         </div>
         <editDialog ref="editDialog" @success="editOver"></editDialog>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import editDialog from './dialog/changeInfo'
-    import alert from 'components/dialog/alert'
 
     export default {
         data: function () {
@@ -192,7 +190,6 @@
         },
         components: {
             editDialog,
-            alert
         },
         methods: {
             showEditDialog() {
@@ -200,7 +197,7 @@
             },
             editOver() {
                 let _this = this
-                this.$refs.alert.$emit('show', '修改信息成功', () => {
+                this.$toast('修改信息成功', () => {
                     let user = JSON.parse(localStorage.getItem('user'))
                     if (user.type == 3) {
                         _this.$router.push('/project/index')
@@ -210,7 +207,7 @@
                 })
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
             let api = this.userType == 1 ? API.customer_detail_by_operate : API.customer_detail
             mAjax(this, {
@@ -222,7 +219,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$refs.alert.$emit('show', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

@@ -201,7 +201,7 @@
                         if (data.code == 200) {
                             _this.close()
                             let msg = _this.edit ? '修改信息成功' : '新建账号成功'
-                            _this.$store.commit('SHOW_TOAST', msg)
+                            _this.$toast(msg)
                         } else {
                             _this.tel_error = data.message
                         }
@@ -248,11 +248,12 @@
                             _this.power_error = ''
                             _this.$store.commit('SHOW_LAYER')
                         } else {
-                            this.$store.commit('SHOW_TOAST', '获取用户信息失败')
+                            
+                            this.$toast('获取用户信息失败')
                         }
                     },
                     error: err => {
-                        this.$store.commit('SHOW_TOAST', '获取用户信息失败')
+                        this.$toast('获取用户信息失败')
                     }
                 })
             })

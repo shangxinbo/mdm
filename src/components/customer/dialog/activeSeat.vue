@@ -171,7 +171,7 @@
                     success: data => {
                         if (data.code == 200) {
                             this.close()
-                            this.$store.commit('SHOW_TOAST', '激活成功')
+                            this.$toast('激活成功')
                         }else{
                             this.error = data.message
                         }

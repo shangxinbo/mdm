@@ -131,7 +131,7 @@
                             this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                             this.total = data.data.total
                         } else {
-                            this.$refs.alert.$emit('show', data.message)
+                            this.$toast('show', data.message)
                         }
                     }
                 })

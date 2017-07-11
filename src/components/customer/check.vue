@@ -154,13 +154,11 @@
                 </form>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import alert from 'components/dialog/alert'
     export default {
         data: function () {
             return {
@@ -193,9 +191,6 @@
                 reason: '',
                 reason_error: ''
             }
-        },
-        components: {
-            alert
         },
         methods: {
             radio(num) {
@@ -272,11 +267,11 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', '提交成功', () => {
+                            _this.$toast('提交成功', () => {
                                 _this.$router.replace('/customer/index')
                             })
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })
@@ -300,7 +295,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$refs.alert.$emit('show', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

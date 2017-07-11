@@ -89,7 +89,6 @@
                 </div>
             </div>
         </div>
-        <alert ref="alert"></alert>
         <smsDialog ref="smsDialog"></smsDialog>
     </div>
 </template>
@@ -97,7 +96,6 @@
     import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import alert from 'components/dialog/alert'
     import clueHistory from './clueHistory'
     import smsDialog from '../dialog/sms'
     export default {
@@ -241,7 +239,7 @@
                                 callback()
                             }
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            _this.$toast(data.message)
                         }
                     }
                 })
@@ -249,7 +247,7 @@
             saveAndExit(evt) {
                 if(evt.currentTarget.className.indexOf('disabled')>=0){ return false}
                 this.save(() => {
-                    this.$refs.alert.$emit('show', '操作成功', () => {
+                    this.$toast('操作成功', () => {
                         window.history.back()
                     })
                 })
@@ -258,7 +256,7 @@
                 let _this = this
                 if(evt.currentTarget.className.indexOf('disabled')>=0){ return false}
                 this.save(() => {
-                    _this.$refs.alert.$emit('show', '操作成功', () => {
+                    _this.$toast('操作成功', () => {
                         let api = API.clue_get_next1
                         let obj = {
                             project_id: _this.projectId,
@@ -293,7 +291,7 @@
                                         query: query
                                     })
                                 } else {
-                                    this.$refs.alert.$emit('show', data.message)
+                                    this.$toast(data.message)
                                 }
                             }
                         })
@@ -307,7 +305,7 @@
                 window.mycomm_agent.wrap_up(0)
 
                 window.mycomm_agent.on_dial_f = function (evt) {
-                    _this.$refs.alert.$emit('show', evt.params.err_des)
+                    _this.$toast(evt.params.err_des)
                     window.mycomm_agent.logout()
                 }
                 window.mycomm_agent.on_login_f = function (evt) {
@@ -325,7 +323,7 @@
                         default:
                             msg = '服务暂不可用，请联系管理员'
                     }
-                    _this.$refs.alert.$emit('show', msg)
+                    _this.$toast(msg)
                 }
 
                 window.mycomm_agent.on_drop_s = function (evt) {
@@ -363,9 +361,9 @@
                     success: data => {
                         if (data.code == 200) {
                             if (data.data.balance <= 0) {
-                                _this.$refs.alert.$emit('show', '您的账号已经没有费用，请联系管理员')
+                                _this.$toast('您的账号已经没有费用，请联系管理员')
                             } else if (!data.data.valid) {
-                                _this.$refs.alert.$emit('show', '坐席已失效,暂不能拨打')
+                                _this.$toast('坐席已失效,暂不能拨打')
                             } else {
                                 mAjax(this, {
                                     url: API.get_tel,
@@ -408,7 +406,7 @@
                                 })
                             }
                         } else {
-                            _this.$refs.alert.$emit('show', '获取坐席账户状态失败,暂不能拨打')
+                            _this.$toast('获取坐席账户状态失败,暂不能拨打')
                         }
                     }
                 })
@@ -417,7 +415,6 @@
         },
         components: {
             mselect,
-            alert,
             clueHistory,
             smsDialog
         }

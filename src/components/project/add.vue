@@ -66,7 +66,6 @@
                 </form>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
@@ -74,7 +73,6 @@
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
-    import alert from 'components/dialog/alert'
     import background from 'assets/img/dialog-icon.png'
     export default {
         data: function () {
@@ -110,7 +108,6 @@
         components: {
             mselect,
             datepicker,
-            alert
         },
         methods: {
             useSms() {
@@ -189,7 +186,7 @@
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', _this.id ? '重新申请成功' : '新建成功', function () {
+                            _this.$toast(_this.id ? '重新申请成功' : '新建成功', function () {
                                 _this.$router.replace('/project/index')
                             })
                         } else {

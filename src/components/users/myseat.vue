@@ -100,7 +100,7 @@
                             this.list = data.data.seat.data
                             this.totalPage = Math.ceil(data.data.seat.total / data.data.seat.per_page)
                         } else {
-                            this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
