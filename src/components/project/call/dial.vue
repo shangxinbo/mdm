@@ -269,7 +269,7 @@
             },
             saveAddNext(evt) {
                 let _this = this
-                if (evt.currentTarget.className.indexOf('disabled') >= 0) { return false }
+                //if (evt.currentTarget.className.indexOf('disabled') >= 0) { return false }
                 this.save(() => {
                     _this.$toast('操作成功', () => {
                         let api = API.clue_get_next1

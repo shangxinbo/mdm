@@ -46,7 +46,7 @@
                                         <span class="notice">
                                             <i class="icon sms"></i>
                                         </span>发短信</a>
-                                    <a href="javascript:void(0);" @click="view(item.id)">查看</a>
+                                    <a href="javascript:void(0);" @click="view(item.id,item.telephone_crypt,item.city,item.call,item.sex,item.dial_num)">查看</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -151,6 +151,21 @@
                 })
                 this.$router.push({
                     path: '/project/dial',
+                    query: query
+                })
+            },
+            view(id, tel, city, call, sex, call_num) {
+                let query = Object.assign({}, this.$route.query, {
+                    project_id: '',
+                    projectName: this.$route.query.projectName,
+                    tel: tel,
+                    city: city,
+                    call: call,
+                    sex: sex,
+                    call_num: call_num
+                })
+                this.$router.push({
+                    path: '/project/view',
                     query: query
                 })
             }
