@@ -50,7 +50,7 @@
                         </li>
                         <li class="li-fl">
                             <label class="name">拨打结果</label>
-                            <mselect ref="result1Select" :api="api.getResult1" style="padding-right:10px;" @change="linkResult" ></mselect>
+                            <mselect ref="result1Select" :api="api.getResult1" style="padding-right:10px;" @change="linkResult"></mselect>
                             <mselect ref="result2Select" :api="api.getResult2" :param="variable.param"></mselect>
                             <p class="error" style="padding-left:75px;" v-show="variable.result_error">{{variable.result_error}}</p>
                         </li>
@@ -180,6 +180,21 @@
                 status: this.$route.query.status
             }
             this.init()
+
+            window.onbeforeunload = () => {
+                return '关闭或刷新页面'
+            }
+        },
+        beforeRouteLeave(to, from, next) {
+            if (from.path != to.path) {
+                let r = confirm('是否要离开这个页面')
+                if (r) {
+                    window.onbeforeunload = ''
+                    next()
+                }
+            }else{
+                next()
+            }
         },
         methods: {
             sms() {
@@ -208,7 +223,7 @@
                 let _this = this
                 let result1 = this.$refs.result1Select.selected.id
                 let result2 = this.$refs.result2Select.selected.id
-                
+
                 if (!result1) {
                     this.variable.result_error = '拨打结果必须选择'
                     return false
@@ -245,7 +260,7 @@
                 })
             },
             saveAndExit(evt) {
-                if(evt.currentTarget.className.indexOf('disabled')>=0){ return false}
+                if (evt.currentTarget.className.indexOf('disabled') >= 0) { return false }
                 this.save(() => {
                     this.$toast('操作成功', () => {
                         window.history.back()
@@ -254,7 +269,7 @@
             },
             saveAddNext(evt) {
                 let _this = this
-                if(evt.currentTarget.className.indexOf('disabled')>=0){ return false}
+                if (evt.currentTarget.className.indexOf('disabled') >= 0) { return false }
                 this.save(() => {
                     _this.$toast('操作成功', () => {
                         let api = API.clue_get_next1
