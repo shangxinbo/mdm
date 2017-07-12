@@ -11,18 +11,25 @@
         <callSet></callSet>
         <balanceAlert v-if="userType==3"></balanceAlert>
         <div id="shadowLayer" v-if="layer"></div>
+        <alert ref="alert"></alert>
+        <confirm ref="confirm"></confirm>
+        <toast ref="toast"></toast>
     </div>
 </template>
 <script>
+    import Vue from 'vue'
     import mheader from 'components/common/header.vue'
     import mfooter from 'components/common/footer.vue'
     import mnav from 'components/common/nav.vue'
+    import alert from 'components/utils/alert'
+    import confirm from 'components/utils/confirm'
+    import toast from 'components/utils/toast'
     import changeMyPass from 'components/dialog/changeMyPass'
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
     import { mAjax, getCookie } from 'src/services/functions'
-
+    
     export default {
         data() {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -41,10 +48,25 @@
             mnav,
             changeMyPass,
             balanceAlert,
-            callSet
+            callSet,
+            alert,
+            confirm,
+            toast
         },
         created() {
-            
+
+            let _this = this
+
+            Vue.prototype.$alert = (msg, callback) => {
+                _this.$refs.alert.show(msg, callback)
+            }
+            Vue.prototype.$confirm = (msg, callback) => {
+                _this.$refs.confirm.show(msg, callback)
+            }
+            Vue.prototype.$toast = (msg, callback, timer) => {
+                _this.$refs.toast.show(msg, callback, timer)
+            }
+
             if (this.userType == 1) {
                 let user = JSON.parse(localStorage.getItem('user'))
                 mAjax(this, {

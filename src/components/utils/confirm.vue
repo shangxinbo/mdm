@@ -15,7 +15,6 @@
     </div>
 </template>
 <script>
-    import store from 'src/vuex/store'
     export default {
         data() {
             return {
@@ -29,7 +28,7 @@
         methods: {
             close() {
                 this.style = 'none'
-                store.commit('HIDE_LAYER')
+                this.$store.commit('HIDE_LAYER')
             },
             sure() {
                 this.close()
@@ -38,21 +37,25 @@
                 }
             },
             show(msg, callback) {
+                
+                let _this = this
                 this.msg = msg
                 this.style = 'block'
-                store.commit('SHOW_LAYER')
+                this.$store.commit('SHOW_LAYER')
+                
+                this.$nextTick(() => {
+                    let dialog = _this.$el
+                    let dh = dialog.offsetHeight, dw = dialog.offsetWidth
+                    _this.offsetLeft = -dw / 2 + 'px'
+                    _this.offsetTop = -dh / 2 + 'px'
+                })
+
                 if (callback) {
                     this.callback = callback
                 } else {
                     this.callback = ''
                 }
             }
-        },
-        updated() {
-            let dialog = this.$el
-            let dh = dialog.offsetHeight, dw = dialog.offsetWidth
-            this.offsetLeft = -dw / 2 + 'px'
-            this.offsetTop = -dh / 2 + 'px'
         }
     }
 
