@@ -37,18 +37,18 @@
                     <table cellspacing="0" cellpadding="0" v-if="list.length>0">
                         <tbody>
                             <tr>
-                                <th width="14%">项目名称</th>
-                                <th width="14%" v-if="userType==1&&!client_id">客户名称</th>
-                                <th width="11%" v-if="userType==1&&!agent_id&&!client_id">所属代理</th>
-                                <th width="5%">外呼次数</th>
-                                <th width="5%">拨通次数</th>
-                                <th width="10%">拨通率</th>
-                                <th width="5%">呼损次数</th>
-                                <th width="10%">呼损率</th>
+                                <th width="13%">项目名称</th>
+                                <th width="13%" v-if="userType==1&&!client_id">客户名称</th>
+                                <th width="13%" v-if="userType==1&&!agent_id&&!client_id">所属代理</th>
+                                <th width="6%">外呼次数</th>
+                                <th width="6%">拨通次数</th>
+                                <th width="6%">拨通率</th>
+                                <th width="6%">呼损次数</th>
+                                <th width="6%">呼损率</th>
                                 <th width="8%">通话时长</th>
                                 <th width="8%">平均通话</th>
-                                <th width="8%">挂机短信</th>
-                                <th width="10%" v-if="userType!=4">参与坐席</th>
+                                <th width="6%">挂机短信</th>
+                                <th width="6%" v-if="userType!=4">参与坐席</th>
                             </tr>
                             <tr v-for="(item,index) in list" :class="{tr2:index%2}">
                                 <td>
