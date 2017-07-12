@@ -155,6 +155,7 @@
                 }
                 if (!this.content) {
                     this.error_content = '请填写短信内容'
+                    return false
                 } else {
                     this.error_content = ''
                 }
@@ -168,6 +169,12 @@
                     }
                 } else {
                     this.error_url = ''
+                }
+                if(!this.sign){
+                    this.error_sign = '请填写短信签名'
+                    return false
+                }else{
+                    this.error_sign = ''
                 }
                 if (!this.status) {
                     this.error_status = '请选择短信状态'
