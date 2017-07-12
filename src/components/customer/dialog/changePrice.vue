@@ -74,10 +74,10 @@
                 error_clue: '',
                 error_call: '',
                 error_seat: '',
-                error_sms:'',
-                sms:0,
-                sms_price:'',
-                old_sms:0
+                error_sms: '',
+                sms: 0,
+                sms_price: '',
+                old_sms: 0
             }
         },
         methods: {
@@ -115,8 +115,8 @@
                         return false
                     }
                 }
-                
-                if(this.sms){
+
+                if (this.sms) {
                     if (!this.sms_price || isNaN(this.sms_price) || this.sms_price < 0) {
                         this.error_sms = '单价格式不正确'
                         return false
@@ -136,13 +136,15 @@
                         clue_price: this.clue.toString().trim(),
                         tel_price: this.call.toString().trim(),
                         seat_price: this.seat.toString().trim(),
-                        is_hang_message_up:this.sms,
-                        hang_up_message_price:this.sms_price
+                        is_hang_up_message: this.sms,
+                        hang_up_message_price: this.sms_price
                     },
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$toast('价格已做调整')
+                            _this.$toast('价格已做调整',()=>{
+                                window.location.reload()
+                            })
                         } else {
                             _this.error_seat = data.message
                         }
@@ -156,11 +158,11 @@
                 this.style = "none"
                 this.$store.commit('HIDE_LAYER')
             },
-            chooseSms(){
-                if(this.old_sms==0){
-                    if(this.sms){
+            chooseSms() {
+                if (this.old_sms == 0) {
+                    if (this.sms) {
                         this.sms = 0
-                    }else{
+                    } else {
                         this.sms = 1
                     }
                 }
@@ -168,7 +170,7 @@
         },
         created() {
             let _this = this
-            this.$on('show', function (id, company, balance, seat, clue, call,sms,sms_price) {
+            this.$on('show', (id, seat, clue, call, sms, sms_price) => {
                 _this.id = id
                 _this.clue = clue ? Number(clue) : ''
                 _this.call = call ? Number(call) : ''

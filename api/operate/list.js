@@ -29,7 +29,7 @@ module.exports = function (req, res) {
                     "conduct_project":"@int(0,100)",
                     "seat_num":"@int(0,10)",
                     "expire_seat_num":"@int(0,1)",
-                    "is_hang_message_up": "@int(0,1)",   //是否开启挂机短信
+                    "is_hang_up_message": "@int(0,1)",   //是否开启挂机短信
                     "seat_price":"200",
                     "tel_price": "12",
                     "clue_price":"1",

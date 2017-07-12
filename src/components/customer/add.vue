@@ -129,31 +129,34 @@
                         </li>
                     </ul>
                     <div class="title-info" v-if="userType==1&&!id">服务报价</div>
-                    <ul class="data-text">
-                        <li class="li-service" v-if="userType==1&&!id">
-                            <ul>
-                                <li>
-                                    <span>线索单价</span>
-                                    <span class="sign">&yen;</span>
-                                    <input class="text" type="text" v-model="clue_price" />
-                                    <span>/条</span>
-                                </li>
-                                <li>
-                                    <span>话费单价</span>
-                                    <span class="sign">&yen;</span>
-                                    <input class="text" type="text" v-model="tel_price" />
-                                    <span>/分钟</span>
-                                </li>
-                                <li>
-                                    <span>坐席单价</span>
-                                    <span class="sign">&yen;</span>
-                                    <input class="text" type="text" v-model="seat_price" />
-                                    <span>/个/月</span>
-                                </li>
-                            </ul>
+                    <ul class="data-text data-view">
+                        <li class="li-radio li-service" v-if="userType==1&&!id">
+                            <div class="radio-warp">
+                                <div class="data-marketing check-warp">
+                                    <dl class="data-section">
+                                        <dd>
+                                            <ul class="data-in">
+                                                <li>
+                                                    <span>线索单价</span><span class="sign">¥</span><input class="text" v-model="clue_price" type="text"><span>/条</span>
+                                                </li>
+                                                <li>
+                                                    <span>话费单价</span><span class="sign">¥</span><input class="text" v-model="tel_price" type="text"><span>/分钟</span>
+                                                </li>
+                                                <li>
+                                                    <span>坐席单价</span><span class="sign">¥</span><input class="text" v-model="seat_price" type="text"><span>/个/月</span>
+                                                </li>
+                                                <li :class="{checked:sms}">
+                                                    <div class="hang-check"><i class="icon" @click="checkSms"></i><span>开通挂机短信</span></div>
+                                                    <div class="hang-input"><span>挂机短信单价</span><span class="sign">¥</span><input class="text" v-model="sms_price" type="text"><span>/条</span></div>
+                                                </li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
                             <p v-if="price_error" class="error">{{price_error}}</p>
                         </li>
-                        <li class="li-btn">
+                        <li>
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
                             </div>
@@ -191,6 +194,8 @@
                 clue_price: '',
                 tel_price: '',
                 seat_price: '',
+                sms:0,
+                sms_price:'',
                 price_error: '',
                 user: '',
                 user_error: '',
@@ -314,6 +319,13 @@
                 this.qualification_name = file.name
                 this.qualification = evt.target.files[0]
             },
+            checkSms(){
+                if(this.sms){
+                    this.sms = 0
+                }else{
+                    this.sms = 1
+                }
+            },
             submit() {
                 if (!this.user) {
                     this.user_error = '账号不能为空'
@@ -413,13 +425,9 @@
                 let _this = this
                 let api = API.customer_add
                 let data = new FormData()
-                if (this.id) {
-                    data.append('id', this.id)
-                    api = API.customer_modify
-                } else {
-                    data.append('user', this.user)
-                }
+                
                 if (this.userType == 1) {
+                    api = API.customer_add_by_operate
                     data.append('agent_id', this.chooseAgent)
                     if (!this.id) {
                         if (!this.clue_price) {
@@ -444,10 +452,36 @@
                                 }
                             }
                         }
+                        if(this.sms){
+                            if(!this.sms_price){
+                                this.price_error = '挂机短信单价必填'
+                                return false
+                            }else{
+                                if (isNaN(this.sms_price)) {
+                                    this.price_error = '单价必须是数值'
+                                    return false
+                                }else{
+                                    if(this.sms_price>=0){
+                                        this.price_error = ''
+                                    }else{
+                                        this.price_error = '单价必须大于等于0'
+                                        return false
+                                    }
+                                }
+                            }
+                            data.append('hang_up_message_price',this.sms_price)
+                        }
+                        data.append('is_hang_up_message',this.sms)
                         data.append('clue_price', this.clue_price)
                         data.append('tel_price', this.tel_price)
                         data.append('seat_price', this.seat_price)
                     }
+                }
+                if (this.id) {
+                    data.append('id', this.id)
+                    api = API.customer_modify
+                } else {
+                    data.append('user', this.user)
                 }
                 data.append('type', this.$refs.typeSelect.selected.id)
                 data.append('company', this.company)
@@ -474,13 +508,17 @@
                 })
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
+            let api = API.customer_detail
+            if (this.userType == 1) {
+                api = API.customer_detail_by_operate
+            }
             let _this = this
             if (id) {
                 this.title = '编辑客户'
                 mAjax(this, {
-                    url: API.customer_detail,
+                    url: api,
                     data: {
                         id: id
                     },

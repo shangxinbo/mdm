@@ -12,10 +12,10 @@
                         <tbody>
                             <tr>
                                 <th width="15%">客户名称</th>
-                                <th width="10%">类型</th>
+                                <th width="6%">类型</th>
                                 <th width="10%" v-if="userType==2">创建日期</th>
-                                <th width="10%">状态</th>
-                                <th width="10%" v-if="userType==1">挂机短信</th>
+                                <th width="6%">状态</th>
+                                <th width="6%" v-if="userType==1">挂机短信</th>
                                 <th width="5%" v-if="userType==1">进行中项目</th>
                                 <th width="5%" v-if="userType==1">在用坐席</th>
                                 <th width="10%">余额</th>
@@ -35,7 +35,7 @@
                                     </span>
                                 </td>
                                 <td v-else>待审核</td>
-                                <td v-if="userType==1">{{item.is_hang_message_up==0?'未开通':'已开通'}}</td>
+                                <td v-if="userType==1">{{item.is_hang_up_message==0?'未开通':'已开通'}}</td>
                                 <td v-if="userType==1">{{item.audit_status==1?item.conduct_project:''}}</td>
                                 <td v-if="userType==1">{{item.audit_status==1?item.seat_num:''}}</td>
                                 <td v-if="item.audit_status==1" :class="{red:item.balance<1000}">¥{{item.balance}}
@@ -50,7 +50,7 @@
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(item.id,item.company,item.seat_num,item.seat_price)">开坐席</a>
                                     <a v-if="item.audit_status==1&&item.expire_seat_num>0" href="javascript:void(0);" @click="showActiveSeatDialog(item.id,item.company,item.seat_price)">激活坐席</a>
                                     <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(item.id,item.company,item.balance)">充值</a>
-                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(item.id,item.company,item.balance,item.seat_price,item.clue_price,item.tel_price,item.is_hang_message_up,item.hang_up_message_price)">调价</a>
+                                    <a v-if="item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(item.id,item.seat_price,item.clue_price,item.tel_price,item.is_hang_up_message,item.hang_up_message_price)">调价</a>
                                     <router-link v-if="item.audit_status==1" :to="'/customer/add/'+item.id">编辑</router-link>
                                 </td>
                                 <td v-else>
@@ -180,8 +180,9 @@
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
-            showChangePriceDialog(id, company, balance, seat_price, clue_price, call_price, sms, sms_price) {
-                this.$refs.changePriceDialog.$emit('show', id, company, balance, seat_price, clue_price, call_price, sms, sms_price)
+            showChangePriceDialog(id, seat_price, clue_price, call_price, sms, sms_price) {
+                console.log(sms)
+                this.$refs.changePriceDialog.$emit('show', id, seat_price, clue_price, call_price, sms, sms_price)
             },
             showNoTemplateDialog() {
                 this.$refs.noTemplateListDialog.$emit('show')

@@ -22,6 +22,7 @@ export default {
     customer_list_by_operate: API_PRE + '/operate/list',
     customer_type_list: API_PRE + '/operate/usertype',
     customer_add: API_PRE + '/agent/add',
+    customer_add_by_operate: API_PRE + '/operate/operateadduser',
     customer_modify: API_PRE + '/agent/modify',
     customer_detail: API_PRE + '/agent/agininfo',
     agent_my_info: API_PRE + '/agent/info',
