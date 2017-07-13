@@ -155,6 +155,22 @@
                         }
                     }
                 })
+                
+                this.$ajax({
+                    method:'post',
+                    url: API.project_list,
+                    data: {
+                        nums: 10,
+                        page: this.currentPage,
+                        search_project_name: projectName ? projectName : '',
+                        search_client_id: this.customer_id ? this.customer_id : customerId,
+                        search_agency_id: this.agent_id ? this.agent_id : agentId,
+                        search_project_status: statusId,
+                        search_project_begin_time: startTime ? startTime : '',
+                        search_project_end_time: endTime ? endTime : ''
+                    }
+                })
+
             },
             search(param) {
                 let query

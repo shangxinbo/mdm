@@ -5,6 +5,7 @@ import App from './App'
 import vueResource from 'vue-resource'
 import store from './vuex/store'
 import router from './router'
+import Ajax from './services/ajax'
 
 import webSocktDebugSwf from 'assets/js/WebSocketMain.swf'
 
@@ -19,6 +20,7 @@ import 'assets/js/mycomm.agent'
 
 window.mycomm_agent = new window.MyCommAgent()
 
+Vue.use(Ajax)
 Vue.use(vueResource)
 Vue.config.productionTip = false
 
