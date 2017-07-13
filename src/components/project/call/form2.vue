@@ -4,7 +4,7 @@
             <ul class="data-text cutover-tab01">
                 <li>
                     <label class="name">归属地</label>
-                    <mselect ref="citySelect" :api="getCity" :id="city"></mselect>
+                    <mselect ref="citySelect" :api="getCity" :param="getCity_param" :id="city"></mselect>
                 </li>
                 <li>
                     <label class="name">性别</label>
@@ -49,11 +49,15 @@
     export default {
         data() {
             let now = moment().format('YYYY-MM-DD')
+            let id = this.$route.query.id
             return {
                 getCity: API.clue_attribution,
                 getResult1: API.clue_get_result,
                 getResult2: API.clue_get_sub_result,
                 city: '',
+                getCity_param:{
+                    project_id:id
+                },
                 sexlist: [
                     { id: 1, name: '男' },
                     { id: 2, name: '女' }

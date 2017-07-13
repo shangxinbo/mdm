@@ -4,7 +4,7 @@
             <ul class="data-text cutover-tab01">
                 <li>
                     <label class="name">归属地</label>
-                    <mselect ref="citySelect" :api="getCity" :id="city"></mselect>
+                    <mselect ref="citySelect" :api="getCity" :param="getCity_param" :id="city"></mselect>
                 </li>
                 <li>
                     <label class="name">分配日期</label>
@@ -41,9 +41,13 @@
         data() {
             let now = moment().format('YYYY-MM-DD')
             let city = this.$route.query.city ? this.$route.query.city : '全部'
+            let id = this.$route.query.id
             return {
                 getCity: API.clue_attribution,
                 city: city,
+                getCity_param: {
+                    project_id:id
+                },
                 startTime: '',
                 endTime: '',
                 maxStart: now,
