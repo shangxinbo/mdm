@@ -14,7 +14,7 @@
                 </ul>
                 <ul class="mode">
                     <li>
-                        <label>项目线索量</label>
+                        <label>未分配线索</label>
                         <div class="input-warp">
                             <p class="text"> {{clue_num}}</p>
                         </div>
