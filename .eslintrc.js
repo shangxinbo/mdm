@@ -22,6 +22,7 @@ module.exports = {
     'indent': ["warn", 4, { "SwitchCase": 1 }],
     'no-mixed-spaces-and-tabs': 1,
     'semi': ["error", "never"],
+    'no-useless-escape':0,
     'no-console': 0,
     'no-unused-vars': 0,
     // allow debugger during development

@@ -163,8 +163,8 @@
                     desc: this.content
                 }
                 if (this.title == '重新申请项目') {
-                    api = API.project_recheck,
-                        data.id = this.id
+                    api = API.project_recheck
+                    data.id = this.id
                 }
                 if (this.ajax) return false
                 this.ajax = true
