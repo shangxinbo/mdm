@@ -53,7 +53,8 @@
                                 <td>{{item.odd_time?item.odd_time:'--'}}</td>
                                 <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
                                 <td v-if="userType!=4">
-                                    <router-link :to="{path:'/project/sms/list',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
+                                    <router-link v-if="userType==1" :to="{path:'/project/sms/list',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
+                                    <span v-else>{{item.hangUpSms}}</span>
                                 </td>
                                 <td v-if="userType==1">
                                     <router-link :to="{path:'/project/leftinfo',query:{project:item.id}}">{{item.leftInfo}}</router-link>
@@ -212,7 +213,7 @@
                         },
                         success: data => {
                             if (data.code == 200) {
-                                this.$toast('开启成功',()=>{
+                                this.$toast('开启成功', () => {
                                     window.location.reload()
                                 })
                             } else {
