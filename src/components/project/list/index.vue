@@ -147,7 +147,9 @@
                             this.list = data.data.data
                             this.sum = data.data.count
                             this.totalPage = Math.ceil(data.data.page.total / 10)
-                            sessionStorage.setItem('client_id', data.data.data[0].client_id) //给坐席备份下客户id
+                            if (data.data.data.length > 0) {
+                                sessionStorage.setItem('client_id', data.data.data[0].client_id) //给坐席备份下客户id
+                            }
                         } else {
                             this.$toast(data.message)
                         }
