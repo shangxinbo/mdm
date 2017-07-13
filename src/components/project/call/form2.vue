@@ -132,10 +132,7 @@
                     _this.$refs.result2Select.init(() => {
                         _this.$refs.result2Select.choose('',name)
                     })
-
-                    
                 })
-
             }
         },
         components: {

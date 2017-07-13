@@ -23,7 +23,7 @@
         data() {
             return {
                 selected: { id: '', name: '' },
-                list: [],  //item {id,name}
+                list: [],     //item {id,name}
                 show: false
             }
         },
