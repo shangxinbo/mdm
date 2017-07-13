@@ -76,7 +76,7 @@
                 error: '',
                 userType: user.type,
                 clue_num: 0,
-                assign_clue_num:'',
+                assign_clue_num: '',
                 assignTypeList: [
                     { id: 1, name: '平均分配' },
                     { id: 2, name: '自定义分配' }
@@ -113,11 +113,11 @@
                     if (arr.length <= 0) {
                         return false
                     }
-                    
-                    if(!reg.test(this.assign_clue_num)){
+
+                    if (!reg.test(this.assign_clue_num)) {
                         this.error = '分配的线索数值需要是正整数'
                         return false
-                    }else{
+                    } else {
                         this.error = ''
                     }
 
@@ -143,7 +143,7 @@
                         if (total > this.clue_num) {
                             this.error = `分配线索量之和大于未拨打线索量。分配线索量之和 ${total}，未拨打线索量 ${this.clue_num}`
                             return false
-                        }else{
+                        } else {
                             this.error = ''
                         }
                     }
@@ -154,21 +154,21 @@
                         id: this.id,
                         type: this.assignType == 1 ? 0 : 1,
                         seat_id: {
-                            num:this.assign_clue_num,
-                            ids:arr
+                            num: this.assign_clue_num,
+                            ids: arr
                         },
-                        seat_conf:arr
+                        seat_conf: arr
                     },
                     success: data => {
                         if (data.code == 200) {
                             _this.close()
-                            _this.$toast('操作成功',()=>{
+                            _this.$toast('操作成功', () => {
                                 window.location.reload()
                             })
-                        } else if(data.code==600){
+                        } else if (data.code == 600) {
                             _this.close()
                             _this.$toast('拨打资源数量在变动中,请刷新页面后，尝试重新分配')
-                        }else {
+                        } else {
                             _this.error = data.message
                         }
                     }
@@ -185,11 +185,11 @@
             },
             changeAssignType(val) {
                 this.assignType = val.id
-                if(val.id==2){
-                    this.seat.forEach((item,index,arr)=>{
+                if (val.id == 2) {
+                    this.seat.forEach((item, index, arr) => {
                         item.num = ''
                     })
-                }else{
+                } else {
                     this.assign_clue_num = ''
                 }
                 this.error = ''
@@ -224,29 +224,8 @@
                 _this.assignType = 1
                 _this.assign_clue_num = ''
                 _this.error = ''
-                mAjax(_this, {
-                    url: API.seat_binding,
-                    data: {
-                        id: id
-                    },
-                    success: data => {
-                        if (data.code == 200) {
-                            _this.checked = data.data
-                            _this.seat.forEach((item, index, arr) => {
-                                item.checked= false
-                                for (var i = 0; i < data.data.length; i++) {
-                                    if (item.key == data.data[i]) {
-                                        item.checked = true
-                                    }
-                                }
-                            })
-                            _this.style = 'block'
-                            _this.$store.commit('SHOW_LAYER')
-                        } else {
-                            _this.$toast(data.message)
-                        }
-                    }
-                })
+                _this.style = 'block'
+                _this.$store.commit('SHOW_LAYER')
             })
         },
         components: {

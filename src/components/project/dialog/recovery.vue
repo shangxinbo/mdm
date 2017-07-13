@@ -82,6 +82,7 @@
                         seat: arr
                     },
                     success: data => {
+                        console.log(data)
                         if (data.code == 200) {
                             _this.close()
                             _this.$toast('操作成功',()=>{
@@ -105,7 +106,7 @@
                 mAjax(this, {
                     url: API.project_get_nodial_clues,
                     data: {
-                        id: id
+                        project_id: id
                     },
                     success: data => {
                         if (data.code == 200) {
