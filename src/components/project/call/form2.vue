@@ -55,8 +55,8 @@
                 getResult1: API.clue_get_result,
                 getResult2: API.clue_get_sub_result,
                 city: '',
-                getCity_param:{
-                    project_id:id
+                getCity_param: {
+                    project_id: id
                 },
                 sexlist: [
                     { id: 1, name: '男' },
@@ -126,12 +126,14 @@
                 this.param = {
                     pid: item.id
                 }
+                let _this = this
                 this.$nextTick(() => {
-                    this.$refs.result2Select.init()
-                    this.$refs.result2Select.selected = {
-                        id:'',
-                        name:'全部'
-                    }
+                    let name = _this.$refs.result2Select.selected.name
+                    _this.$refs.result2Select.init(() => {
+                        _this.$refs.result2Select.choose('',name)
+                    })
+
+                    
                 })
 
             }

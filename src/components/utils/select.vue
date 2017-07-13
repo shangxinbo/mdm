@@ -7,8 +7,8 @@
             <div class="select-ul">
                 <div class="scroll-warp scrollBar" style="overflow-y:auto">
                     <ul>
-                        <li @click.stop="change('','全部')" v-if="!hideAll">全部</li>
-                        <li v-for="(item,index) in list" @click.stop="change(item.id,item.name)">{{item.name}}</li>
+                        <li @click.stop="change()" v-if="!hideAll">全部</li>
+                        <li v-for="(item,index) in list" @click.stop="change(item)">{{item.name}}</li>
                     </ul>
                 </div>
             </div>
@@ -22,101 +22,94 @@
     export default {
         data() {
             return {
-                selected: {
-                    id: '',
-                    name: '全部'
-                },
-                list: [],
+                selected: { id: '', name: '' },
+                list: [],  //item {id,name}
                 show: false
             }
         },
-        props: ['api', 'param', 'id', 'initlist', 'error', 'addClass', 'hideAll'],
-        watch: {
-            id: function (newVal, oldVal) {
-                if (newVal === '') {
+        props: ['api', 'param', 'id', 'name', 'initlist', 'error', 'addClass', 'hideAll'],
+        created() {
+            this.init()
+        },
+        mounted() {
+            let _this = this
+            Vue.nextTick(() => {
+                document.addEventListener('click', () => {
+                    _this.show = false
+                })
+            })
+        },
+        methods: {
+            showSelect() {
+                this.show = true
+            },
+            change(obj) {
+                if (obj) {
+                    this.selected = obj
+                } else {
                     this.selected = {
                         id: '',
                         name: '全部'
-                    }
-                } else {
-                    this.list.find((value, index, arr) => {
-                        if (value.id == newVal) {
-                            this.selected = value
-                        }
-                    })
-                }
-            }
-        },
-        methods: {
-            showSelect: function () {
-                this.show = true
-            },
-            change: function (id, name) {
-                if(id==this.selected.id){
-                    return false
-                }
-                if (typeof (name) == 'object') {
-                    this.selected = {
-                        id: name.code,
-                        name: name.desc
-                    }
-                } else {
-                    this.selected = {
-                        id: id,
-                        name: name
                     }
                 }
                 this.$emit('change', this.selected)
                 this.show = false
             },
-            init() {
-                let _this = this
-                if (this.initlist) {
-                    this.list = this.initlist
-                    let id = this.id
-                    if (!id) return false
-                    this.list.find((value, index, arr) => {
-                        if (isNaN(id)) {
-                            if (value.name == id) {
-                                this.selected = value
-                            }
-                        } else {
-                            if (value.id == id) {
-                                this.selected = value
-                            }
+            choose(id, name) {
+                let finded = false
+                this.list.find((value, index) => {
+                    if (id == value.id) {
+                        this.selected = value
+                        finded = true
+                    }
+                    if (name == value.name) {
+                        this.selected = value
+                        finded = true
+                    }
+                })
+
+                if (!finded) {
+                    if (this.hideAll) {
+                        this.selected = this.list.length > 0 ? this.list[0] : { id: '', name: '' }
+                    } else {
+                        this.selected = {
+                            id: '',
+                            name: '全部'
                         }
-                    })
-                } else {
+                    }
+                }
+            },
+            init(callback) {
+                if (this.initlist) {
+
+                    this.list = this.initlist  //保证initlist 是合规的
+
+                    this.choose(this.id, this.name)
+
+                    if (callback) callback()
+
+                } else if (this.api) {
+
+                    let obj = this.param ? this.param : {}
+
                     mAjax(this, {
                         url: this.api,
-                        data:this.param,
+                        data: obj,
                         success: data => {
                             let arr = []
-                            if (data.data instanceof Array) {
-                                for (let i = 0; i < data.data.length; i++) {
-                                    if (data.data[i].id != undefined) {
-                                        arr.push({
-                                            id: data.data[i].id,
-                                            name: data.data[i].name ? data.data[i].name : data.data[i].user
-                                        })
-                                    } else if (data.data[i].code != undefined) {
-                                        arr.push({
-                                            id: data.data[i].code,
-                                            name: data.data[i].desc
-                                        })
-                                    } else {
-                                        arr.push({
-                                            id: i,
-                                            name: data.data[i]
-                                        })
-                                    }
-
-                                }
+                            let list = data.data
+                            if (list instanceof Array) {
+                                list.forEach((item, index) => {
+                                    arr.push({
+                                        id: item.id || item.code || index,
+                                        name: item.name || item.desc || item.user || item
+                                    })
+                                })
                             } else {
-                                for (let i in data.data) {
+                                for (let i in list) {
                                     arr.push({
                                         id: i,
-                                        name: data.data[i]
+                                        name: list[i]
                                     })
                                 }
                             }
@@ -125,35 +118,12 @@
                             })
 
                             this.list = arr
-                            let id = this.id
-                            if (!id) return false
-                            this.list.find((value, index, arr) => {
-                                if (isNaN(id)) {
-                                    if (value.name == id) {
-                                        this.selected = value
-                                    }
-                                } else {
-                                    if (value.id == id) {
-                                        this.selected = value
-                                    }
-                                }
-
-                            })
+                            this.choose(this.id, this.name)
+                            if (callback) callback()
                         }
                     })
                 }
             }
-        },
-        created() {
-            this.init()
-        },
-        mounted: function () {
-            let _this = this
-            Vue.nextTick(() => {
-                document.addEventListener('click', () => {
-                    _this.show = false
-                })
-            })
         }
     }
 
