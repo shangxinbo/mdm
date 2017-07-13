@@ -36,7 +36,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data() {
@@ -48,7 +47,7 @@
             }
         },
         created() {
-            mAjax(this, {
+            this.$ajax({
                 url: API.clue_get_record,
                 data: {
                     clue_id: this.id

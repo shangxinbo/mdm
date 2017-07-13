@@ -96,9 +96,8 @@
 </template>
 <script>
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
     import editDialog from './dialog/changeCusInfo'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -132,11 +131,11 @@
         methods: {
             showEditDialog() {
                 let _this = this
-                this.$refs.editDialog.$emit('show',_this.detail)
+                this.$refs.editDialog.$emit('show', _this.detail)
             }
         },
-        created: function () {
-            mAjax(this, {
+        created() {
+            this.$ajax({
                 url: API.customer_info,
                 success: data => {
                     if (data.code == 200) {
@@ -148,4 +147,5 @@
             })
         }
     }
+
 </script>

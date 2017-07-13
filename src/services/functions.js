@@ -1,29 +1,3 @@
-export const mAjax = (vm, options) => {
-    vm.$http.post(options.url, options.data).then(function (data) {
-        if (data.status == 200) {
-            let body = data.data
-            if (body.code == 404 || body.code == 403 || body.code == 500) {
-                vm.$router.replace('/error?code=' + body.code)
-            } else if (body.code == 10001) {
-                //vm.$router.replace('/login')
-                localStorage.removeItem('user')
-                sessionStorage.clear()
-                window.location.reload()
-            } else if (data.data.code == 10003) {
-                vm.$router.replace('/initpass')
-            } else if (data.data.code == 10005) {
-                vm.$router.replace('/error?code=403')
-            } else {
-                if (options.success) {
-                    options.success(body)
-                }
-            }
-        } else {
-            vm.$router.replace('/error?code=' + data.status + '&msg=' + data.statusText)
-        }
-    }, options.error)
-}
-
 export const setCookie = (name, value, end, path, domain, secure) => {
     if (!name) {
         return false
@@ -51,9 +25,7 @@ export const setCookie = (name, value, end, path, domain, secure) => {
 }
 
 export const getCookie = (name) => {
-    console.log(name)
     let value = document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(name).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")
-    console.log(document.cookie)
     return decodeURIComponent(value) || null
 }
 

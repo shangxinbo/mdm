@@ -56,7 +56,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data() {
@@ -74,7 +73,7 @@
             },
             sure() {
                 this.error = ''
-                mAjax(this, {
+                this.$ajax({
                     url: API.operate_active_seat,
                     data: {
                         seat_id: this.id
@@ -83,7 +82,7 @@
 
                         if (data.code == 200) {
                             this.close()
-                            this.$toast('续费成功',()=>{
+                            this.$toast('续费成功', () => {
                                 window.location.reload()
                             })
                         } else {
@@ -96,7 +95,7 @@
         created() {
             this.$on('show', (id) => {
                 this.id = id
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_renew_seat,
                     data: {
                         id: id

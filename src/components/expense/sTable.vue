@@ -27,12 +27,11 @@
     </table>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    
+
     export default {
-        props: ['list','type'],
-        data: function () {
+        props: ['list', 'type'],
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,

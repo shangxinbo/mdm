@@ -44,7 +44,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import searchForm from './form1'
@@ -91,7 +90,7 @@
                 this.city = this.$route.query.city ? this.$route.query.city : ''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_call_nodial_list,
                     data: {
                         project_id: this.id,
@@ -112,7 +111,6 @@
                 })
             },
             call(id, tel, city, call, sex, call_num) {
-                console.log(tel)
                 let query = Object.assign({}, this.$route.query, {
                     project_id: '',
                     projectName: this.$route.query.projectName,

@@ -76,7 +76,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import editDialog from './dialog/changeInfo'
@@ -123,10 +122,10 @@
                 if (this.$route.query.hangup) {
                     obj.is_hang_up_messge = this.$route.query.hangup
                 }
-                mAjax(this, {
+                this.$ajax({
                     url: api,
                     data: obj,
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
                             let list = data.data
                             if (this.userType == 1) {
@@ -181,7 +180,6 @@
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
             showChangePriceDialog(id, seat_price, clue_price, call_price, sms, sms_price) {
-                console.log(sms)
                 this.$refs.changePriceDialog.$emit('show', id, seat_price, clue_price, call_price, sms, sms_price)
             },
             showNoTemplateDialog() {

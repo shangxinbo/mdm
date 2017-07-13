@@ -40,7 +40,6 @@
     </form>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import datepicker from 'components/utils/datepicker'

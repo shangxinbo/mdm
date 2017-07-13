@@ -76,7 +76,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import categoryFilter from './category_filter'
@@ -136,42 +135,40 @@
                 this.heads()
             },
             refresh() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_cate,
                     data: {
-                        search_project_id: _this.project_id,
+                        search_project_id: this.project_id,
                         search_start_time: this.startTime,
                         search_end_time: this.endTime,
                         category: 1,
-                        page: _this.currentPage,
+                        page: this.currentPage,
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.list = data.data.data
-                            _this.totalPage = data.data.page
+                            this.list = data.data.data
+                            this.totalPage = data.data.page
                         } else {
-                            _this.list = []
-                            _this.totalPage = 1
+                            this.list = []
+                            this.totalPage = 1
                         }
                     }
                 })
             },
             heads() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_head,
                     data: {
                         category: 1,
-                        search_project_id: _this.project_id,
-                        search_start_time: _this.startTime,
-                        search_end_time: _this.endTime
+                        search_project_id: this.project_id,
+                        search_start_time: this.startTime,
+                        search_end_time: this.endTime
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.head = data.data
+                            this.head = data.data
                         } else {
-                            _this.head = []
+                            this.head = []
                         }
                     }
                 })

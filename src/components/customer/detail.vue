@@ -155,7 +155,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import editDialog from './dialog/changeInfo'
 
@@ -210,7 +209,7 @@
         created() {
             let id = this.$route.params.id
             let api = this.userType == 1 ? API.customer_detail_by_operate : API.customer_detail
-            mAjax(this, {
+            this.$ajax({
                 url: api,
                 data: {
                     id: id

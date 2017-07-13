@@ -17,7 +17,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import Vue from 'vue'
     export default {
         data() {
@@ -92,7 +91,7 @@
 
                     let obj = this.param ? this.param : {}
 
-                    mAjax(this, {
+                    this.$ajax({
                         url: this.api,
                         data: obj,
                         success: data => {

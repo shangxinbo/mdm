@@ -36,7 +36,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     export default {
@@ -48,11 +47,11 @@
                 error: ''
             }
         },
-        computed:{
-            total(){
+        computed: {
+            total() {
                 let t = 0
-                this.seat.forEach((item,index)=>{
-                    if(item.checked){
+                this.seat.forEach((item, index) => {
+                    if (item.checked) {
                         t = t + item.num
                     }
                 })
@@ -65,7 +64,6 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                let _this = this
                 let arr = []
                 this.seat.forEach(item => {
                     if (item.checked) {
@@ -75,21 +73,20 @@
                 if (arr.length <= 0) {
                     return false
                 }
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_recovery_clues,
                     data: {
                         project_id: this.id,
                         seat: arr
                     },
                     success: data => {
-                        console.log(data)
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('操作成功',()=>{
+                            this.close()
+                            this.$toast('操作成功', () => {
                                 window.location.reload()
                             })
                         } else {
-                            _this.error = data.message
+                            this.error = data.message
                         }
                     }
                 })
@@ -99,11 +96,10 @@
             }
         },
         created() {
-            let _this = this
             this.$on('show', function (id, name, clue) {
-                _this.id = id
-                _this.error = ''
-                mAjax(this, {
+                this.id = id
+                this.error = ''
+                this.$ajax({
                     url: API.project_get_nodial_clues,
                     data: {
                         project_id: id
@@ -120,10 +116,10 @@
                                 })
                             })
                             this.seat = arr
-                            _this.style = 'block'
-                            _this.$store.commit('SHOW_LAYER')
+                            this.style = 'block'
+                            this.$store.commit('SHOW_LAYER')
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })

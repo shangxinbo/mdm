@@ -93,7 +93,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import clueHistory from './clueHistory'
@@ -192,7 +191,7 @@
                     window.onbeforeunload = ''
                     next()
                 }
-            }else{
+            } else {
                 next()
             }
         },
@@ -220,7 +219,6 @@
                 this.variable.sex = str
             },
             save(callback) {
-                let _this = this
                 let result1 = this.$refs.result1Select.selected.id
                 let result2 = this.$refs.result2Select.selected.id
 
@@ -236,7 +234,7 @@
                     }
                 }
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_call_modify,
                     data: {
                         id: this.clue_id,
@@ -254,7 +252,7 @@
                                 callback()
                             }
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -294,8 +292,7 @@
                             }
                         }
 
-
-                        mAjax(_this, {
+                        this.$ajax({
                             url: api,
                             data: obj,
                             success: data => {
@@ -348,7 +345,7 @@
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     _this.$store.commit('CHANGE_DIAL_STATUS', false)
                     window.mycomm_agent.logout()
-                    mAjax(_this, {
+                    _this.$ajax({
                         url: API.add_call_job,
                         data: {
                             call_uuid: uuid
@@ -359,7 +356,7 @@
                 window.mycomm_agent.on_agent_dial_start = function (evt) {
                     uuid = evt.params.channel_uuid
                     _this.$store.commit('CHANGE_DIAL_STATUS', true)
-                    mAjax(_this, {
+                    _this.$ajax({
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: uuid,
@@ -368,7 +365,7 @@
                     })
                 }
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.get_myclient_balance,
                     data: {
                         seat_id: _this.user_id
@@ -380,7 +377,7 @@
                             } else if (!data.data.valid) {
                                 _this.$toast('坐席已失效,暂不能拨打')
                             } else {
-                                mAjax(this, {
+                                this.$ajax({
                                     url: API.get_tel,
                                     data: {
                                         id: _this.clue_id
@@ -398,13 +395,13 @@
                                         window.mycomm_agent.on_login_s = function (evt) {
                                             window.mycomm_agent.dial(tel_all, 'geo', 'great')
                                             setInterval(() => {  //延长用户有效期
-                                                mAjax(_this, {
+                                                _this.$ajax({
                                                     url: API.get_myclient_balance
                                                 })
                                             }, 30 * 1000)
                                         }
 
-                                        mAjax(_this, {
+                                        _this.$ajax({
                                             url: API.save_dial_history,
                                             data: {
                                                 phone: data.data.telephone,
@@ -412,7 +409,7 @@
                                             },
                                             success: data => {
                                                 if (data.code == 200) {
-                                                    this.history_id = data.data.id
+                                                    _this.history_id = data.data.id
                                                     //window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                                 }
                                             }

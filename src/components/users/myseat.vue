@@ -51,12 +51,11 @@
 </template>
 <script>
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
     import pages from 'components/common/pages'
     import resetPassDialog from 'components/dialog/resetpass'
     import addFeeDialog from './dialog/addFee'
     export default {
-        data: function () {
+        data() {
             return {
                 list: [],
                 exist_seat: 0,
@@ -71,7 +70,7 @@
             addFeeDialog
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.init()
             }
         },
@@ -88,7 +87,7 @@
                 })
             },
             render() {
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_my_seat_list,
                     data: {
                         page: this.currentPage
@@ -112,7 +111,7 @@
                 this.$refs.addFeeDialog.$emit('show', id)
             }
         },
-        created: function () {
+        created() {
             this.render()
         }
     }

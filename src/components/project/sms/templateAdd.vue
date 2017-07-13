@@ -85,7 +85,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     export default {
@@ -110,7 +109,7 @@
         created() {
             if (this.$route.query.id) {
                 this.id = this.$route.query.id
-                mAjax(this, {
+                this.$ajax({
                     url: API.sms_template_detail,
                     data: {
                         id: this.id
@@ -170,10 +169,10 @@
                 } else {
                     this.error_url = ''
                 }
-                if(!this.sign){
+                if (!this.sign) {
                     this.error_sign = '请填写短信签名'
                     return false
-                }else{
+                } else {
                     this.error_sign = ''
                 }
                 if (!this.status) {
@@ -197,7 +196,7 @@
                     obj.id = this.id
                 }
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.sms_template_add,
                     data: obj,
                     success: data => {

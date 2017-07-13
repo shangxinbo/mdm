@@ -88,7 +88,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import chooseSeatDialog from '../dialog/chooseSeat'
@@ -130,7 +129,7 @@
                 let statusId = this.$route.query.statusId
                 let startTime = this.$route.query.startTime
                 let endTime = this.$route.query.endTime
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_list,
                     data: {
                         nums: 10,
@@ -155,21 +154,6 @@
                         }
                     }
                 })
-                
-                this.$ajax({
-                    method:'post',
-                    url: API.project_list,
-                    data: {
-                        nums: 10,
-                        page: this.currentPage,
-                        search_project_name: projectName ? projectName : '',
-                        search_client_id: this.customer_id ? this.customer_id : customerId,
-                        search_agency_id: this.agent_id ? this.agent_id : agentId,
-                        search_project_status: statusId,
-                        search_project_begin_time: startTime ? startTime : '',
-                        search_project_end_time: endTime ? endTime : ''
-                    }
-                })
 
             },
             search(param) {
@@ -185,55 +169,47 @@
                 })
             },
             stop(id) {
-                let _this = this
-                this.$confirm('是否要暂停该项目', function () {
-                    mAjax(_this, {
+                this.$confirm('是否要暂停该项目', () => {
+                    this.$ajax({
                         url: API.project_stop,
                         data: {
                             id: id
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$toast('已成功暂停', function () {
-                                    _this.refresh()
-                                })
+                                this.$toast('已成功暂停', () => this.refresh())
                             else
-                                _this.$toast(data.message)
+                                this.$toast(data.message)
                         }
                     })
                 })
             },
             start(id) {
-                let _this = this
-                this.$confirm('是否要开启该项目', function () {
-                    mAjax(_this, {
+                this.$confirm('是否要开启该项目', () => {
+                    this.$ajax({
                         url: API.project_start,
                         data: {
                             id: id
                         },
                         success: data => {
                             if (data.code == 200)
-                                _this.$toast('已成功开启', function () {
-                                    _this.refresh()
-                                })
+                                this.$toast('已成功开启', () => this.refresh())
                             else
-                                _this.$toast(data.message)
+                                this.$toast(data.message)
                         }
                     })
                 })
             },
             useSms(id, name) {
                 this.$confirm(`确定${name}要使用挂机短信?`, () => {
-                    mAjax(this, {
+                    this.$ajax({
                         url: API.project_set_sms,
                         data: {
                             project_id: id
                         },
                         success: data => {
                             if (data.code == 200) {
-                                this.$toast('开启成功', () => {
-                                    window.location.reload()
-                                })
+                                this.$toast('开启成功', () => window.location.reload())
                             } else {
                                 this.$toast(data.message)
                             }

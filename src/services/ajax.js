@@ -13,7 +13,6 @@ export default {
                     if (body.code == 404 || body.code == 403 || body.code == 500) {
                         _this.$router.replace('/error?code=' + body.code)
                     } else if (body.code == 10001) {
-                        //vm.$router.replace('/login')
                         localStorage.removeItem('user')
                         sessionStorage.clear()
                         window.location.reload()
@@ -30,7 +29,7 @@ export default {
                     _this.$router.replace('/error?code=' + res.status + '&msg=' + res.statusText)
                 }
             }).catch(err => {
-                console.log(err)
+                if (options.error) options.error(err)
             })
         }
     }

@@ -37,11 +37,10 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {
-        data: function () {
+        data() {
             return {
                 style: 'none',
                 company: '',
@@ -52,11 +51,11 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 if (!this.money) {
                     this.money_error = '重置金额不能为空'
                     return false
@@ -68,8 +67,7 @@
                 }
                 if (this.ajax) return false
                 this.ajax = true
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.recharge,
                     data: {
                         id: this.id,
@@ -78,34 +76,29 @@
                     success: data => {
                         this.ajax = false
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('充值成功', () => {
-                                _this.$router.replace('/customer/index') 
+                            this.close()
+                            this.$toast('充值成功', () => {
+                                this.$router.replace('/customer/index') 
                             })
 
                         } else {
-                            _this.money_error = data.message
+                            this.money_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         },
-        created: function () {
-            let _this = this
+        created() {
             this.$on('show', function (id, company, balance) {
-                _this.id = id
-                _this.money = ''
-                _this.money_error = ''
-                _this.company = company
-                _this.balance = balance
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
-
+                this.id = id
+                this.money = ''
+                this.money_error = ''
+                this.company = company
+                this.balance = balance
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
-        },
+        }
     }
 
 </script>

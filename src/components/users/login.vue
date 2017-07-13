@@ -36,9 +36,8 @@
     import logo from 'assets/img/logo-login.png'
     import mfooter from 'components/common/footer.vue'
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
     export default {
-        data: () => {
+        data(){
             return {
                 logo: logo,
                 username: '',
@@ -50,7 +49,7 @@
             mfooter
         },
         methods: {
-            submit: function () {
+            submit() {
                 if (!this.username) {
                     this.error = "请输入您的用户名!"
                     return false
@@ -59,28 +58,27 @@
                     this.error = "请输入您的密码!"
                     return false
                 }
-                let vm = this
-                mAjax(vm, {
+                this.$ajax({
                     url: API.login,
                     data: {
-                        username: vm.username,
-                        password: vm.password
+                        username: this.username,
+                        password: this.password
                     },
                     success: function (data) {
                         if (data.code == 200) {
                             this.error = ''
                             localStorage.setItem('user', JSON.stringify(data.data))
                             if (data.data.modify_status) {
-                                vm.$router.replace('/')
+                                this.$router.replace('/')
                             } else {
-                                vm.$router.push('/initpass')
+                                this.$router.push('/initpass')
                             }
                         } else {
-                            vm.error = data.message
+                            this.error = data.message
                         }
                     },
                     error: function (err) {
-                        vm.error = err
+                        this.error = err
                     }
                 })
             }

@@ -61,7 +61,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data() {
@@ -82,7 +81,6 @@
         },
         methods: {
             sure() {
-                let _this = this
                 this.error_clue = ''
                 this.error_call = ''
                 this.error_seat = ''
@@ -128,8 +126,7 @@
                     }
                 }
 
-
-                mAjax(this, {
+                this.$ajax({
                     url: API.change_price,
                     data: {
                         id: this.id,
@@ -141,16 +138,13 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('价格已做调整',()=>{
+                            this.close()
+                            this.$toast('价格已做调整', () => {
                                 window.location.reload()
                             })
                         } else {
-                            _this.error_seat = data.message
+                            this.error_seat = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             },
@@ -169,21 +163,19 @@
             }
         },
         created() {
-            let _this = this
             this.$on('show', (id, seat, clue, call, sms, sms_price) => {
-                _this.id = id
-                _this.clue = clue ? Number(clue) : ''
-                _this.call = call ? Number(call) : ''
-                _this.seat = seat ? Number(seat) : ''
-                _this.error_clue = ''
-                _this.error_call = ''
-                _this.error_seat = ''
-                _this.sms = sms
-                _this.old_sms = sms
-                _this.sms_price = sms_price
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
-
+                this.id = id
+                this.clue = clue ? Number(clue) : ''
+                this.call = call ? Number(call) : ''
+                this.seat = seat ? Number(seat) : ''
+                this.error_clue = ''
+                this.error_call = ''
+                this.error_seat = ''
+                this.sms = sms
+                this.old_sms = sms
+                this.sms_price = sms_price
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         }
     }

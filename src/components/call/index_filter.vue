@@ -39,7 +39,6 @@
     </form>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import datepicker from 'components/utils/datepicker'
@@ -97,7 +96,6 @@
                 this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
                 this.max_start = this.endTime
                 this.min_end = this.startTime
-                console.log(this.search_client_id)
             },
             setStartTime(value) {
                 this.startTime = value

@@ -14,7 +14,7 @@
                         <li>
                             <span class="t">拨通次数</span>
                             <span class="num">{{head.effect_call_times}}</span>
-                        </li> 
+                        </li>
                         <li>
                             <span class="t">通话时长</span>
                             <span class="num">{{head.charge_time}}</span>
@@ -80,7 +80,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import indexFilter from './index_filter'
@@ -93,42 +92,42 @@
                 list: [],
                 head: [],
                 userType: user.type,
-                agent_id:'',
-                agent_name:'',
-                client_id:'',
-                client_name:'',
+                agent_id: '',
+                agent_name: '',
+                client_id: '',
+                client_name: '',
                 currentPage: 1,
                 totalPage: 1
             }
         },
         computed: {
             downUrl() {
-                let client_id = this.$route.query.client_id?this.$route.query.client_id:(this.$route.query.search_client_id?this.$route.query.search_client_id:'')
-                let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
+                let client_id = this.$route.query.client_id ? this.$route.query.client_id : (this.$route.query.search_client_id ? this.$route.query.search_client_id : '')
+                let agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : (this.$route.query.search_agent_id ? this.$route.query.search_agent_id : '')
                 let api
-                if(this.$route.query.client_id){
+                if (this.$route.query.client_id) {
                     api = '/teltraffic/categoryExport?category=3&'
-                }else if(this.$route.query.agent_id){
+                } else if (this.$route.query.agent_id) {
                     api = '/teltraffic/categoryExport?category=2&'
-                }else{
+                } else {
                     api = '/teltraffic/export?'
                 }
-                return api 
-                        + 'search_name=' + (this.$route.query.search_name?this.$route.query.search_name:'')
-                        + '&search_client_id=' + client_id
-                        + '&search_agent_id=' + agent_id
-                        + '&search_start_time=' + (this.$route.query.startTime?this.$route.query.startTime:'')
-                        + '&search_end_time=' + (this.$route.query.endTime?this.$route.query.endTime:'')
+                return api
+                    + 'search_name=' + (this.$route.query.search_name ? this.$route.query.search_name : '')
+                    + '&search_client_id=' + client_id
+                    + '&search_agent_id=' + agent_id
+                    + '&search_start_time=' + (this.$route.query.startTime ? this.$route.query.startTime : '')
+                    + '&search_end_time=' + (this.$route.query.endTime ? this.$route.query.endTime : '')
             },
-            crumbs(){
+            crumbs() {
                 let obj = {}
-                if(this.$route.query.crumb_agent_id){
+                if (this.$route.query.crumb_agent_id) {
                     obj.crumb_agent_id = this.$route.query.crumb_agent_id
-                    obj.crumb_agent_name= this.$route.query.crumb_agent_name
+                    obj.crumb_agent_name = this.$route.query.crumb_agent_name
                 }
-                if(this.$route.query.crumb_client_id){
+                if (this.$route.query.crumb_client_id) {
                     obj.crumb_client_id = this.$route.query.crumb_client_id
-                    obj.crumb_client_name= this.$route.query.crumb_client_name
+                    obj.crumb_client_name = this.$route.query.crumb_client_name
                 }
                 return obj
             }
@@ -157,9 +156,9 @@
                 this.heads()
             },
             render() {
-                let client_id = this.$route.query.client_id?this.$route.query.client_id:(this.$route.query.search_client_id?this.$route.query.search_client_id:'')
-                let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
-                mAjax(this, {
+                let client_id = this.$route.query.client_id ? this.$route.query.client_id : (this.$route.query.search_client_id ? this.$route.query.search_client_id : '')
+                let agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : (this.$route.query.search_agent_id ? this.$route.query.search_agent_id : '')
+                this.$ajax({
                     url: API.call_list,
                     data: {
                         search_name: this.$route.query.search_name,
@@ -169,7 +168,7 @@
                         search_end_time: this.$route.query.endTime,
                         page: this.currentPage,
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
                             this.list = data.data.data
                             this.totalPage = data.data.page
@@ -181,9 +180,9 @@
                 })
             },
             heads() {
-                let client_id = this.$route.query.client_id?this.$route.query.client_id:(this.$route.query.search_client_id?this.$route.query.search_client_id:'')
-                let agent_id = this.$route.query.agent_id?this.$route.query.agent_id:(this.$route.query.search_agent_id?this.$route.query.search_agent_id:'')
-                mAjax(this, {
+                let client_id = this.$route.query.client_id ? this.$route.query.client_id : (this.$route.query.search_client_id ? this.$route.query.search_client_id : '')
+                let agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : (this.$route.query.search_agent_id ? this.$route.query.search_agent_id : '')
+                this.$ajax({
                     url: API.call_head,
                     data: {
                         search_name: this.$route.query.search_name,
@@ -192,7 +191,7 @@
                         search_start_time: this.$route.query.startTime,
                         search_end_time: this.$route.query.end_time
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
                             this.head = data.data
                         } else {

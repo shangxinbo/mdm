@@ -35,7 +35,6 @@
     </form>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import datepicker from 'components/utils/datepicker'
     import moment from 'moment'

@@ -29,7 +29,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import upDialog from './dialog/updoc'
     export default {
@@ -39,7 +38,7 @@
             }
         },
         created() {
-            mAjax(this, {
+            this.$ajax({
                 url: API.doc_list,
                 success: data => {
                     this.list = data.data

@@ -15,7 +15,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data() {
@@ -24,7 +23,7 @@
             }
         },
         created() {
-            mAjax(this, {
+            this.$ajax({
                 url: API.customer_my_seat_list,
                 data: {
                     page: 1

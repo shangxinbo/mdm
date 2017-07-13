@@ -48,12 +48,11 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import axios from 'axios'
     import loadimg from 'assets/img/upload.gif'
     export default {
-        data: () => {
+        data(){
             return {
                 style: 'none',
                 role: '',
@@ -109,14 +108,13 @@
             }
         },
         created: function () {
-            let _this = this
             this.$on('show', function (id, role, name) {
-                _this.id = id
-                _this.role = role
-                _this.name = name
-                _this.error = ''
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
+                this.id = id
+                this.role = role
+                this.name = name
+                this.error = ''
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         }
     }

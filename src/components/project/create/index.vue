@@ -85,7 +85,7 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax, numberFormatter } from 'src/services/functions'
+    import { numberFormatter } from 'src/services/functions'
     import logo from 'assets/img/logo-screening.png'
     import filterCate from './filter_cate'
     import filterPrefer from './filter_prefer'
@@ -259,7 +259,7 @@
                         data.area = area
                     }
 
-                    mAjax(this, {
+                    this.$ajax({
                         url: API.filter_customers,
                         data: data,
                         success: data => {
@@ -290,7 +290,7 @@
             },
             saveSuccess() {
                 let _this = this
-                this.$toast('新建项目成功', () => {
+                this.$toast('新建项目成功', () => {    //TODO TOAST 重构
                     _this.$router.replace('/project/index')
                 })
             },

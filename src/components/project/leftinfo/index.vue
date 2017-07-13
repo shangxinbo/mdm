@@ -37,7 +37,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import searchForm from './searchForm'
@@ -68,7 +67,7 @@
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.page = this.$route.query.page ? this.$route.query.page : 1
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.left_info_list,
                     data: {
                         project_id: this.project_id,

@@ -46,7 +46,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import datepicker from 'components/utils/datepicker'
     import moment from 'moment'
@@ -152,7 +151,7 @@
                 }
                 if(this.ajax) return false
                 this.ajax = true
-                mAjax(this, {
+                this.$ajax({
                     url: API.filter_save,
                     data: data,
                     success: data => {
@@ -170,15 +169,14 @@
             }
         },
         created() {
-            let _this = this
             this.$on('show', function () {
-                _this.style = 'block'
-                _this.name = ''
-                _this.clue = ''
-                _this.name_error = ''
-                _this.clue_error = ''
-                _this.time_error = ''
-                _this.$store.commit('SHOW_LAYER')
+                this.style = 'block'
+                this.name = ''
+                this.clue = ''
+                this.name_error = ''
+                this.clue_error = ''
+                this.time_error = ''
+                this.$store.commit('SHOW_LAYER')
             })
         },
         components:{

@@ -82,7 +82,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import audioFilter from './audio_filter'
@@ -141,27 +140,26 @@
                 this.refresh()
             },
             refresh() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_audio,
                     data: {
-                        project_id: _this.project_id,
-                        client_id: _this.seat_id,
-                        phone: _this.tel,
-                        status: _this.status,
+                        project_id: this.project_id,
+                        client_id: this.seat_id,
+                        phone: this.tel,
+                        status: this.status,
                         start_time: this.start_time,
                         end_time: this.end_time,
-                        page: _this.currentPage,
+                        page: this.currentPage,
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.list = data.data.list.data
-                            _this.head = data.data.count
-                            _this.totalPage = Math.ceil(data.data.list.total / data.data.list.per_page)
+                            this.list = data.data.list.data
+                            this.head = data.data.count
+                            this.totalPage = Math.ceil(data.data.list.total / data.data.list.per_page)
                         } else {
-                            _this.list = []
-                            _this.head = null
-                            _this.totalPage = 1
+                            this.list = []
+                            this.head = null
+                            this.totalPage = 1
                         }
                     }
                 })
@@ -202,21 +200,6 @@
                     }
                     dom.play()
                 }
-                // if (index == this.playNow) {
-                //     dom.pause()
-                //     span[0].querySelector('i').className = 'icon play'
-                //     span[1].innerHTML = '继续播放'
-                //     this.playNow = -1
-                // } else {
-                //     if (dom.getAttribute('src') != url) {
-                //         dom.src = url
-                //         dom.load()
-                //     }
-                //     dom.play()
-                //     span[0].querySelector('i').className = 'icon pause'
-                //     span[1].innerHTML = '暂停'
-                //     this.playNow = index
-                // }
             },
             end() {
                 let audios = document.querySelectorAll('.btn-audio')

@@ -39,7 +39,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import Vue from 'vue'
@@ -70,7 +69,7 @@
             },
             sure: function () {
                 let client_id = sessionStorage.getItem('client_id')
-                mAjax(this, {
+                this.$ajax({
                     url: API.sms_send,
                     data: {
                         clue_id: this.id,
@@ -89,23 +88,22 @@
             }
         },
         created(id) {
-            let _this = this
             this.id = id
             this.$on('show', function () {
                 let client_id = sessionStorage.getItem('client_id')
-                mAjax(_this, {
+                this.$ajax({
                     url: API.sms_client_template_list,
                     data: {
                         client_id: client_id
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.list = data.data
-                            _this.selected = data.data[0]
-                            _this.style = 'block'
-                            _this.$store.commit('SHOW_LAYER')
+                            this.list = data.data
+                            this.selected = data.data[0]
+                            this.style = 'block'
+                            this.$store.commit('SHOW_LAYER')
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })

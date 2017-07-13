@@ -28,8 +28,8 @@
     import balanceAlert from 'components/customer/dialog/balanceAlert'
     import callSet from 'components/dialog/callSet'
     import API from 'src/services/api'
-    import { mAjax, getCookie } from 'src/services/functions'
-    
+    import { getCookie } from 'src/services/functions'
+
     export default {
         data() {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -69,7 +69,7 @@
 
             if (this.userType == 1) {
                 let user = JSON.parse(localStorage.getItem('user'))
-                mAjax(this, {
+                this.$ajax({
                     url: API.get_operate_info,
                     data: {
                         id: user.id
@@ -86,7 +86,7 @@
             }
 
             if (this.userType == 4) {
-                mAjax(this, {
+                this.$ajax({
                     url: API.get_seat_sign,
                     success: data => {
                         let info = data.data

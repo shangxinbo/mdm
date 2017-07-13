@@ -48,13 +48,12 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import updateInfoDialog from './dialog/upinfo'
     import changePassDialog from 'components/dialog/resetpass'
     export default {
-        data: function () {
+        data() {
             return {
                 list: [],
                 currentPage: 1,
@@ -67,7 +66,7 @@
             changePassDialog
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.init()
             }
         },
@@ -77,8 +76,7 @@
                 this.refresh()
             },
             refresh() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.operate_list,
                     data: {
                         page: this.currentPage
@@ -86,11 +84,11 @@
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
-                            _this.list = list.data
-                            _this.totalPage = Math.ceil(list.total / list.per_page)
+                            this.list = list.data
+                            this.totalPage = Math.ceil(list.total / list.per_page)
                         } else {
-                            _this.list = ''
-                            _this.$toast(data.message)
+                            this.list = ''
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -112,7 +110,7 @@
                 this.$refs.updateinfo.$emit('create')
             }
         },
-        created: function () {
+        created() {
             this.init()
         }
     }

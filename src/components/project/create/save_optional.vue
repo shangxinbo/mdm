@@ -60,7 +60,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import datepicker from 'components/utils/datepicker'
     import moment from 'moment'
@@ -155,7 +154,6 @@
                     return false
                 }
 
-                let _this = this
                 let api = API.project_add
                 let data = {
                     name: this.name,
@@ -170,7 +168,7 @@
                 }
                 if (this.ajax) return false
                 this.ajax = true
-                mAjax(this, {
+                this.$ajax({
                     url: api,
                     data: data,
                     success: data => {
@@ -186,49 +184,48 @@
             }
         },
         created() {
-            let _this = this
             this.$on('show', function (id) {
                 if (id) {
-                    mAjax(this, {
+                    this.$ajax({
                         url: API.project_detail,
                         data: {
                             id: id
                         },
                         success: data => {
                             if (data.code == 200) {
-                                _this.title = '重新申请项目'
-                                _this.style = 'block'
-                                _this.id = id
-                                _this.name = data.data.name
-                                _this.name_error = ''
-                                _this.region = data.data.region
-                                _this.region_error = ''
-                                _this.expectClue = data.data.expect_clue_num
-                                _this.expectClue_error = ''
-                                _this.expectTime = data.data.expect_begin_date
-                                _this.expectTime_error = ''
-                                _this.content = data.data.desc
-                                _this.content_error = ''
-                                _this.$store.commit('SHOW_LAYER')
+                                this.title = '重新申请项目'
+                                this.style = 'block'
+                                this.id = id
+                                this.name = data.data.name
+                                this.name_error = ''
+                                this.region = data.data.region
+                                this.region_error = ''
+                                this.expectClue = data.data.expect_clue_num
+                                this.expectClue_error = ''
+                                this.expectTime = data.data.expect_begin_date
+                                this.expectTime_error = ''
+                                this.content = data.data.desc
+                                this.content_error = ''
+                                this.$store.commit('SHOW_LAYER')
                             } else {
                                 this.$toast('获取项目信息失败')
                             }
                         }
                     })
                 } else {
-                    _this.title = '新建项目'
-                    _this.style = 'block'
-                    _this.name = ''
-                    _this.name_error = ''
-                    _this.region = ''
-                    _this.region_error = ''
-                    _this.expectClue = ''
-                    _this.expectClue_error = ''
-                    _this.expectTime = ''
-                    _this.expectTime_error = ''
-                    _this.content = ''
-                    _this.content_error = ''
-                    _this.$store.commit('SHOW_LAYER')
+                    this.title = '新建项目'
+                    this.style = 'block'
+                    this.name = ''
+                    this.name_error = ''
+                    this.region = ''
+                    this.region_error = ''
+                    this.expectClue = ''
+                    this.expectClue_error = ''
+                    this.expectTime = ''
+                    this.expectTime_error = ''
+                    this.content = ''
+                    this.content_error = ''
+                    this.$store.commit('SHOW_LAYER')
                 }
             })
         }

@@ -51,7 +51,7 @@
                                 <p v-if="content_error" class="error">{{content_error}}</p>
                             </div>
                         </li>
-                        <li class="check-warp" >
+                        <li class="check-warp">
                             <div class="hang-check" :class="{checked:sms}">
                                 <i class="icon" @click="useSms"></i>
                                 <span>使用挂机短信</span>
@@ -69,13 +69,13 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
+    import { dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
     import background from 'assets/img/dialog-icon.png'
     export default {
-        data: function () {
+        data() {
             return {
                 id: '',
                 name: '',
@@ -165,7 +165,6 @@
                     return false
                 }
                 let time = typeof this.expectTime == 'string' ? this.expectTime : dateFormat(this.expectTime)
-                let _this = this
                 let api = API.project_add
                 let data = {
                     name: this.name,
@@ -181,27 +180,26 @@
                     data.id = this.id
                 }
 
-                mAjax(this, {
+                this.$ajax({
                     url: api,
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            _this.$toast(_this.id ? '重新申请成功' : '新建成功', function () {
-                                _this.$router.replace('/project/index')
+                            this.$toast(this.id ? '重新申请成功' : '新建成功', function () {
+                                this.$router.replace('/project/index')
                             })
                         } else {
-                            _this.content_error = data.message
+                            this.content_error = data.message
                         }
                     }
                 })
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
-            let _this = this
             if (id) {
                 this.id = id
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_detail,
                     data: {
                         id: id
@@ -209,14 +207,14 @@
                     success: data => {
                         if (data.code == 200) {
                             let detail = data.data
-                            _this.name = detail.name
-                            _this.type = detail.type
-                            _this.region = detail.region
-                            _this.expectClue = detail.expect_clue_num
-                            _this.expectTime = detail.expect_begin_date
-                            _this.content = detail.desc
-                            _this.sms = data.is_hang_up_message
-                            _this.sms_init = data.is_hang_up_message
+                            this.name = detail.name
+                            this.type = detail.type
+                            this.region = detail.region
+                            this.expectClue = detail.expect_clue_num
+                            this.expectTime = detail.expect_begin_date
+                            this.content = detail.desc
+                            this.sms = data.is_hang_up_message
+                            this.sms_init = data.is_hang_up_message
                         }
                     }
                 })

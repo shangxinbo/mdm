@@ -44,7 +44,6 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import loading from 'assets/img/loading.gif'
@@ -93,9 +92,8 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure() {
-                let _this = this
                 this.loadNow = true
-                mAjax(this, {
+                this.$ajax({
                     url: API.add_seat,
                     data: {
                         id: this.id,
@@ -104,35 +102,30 @@
                     success: data => {
                         this.loadNow = false
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('新开坐席成功', () => {
-                                _this.$router.replace('/customer/index')
-                            })
-
+                            this.close()
+                            this.$toast('新开坐席成功', () => this.$router.replace('/customer/index'))
                         } else {
-                            _this.add_error = data.message
+                            this.add_error = data.message
                         }
                     },
                     error: err => {
                         this.loadNow = false
-                        _this.add_error = err.toString()
+                        this.add_error = err.toString()
                     }
                 })
             }
         },
         created() {
-            let _this = this
             this.$on('show', function (id, company, seat, price) {
-                _this.add = ''
-                _this.add_error = ''
-                _this.id = id
-                _this.company = company
-                _this.seat = seat
-                _this.price = price
-                _this.num = 1
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
-
+                this.add = ''
+                this.add_error = ''
+                this.id = id
+                this.company = company
+                this.seat = seat
+                this.price = price
+                this.num = 1
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         },
         components: {

@@ -36,7 +36,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import REGULAR from 'src/services/reg'
     export default {
@@ -78,7 +77,7 @@
                 if (!this.oldpass) {
                     this.old_error = '请填写旧密码'
                     return false
-                }else{
+                } else {
                     this.old_error = ''
                 }
                 if (!this.newpass) {
@@ -101,8 +100,7 @@
                         return false
                     }
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.update_pass,
                     data: {
                         oigrin_pwd: this.oldpass,
@@ -111,16 +109,11 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('修改密码成功',()=>{
-                                window.location.reload()
-                            })
+                            this.close()
+                            this.$toast('修改密码成功', () => window.location.reload())
                         } else {
-                            _this.repeat_error = data.message
+                            this.repeat_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }

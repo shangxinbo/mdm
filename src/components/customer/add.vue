@@ -137,17 +137,34 @@
                                         <dd>
                                             <ul class="data-in">
                                                 <li>
-                                                    <span>线索单价</span><span class="sign">¥</span><input class="text" v-model="clue_price" type="text"><span>/条</span>
+                                                    <span>线索单价</span>
+                                                    <span class="sign">¥</span>
+                                                    <input class="text" v-model="clue_price" type="text">
+                                                    <span>/条</span>
                                                 </li>
                                                 <li>
-                                                    <span>话费单价</span><span class="sign">¥</span><input class="text" v-model="tel_price" type="text"><span>/分钟</span>
+                                                    <span>话费单价</span>
+                                                    <span class="sign">¥</span>
+                                                    <input class="text" v-model="tel_price" type="text">
+                                                    <span>/分钟</span>
                                                 </li>
                                                 <li>
-                                                    <span>坐席单价</span><span class="sign">¥</span><input class="text" v-model="seat_price" type="text"><span>/个/月</span>
+                                                    <span>坐席单价</span>
+                                                    <span class="sign">¥</span>
+                                                    <input class="text" v-model="seat_price" type="text">
+                                                    <span>/个/月</span>
                                                 </li>
                                                 <li :class="{checked:sms}">
-                                                    <div class="hang-check"><i class="icon" @click="checkSms"></i><span>开通挂机短信</span></div>
-                                                    <div class="hang-input"><span>挂机短信单价</span><span class="sign">¥</span><input class="text" v-model="sms_price" type="text"><span>/条</span></div>
+                                                    <div class="hang-check">
+                                                        <i class="icon" @click="checkSms"></i>
+                                                        <span>开通挂机短信</span>
+                                                    </div>
+                                                    <div class="hang-input">
+                                                        <span>挂机短信单价</span>
+                                                        <span class="sign">¥</span>
+                                                        <input class="text" v-model="sms_price" type="text">
+                                                        <span>/条</span>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </dd>
@@ -168,7 +185,7 @@
     </div>
 </template>
 <script>
-    import { mAjax, isRealPhone, isEmail } from 'src/services/functions'
+    import { isRealPhone, isEmail } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import axios from 'axios'
@@ -194,8 +211,8 @@
                 clue_price: '',
                 tel_price: '',
                 seat_price: '',
-                sms:0,
-                sms_price:'',
+                sms: 0,
+                sms_price: '',
                 price_error: '',
                 user: '',
                 user_error: '',
@@ -319,10 +336,10 @@
                 this.qualification_name = file.name
                 this.qualification = evt.target.files[0]
             },
-            checkSms(){
-                if(this.sms){
+            checkSms() {
+                if (this.sms) {
                     this.sms = 0
-                }else{
+                } else {
                     this.sms = 1
                 }
             },
@@ -425,7 +442,7 @@
                 let _this = this
                 let api = API.customer_add
                 let data = new FormData()
-                
+
                 if (this.userType == 1) {
                     api = API.customer_add_by_operate
                     data.append('agent_id', this.chooseAgent)
@@ -452,26 +469,26 @@
                                 }
                             }
                         }
-                        if(this.sms){
-                            if(!this.sms_price){
+                        if (this.sms) {
+                            if (!this.sms_price) {
                                 this.price_error = '挂机短信单价必填'
                                 return false
-                            }else{
+                            } else {
                                 if (isNaN(this.sms_price)) {
                                     this.price_error = '单价必须是数值'
                                     return false
-                                }else{
-                                    if(this.sms_price>=0){
+                                } else {
+                                    if (this.sms_price >= 0) {
                                         this.price_error = ''
-                                    }else{
+                                    } else {
                                         this.price_error = '单价必须大于等于0'
                                         return false
                                     }
                                 }
                             }
-                            data.append('hang_up_message_price',this.sms_price)
+                            data.append('hang_up_message_price', this.sms_price)
                         }
-                        data.append('is_hang_up_message',this.sms)
+                        data.append('is_hang_up_message', this.sms)
                         data.append('clue_price', this.clue_price)
                         data.append('tel_price', this.tel_price)
                         data.append('seat_price', this.seat_price)
@@ -514,10 +531,9 @@
             if (this.userType == 1) {
                 api = API.customer_detail_by_operate
             }
-            let _this = this
             if (id) {
                 this.title = '编辑客户'
-                mAjax(this, {
+                this.$ajax({
                     url: api,
                     data: {
                         id: id
@@ -525,22 +541,22 @@
                     success: data => {
                         if (data.code == 200) {
                             let detail = data.data
-                            _this.user = detail.user
-                            _this.type = detail.type
-                            _this.company = detail.company
-                            _this.legal = detail.legal
-                            _this.scope = detail.scope
-                            _this.addr = detail.store_addr
-                            _this.user_name = detail.user_name
-                            _this.email = detail.mail
-                            _this.tel = detail.tel
-                            _this.location = detail.location
-                            _this.self_addr = detail.application_addr
-                            _this.edit_licence = detail.licence
-                            _this.edit_qualification = detail.qualification
-                            _this.agentId = detail.agent_id
+                            this.user = detail.user
+                            this.type = detail.type
+                            this.company = detail.company
+                            this.legal = detail.legal
+                            this.scope = detail.scope
+                            this.addr = detail.store_addr
+                            this.user_name = detail.user_name
+                            this.email = detail.mail
+                            this.tel = detail.tel
+                            this.location = detail.location
+                            this.self_addr = detail.application_addr
+                            this.edit_licence = detail.licence
+                            this.edit_qualification = detail.qualification
+                            this.agentId = detail.agent_id
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })

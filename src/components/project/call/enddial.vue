@@ -60,7 +60,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import smsDialog from '../dialog/sms'
@@ -113,7 +112,7 @@
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.clue_status = this.$route.query.clue_status ? this.$route.query.clue_status : 0
                 this.end = this.$route.query.end
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_call_enddial_list,
                     data: {
                         project_id: this.id,

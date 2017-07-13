@@ -56,7 +56,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import clueHistory from './clueHistory'
     import smsDialog from '../dialog/sms'

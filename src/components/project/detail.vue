@@ -143,11 +143,10 @@
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import refuseDialog from './dialog/refuse'
     import chooseSeatDialog from './dialog/chooseSeat'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -183,9 +182,8 @@
         },
         methods: {
             accept(id) {
-                let _this = this
                 this.$confirm('确定要审核通过该项目？', function () {
-                    mAjax(this, {
+                    this.$ajax({
                         url: API.preject_audit,
                         data: {
                             id: id,
@@ -193,11 +191,11 @@
                         },
                         success: data => {
                             if (data.code == 200) {
-                                _this.$toast('已完成审核', function () {
-                                    _this.$router.replace('/project/index')
+                                this.$toast('已完成审核', function () {
+                                    this.$router.replace('/project/index')
                                 })
                             } else {
-                                _this.$toast(data.message)
+                                this.$toast(data.message)
                             }
                         }
                     })
@@ -210,9 +208,9 @@
                 this.$refs.chooseSeatDialog.$emit('show', id, name)
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
-            mAjax(this, {
+            this.$ajax({
                 url: API.project_detail,
                 data: {
                     id: id

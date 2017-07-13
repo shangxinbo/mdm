@@ -35,7 +35,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data() {
@@ -61,7 +60,7 @@
             getData() {
                 if (!this.loading) {
                     this.loading = true
-                    mAjax(this, {
+                    this.$ajax({
                         url: API.no_sms_template_customer,
                         data: {
                             page: this.page

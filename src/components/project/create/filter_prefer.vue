@@ -52,7 +52,6 @@
 </template>
 <script>
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
 
     function getIndexAtArr(arr, item) {
         return arr.findIndex((val, index, arr) => {
@@ -83,7 +82,7 @@
             }
         },
         created() {
-            mAjax(this, {
+            this.$ajax({
                 url: API.filter_prefer_1,
                 data:{
                     date:this.date
@@ -94,9 +93,6 @@
                     } else {
                         this.tag1 = []
                     }
-                },
-                error: err => {
-                    this.tag1 = []
                 }
             })
         },
@@ -145,7 +141,7 @@
                     product.push(el.code)
                 })
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.filter_prefer_2,
                     data: {
                         product: product,

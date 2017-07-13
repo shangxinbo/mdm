@@ -77,7 +77,7 @@
 
 
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
+    import { dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import mselect from 'components/utils/select'
@@ -86,7 +86,7 @@
     import router from 'src/router'
 
     export default {
-        data: function () {
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,
@@ -97,7 +97,7 @@
                 url: API.expense_seat,
                 url_count: API.expense_seat_count,
                 search_name: '',
-                search_customer:'',
+                search_customer: '',
                 search_agent: '',
                 search_start_time: '',
                 search_end_time: '',
@@ -116,30 +116,30 @@
             }
         },
         computed: {
-            datepicker_disabled:function () {
-                let end = this.search_end_time?this.search_end_time:''
-                if(end) {
-                    return  {
-                        to: new Date(2017,0,1),
+            datepicker_disabled() {
+                let end = this.search_end_time ? this.search_end_time : ''
+                if (end) {
+                    return {
+                        to: new Date(2017, 0, 1),
                         from: new Date(end)
                     }
-                }else{
-                    return  {
-                        to: new Date(2017,0,1),
+                } else {
+                    return {
+                        to: new Date(2017, 0, 1),
                         from: new Date()
                     }
                 }
             },
-            datepicker_disabled2: function () {
+            datepicker_disabled2() {
                 let start = this.search_start_time
-                return  {
+                return {
                     to: new Date(start),
                     from: new Date()
                 }
             },
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.init()
 
             }
@@ -152,15 +152,15 @@
         },
         methods: {
             init() {
-                this.search_name = this.$route.query.search_name?this.$route.query.search_name:''
+                this.search_name = this.$route.query.search_name ? this.$route.query.search_name : ''
                 this.search_customer = ''
-                this.search_agent = this.$route.query.search_agent===undefined?'':this.$route.query.search_agent
-                this.search_start_time = this.$route.query.search_start_time?this.$route.query.search_start_time:''
-                this.search_end_time = this.$route.query.search_end_time?this.$route.query.search_end_time:''
+                this.search_agent = this.$route.query.search_agent === undefined ? '' : this.$route.query.search_agent
+                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
+                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id?this.$route.query.agent_id:''
+                this.agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : ''
                 this.agent_name = this.$route.query.agent_name
-                this.customer_id = this.$route.query.customer_id?this.$route.query.customer_id:""
+                this.customer_id = this.$route.query.customer_id ? this.$route.query.customer_id : ""
                 this.customer_name = this.$route.query.customer_name
                 this.type = this.$route.query.type ? this.$route.query.type : 'all'
 
@@ -185,43 +185,41 @@
                 this.refresh()
                 this.getcount()
             },
-            refresh: function () {
-                let _this = this
+            refresh() {
                 let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
                 let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
-                mAjax(this, {
-                    url: _this.url,
+                this.$ajax({
+                    url: this.url,
                     data: {
                         nums: 10,
-                        page: _this.currentPage,
-                        uid: _this.search_customer,
-                        company: _this.search_name ? _this.search_name : '',
-                        superior_id: _this.search_agent ? _this.search_agent : '',
-                        created_at_start:start_time,
+                        page: this.currentPage,
+                        uid: this.search_customer,
+                        company: this.search_name ? this.search_name : '',
+                        superior_id: this.search_agent ? this.search_agent : '',
+                        created_at_start: start_time,
                         created_at_end: end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.list = data.data.data
-                            _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
+                            this.list = data.data.data
+                            this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
             },
             //客户详情--坐席单价
-            getCustomerInfo: function () {
-                let _this = this
-                mAjax(this, {
+            getCustomerInfo() {
+                this.$ajax({
                     url: API.customer_info,
                     data: {},
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.customerInfo = data.data
-                            _this.price = data.data.seat_price
+                            this.customerInfo = data.data
+                            this.price = data.data.seat_price
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -249,27 +247,26 @@
                     query: obj
                 })
             },
-            getcount: function () {
-                let _this = this
+            getcount() {
                 let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
                 let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
-                mAjax(this, {
-                    url: _this.url_count,
+                this.$ajax({
+                    url: this.url_count,
                     data: {
-                        uid: _this.search_customer,
-                        company: _this.search_name ? _this.search_name : '',
-                        superior_id: _this.search_agent ? _this.search_agent : '',
+                        uid: this.search_customer,
+                        company: this.search_name ? this.search_name : '',
+                        superior_id: this.search_agent ? this.search_agent : '',
                         created_at_start: start_time,
                         created_at_end: end_time
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.sum = {
+                            this.sum = {
                                 num: data.data.seat_num,
                                 cost: data.data.seat_price
                             }
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -277,7 +274,7 @@
 
             }
         },
-        created: function () {
+        created() {
             this.init()
             let _this = this
             document.onkeyup = function (evt) {

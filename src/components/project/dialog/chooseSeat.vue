@@ -62,7 +62,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     export default {
@@ -101,7 +100,6 @@
                 this.$store.commit('HIDE_LAYER')
             },
             sure: function () {
-                let _this = this
                 let arr = []
                 let reg = /^[1-9][0-9]*$/
                 if (this.assignType == 1) {
@@ -148,7 +146,7 @@
                         }
                     }
                 }
-                mAjax(this, {
+                this.$ajax({
                     url: API.seat_tobind,
                     data: {
                         id: this.id,
@@ -161,15 +159,15 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('操作成功', () => {
+                            this.close()
+                            this.$toast('操作成功', () => {
                                 window.location.reload()
                             })
                         } else if (data.code == 600) {
-                            _this.close()
-                            _this.$toast('拨打资源数量在变动中,请刷新页面后，尝试重新分配')
+                            this.close()
+                            this.$toast('拨打资源数量在变动中,请刷新页面后，尝试重新分配')
                         } else {
-                            _this.error = data.message
+                            this.error = data.message
                         }
                     }
                 })
@@ -196,9 +194,8 @@
             }
         },
         created() {
-            let _this = this
             if (this.userType != 3) return false
-            mAjax(this, {
+            this.$ajax({
                 url: API.seat_list,
                 success: data => {
                     if (data.code == 200) {
@@ -211,21 +208,21 @@
                                 num: ''
                             })
                         }
-                        _this.seat = arr
+                        this.seat = arr
                     } else {
-                        _this.seat = []
+                        this.seat = []
                     }
                 }
             })
             this.$on('show', function (id, name, clue) {
-                _this.id = id
-                _this.name = name
-                _this.clue_num = clue
-                _this.assignType = 1
-                _this.assign_clue_num = ''
-                _this.error = ''
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
+                this.id = id
+                this.name = name
+                this.clue_num = clue
+                this.assignType = 1
+                this.assign_clue_num = ''
+                this.error = ''
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         },
         components: {

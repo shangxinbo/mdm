@@ -56,11 +56,11 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import { isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {
-        data: function () {
+        data() {
             return {
                 style: 'none',
                 user: '',
@@ -78,7 +78,7 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.username_error = ''
                 this.email_error = ''
                 this.tel_error = ''
@@ -87,7 +87,7 @@
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 let reg = /^[\u4e00-\u9fa5]{2,6}$/
                 if (!this.username) {
                     this.username_error = '请填写姓名'
@@ -130,8 +130,7 @@
                     this.self_addr_error = '请填写所在位置'
                     return false
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_edit,
                     data: {
                         id: this.id,
@@ -143,41 +142,36 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$emit('success')
+                            this.close()
+                            this.$emit('success')
                         } else {
-                            _this.self_addr_error = data.message
+                            this.self_addr_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         },
-        created: function () {
-            let _this = this
+        created() {
             this.$on('show', function (id) {
-                mAjax(_this, {
+                this.$ajax({
                     url: API.customer_detail,
                     data: {
                         id: id
                     },
                     success: data => {
-                        _this.id = id
-                        _this.user = data.data.user
-                        _this.username = data.data.user_name
-                        _this.email = data.data.mail
-                        _this.tel = data.data.tel
-                        _this.addr = data.data.store_addr
-                        _this.self_addr = data.data.application_addr
-                        _this.style = 'block'
-                        _this.$store.commit('SHOW_LAYER')
+                        this.id = id
+                        this.user = data.data.user
+                        this.username = data.data.user_name
+                        this.email = data.data.mail
+                        this.tel = data.data.tel
+                        this.addr = data.data.store_addr
+                        this.self_addr = data.data.application_addr
+                        this.style = 'block'
+                        this.$store.commit('SHOW_LAYER')
                     }
                 })
-
             })
-        },
+        }
     }
 
 </script>

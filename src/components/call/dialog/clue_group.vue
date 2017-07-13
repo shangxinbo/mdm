@@ -64,7 +64,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import callResultConf from '../../project/call/callResultConf'
     export default {
@@ -84,7 +83,7 @@
             this.$on('show', (id, tel) => {
                 this.tel = tel
                 this.id = id
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_phone_audio,
                     data: {
                         id: id
@@ -167,23 +166,6 @@
                     dom.play()
                 }
 
-
-
-                // if (index == this.playNow) {
-                //     dom.pause()
-                //     span[0].querySelector('i').className = 'icon play'
-                //     span[1].innerHTML = '继续播放'
-                //     this.playNow = -1
-                // } else {
-                //     if (dom.getAttribute('src') != url) {
-                //         dom.src = url
-                //         dom.load()
-                //     }
-                //     dom.play()
-                //     span[0].querySelector('i').className = 'icon pause'
-                //     span[1].innerHTML = '暂停'
-                //     this.playNow = index
-                // }
             }
         }
     }

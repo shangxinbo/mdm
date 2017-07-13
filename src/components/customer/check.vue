@@ -157,7 +157,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data: function () {
@@ -252,8 +251,7 @@
                         this.reason_error = ''
                     }
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_check,
                     data: {
                         id: this.$route.params.id,
@@ -267,11 +265,11 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.$toast('提交成功', () => {
-                                _this.$router.replace('/customer/index')
+                            this.$toast('提交成功', () => {
+                                this.$router.replace('/customer/index')
                             })
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -286,7 +284,7 @@
         },
         created() {
             let id = this.$route.params.id
-            mAjax(this, {
+            this.$ajax({
                 url: API.customer_detail_by_operate,
                 data: {
                     id: id

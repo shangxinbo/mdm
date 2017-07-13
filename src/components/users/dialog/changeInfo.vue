@@ -63,17 +63,17 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import { isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {
-        data: function () {
+        data() {
             return {
                 style: 'none',
                 user: '',
                 id: '',
-                name:'',
-                name_error:'',
+                name: '',
+                name_error: '',
                 username: '',
                 username_error: '',
                 email: '',
@@ -87,7 +87,7 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.username_error = ''
                 this.email_error = ''
                 this.name_error = ''
@@ -97,7 +97,7 @@
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 let reg = /^[\u4e00-\u9fa5]{2,6}$/
                 if (!this.username) {
                     this.username_error = '请填写姓名'
@@ -140,12 +140,11 @@
                     this.self_addr_error = '请填写所在位置'
                     return false
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.agent_modify_myinfo,
                     data: {
                         id: this.id,
-                        name:this.name,
+                        name: this.name,
                         user_name: this.username,
                         mail: this.email,
                         tel: this.tel,
@@ -154,33 +153,29 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$toast('修改信息成功',()=>{
+                            this.close()
+                            this.$toast('修改信息成功', () => {
                                 window.location.reload()
                             })
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         },
-        created: function () {
-            let _this = this
+        created() {
             this.$on('show', function (opt) {
-                _this.id = opt.id
-                _this.user = opt.user
-                _this.name = opt.name
-                _this.username = opt.username
-                _this.email = opt.email
-                _this.tel = opt.tel
-                _this.addr = opt.addr
-                _this.self_addr = opt.self_addr
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
+                this.id = opt.id
+                this.user = opt.user
+                this.name = opt.name
+                this.username = opt.username
+                this.email = opt.email
+                this.tel = opt.tel
+                this.addr = opt.addr
+                this.self_addr = opt.self_addr
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         },
     }

@@ -36,28 +36,27 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         computed: {
-            host: function () {
+            host() {
                 return this.$store.state.callInfo ? this.$store.state.callInfo.cti_server : ''
             },
             port() {
                 return this.$store.state.callInfo ? this.$store.state.callInfo.ip_port : ''
             },
-            user: function () {
+            user() {
                 return this.$store.state.callInfo ? this.$store.state.callInfo.agent_id : ''
             },
-            password: function () {
+            password() {
                 return this.$store.state.callInfo ? this.$store.state.callInfo.password : ''
             },
-            style: function () {
+            style() {
                 return this.$store.state.showCallSet ? 'block' : 'none'
             }
         },
         watch: {
-            style: function (newVal, oldVal) {
+            style(newVal, oldVal) {
                 if (newVal == 'block') {
                     this.$store.commit('SHOW_LAYER')
                 } else {
@@ -66,7 +65,7 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.$store.commit('HIDE_CALL_SET')
             }
         }

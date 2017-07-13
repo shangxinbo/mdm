@@ -51,7 +51,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import searchForm from './templateForm'
@@ -93,7 +92,7 @@
                 this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
                 this.page = this.$route.query.page ? this.$route.query.page : 1
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.sms_template_list,
                     data: {
                         name: this.name,

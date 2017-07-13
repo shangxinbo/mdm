@@ -13,13 +13,12 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import Vue from 'vue'
     import callResultConf from '../call/callResultConf'
-    let list = Object.assign({},callResultConf)
+    let list = Object.assign({}, callResultConf)
     delete list[1]
     export default {
-        data: function () {
+        data() {
             return {
                 selected: {
                     id: '',
@@ -30,10 +29,10 @@
             }
         },
         methods: {
-            showSelect: function () {
+            showSelect() {
                 this.show = true
             },
-            change: function (id, name) {
+            change(id, name) {
                 this.selected = {
                     id: id,
                     name: name
@@ -41,13 +40,13 @@
                 this.show = false
             }
         },
-        created: function () {
+        created() {
             this.selected = {
-                "id":2,
-                "name":this.list[2]
+                "id": 2,
+                "name": this.list[2]
             }
         },
-        mounted: function () {
+        mounted() {
             let _this = this
             Vue.nextTick(() => {
                 document.addEventListener('click', () => {

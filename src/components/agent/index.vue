@@ -55,7 +55,6 @@
     </div>
 </template>
 <script>
-    import {mAjax} from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import updateInfoDialog from './dialog/upinfo'
@@ -75,22 +74,21 @@
         },
         methods: {
             refresh() {
-                let _this = this
                 let page = this.$route.params.page
                 page = page ? page : 1
-                mAjax(this, {
+                this.$ajax({
                     url: API.agent_list,
                     data: {
                         page: page
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
                             let list = data.data
-                            _this.list = list.data
-                            _this.totalPage = Math.ceil(list.total / list.per_page)
-                            _this.currentPage = page
+                            this.list = list.data
+                            this.totalPage = Math.ceil(list.total / list.per_page)
+                            this.currentPage = page
                         } else {
-                            _this.$toast(data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
