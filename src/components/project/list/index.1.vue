@@ -9,17 +9,80 @@
                 <seatData v-if="userType==3" @getSeatNum="setMySeat"></seatData>
             </div>
             <div class="data-warp">
-                <mtable>
-                    <td :width="'50%'" :label="'姓名'" v-if="1">
-                        asdfasdf
-                    </td>
-                    <td :width="'10%'" :label="'项目名称'">
-                        <span>asdfsdf</span>
-                    </td>
-                    <td>
-                        asdfasdf
-                    </td>
-                </mtable>
+                <div class="data-table">
+                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
+                        <tbody>
+                            <tr>
+                                <th width="10%">项目名称</th>
+                                <th width="10%" v-if="!customer_id&&userType==1">客户名称</th>
+                                <th width="5%">类型</th>
+                                <th width="5%">状态</th>
+                                <th width="5%">资源总量</th>
+                                <th width="5%">未分配</th>
+                                <th width="5%">未拨打</th>
+                                <th width="5%">已拨通</th>
+                                <th width="5%">拨通率</th>
+                                <th width="7%">通话时长</th>
+                                <th width="7%">剩余时间</th>
+                                <th width="6%" v-if="userType!=4">项目坐席</th>
+                                <th width="6%" v-if="userType!=4">挂机短信</th>
+                                <th width="6%" v-if="userType==1">留资</th>
+                                <th width="10%">操作</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table v-if="list.length>0">
+                        <tbody>
+                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
+                                <td>
+                                    <span v-if="userType==4">{{item.name}}</span>
+                                    <router-link :to="'/project/detail/'+item.id" v-else>{{item.name}}</router-link>
+                                </td>
+                                <td v-if="!customer_id&&userType==1">
+                                    <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                                </td>
+                                <td>{{item.project_type}}</td>
+                                <td :style="{color:item.audit_status==-1?'red':''}">{{item.project_status}}
+                                    <span v-if="item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
+                                        <i class="icon tips"></i>
+                                        <em>{{item.audit_reason}}</em>
+                                    </span>
+                                </td>
+                                <td>{{item.status==1||item.status==3||item.status==2 ? item.clue_num:'--'}}</td>
+                                <td>{{item.undistributed}}</td>
+                                <td>{{item.clue_odd_num?item.clue_odd_num:'--'}}</td>
+                                <td>{{item.clue_connect_num?item.clue_connect_num:'--'}}</td>
+                                <td>{{item.clue_valid_percent?item.clue_valid_percent + '%':'--'}}</td>
+                                <td>{{item.call_time&&(item.status==1||item.status==3) ? item.call_time:'--'}}</td>
+                                <td>{{item.odd_time?item.odd_time:'--'}}</td>
+                                <td v-if="userType!=4">{{item.project_seat_num?item.project_seat_num:'--'}}</td>
+                                <td v-if="userType!=4">
+                                    <router-link v-if="userType==1" :to="{path:'/project/sms/list',query:{project:item.id,client:item.client_id}}">{{item.hangUpSms}}</router-link>
+                                    <span v-else>{{item.hangUpSms}}</span>
+                                </td>
+                                <td v-if="userType==1">
+                                    <router-link :to="{path:'/project/leftinfo',query:{project:item.id}}">{{item.leftInfo}}</router-link>
+                                </td>
+                                <td v-if="userType==1">
+                                    <router-link v-if="item.audit_status==-1" :to="'/project/detail/' + item.id">审核</router-link>
+                                    <a v-if="item.status==1&&item.audit_status==-2" href="javascript:void(0);" @click="stop(item.id)">暂停</a>
+                                    <a v-if="item.status==2" href="javascript:void(0);" @click="start(item.id)">开启</a>
+                                    <a v-if="item.client_is_hang_up_message==1&&item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(item.id,item.name)">使用挂机短信</a>
+                                </td>
+                                <td v-else-if="userType==4">
+                                    <router-link v-if="item.status==1" :to="{path:'/project/call/nodial',query:{id:item.id,projectName:item.name,sms:item.client_is_hang_up_message==1&&item.is_hang_up_message==1}}">外呼</router-link>
+                                    <router-link v-else :to="{path:'/project/call/enddial',query:{'id':item.id,projectName:item.name,end:1,sms:item.client_is_hang_up_message==1&&item.is_hang_up_message==1}}">查看</router-link>
+                                </td>
+                                <td v-else>
+                                    <router-link v-if="item.audit_status==-3" :to="'/project/add/' + item.id">重新申请</router-link>
+                                    <a v-if="item.status==1&&myseatNum>0&&item.clue_odd_num>0" href="javascript:void(0);" @click="assignSeat(item.id,item.name,item.undistributed)">分配线索</a>
+                                    <a v-if="item.have_nodial_clues" href="javascript:void(0);" @click="recoverClues(item.id)">回收线索</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="no-data" v-else>暂无数据</p>
+                </div>
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
@@ -37,7 +100,6 @@
     import dataSum from './dataSum'
     import seatData from './seat'
     import saveByOptional from '../create/save_optional'
-    import mtable from 'components/utils/table'
 
     export default {
         data() {
@@ -198,8 +260,7 @@
             dataSum,
             seatData,
             saveByOptional,
-            recoveryCluesDialog,
-            mtable
+            recoveryCluesDialog
         }
     }
 
