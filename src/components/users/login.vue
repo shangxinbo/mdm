@@ -37,7 +37,7 @@
     import mfooter from 'components/common/footer.vue'
     import API from 'src/services/api'
     export default {
-        data(){
+        data() {
             return {
                 logo: logo,
                 username: '',
@@ -64,7 +64,7 @@
                         username: this.username,
                         password: this.password
                     },
-                    success: function (data) {
+                    success: data => {
                         if (data.code == 200) {
                             this.error = ''
                             localStorage.setItem('user', JSON.stringify(data.data))
@@ -77,7 +77,7 @@
                             this.error = data.message
                         }
                     },
-                    error: function (err) {
+                    error: err => {
                         this.error = err
                     }
                 })
