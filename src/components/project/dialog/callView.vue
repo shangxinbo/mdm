@@ -50,9 +50,8 @@
 <script>
     import API from 'src/services/api'
     import callResultConf from '../call/callResultConf'
-    import md5 from 'js-md5'
     export default {
-        data: () => {
+        data() {
             return {
                 style: 'none',
                 tel: '',
@@ -64,26 +63,22 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            callThis: function () {
+            callThis() {
                 this.close()
                 this.$emit('callThis', this.id, this.tel)
             }
         },
         filters: {
-            toResultText: function (value) {
+            toResultText(value) {
                 if (value) {
                     return callResultConf[value]
                 } else {
                     return '未拨打'
                 }
-            },
-            md5Tel(value) {
-                let mm = md5.create().update(value).hex()
-                return mm.substr(0, 16)
             }
         },
         created() {
