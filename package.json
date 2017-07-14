@@ -16,7 +16,6 @@
   "dependencies": {
     "axios": "^0.16.2",
     "babel-polyfill": "^6.23.0",
-    "js-md5": "^0.4.2",
     "moment": "^2.18.1",
     "vue": "^2.4.1",
     "vue-router": "^2.3.1",
