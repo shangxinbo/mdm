@@ -12,7 +12,7 @@
                                     <p class="text">{{render.tel}}</p>
                                 </div>
                             </div>
-                            <div class="fl-in">
+                            <div class="fl-in" v-if="render.city">
                                 <label class="name">归属地</label>
                                 <div class="input-warp">
                                     <p class="text">{{render.city}}</p>
@@ -79,9 +79,9 @@
                                 <span class="t">已拨打次数</span>
                                 <span class="num">{{render.call_num}}</span>
                             </li>
-                            <li>
+                            <li v-if="render.call||render.sex">
                                 <span class="t">称呼</span>
-                                <span class="num">{{render.call}}</span>
+                                <span class="num">{{render.call}}{{render.sex=='男'?'先生':'女士'}}</span>
                             </li>
                         </ul>
                     </div>
@@ -180,9 +180,9 @@
             }
             this.init()
 
-            window.onbeforeunload = () => {
-                return '关闭或刷新页面'
-            }
+            // window.onbeforeunload = () => {
+            //     return '关闭或刷新页面'
+            // }
         },
         beforeRouteLeave(to, from, next) {
             if (from.path != to.path) {
