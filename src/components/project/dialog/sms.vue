@@ -67,8 +67,9 @@
             change(item) {
                 this.selected = item
             },
-            sure: function () {
+            sure() {
                 let client_id = sessionStorage.getItem('client_id')
+                console.log(client_id)
                 this.$ajax({
                     url: API.sms_send,
                     data: {
@@ -87,9 +88,9 @@
                 })
             }
         },
-        created(id) {
-            this.id = id
-            this.$on('show', function () {
+        created() {
+            this.$on('show', function (id) {
+                this.id = id
                 let client_id = sessionStorage.getItem('client_id')
                 this.$ajax({
                     url: API.sms_client_template_list,
