@@ -180,9 +180,9 @@
             }
             this.init()
 
-            // window.onbeforeunload = () => {
-            //     return '关闭或刷新页面'
-            // }
+            window.onbeforeunload = () => {
+                return '关闭或刷新页面'
+            }
         },
         beforeRouteLeave(to, from, next) {
             if (from.path != to.path) {

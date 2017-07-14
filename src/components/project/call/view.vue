@@ -12,7 +12,7 @@
                                     <p class="text">{{render.tel}}</p>
                                 </div>
                             </div>
-                            <div class="fl-in">
+                            <div class="fl-in" v-if="render.city">
                                 <label class="name">归属地</label>
                                 <div class="input-warp">
                                     <p class="text">{{render.city}}</p>
