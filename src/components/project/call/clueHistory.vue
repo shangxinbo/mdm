@@ -17,7 +17,7 @@
                     <td class="tl">{{item.remarks}}</td>
                     <td class="tl">【{{item.dial_result_first}}】{{item.dial_result_second }}</td>
                     <td>
-                        <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.url,index,$event)">
+                        <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.sound_url,index,$event)">
                             <span class="notice">
                                 <i class="icon play"></i>
                             </span>
@@ -31,7 +31,7 @@
                 </tr>
             </tbody>
         </table>
-        <audio controls="true" style="position: absolute;top: -45px;right: 0px;z-index:100000;width:400px;" id="audio" class="audio"
+        <audio controls="true" style="position: absolute;top: -45px;right: 0px;z-index:100000;width:400px;display:none;" id="audio" class="audio"
             @play="play" @pause="pause" @ended="end"></audio>
     </div>
 </template>
@@ -79,7 +79,7 @@
                 if (text == '暂停') {
                     dom.pause()
                 } else {
-
+                    
                     if (dom.getAttribute('src') != url) {
                         dom.src = url
                         dom.load()
@@ -96,7 +96,6 @@
                     span[1].innerHTML = '播放'
                 }
                 this.playNow = -1
-                this.$refs.clueGroup.playNow = -1
             },
             pause() {
                 let audio = document.querySelectorAll('#currentplay span')
