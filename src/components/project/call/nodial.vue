@@ -51,7 +51,7 @@
     export default {
         data() {
             return {
-                id: '',
+                project_id: '',
                 city: '',
                 currentPage: 1,
                 totalPage: 1,
@@ -86,14 +86,14 @@
             },
             render() {
 
-                this.id = this.$route.query.id
+                this.project_id = this.$route.query.project_id
                 this.city = this.$route.query.city ? this.$route.query.city : ''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
 
                 this.$ajax({
                     url: API.project_call_nodial_list,
                     data: {
-                        project_id: this.id,
+                        project_id: this.project_id,
                         city: this.city,
                         created_at_start: this.$route.query.startTime,
                         created_at_end: this.$route.query.endTime,
@@ -112,7 +112,8 @@
             },
             call(id, tel, city, call, sex, call_num) {
                 let query = Object.assign({}, this.$route.query, {
-                    project_id: '',
+                    project_id: this.project_id,
+                    id:id,
                     projectName: this.$route.query.projectName,
                     tel: tel,
                     city: city,

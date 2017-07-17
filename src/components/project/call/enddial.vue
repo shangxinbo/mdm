@@ -67,7 +67,7 @@
     export default {
         data() {
             return {
-                id: '',
+                project_id: '',
                 sex: '',
                 result1: '',
                 result2: '',
@@ -104,7 +104,7 @@
                 })
             },
             render() {
-                this.id = this.$route.query.id
+                this.project_id = this.$route.query.project_id
                 this.city = this.$route.query.city ? this.$route.query.city : ''
                 this.sex = this.$route.query.sex ? this.$route.query.sex : ''
                 this.result1 = this.$route.query.result1 ? this.$route.query.result1 : ''
@@ -115,7 +115,7 @@
                 this.$ajax({
                     url: API.project_call_enddial_list,
                     data: {
-                        project_id: this.id,
+                        project_id: this.project_id,
                         city: this.city,
                         gender: this.sex,
                         dial_result_first: this.result1,
@@ -130,7 +130,7 @@
                             this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                             this.total = data.data.total
                         } else {
-                            this.$toast('show', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -139,8 +139,10 @@
                 this.$refs.smsDialog.$emit('show', id)
             },
             call(id, tel, city, call, sex, call_num) {
+                console.log(id,this.project_id)
                 let query = Object.assign({}, this.$route.query, {
-                    project_id: '',
+                    id: id,
+                    project_id:this.project_id,
                     projectName: this.$route.query.projectName,
                     tel: tel,
                     city: city,
@@ -155,7 +157,8 @@
             },
             view(id, tel, city, call, sex, call_num) {
                 let query = Object.assign({}, this.$route.query, {
-                    project_id: '',
+                    project_id: this.project_id,
+                    id:id,
                     projectName: this.$route.query.projectName,
                     tel: tel,
                     city: city,

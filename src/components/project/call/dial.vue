@@ -161,7 +161,7 @@
         created() {
             this.clue_id = this.$route.query.id
             this.render = {
-                projectId: this.$route.query.projectId,
+                projectId: this.$route.query.project_id,
                 projectName: this.$route.query.projectName,
                 tel: this.$route.query.tel,
                 city: this.$route.query.city,
@@ -272,7 +272,7 @@
                     _this.$toast('操作成功', () => {
                         let api = API.clue_get_next1
                         let obj = {
-                            project_id: _this.projectId,
+                            project_id: _this.render.projectId,
                             city: _this.search_city,
                             created_at_start: _this.startTime,
                             created_at_end: _this.endTime,
@@ -281,7 +281,7 @@
                         if (_this.search.status) {
                             api = API.clue_get_next2
                             obj = {
-                                project_id: _this.projectId,
+                                project_id: _this.render.projectId,
                                 city: _this.search_city,
                                 gender: _this.search.sex,
                                 dial_at_start: _this.startTime,
@@ -364,7 +364,7 @@
                         }
                     })
                 }
-
+                
                 this.$ajax({
                     url: API.get_myclient_balance,
                     data: {
@@ -405,9 +405,10 @@
                                             url: API.save_dial_history,
                                             data: {
                                                 phone: data.data.telephone,
-                                                project_id: _this.projectId
+                                                project_id: _this.render.projectId
                                             },
                                             success: data => {
+                                                console.log(data.code)
                                                 if (data.code == 200) {
                                                     _this.history_id = data.data.id
                                                     window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)

@@ -13,7 +13,7 @@
                     <template scope="props">
                         <td width="10%" label="姓名">
                             <span v-if="userType==4">{{props.item.name}}</span>
-                            <router-link :to="'/project/detail/'+item.id" v-else>{{props.item.name}}</router-link>
+                            <router-link :to="'/project/detail/'+props.item.id" v-else>{{props.item.name}}</router-link>
                         </td>
                         <td width="10%" label="项目名称" v-if="!customer_id&&userType==1">
                             <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
@@ -49,8 +49,8 @@
                                 <a v-if="props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(props.item.id,props.item.name)">使用挂机短信</a>
                             </template>
                             <template v-else-if="userType==4">
-                                <router-link v-if="props.item.status==1" :to="{path:'/project/call/nodial',query:{id:props.item.id,projectName:props.item.name,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">外呼</router-link>
-                                <router-link v-else :to="{path:'/project/call/enddial',query:{'id':props.item.id,projectName:props.item.name,end:1,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">查看</router-link>
+                                <router-link v-if="props.item.status==1" :to="{path:'/project/call/nodial',query:{project_id:props.item.id,projectName:props.item.name,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">外呼</router-link>
+                                <router-link v-else :to="{path:'/project/call/enddial',query:{project_id:props.item.id,projectName:props.item.name,end:1,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">查看</router-link>
                             </template>
                             <template v-else>
                                 <router-link v-if="props.item.audit_status==-3" :to="'/project/add/' + props.item.id">重新申请</router-link>
