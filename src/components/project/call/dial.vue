@@ -410,7 +410,7 @@
                                             success: data => {
                                                 if (data.code == 200) {
                                                     _this.history_id = data.data.id
-                                                    //window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
+                                                    window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                                 }
                                             }
                                         })
