@@ -9,16 +9,56 @@
                 <seatData v-if="userType==3" @getSeatNum="setMySeat"></seatData>
             </div>
             <div class="data-warp">
-                <mtable>
-                    <td :width="'50%'" :label="'姓名'" v-if="1">
-                        asdfasdf
-                    </td>
-                    <td :width="'10%'" :label="'项目名称'">
-                        <span>asdfsdf</span>
-                    </td>
-                    <td>
-                        asdfasdf
-                    </td>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="10%" label="姓名">
+                            <span v-if="userType==4">{{props.item.name}}</span>
+                            <router-link :to="'/project/detail/'+item.id" v-else>{{props.item.name}}</router-link>
+                        </td>
+                        <td width="10%" label="项目名称" v-if="!customer_id&&userType==1">
+                            <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                        </td>
+                        <td width="5%" label="类型">{{props.item.project_type}}</td>
+                        <td width="5%" label="状态" :style="{color:props.item.audit_status==-1?'red':''}">
+                            {{props.item.project_status}}
+                            <span v-if="props.item.audit_status==-3" @mouseover="showReason" @mouseout="hideReason" class="notice">
+                                <i class="icon tips"></i>
+                                <em>{{props.item.audit_reason}}</em>
+                            </span>
+                        </td>
+                        <td width="5%" label="资源总量">{{props.item.status==1||props.item.status==3||props.item.status==2 ? props.item.clue_num:'--'}}</td>
+                        <td width="5%" label="未分配">{{props.item.undistributed}}</td>
+                        <td width="5%" label="已拨通">{{props.item.clue_odd_num?props.item.clue_odd_num:'--'}}</td>
+                        <td width="5%" label="已拨通">{{props.item.clue_connect_num?props.item.clue_connect_num:'--'}}</td>
+                        <td width="5%" label="拨通率">{{props.item.clue_valid_percent?props.item.clue_valid_percent + '%':'--'}}</td>
+                        <td width="7%" label="通话时长">{{props.item.call_time&&(props.item.status==1||props.item.status==3) ? props.item.call_time:'--'}}</td>
+                        <td width="7%" label="剩余时间">{{props.item.odd_time?props.item.odd_time:'--'}}</td>
+                        <td width="6%" label="项目坐席" v-if="userType!=4">{{props.item.project_seat_num?props.item.project_seat_num:'--'}}</td>
+                        <td width="6%" label="挂机短信" v-if="userType!=4">
+                            <router-link v-if="userType==1" :to="{path:'/project/sms/list',query:{project:props.item.id,client:props.item.client_id}}">{{props.item.hangUpSms}}</router-link>
+                            <span v-else>{{props.item.hangUpSms}}</span>
+                        </td>
+                        <td width="6%" label="留资" v-if="userType==1">
+                            <router-link :to="{path:'/project/leftinfo',query:{project:props.item.id}}">{{props.item.leftInfo}}</router-link>
+                        </td>
+                        <td width="10%" label="操作">
+                            <template v-if="userType==1">
+                                <router-link v-if="props.item.audit_status==-1" :to="'/project/detail/' + props.item.id">审核</router-link>
+                                <a v-if="props.item.status==1&&props.item.audit_status==-2" href="javascript:void(0);" @click="stop(props.item.id)">暂停</a>
+                                <a v-if="props.item.status==2" href="javascript:void(0);" @click="start(props.item.id)">开启</a>
+                                <a v-if="props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(props.item.id,props.item.name)">使用挂机短信</a>
+                            </template>
+                            <template v-else-if="userType==4">
+                                <router-link v-if="props.item.status==1" :to="{path:'/project/call/nodial',query:{id:props.item.id,projectName:props.item.name,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">外呼</router-link>
+                                <router-link v-else :to="{path:'/project/call/enddial',query:{'id':props.item.id,projectName:props.item.name,end:1,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">查看</router-link>
+                            </template>
+                            <template v-else>
+                                <router-link v-if="props.item.audit_status==-3" :to="'/project/add/' + props.item.id">重新申请</router-link>
+                                <a v-if="props.item.status==1&&myseatNum>0&&props.item.clue_odd_num>0" href="javascript:void(0);" @click="assignSeat(props.item.id,props.item.name,props.item.undistributed)">分配线索</a>
+                                <a v-if="props.item.have_nodial_clues" href="javascript:void(0);" @click="recoverClues(props.item.id)">回收线索</a>
+                            </template>
+                        </td>
+                    </template>
                 </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
