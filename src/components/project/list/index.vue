@@ -16,7 +16,7 @@
                             <router-link :to="'/project/detail/'+props.item.id" v-else>{{props.item.name}}</router-link>
                         </td>
                         <td width="10%" label="项目名称" v-if="!customer_id&&userType==1">
-                            <router-link :to="{query:{customer_id:item.client_id,customer_name:item.client_name}}">{{item.client_name}}</router-link>
+                            <router-link :to="{query:{customer_id:props.item.client_id,customer_name:props.item.client_name}}">{{props.item.client_name}}</router-link>
                         </td>
                         <td width="5%" label="类型">{{props.item.project_type}}</td>
                         <td width="5%" label="状态" :style="{color:props.item.audit_status==-1?'red':''}">
