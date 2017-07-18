@@ -517,7 +517,7 @@
                             _this.$router.replace('/customer/index')
                         })
                     } else {
-                        _this.self_addr_error = res.data.message
+                        _this.price_error = res.data.message
                     }
                 }).catch(err => {
                     _this.$toast('程序未知错误')
