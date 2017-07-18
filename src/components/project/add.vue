@@ -185,7 +185,7 @@
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            this.$toast(this.id ? '重新申请成功' : '新建成功', function () {
+                            this.$toast(this.id ? '重新申请成功' : '新建成功', ()=> {
                                 this.$router.replace('/project/index')
                             })
                         } else {

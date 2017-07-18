@@ -49,14 +49,16 @@
             </div>
         </div>
         <div id="shadowLayer" v-if="layer"></div>
+        <toast ref="toast"></toast>
     </div>
 </template>
 <script>
     import logo from 'assets/img/logo.png'
     import API from 'src/services/api'
     import REG from 'src/services/reg'
+    import toast from 'components/utils/toast'
     export default {
-        data: function () {
+        data() {
             return {
                 logo: logo,
                 oldpass: '',
@@ -67,8 +69,11 @@
                 repeat_error: ''
             }
         },
+        components:{
+            toast
+        },
         computed: {
-            layer: function () {
+            layer() {
                 return this.$store.state.showLayer
             }
         },
@@ -113,11 +118,11 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            this.$toast('修改密码成功', () => {
+                            this.$refs.toast.show('修改密码成功', () => {
                                 this.$router.replace('/')
                             })
                         } else {
-                            this.$toast(data.message)
+                            this.repeat_error = data.message
                         }
                     }
                 })

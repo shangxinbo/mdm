@@ -9,9 +9,9 @@
                 <div class="data-table">
                     <table cellspacing="0" cellpadding="0">
                         <tr>
-                            <th>客户名称</th>
-                            <th>客户类型</th>
-                            <th>创建日期</th>
+                            <th width="40%">客户名称</th>
+                            <th width="30%">客户类型</th>
+                            <th width="30%">创建日期</th>
                         </tr>
                     </table>
                 </div>
@@ -20,11 +20,11 @@
                         <table cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr v-for="(item,index) in list" :class="{tr2:index%2,checked:item.checked}">
-                                    <td class="">
+                                    <td width="40%">
                                         <router-link :to="'/customer/detail/'+item.id">{{item.company}}</router-link>
                                     </td>
-                                    <td>{{item.type}}</td>
-                                    <td>{{item.created_at.substr(0,10)}}</td>
+                                    <td width="30%">{{item.type}}</td>
+                                    <td width="30%">{{item.created_at.substr(0,10)}}</td>
                                 </tr>
                             </tbody>
                         </table>

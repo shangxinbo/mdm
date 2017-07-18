@@ -27,6 +27,14 @@
             }
         },
         props: ['api', 'param', 'id', 'name', 'initlist', 'error', 'addClass', 'hideAll'],
+        watch: {
+            id(newVal, oldVal) {
+                this.choose(newVal)
+            },
+            name(newVal, oldVal) {
+                this.choose('',newVal)
+            }
+        },
         created() {
             this.init()
         },
