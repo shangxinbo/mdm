@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>geo易获客</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="renderer" content="webkit">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <form action="" method="post" onsubmit="return false">
+        <input type="text" name="name" placeholder="请填写您的姓名" value="" />
+        <input type="tel" name="tel" placeholder="请填写您的手机号" value="" />
+        <input type="email" name="email" placeholder="请填写您的邮箱" value="" />
+        <button>提交</button>
+    </form>
+    <script>
+        /* eslint-disable no-undef */
+        $(function () {
+            $('button').on('click', function () {
+                var name = removeHTMLTag($('input[name="name"]').val())
+                var tel = removeHTMLTag($('input[name="tel"]').val())
+                var email = removeHTMLTag($('input[name="email"]').val())
+                var id = getQuery('project_id')
+                if(!name&&!tel&&!id) return false 
+                $.ajax({
+                    url: '/sms/capital_save',
+                    data: {
+                        name: name,
+                        tel: tel,
+                        email: email,
+                        id: id
+                    },
+                    success: function (data) {
+                        if (data.code == 200) {
+                            $('button').off('click')
+                            alert('提交成功')
+                        } else {
+                            alert(data.message)
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            })
+        })
+        function getQuery(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i")
+            var r = window.location.search.substr(1).match(reg)
+            if (r != null) return decodeURIComponent(r[2])
+            return null
+        }
+        function removeHTMLTag(str) {
+            str = str.replace(/<\/?[^>]*>/g, '') //去除HTML tag
+            str = str.replace(/[ | ]*\n/g, '\n') //去除行尾空白
+            str = str.replace(/&#x20;/ig, '') //去掉&#x20;
+            return str
+        }
+    </script>
+</body>
+</html>
