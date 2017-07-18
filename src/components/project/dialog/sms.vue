@@ -100,9 +100,13 @@
                     success: data => {
                         if (data.code == 200) {
                             this.list = data.data
-                            this.selected = data.data[0]
-                            this.style = 'block'
-                            this.$store.commit('SHOW_LAYER')
+                            if (this.list.length > 0) {
+                                this.selected = data.data[0]
+                                this.style = 'block'
+                                this.$store.commit('SHOW_LAYER')
+                            }else{
+                                this.$toast('未建立短信模板，无法发送短信')
+                            }
                         } else {
                             this.$toast(data.message)
                         }

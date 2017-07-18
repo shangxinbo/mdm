@@ -139,7 +139,6 @@
                 this.$refs.smsDialog.$emit('show', id)
             },
             call(id, tel, city, call, sex, call_num) {
-                console.log(id,this.project_id)
                 let query = Object.assign({}, this.$route.query, {
                     id: id,
                     project_id:this.project_id,
