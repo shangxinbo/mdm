@@ -11,11 +11,11 @@
             <div class="data-warp">
                 <mtable :list="list">
                     <template scope="props">
-                        <td width="10%" label="姓名">
+                        <td width="10%" label="项目名称">
                             <span v-if="userType==4">{{props.item.name}}</span>
                             <router-link :to="'/project/detail/'+props.item.id" v-else>{{props.item.name}}</router-link>
                         </td>
-                        <td width="10%" label="项目名称" v-if="!customer_id&&userType==1">
+                        <td width="10%" label="客户名称" v-if="!customer_id&&userType==1">
                             <router-link :to="{query:{customer_id:props.item.client_id,customer_name:props.item.client_name}}">{{props.item.client_name}}</router-link>
                         </td>
                         <td width="5%" label="类型">{{props.item.project_type}}</td>
@@ -28,7 +28,7 @@
                         </td>
                         <td width="5%" label="资源总量">{{props.item.status==1||props.item.status==3||props.item.status==2 ? props.item.clue_num:'--'}}</td>
                         <td width="5%" label="未分配">{{props.item.undistributed}}</td>
-                        <td width="5%" label="已拨通">{{props.item.clue_odd_num?props.item.clue_odd_num:'--'}}</td>
+                        <td width="5%" label="未拨打">{{props.item.clue_odd_num?props.item.clue_odd_num:'--'}}</td>
                         <td width="5%" label="已拨通">{{props.item.clue_connect_num?props.item.clue_connect_num:'--'}}</td>
                         <td width="5%" label="拨通率">{{props.item.clue_valid_percent?props.item.clue_valid_percent + '%':'--'}}</td>
                         <td width="7%" label="通话时长">{{props.item.call_time&&(props.item.status==1||props.item.status==3) ? props.item.call_time:'--'}}</td>
