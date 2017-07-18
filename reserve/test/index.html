@@ -25,6 +25,8 @@
                 if(!name&&!tel&&!id) return false 
                 $.ajax({
                     url: '/sms/capital_save',
+                    dataType:'json',
+                    type:'post',
                     data: {
                         name: name,
                         tel: tel,
