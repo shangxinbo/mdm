@@ -5,39 +5,28 @@
         </div>
         <div class="data-warp">
             <div class="cutover">
-                <div class="data-table cutover-tab01">
-                    <div class="data-export">
-                        <ul>
-                            <li>
-                                <span class="t">未拨打</span>
-                                <span class="num">{{total}}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>拨打资源</th>
-                                <th>归属地</th>
-                                <th>分配日期</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.telephone_crypt}}</td>
-                                <td>{{item.city}}</td>
-                                <td>{{item.distribution_date}}</td>
-                                <td>
-                                    <a href="javascript:void(0);" @click="call(item.id,item.telephone_crypt,item.city,item.call,item.sex,item.call_num)">
-                                        <span class="notice">
-                                            <i class="icon phone"></i>
-                                        </span>拨打
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p v-else class="no-data">暂无数据</p>
+                <div class="data-export">
+                    <ul>
+                        <li>
+                            <span class="t">未拨打</span>
+                            <span class="num">{{total}}</span>
+                        </li>
+                    </ul>
                 </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td label="拨打资源">{{props.item.telephone_crypt}}</td>
+                        <td label="归属地">{{props.item.city}}</td>
+                        <td label="分配日期">{{props.item.distribution_date}}</td>
+                        <td label="操作">
+                            <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.sex,props.item.call_num)">
+                                <span class="notice">
+                                    <i class="icon phone"></i>
+                                </span>拨打
+                            </a>
+                        </td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
@@ -47,6 +36,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import searchForm from './form1'
+    import mtable from 'components/utils/table'
 
     export default {
         data() {
@@ -64,6 +54,7 @@
         },
         components: {
             pages,
+            mtable,
             searchForm
         },
         watch: {
@@ -113,7 +104,7 @@
             call(id, tel, city, call, sex, call_num) {
                 let query = Object.assign({}, this.$route.query, {
                     project_id: this.project_id,
-                    id:id,
+                    id: id,
                     projectName: this.$route.query.projectName,
                     tel: tel,
                     city: city,
