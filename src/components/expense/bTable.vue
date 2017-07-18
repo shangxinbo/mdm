@@ -53,6 +53,8 @@
                         return '线索'
                     case 3:
                         return '通话'
+                    case 4:
+                        return '挂机短信'
                     default:
                         return '暂无'
                 }
