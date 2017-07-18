@@ -27,22 +27,24 @@
         },
         watch: {
             list(newVal, oldVal) {
-                let slots = this.$scopedSlots.default({ item: this.list[0] })
-                this.headers = []
-                slots.forEach((item, index) => {
-                    if (item.tag == 'td') {
-                        if (item.data && item.data.attrs) {
-                            this.headers.push({
-                                width: item.data.attrs.width,
-                                label: item.data.attrs.label
-                            })
-                        } else {
-                            this.headers.push({
-                                label: ''
-                            })
+                if (this.list.length > 0) {
+                    let slots = this.$scopedSlots.default({ item: this.list[0] })
+                    this.headers = []
+                    slots.forEach((item, index) => {
+                        if (item.tag == 'td') {
+                            if (item.data && item.data.attrs) {
+                                this.headers.push({
+                                    width: item.data.attrs.width,
+                                    label: item.data.attrs.label
+                                })
+                            } else {
+                                this.headers.push({
+                                    label: ''
+                                })
+                            }
                         }
-                    }
-                })
+                    })
+                }
             }
         }
     }

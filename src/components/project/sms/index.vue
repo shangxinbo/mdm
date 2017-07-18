@@ -26,25 +26,14 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table v-if="list.length>0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <th>手机号</th>
-                                <th>坐席</th>
-                                <th>短信内容</th>
-                                <th>发送时间</th>
-                            </tr>
-                            <tr v-for="item in list">
-                                <td>{{item.telephone_crypt}}</td>
-                                <td>{{item.seat_name}}</td>
-                                <td>{{item.preview_content}}</td>
-                                <td>{{item.created_at}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p v-else class="no-data">暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td label="手机号">{{props.item.telephone_crypt}}</td>
+                        <td label="坐席">{{props.item.seat_name}}</td>
+                        <td label="短信内容">{{props.item.preview_content}}</td>
+                        <td label="发送时间">{{props.item.created_at}}</td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="page" @jump='search'></pages>
             </div>
         </div>
@@ -54,6 +43,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import searchForm from './searchForm'
+    import mtable from 'components/utils/table'
     export default {
         data() {
             return {
@@ -137,6 +127,7 @@
         },
         components: {
             searchForm,
+            mtable,
             pages
         }
     }
