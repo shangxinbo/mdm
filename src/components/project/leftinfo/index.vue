@@ -16,9 +16,9 @@
             <div class="data-warp">
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="手机号">{{props.item.telephone}}</td>
-                        <td label="姓名">{{props.item.name}}</td>
-                        <td label="提交时间">{{props.item.created_at}}</td>
+                        <td width="30%" label="手机号">{{props.item.telephone}}</td>
+                        <td width="30%" label="姓名">{{props.item.name}}</td>
+                        <td width="40%" label="提交时间">{{props.item.created_at}}</td>
                     </template>
                 </mtable>
                 <pages :total="totalPage" :current="page" @jump='search'></pages>
