@@ -12,34 +12,20 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>运营账号</th>
-                                <th>姓名</th>
-                                <th>邮箱</th>
-                                <th>手机号</th>
-                                <th>权限</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.user}}</td>
-                                <td>{{item.user_name}}</td>
-                                <td>{{item.mail}}</td>
-                                <td>{{item.tel}}</td>
-                                <td>{{item.rule}}</td>
-                                <td>{{item.created_at}}</td>
-                                <td>
-                                    <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user,item.user_name,item.mail,item.tel)">修改信息</a>
-                                    <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" v-else>暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td label="运营账号">{{props.item.user}}</td>
+                        <td label="姓名">{{props.item.user_name}}</td>
+                        <td label="邮箱">{{props.item.mail}}</td>
+                        <td label="手机号">{{props.item.tel}}</td>
+                        <td label="权限">{{props.item.rule}}</td>
+                        <td label="创建时间">{{props.item.created_at}}</td>
+                        <td label="操作">
+                            <a href="javascript:void(0);" @click="showUpdateDialog(props.item.id,props.item.user,props.item.user_name,props.item.mail,props.item.tel)">修改信息</a>
+                            <a href="javascript:void(0);" @click="showResetPassDialog(props.item.id,props.item.user)">重置密码</a>
+                        </td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
         </div>
@@ -52,6 +38,8 @@
     import pages from 'components/common/pages'
     import updateInfoDialog from './dialog/upinfo'
     import changePassDialog from 'components/dialog/resetpass'
+    import mtable from 'components/utils/table'
+
     export default {
         data() {
             return {
@@ -63,6 +51,7 @@
         components: {
             pages,
             updateInfoDialog,
+            mtable,
             changePassDialog
         },
         watch: {

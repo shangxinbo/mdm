@@ -18,30 +18,18 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>坐席账号</th>
-                                <th>坐席状态</th>
-                                <th>开通日期</th>
-                                <th>失效日期</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2,disabled:item.status==2}">
-                                <td>{{item.user}}</td>
-                                <td>{{item.status==1?'有效':'失效'}}</td>
-                                <td>{{item.created_at}}</td>
-                                <td>{{item.expire_time}}</td>
-                                <td>
-                                    <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
-                                    <a v-if="item.status==1" href="javascript:void(0);" @click="showAddFee(item.id)">续费</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" v-else>暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td label="坐席账号">{{props.item.user}}</td>
+                        <td label="坐席状态">{{props.item.status==1?'有效':'失效'}}</td>
+                        <td label="开通日期">{{props.item.created_at}}</td>
+                        <td label="失效日期">{{props.item.expire_time}}</td>
+                        <td label="操作">
+                            <a href="javascript:void(0);" @click="showResetPassDialog(props.item.id,props.item.user)">重置密码</a>
+                            <a v-if="props.item.status==1" href="javascript:void(0);" @click="showAddFee(props.item.id)">续费</a>
+                        </td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
         </div>
@@ -54,6 +42,8 @@
     import pages from 'components/common/pages'
     import resetPassDialog from 'components/dialog/resetpass'
     import addFeeDialog from './dialog/addFee'
+    import mtable from 'components/utils/table'
+
     export default {
         data() {
             return {
@@ -67,6 +57,7 @@
         components: {
             pages,
             resetPassDialog,
+            mtable,
             addFeeDialog
         },
         watch: {
