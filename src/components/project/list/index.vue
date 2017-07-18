@@ -55,7 +55,7 @@
                             <template v-else>
                                 <router-link v-if="props.item.audit_status==-3" :to="'/project/add/' + props.item.id">重新申请</router-link>
                                 <a v-if="props.item.status==1&&myseatNum>0&&props.item.clue_odd_num>0" href="javascript:void(0);" @click="assignSeat(props.item.id,props.item.name,props.item.undistributed)">分配线索</a>
-                                <a v-if="props.item.have_nodial_clues" href="javascript:void(0);" @click="recoverClues(props.item.id)">回收线索</a>
+                                <a v-if="props.item.status==1&&myseatNum>0&&props.item.have_nodial_clues" href="javascript:void(0);" @click="recoverClues(props.item.id)">回收线索</a>
                             </template>
                         </td>
                     </template>
