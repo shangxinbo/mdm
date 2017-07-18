@@ -137,7 +137,8 @@
                     result1: '',
                     result2: '',
                     status: ''
-                }
+                },
+                jump_self:false
             }
         },
         computed: {
@@ -185,7 +186,7 @@
             }
         },
         beforeRouteLeave(to, from, next) {
-            if (from.path != to.path) {
+            if (from.path != to.path&&!this.jump_self) {
                 let r = confirm('是否要离开这个页面')
                 if (r) {
                     window.onbeforeunload = ''
@@ -261,6 +262,7 @@
                 if (evt.currentTarget.className.indexOf('disabled') >= 0) { return false }
                 this.save(() => {
                     this.$toast('操作成功', () => {
+                        this.jump_self = true
                         window.history.back()
                     })
                 })
@@ -298,6 +300,7 @@
                             success: data => {
                                 if (data.code == 200) {
                                     let query = Object.assign({}, _this.$route.query, { clue_id: data.data.id })
+                                    this.jump_self = true
                                     this.$router.replace({
                                         name: this.$route.name,
                                         query: query
@@ -344,6 +347,7 @@
 
                 window.mycomm_agent.on_agent_ext_hangup = function (evt) {
                     _this.$store.commit('CHANGE_DIAL_STATUS', false)
+                    _this.variable.complete = true
                     window.mycomm_agent.logout()
                     _this.$ajax({
                         url: API.add_call_job,
@@ -360,7 +364,7 @@
                         url: API.save_call_uuid,
                         data: {
                             call_uuid: uuid,
-                            id: this.history_id
+                            id: _this.global.history_id
                         }
                     })
                 }
@@ -408,9 +412,8 @@
                                                 project_id: _this.render.projectId
                                             },
                                             success: data => {
-                                                console.log(data.code)
                                                 if (data.code == 200) {
-                                                    _this.history_id = data.data.id
+                                                    _this.global.history_id = data.data.id
                                                     window.mycomm_agent.login(info.cti_server + ':' + info.cti_port, info.agent_id.toString(), info.password, info.queue, info.is_leader, info.org_id, info.agent_name, info.work_id.toString(), info.agent_type)
                                                 }
                                             }

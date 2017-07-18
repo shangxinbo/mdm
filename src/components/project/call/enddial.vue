@@ -22,7 +22,7 @@
                         <td label="拨打日期">{{props.item.updated_at}}</td>
                         <td label="通话时长">{{props.item.call_time}}</td>
                         <td label="备注">{{props.item.remarks}}</td>
-                        <td label="拨打结果">【{{item.dial_result_first}}】{{item.dial_result_second}}</td>
+                        <td label="拨打结果">【{{props.item.dial_result_first}}】{{props.item.dial_result_second}}</td>
                         <td label="操作">
                             <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.sex,props.item.dial_num)">
                                 <span class="notice">
