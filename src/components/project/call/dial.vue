@@ -193,6 +193,7 @@
                     next()
                 }
             } else {
+                window.onbeforeunload = ''
                 next()
             }
         },
