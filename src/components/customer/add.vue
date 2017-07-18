@@ -207,7 +207,6 @@
                 userType: user.type,
                 agentApi: agentApi,
                 agentId: 1,
-                chooseAgent: 1,
                 clue_price: '',
                 tel_price: '',
                 seat_price: '',
@@ -445,7 +444,7 @@
 
                 if (this.userType == 1) {
                     api = API.customer_add_by_operate
-                    data.append('agent_id', this.chooseAgent)
+                    data.append('agent_id', this.$refs.agentSelect.selected.id )
                     if (!this.id) {
                         if (!this.clue_price) {
                             this.price_error = '线索单价必填'
