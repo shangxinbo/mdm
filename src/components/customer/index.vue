@@ -112,7 +112,7 @@
                     created_at_end: this.$route.query.endTime ? this.$route.query.endTime : ''
                 }
                 if (this.$route.query.hangup) {
-                    obj.is_hang_up_messge = this.$route.query.hangup
+                    obj.is_hang_up_message = this.$route.query.hangup
                 }
                 this.$ajax({
                     url: api,
