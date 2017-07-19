@@ -67,7 +67,10 @@
                         </li>
                         <li class="li-btn">
                             <div class="input-warp">
-                                <button class="btn blue" type="button" @click="submit">提交</button>
+                                <a class="btn blue" @click="submit" v-if="!loading">提交</a>
+                                <a class="btn" v-if="loading">
+                                    <img style="margin:10px;" :src="loading_pic" />
+                                </a>
                             </div>
                         </li>
                     </ul>
@@ -87,6 +90,7 @@
 <script>
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
+    import loading from 'assets/img/upload.gif'
     export default {
         data() {
             return {
@@ -103,7 +107,9 @@
                 error_content: '',
                 error_url: '',
                 error_sign: '',
-                error_status: ''
+                error_status: '',
+                loading_pic: loading,
+                loading: false
             }
         },
         created() {
@@ -195,16 +201,21 @@
                 if (this.id) {
                     obj.id = this.id
                 }
-
+                this.loading = true
                 this.$ajax({
                     url: API.sms_template_add,
                     data: obj,
                     success: data => {
+                        this.loading = false
                         if (data.code == 200) {
                             let _this = this
                             this.$toast(this.id ? '编辑成功' : '新建成功', function () {
                                 _this.$router.replace('/project/sms/template')
                             })
+                        } else if (data.code == 50001) {
+                            this.error_sign = data.message
+                        } else {
+                            this.error_status = data.message
                         }
                     }
                 })
