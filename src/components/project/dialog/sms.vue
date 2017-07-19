@@ -24,12 +24,14 @@
                     </div>
                 </li>
             </ul>
+            <div class="sroll-warp scrollBar" style="overflow-y:auto;height:350px;">
             <div class="sms-phone">
                 <div class="inrr">
                     <i class="bg-up"></i>
                     <i class="bg-down"></i>
                     <p>{{selected.preview_content}}</p>
                 </div>
+            </div>
             </div>
         </div>
         <div class="dialog-footer">
