@@ -88,7 +88,6 @@
 <script>
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import loading from 'assets/img/upload.gif'
     export default {
         data() {
             return {
@@ -106,7 +105,6 @@
                 error_url: '',
                 error_sign: '',
                 error_status: '',
-                loading_pic: loading,
                 loading: false
             }
         },
