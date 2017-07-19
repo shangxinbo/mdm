@@ -26,7 +26,7 @@
                 show: false
             }
         },
-        props: ['api', 'param', 'id', 'name', 'initlist', 'error', 'addClass', 'hideAll'],
+        props: ['api', 'param', 'id', 'name', 'initlist', 'error', 'addClass', 'hideAll','disabled'],
         watch: {
             id(newVal, oldVal) {
                 this.choose(newVal)
@@ -48,6 +48,7 @@
         },
         methods: {
             showSelect() {
+                if(this.disabled) return false
                 this.show = true
             },
             change(obj) {

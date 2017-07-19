@@ -81,7 +81,7 @@
                             </li>
                             <li v-if="render.call||render.sex">
                                 <span class="t">称呼</span>
-                                <span class="num">{{render.call}}{{render.sex=='男'?'先生':'女士'}}</span>
+                                <span class="num">{{render.call}}{{render.sex=='男'?'先生':''}}{{render.sex=='女'?'女士':''}}</span>
                             </li>
                         </ul>
                     </div>
@@ -170,6 +170,8 @@
                 sex: this.$route.query.sex,
                 call_num: this.$route.query.call_num
             }
+            this.variable.call = this.render.call
+            this.variable.sex = this.render.sex
             this.search = {
                 city: this.$route.query.search_city,
                 startTime: this.$route.query.startTime,

@@ -14,7 +14,7 @@
                         </li>
                         <li>
                             <label class="name">客户名称</label>
-                            <mselect ref="clientSelect" :api="clientApi" :id="client" :error="error_client"></mselect>
+                            <mselect ref="clientSelect" :api="clientApi" :id="client" :disabled="id" :error="error_client"></mselect>
                         </li>
                         <li>
                             <label class="name">短信类型</label>
