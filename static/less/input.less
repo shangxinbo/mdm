@@ -202,6 +202,27 @@ textarea{
       background-color: lighten(@redColor,3%); //亮度增加 3%
     }
   }
+  &.loading{
+    background-color: #8bc8f1;
+    border-color: #8bc8f1;
+    color: #8bc8f1;
+    cursor: inherit;
+    &:hover{
+      background-color: lighten(#8bc8f1,0%); //亮度增加 3%
+    }
+    &:before {
+      display: block;
+      content: '';
+      width: 30px;
+      height: 8px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -4px 0 0 -15px;
+      z-index: 1;
+      background: url('@{url}/loader.gif') no-repeat 0 0;
+    }
+  }
   span{
     padding-left: 20px;
     position: relative;
