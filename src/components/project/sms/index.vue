@@ -28,10 +28,10 @@
             <div class="data-warp">
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="手机号">{{props.item.telephone_crypt}}</td>
-                        <td label="坐席">{{props.item.seat_name}}</td>
-                        <td label="短信内容">{{props.item.preview_content}}</td>
-                        <td label="发送时间">{{props.item.created_at}}</td>
+                        <td width="10%" label="手机号">{{props.item.telephone_crypt}}</td>
+                        <td width="10%" label="坐席">{{props.item.seat_name}}</td>
+                        <td width="65%" label="短信内容">{{props.item.preview_content}}</td>
+                        <td width="15%" label="发送时间">{{props.item.created_at}}</td>
                     </template>
                 </mtable>
                 <pages :total="totalPage" :current="page" @jump='search'></pages>

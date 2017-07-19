@@ -138,7 +138,7 @@
                     result2: '',
                     status: ''
                 },
-                jump_self:false
+                jump_self: false
             }
         },
         computed: {
@@ -188,7 +188,7 @@
             }
         },
         beforeRouteLeave(to, from, next) {
-            if (from.path != to.path&&!this.jump_self) {
+            if (from.path != to.path && !this.jump_self) {
                 let r = confirm('是否要离开这个页面')
                 if (r) {
                     window.onbeforeunload = ''
@@ -281,7 +281,7 @@
                             city: _this.search_city,
                             created_at_start: _this.startTime,
                             created_at_end: _this.endTime,
-                            cule_id: _this.clue_id
+                            clue_id: _this.clue_id
                         }
                         if (_this.search.status) {
                             api = API.clue_get_next2
@@ -302,12 +302,20 @@
                             data: obj,
                             success: data => {
                                 if (data.code == 200) {
-                                    let query = Object.assign({}, _this.$route.query, { clue_id: data.data.id })
-                                    this.jump_self = true
-                                    this.$router.replace({
-                                        name: this.$route.name,
-                                        query: query
-                                    })
+                                    if (data.data) {
+                                        let query = Object.assign({}, _this.$route.query, { clue_id: data.data.id })
+                                        this.jump_self = true
+                                        this.$router.replace({
+                                            name: this.$route.name,
+                                            query: query
+                                        })
+                                    }else{
+                                        this.jump_self = true
+                                        this.$toast('已经是最后一条了',()=>{
+                                            window.history.back()
+                                        })
+                                    }
+
                                 } else {
                                     this.$toast(data.message)
                                 }
@@ -371,7 +379,7 @@
                         }
                     })
                 }
-                
+
                 this.$ajax({
                     url: API.get_myclient_balance,
                     data: {

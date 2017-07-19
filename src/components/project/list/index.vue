@@ -46,7 +46,7 @@
                                 <router-link v-if="props.item.audit_status==-1" :to="'/project/detail/' + props.item.id">审核</router-link>
                                 <a v-if="props.item.status==1&&props.item.audit_status==-2" href="javascript:void(0);" @click="stop(props.item.id)">暂停</a>
                                 <a v-if="props.item.status==2" href="javascript:void(0);" @click="start(props.item.id)">开启</a>
-                                <a v-if="props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(props.item.id,props.item.name)">使用挂机短信</a>
+                                <a v-if="props.item.status==1&&props.item.audit_status==-2&&props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(props.item.id,props.item.name)">使用挂机短信</a>
                             </template>
                             <template v-else-if="userType==4">
                                 <router-link v-if="props.item.status==1" :to="{path:'/project/call/nodial',query:{project_id:props.item.id,projectName:props.item.name,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">外呼</router-link>

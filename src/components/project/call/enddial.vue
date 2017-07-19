@@ -15,15 +15,15 @@
                 </div>
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="拨打资源">{{props.item.telephone_crypt}}</td>
-                        <td label="归属地">{{props.item.city}}</td>
-                        <td label="称呼">{{props.item.call}}</td>
-                        <td label="已拨打次数">{{props.item.dial_num}}</td>
-                        <td label="拨打日期">{{props.item.updated_at}}</td>
-                        <td label="通话时长">{{props.item.call_time}}</td>
-                        <td label="备注">{{props.item.remarks}}</td>
-                        <td label="拨打结果">【{{props.item.dial_result_first}}】{{props.item.dial_result_second}}</td>
-                        <td label="操作">
+                        <td width="10%" label="拨打资源">{{props.item.telephone_crypt}}</td>
+                        <td width="5%" label="归属地">{{props.item.city}}</td>
+                        <td width="5%" label="称呼">{{props.item.call}}</td>
+                        <td width="10%" label="已拨打次数">{{props.item.dial_num}}</td>
+                        <td width="10%" label="拨打日期">{{props.item.updated_at}}</td>
+                        <td width="10%" label="通话时长">{{props.item.call_time}}</td>
+                        <td width="20%" label="备注">{{props.item.remarks}}</td>
+                        <td width="10%" label="拨打结果">【{{props.item.dial_result_first}}】{{props.item.dial_result_second}}</td>
+                        <td width="20%" label="操作">
                             <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.sex,props.item.dial_num)">
                                 <span class="notice">
                                     <i class="icon phone"></i>

@@ -22,29 +22,18 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table v-if="list.length>0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <th>模板名称</th>
-                                <th>客户名称</th>
-                                <th>短信内容</th>
-                                <th>创建时间</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="item in list">
-                                <td>{{item.name}}</td>
-                                <td>{{item.client_name}}</td>
-                                <td>{{item.content}}</td>
-                                <td>{{item.created_at}}</td>
-                                <td>{{item.status|statusText}}</td>
-                                <td><router-link :to="{path:'/project/sms/template/add',query:{id:item.id}}">编辑</router-link></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p v-else class="no-data">暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="10%" label="模板名称">{{props.item.name}}</td>
+                        <td width="10%" label="客户名称">{{props.item.client_name}}</td>
+                        <td width="60%" label="短信内容">{{props.item.content}}</td>
+                        <td width="10%" label="创建时间">{{props.item.created_at}}</td>
+                        <td width="5%" label="状态">{{props.item.status|statusText}}</td>
+                        <td width="5%" label="操作"> 
+                            <router-link :to="{path:'/project/sms/template/add',query:{id:props.item.id}}">编辑</router-link>
+                        </td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="page" @jump='search'></pages>
             </div>
         </div>
@@ -54,6 +43,7 @@
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import searchForm from './templateForm'
+    import mtable from 'components/utils/table'
     export default {
         data() {
             return {
@@ -72,13 +62,13 @@
         created() {
             this.init()
         },
-        filters:{
-            statusText(val){
-                switch(val){
+        filters: {
+            statusText(val) {
+                switch (val) {
                     case 1: return '审核中'
                     case 2: return '使用中'
                     case 3: return '已禁用'
-                    default : return ''
+                    default: return ''
                 }
             }
         },
@@ -134,6 +124,7 @@
         },
         components: {
             searchForm,
+            mtable,
             pages
         }
     }
