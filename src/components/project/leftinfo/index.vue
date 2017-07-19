@@ -11,6 +11,12 @@
                             <span class="num">{{total}}</span>
                         </li>
                     </ul>
+                    <div class="btn-export">
+                        <a :href="exportUrl" class="btn blue">
+                            <span>
+                                <i class="icon icon-export"></i>导出</span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="data-warp">
@@ -47,6 +53,11 @@
         },
         created() {
             this.init()
+        },
+        computed: {
+            exportUrl() {
+                return `${API.left_info_export}?name=${this.name}&page=${this.currentPage}&project_id=${this.project_id}&start_time=${this.startTime}&end_time=${this.endTime}&phone=${this.tel}`
+            }
         },
         methods: {
             init() {

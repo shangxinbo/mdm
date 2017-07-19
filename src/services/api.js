@@ -106,6 +106,7 @@ export default {
     sms_send:API_PRE + '/sms/record_save',
     seat_list_by_project: API_PRE + '/project/getSeatByProject',
     left_info_list: API_PRE + '/sms/capital_list',
+    left_info_export: API_PRE + '/sms/capital_list_export',
     clue_attribution: API_PRE + '/clue/getAttribution',
     clue_get_result: API_PRE + '/clue/getDialResults',
     clue_get_sub_result: API_PRE + '/clue/getDialSubresults',
