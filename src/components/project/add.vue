@@ -213,8 +213,9 @@
                             this.expectClue = detail.expect_clue_num
                             this.expectTime = detail.expect_begin_date
                             this.content = detail.desc
-                            this.sms = data.is_hang_up_message
-                            this.sms_init = data.is_hang_up_message
+                            this.sms = detail.is_hang_up_message
+                            console.log(this.sms)
+                            this.sms_init = detail.is_hang_up_message
                         }
                     }
                 })

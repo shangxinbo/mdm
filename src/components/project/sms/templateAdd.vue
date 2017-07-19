@@ -68,7 +68,7 @@
                         <li class="li-btn">
                             <div class="input-warp">
                                 <a class="btn blue" @click="submit" v-if="!loading">提交</a>
-                                <a class="btn" v-if="loading">
+                                <a class="btn blue" v-if="loading">
                                     <img style="margin:10px;" :src="loading_pic" />
                                 </a>
                             </div>
