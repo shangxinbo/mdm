@@ -95,11 +95,11 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 let arr = []
                 let reg = /^[1-9][0-9]*$/
                 if (this.assignType == 1) {
@@ -116,7 +116,12 @@
                         this.error = '分配的线索数值需要是正整数'
                         return false
                     } else {
-                        this.error = ''
+                        if (this.assign_clue_num > this.clue_num) {
+                            this.error = '分配线索不能大于剩余线索'
+                            return false
+                        } else {
+                            this.error = ''
+                        }
                     }
 
                 } else {

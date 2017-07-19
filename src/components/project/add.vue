@@ -214,7 +214,6 @@
                             this.expectTime = detail.expect_begin_date
                             this.content = detail.desc
                             this.sms = detail.is_hang_up_message
-                            console.log(this.sms)
                             this.sms_init = detail.is_hang_up_message
                         }
                     }
