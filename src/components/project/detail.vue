@@ -182,7 +182,7 @@
         },
         methods: {
             accept(id) {
-                this.$confirm('确定要审核通过该项目？', function () {
+                this.$confirm('确定要审核通过该项目？', () => {
                     this.$ajax({
                         url: API.preject_audit,
                         data: {
@@ -191,7 +191,7 @@
                         },
                         success: data => {
                             if (data.code == 200) {
-                                this.$toast('已完成审核', function () {
+                                this.$toast('已完成审核', () => {
                                     this.$router.replace('/project/index')
                                 })
                             } else {
