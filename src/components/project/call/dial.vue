@@ -111,7 +111,7 @@
                     call: '',
                     sex: '',
                     call_num: '',
-                    smsShow:false
+                    smsShow: false
                 },
                 api: {
                     getResult1: API.clue_get_result,
@@ -158,33 +158,14 @@
                 if (newVal == true) {
                     this.variable.showsms = true
                 }
+            },
+            $route() {
+                this.init()
             }
         },
         created() {
-            this.clue_id = this.$route.query.id
-            this.render = {
-                projectId: this.$route.query.project_id,
-                projectName: this.$route.query.projectName,
-                tel: this.$route.query.tel,
-                city: this.$route.query.city,
-                call: this.$route.query.call,
-                sex: this.$route.query.sex,
-                call_num: this.$route.query.call_num,
-                smsShow:this.$route.query.sms
-            }
-            this.variable.call = this.render.call
-            this.variable.sex = this.render.sex
-            this.search = {
-                city: this.$route.query.search_city,
-                startTime: this.$route.query.startTime,
-                endTime: this.$route.query.endTime,
-                sex: this.$route.query.search_sex,
-                result1: this.$route.query.search_result1,
-                result2: this.$route.query.search_result2,
-                status: this.$route.query.status
-            }
-            this.init()
 
+            this.init()
             window.onbeforeunload = () => {
                 return '关闭或刷新页面'
             }
@@ -298,22 +279,27 @@
                                 dial_result_second: this.search.result2
                             }
                         }
-
                         this.$ajax({
                             url: api,
                             data: obj,
                             success: data => {
                                 if (data.code == 200) {
                                     if (data.data) {
-                                        let query = Object.assign({}, _this.$route.query, { clue_id: data.data.id })
+                                        let query = Object.assign({}, _this.$route.query, {
+                                            clue_id: data.data.id,
+                                            tel: data.data.telephone_crypt,
+                                            city: data.data.city,
+                                            call: data.data.call
+                                        })
+                                        console.log(query)
                                         this.jump_self = true
                                         this.$router.replace({
                                             name: this.$route.name,
                                             query: query
                                         })
-                                    }else{
+                                    } else {
                                         this.jump_self = true
-                                        this.$toast('已经是最后一条了',()=>{
+                                        this.$toast('已经是最后一条了', () => {
                                             window.history.back()
                                         })
                                     }
@@ -327,6 +313,34 @@
                 })
             },
             init() {
+
+                this.clue_id = this.$route.query.id
+                this.render = {
+                    projectId: this.$route.query.project_id,
+                    projectName: this.$route.query.projectName,
+                    tel: this.$route.query.tel,
+                    city: this.$route.query.city,
+                    call: this.$route.query.call,
+                    sex: this.$route.query.sex,
+                    call_num: this.$route.query.call_num,
+                    smsShow: this.$route.query.sms
+                }
+                this.variable.call = this.render.call
+                this.variable.sex = this.render.sex
+                this.search = {
+                    city: this.$route.query.search_city,
+                    startTime: this.$route.query.startTime,
+                    endTime: this.$route.query.endTime,
+                    sex: this.$route.query.search_sex,
+                    result1: this.$route.query.search_result1,
+                    result2: this.$route.query.search_result2,
+                    status: this.$route.query.status
+                }
+
+                this.$refs.result1Select.selected = {id:'',name:'全部'}
+                this.$refs.result2Select.selected = {id:'',name:'全部'}
+
+
                 let _this = this
                 let uuid = ''
 
