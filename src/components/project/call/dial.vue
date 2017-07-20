@@ -422,7 +422,8 @@
                                             url: API.save_dial_history,
                                             data: {
                                                 phone: data.data.telephone,
-                                                project_id: _this.render.projectId
+                                                project_id: _this.render.projectId,
+                                                clue_id: _this.clue_id
                                             },
                                             success: data => {
                                                 if (data.code == 200) {
