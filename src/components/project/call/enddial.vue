@@ -84,10 +84,10 @@
                 let minute = 0
                 let second = 0
                 if (val > 60 * 60) {
-                    hour = Math.round(val / (60 * 60))
+                    hour = Math.floor(val / (60 * 60))
                 }
                 if (val > 60) {
-                    minute = Math.round((val - hour * 60 * 60) / 60)
+                    minute = Math.floor((val - hour * 60 * 60) / 60)
                 }
                 second = val - hour * 60 * 60 - minute * 60
                 return (hour ? (hour + '时') : '') + (minute || hour ? (minute + '分') : '') + second + '秒'
