@@ -17,10 +17,10 @@
                     <template scope="props">
                         <td width="10%" label="拨打资源">{{props.item.telephone_crypt}}</td>
                         <td width="5%" label="归属地">{{props.item.city}}</td>
-                        <td width="5%" label="称呼">{{props.item.call}}</td>
+                        <td width="5%" label="称呼">{{props.item.call}}{{render.sex=='男'?'先生':''}}{{render.sex=='女'?'女士':''}}</td>
                         <td width="10%" label="已拨打次数">{{props.item.dial_num}}</td>
                         <td width="10%" label="拨打日期">{{props.item.updated_at}}</td>
-                        <td width="10%" label="通话时长">{{props.item.call_time}}</td>
+                        <td width="10%" label="通话时长">{{props.item.call_time|timeFormat}}</td>
                         <td width="20%" label="备注">{{props.item.remarks}}</td>
                         <td width="10%" label="拨打结果">【{{props.item.dial_result_first}}】{{props.item.dial_result_second}}</td>
                         <td width="20%" label="操作">
@@ -75,6 +75,21 @@
         watch: {
             $route: function () {
                 this.render()
+            }
+        },
+        filters:{
+            timeFormat(val){
+                let hour = 0
+                let minute = 0
+                let second = 0
+                if(val>60*60){
+                    hour = Math.round(val/(60*60))
+                }
+                if(val>60){
+                    minute = Math.round((val - hour*60*60)/60)
+                }
+                second = val - hour*60*60 - minute*60
+                return (hour?(hour + '时'):'') + (minute||hour?(minute + '分'):'') + second + '秒' 
             }
         },
         methods: {
