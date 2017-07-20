@@ -24,7 +24,7 @@
                                         <i class="icon hangup"></i>挂断</span>
                                 </button>
                             </div>
-                            <div class="fl-in" v-if="variable.showsms">
+                            <div class="fl-in" v-if="variable.showsms&&render.smsShow">
                                 <a class="btn-sms" href="javascript:void(0);" @click="sms">
                                     <span>
                                         <i class="icon sms"></i>发短信</span>
@@ -110,7 +110,8 @@
                     city: '',
                     call: '',
                     sex: '',
-                    call_num: ''
+                    call_num: '',
+                    smsShow:false
                 },
                 api: {
                     getResult1: API.clue_get_result,
@@ -168,7 +169,8 @@
                 city: this.$route.query.city,
                 call: this.$route.query.call,
                 sex: this.$route.query.sex,
-                call_num: this.$route.query.call_num
+                call_num: this.$route.query.call_num,
+                smsShow:this.$route.query.sms
             }
             this.variable.call = this.render.call
             this.variable.sex = this.render.sex

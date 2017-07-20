@@ -14,13 +14,13 @@
             <div class="data-warp">
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="运营账号">{{props.item.user}}</td>
-                        <td label="姓名">{{props.item.user_name}}</td>
-                        <td label="邮箱">{{props.item.mail}}</td>
-                        <td label="手机号">{{props.item.tel}}</td>
-                        <td label="权限">{{props.item.rule}}</td>
-                        <td label="创建时间">{{props.item.created_at}}</td>
-                        <td label="操作">
+                        <td width="10%" label="运营账号">{{props.item.user}}</td>
+                        <td width="10%" label="姓名">{{props.item.user_name}}</td>
+                        <td width="20%" label="邮箱">{{props.item.mail}}</td>
+                        <td width="10%" label="手机号">{{props.item.tel}}</td>
+                        <td width="20%" label="权限">{{props.item.rule}}</td>
+                        <td width="15%" label="创建时间">{{props.item.created_at}}</td>
+                        <td width="10%" label="操作">
                             <a href="javascript:void(0);" @click="showUpdateDialog(props.item.id,props.item.user,props.item.user_name,props.item.mail,props.item.tel)">修改信息</a>
                             <a href="javascript:void(0);" @click="showResetPassDialog(props.item.id,props.item.user)">重置密码</a>
                         </td>

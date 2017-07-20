@@ -29,7 +29,7 @@
                                     <i class="icon phone"></i>
                                 </span>拨打
                             </a>
-                            <a href="javascript:void(0)" @click="sms(props.item.id)">
+                            <a v-if="smsShow" href="javascript:void(0)" @click="sms(props.item.id)">
                                 <span class="notice">
                                     <i class="icon sms"></i>
                                 </span>发短信</a>
@@ -60,7 +60,8 @@
                 currentPage: 1,
                 totalPage: 1,
                 list: [],
-                total: 0
+                total: 0,
+                smsShow:false
             }
         },
         created() {
@@ -114,6 +115,7 @@
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.clue_status = this.$route.query.clue_status ? this.$route.query.clue_status : 0
                 this.end = this.$route.query.end
+                this.smsShow = this.$route.query.sms
                 this.$ajax({
                     url: API.project_call_enddial_list,
                     data: {
@@ -149,7 +151,8 @@
                     city: city,
                     call: call,
                     sex: sex,
-                    call_num: call_num
+                    call_num: call_num,
+                    sms:this.$route.query.sms
                 })
                 this.$router.push({
                     path: '/project/dial',
@@ -165,7 +168,8 @@
                     city: city,
                     call: call,
                     sex: sex,
-                    call_num: call_num
+                    call_num: call_num,
+                    sms:this.$route.query.sms
                 })
                 this.$router.push({
                     path: '/project/view',

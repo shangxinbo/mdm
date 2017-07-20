@@ -49,7 +49,7 @@
                                 <a v-if="props.item.status==1&&props.item.audit_status==-2&&props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==0" href="javascript:void(0);" @click="useSms(props.item.id,props.item.name)">使用挂机短信</a>
                             </template>
                             <template v-else-if="userType==4">
-                                <router-link v-if="props.item.status==1" :to="{path:'/project/call/nodial',query:{project_id:props.item.id,projectName:props.item.name,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">外呼</router-link>
+                                <router-link v-if="props.item.status==1" :to="{path:'/project/call/nodial',query:{project_id:props.item.id,projectName:props.item.name,sms:props.item.client_is_hang_up_message&&props.item.is_hang_up_message}}">外呼</router-link>
                                 <router-link v-else :to="{path:'/project/call/enddial',query:{project_id:props.item.id,projectName:props.item.name,end:1,sms:props.item.client_is_hang_up_message==1&&props.item.is_hang_up_message==1}}">查看</router-link>
                             </template>
                             <template v-else>
