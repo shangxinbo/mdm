@@ -29,7 +29,7 @@
                                     <i class="icon phone"></i>
                                 </span>拨打
                             </a>
-                            <a v-if="smsShow" href="javascript:void(0)" @click="sms(props.item.id)">
+                            <a v-if="smsShow==1" href="javascript:void(0)" @click="sms(props.item.id)">
                                 <span class="notice">
                                     <i class="icon sms"></i>
                                 </span>发短信</a>
@@ -61,7 +61,7 @@
                 totalPage: 1,
                 list: [],
                 total: 0,
-                smsShow:false
+                smsShow:0
             }
         },
         created() {
