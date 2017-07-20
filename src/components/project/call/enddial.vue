@@ -77,19 +77,19 @@
                 this.render()
             }
         },
-        filters:{
-            timeFormat(val){
+        filters: {
+            timeFormat(val) {
                 let hour = 0
                 let minute = 0
                 let second = 0
-                if(val>60*60){
-                    hour = Math.round(val/(60*60))
+                if (val > 60 * 60) {
+                    hour = Math.round(val / (60 * 60))
                 }
-                if(val>60){
-                    minute = Math.round((val - hour*60*60)/60)
+                if (val > 60) {
+                    minute = Math.round((val - hour * 60 * 60) / 60)
                 }
-                second = val - hour*60*60 - minute*60
-                return (hour?(hour + '时'):'') + (minute||hour?(minute + '分'):'') + second + '秒' 
+                second = val - hour * 60 * 60 - minute * 60
+                return (hour ? (hour + '时') : '') + (minute || hour ? (minute + '分') : '') + second + '秒'
             }
         },
         methods: {
