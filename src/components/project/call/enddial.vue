@@ -17,14 +17,14 @@
                     <template scope="props">
                         <td width="10%" label="拨打资源">{{props.item.telephone_crypt}}</td>
                         <td width="5%" label="归属地">{{props.item.city}}</td>
-                        <td width="5%" label="称呼">{{props.item.call}}{{render.sex=='男'?'先生':''}}{{render.sex=='女'?'女士':''}}</td>
+                        <td width="5%" label="称呼">{{props.item.call}}{{props.item.gender=='男'?'先生':''}}{{props.item.gender=='女'?'女士':''}}</td>
                         <td width="10%" label="已拨打次数">{{props.item.dial_num}}</td>
                         <td width="10%" label="拨打日期">{{props.item.updated_at}}</td>
                         <td width="10%" label="通话时长">{{props.item.call_time|timeFormat}}</td>
                         <td width="20%" label="备注">{{props.item.remarks}}</td>
                         <td width="10%" label="拨打结果">【{{props.item.dial_result_first}}】{{props.item.dial_result_second}}</td>
                         <td width="20%" label="操作">
-                            <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.sex,props.item.dial_num)">
+                            <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.gender,props.item.dial_num)">
                                 <span class="notice">
                                     <i class="icon phone"></i>
                                 </span>拨打
@@ -33,7 +33,7 @@
                                 <span class="notice">
                                     <i class="icon sms"></i>
                                 </span>发短信</a>
-                            <a href="javascript:void(0);" @click="view(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.sex,props.item.dial_num)">查看</a>
+                            <a href="javascript:void(0);" @click="view(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.gender,props.item.dial_num)">查看</a>
                         </td>
                     </template>
                 </mtable>
