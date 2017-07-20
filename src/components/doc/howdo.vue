@@ -5,10 +5,10 @@
             <div class="data-warp">
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="账号权限">{{props.item.role}}</td>
-                        <td label="操作手册名称">{{props.item.name}}</td>
-                        <td label="操作">{{props.item.date}}</td>
-                        <td label="操作">
+                        <td width="10%" label="账号权限">{{props.item.role}}</td>
+                        <td width="50%" label="操作手册名称">{{props.item.name}}</td>
+                        <td width="20%" label="更新时间">{{props.item.date}}</td>
+                        <td width="10%" label="操作">
                             <a href="javascript:void(0);" @click="dialog(props.item.id,props.item.role,props.item.name)">更新手册</a>
                         </td>
                     </template>
