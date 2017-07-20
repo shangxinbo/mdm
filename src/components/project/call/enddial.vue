@@ -152,7 +152,8 @@
                     call: call,
                     sex: sex,
                     call_num: call_num,
-                    sms:this.$route.query.sms
+                    sms:this.$route.query.sms,
+                    status:1
                 })
                 this.$router.push({
                     path: '/project/dial',
@@ -169,7 +170,8 @@
                     call: call,
                     sex: sex,
                     call_num: call_num,
-                    sms:this.$route.query.sms
+                    sms:this.$route.query.sms,
+                    status:1
                 })
                 this.$router.push({
                     path: '/project/view',

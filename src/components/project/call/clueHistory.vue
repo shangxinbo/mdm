@@ -13,7 +13,7 @@
                 <tr v-for="(item,index) in list" :class="{tr2:index%2==1}">
                     <td>{{item.updated_at}}</td>
                     <td>{{item.telephone_crypt}}</td>
-                    <td>{{item.call_time}}</td>
+                    <td>{{item.call_time|timeFormat}}</td>
                     <td class="tl">{{item.remarks}}</td>
                     <td class="tl">【{{item.dial_result_first}}】{{item.dial_result_second }}</td>
                     <td>
@@ -60,6 +60,21 @@
                     }
                 }
             })
+        },
+        filters: {
+            timeFormat(val) {
+                let hour = 0
+                let minute = 0
+                let second = 0
+                if (val > 60 * 60) {
+                    hour = Math.floor(val / (60 * 60))
+                }
+                if (val > 60) {
+                    minute = Math.floor((val - hour * 60 * 60) / 60)
+                }
+                second = val - hour * 60 * 60 - minute * 60
+                return (hour ? (hour + '时') : '') + (minute || hour ? (minute + '分') : '') + second + '秒'
+            }
         },
         methods: {
             playAudio(url, index, evt) {

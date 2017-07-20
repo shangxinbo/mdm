@@ -274,7 +274,7 @@
                                 gender: _this.search.sex,
                                 dial_at_start: _this.startTime,
                                 dial_at_end: _this.endTime,
-                                cule_id: _this.clue_id,
+                                clue_id: _this.clue_id,
                                 dial_result_first: this.search.result1,
                                 dial_result_second: this.search.result2
                             }
@@ -286,7 +286,7 @@
                                 if (data.code == 200) {
                                     if (data.data) {
                                         let query = Object.assign({}, _this.$route.query, {
-                                            clue_id: data.data.id,
+                                            id: data.data.id,
                                             tel: data.data.telephone_crypt,
                                             city: data.data.city,
                                             call: data.data.call
