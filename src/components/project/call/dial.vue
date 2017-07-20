@@ -163,7 +163,7 @@
                 this.init()
             }
         },
-        created() {
+        mounted() {
 
             this.init()
             window.onbeforeunload = () => {
@@ -291,7 +291,6 @@
                                             city: data.data.city,
                                             call: data.data.call
                                         })
-                                        console.log(query)
                                         this.jump_self = true
                                         this.$router.replace({
                                             name: this.$route.name,
