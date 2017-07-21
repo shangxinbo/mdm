@@ -114,8 +114,8 @@
                 let obj = {
                     startTime: this.startTime,
                     endTime: this.endTime,
-                    city: this.$refs.citySelect.selected.name,
-                    sex: this.$refs.sexSelect.selected.name,
+                    city: this.$refs.citySelect.selected.id?this.$refs.citySelect.selected.name:'',
+                    sex: this.$refs.sexSelect.selected.id?this.$refs.sexSelect.selected.name:'',
                     result1: this.$refs.result1Select.selected.id,
                     result2: this.$refs.result2Select.selected.id
                 }
