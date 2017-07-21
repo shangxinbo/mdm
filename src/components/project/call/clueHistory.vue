@@ -17,13 +17,13 @@
                     <td class="tl">{{item.remarks}}</td>
                     <td class="tl">【{{item.dial_result_first}}】{{item.dial_result_second }}</td>
                     <td>
-                        <a class="btn-audio" href="javascript:void(0);" @click="playAudio(item.sound_url,index,$event)">
+                        <a class="btn-audio" v-if="item.sound_url" href="javascript:void(0);" @click="playAudio(item.sound_url,index,$event)">
                             <span class="notice">
                                 <i class="icon play"></i>
                             </span>
                             <span class="audio-txt">播放</span>
                         </a>
-                        <a :href="item.download_url">
+                        <a v-if="item.download_url" :href="item.download_url">
                             <span class="notice">
                                 <i class="icon download"></i>
                             </span>下载</a>
@@ -31,35 +31,27 @@
                 </tr>
             </tbody>
         </table>
-        <audio controls="true" style="position: absolute;top: -45px;right: 0px;z-index:100000;width:400px;display:none;" id="audio" class="audio"
-            @play="play" @pause="pause" @ended="end"></audio>
+        <audio controls="true" style="position: absolute;top: -45px;right: 0px;z-index:100000;width:400px;display:none;" id="audio"
+            class="audio" @play="play" @pause="pause" @ended="end"></audio>
     </div>
 </template>
 <script>
     import API from 'src/services/api'
     export default {
         data() {
-            let id = this.$route.query.id
             return {
-                id: id,
+                id: '',
                 list: [],
                 playNow: -1
             }
         },
         created() {
-            this.$ajax({
-                url: API.clue_get_record,
-                data: {
-                    clue_id: this.id
-                },
-                success: data => {
-                    if (data.code == 200) {
-                        this.list = data.data
-                    } else {
-                        this.list = []
-                    }
-                }
-            })
+            this.init()
+        },
+        watch: {
+            $route() {
+                this.init()
+            }
         },
         filters: {
             timeFormat(val) {
@@ -77,6 +69,22 @@
             }
         },
         methods: {
+            init() {
+                this.id = this.$route.query.id
+                this.$ajax({
+                    url: API.clue_get_record,
+                    data: {
+                        clue_id: this.id
+                    },
+                    success: data => {
+                        if (data.code == 200) {
+                            this.list = data.data
+                        } else {
+                            this.list = []
+                        }
+                    }
+                })
+            },
             playAudio(url, index, evt) {
                 let dom = document.querySelector('#audio')
                 let audios = document.querySelectorAll('.btn-audio')
@@ -94,7 +102,7 @@
                 if (text == '暂停') {
                     dom.pause()
                 } else {
-                    
+
                     if (dom.getAttribute('src') != url) {
                         dom.src = url
                         dom.load()
