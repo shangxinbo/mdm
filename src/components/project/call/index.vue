@@ -3,8 +3,8 @@
         <div class="main">
             <div class="title-warp">{{projectName}}外呼列表</div>
             <div class="tag-nav" v-if="!end">
-                <router-link :to="{path:'/project/call/nodial',query:{project_id,projectName,end,sms}}" :class="{active:tab==0}">未完成</router-link>
-                <router-link :to="{path:'/project/call/enddial',query:{project_id,projectName,end,sms}}" :class="{active:tab==1}">已完成</router-link>
+                <router-link :to="{path:'/project/call/nodial',query:{project_id,projectName,end,sms}}" :class="{active:tab==0}">未拨打</router-link>
+                <router-link :to="{path:'/project/call/enddial',query:{project_id,projectName,end,sms}}" :class="{active:tab==1}">已拨打</router-link>
             </div>
             <router-view></router-view>
         </div>
