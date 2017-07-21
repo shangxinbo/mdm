@@ -49,7 +49,11 @@
         methods: {
             showSelect() {
                 if(this.disabled) return false
-                this.show = true
+                if(this.show){
+                    this.show = false
+                }else{
+                    this.show = true
+                }
             },
             change(obj) {
                 if (obj) {
