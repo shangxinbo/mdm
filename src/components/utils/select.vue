@@ -113,7 +113,7 @@
                             if (list instanceof Array) {
                                 list.forEach((item, index) => {
                                     arr.push({
-                                        id: item.id || item.code || index,
+                                        id: item.id || item.code || index+1,
                                         name: item.name || item.desc || item.user || item
                                     })
                                 })
@@ -130,6 +130,7 @@
                             })
 
                             this.list = arr
+                            console.log(this.list)
                             this.choose(this.id, this.name)
                             if (callback) callback()
                         }
