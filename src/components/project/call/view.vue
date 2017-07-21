@@ -24,7 +24,7 @@
                                         <i class="icon phone"></i>拨打</span>
                                 </a>
                             </div>
-                            <div class="fl-in">
+                            <div class="fl-in" v-if="render.smsShow==1">
                                 <a class="btn-sms" href="javascript:void(0);" @click="sms">
                                     <span>
                                         <i class="icon sms"></i>发短信</span>
@@ -70,7 +70,8 @@
                     city: '',
                     call: '',
                     sex: '',
-                    call_num: ''
+                    call_num: '',
+                    smsShow:0
                 }
             }
         },
@@ -83,7 +84,8 @@
                 city: this.$route.query.city,
                 call: this.$route.query.call,
                 sex: this.$route.query.sex,
-                call_num: this.$route.query.call_num
+                call_num: this.$route.query.call_num,
+                smsShow:this.$route.query.sms
             }
         },
         methods: {

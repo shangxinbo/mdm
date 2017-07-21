@@ -338,6 +338,9 @@
 
                 this.$refs.result1Select.selected = {id:'',name:'全部'}
                 this.$refs.result2Select.selected = {id:'',name:'全部'}
+                this.variable.desc = ''
+                this.variable.desc_error = ''
+                this.variable.result_error = ''
 
 
                 let _this = this
