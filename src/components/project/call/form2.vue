@@ -49,13 +49,15 @@
         data() {
             let now = moment().format('YYYY-MM-DD')
             let id = this.$route.query.project_id
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 getCity: API.clue_attribution,
                 getResult1: API.clue_get_result,
                 getResult2: API.clue_get_sub_result,
                 city: '',
                 getCity_param: {
-                    project_id: id
+                    project_id: id,
+                    seat_id:user.id
                 },
                 sexlist: [
                     { id: 1, name: '男' },

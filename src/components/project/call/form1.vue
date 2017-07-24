@@ -40,12 +40,14 @@
         data() {
             let now = moment().format('YYYY-MM-DD')
             let city = this.$route.query.city ? this.$route.query.city : '全部'
-            let id = this.$route.query.id
+            let id = this.$route.query.project_id
+            let user = JSON.parse(localStorage.getItem('user'))
             return {
                 getCity: API.clue_attribution,
                 city: city,
                 getCity_param: {
-                    project_id:id
+                    project_id:id,
+                    seat_id:user.id
                 },
                 startTime: '',
                 endTime: '',

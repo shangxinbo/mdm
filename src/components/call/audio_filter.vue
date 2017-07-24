@@ -56,13 +56,15 @@
             let now = moment().format('YYYY-MM-DD')
             let city = this.$route.query.city ? this.$route.query.city : '全部'
             let id = this.$route.query.project_id
+            let seat_id = this.$route.query.seat_id
             return {
                 getCity: API.clue_attribution,
                 getResult1: API.clue_get_result,
                 getResult2: API.clue_get_sub_result,
                 city: city,
                 getCity_param: {
-                    project_id:id
+                    project_id:id,
+                    seat_id:seat_id
                 },
                 result1: '',
                 result2: '',
