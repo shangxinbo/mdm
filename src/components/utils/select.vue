@@ -130,7 +130,6 @@
                             })
 
                             this.list = arr
-                            console.log(this.list)
                             this.choose(this.id, this.name)
                             if (callback) callback()
                         }

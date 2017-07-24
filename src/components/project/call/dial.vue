@@ -208,8 +208,7 @@
             save(callback) {
                 let result1 = this.$refs.result1Select.selected.id
                 let result2 = this.$refs.result2Select.selected.id
-
-                if (!result1&&!result2) {
+                if (!result1||!result2) {
                     this.variable.result_error = '拨打结果必须全部选择'
                     return false
                 } else {

@@ -71,7 +71,6 @@
             },
             sure() {
                 let client_id = sessionStorage.getItem('client_id')
-                console.log(client_id)
                 this.$ajax({
                     url: API.sms_send,
                     data: {
