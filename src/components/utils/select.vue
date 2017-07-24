@@ -26,13 +26,13 @@
                 show: false
             }
         },
-        props: ['api', 'param', 'id', 'name', 'initlist', 'error', 'addClass', 'hideAll','disabled'],
+        props: ['api', 'param', 'id', 'name', 'initlist', 'error', 'addClass', 'hideAll', 'disabled'],
         watch: {
             id(newVal, oldVal) {
                 this.choose(newVal)
             },
             name(newVal, oldVal) {
-                this.choose('',newVal)
+                this.choose('', newVal)
             }
         },
         created() {
@@ -48,14 +48,15 @@
         },
         methods: {
             showSelect() {
-                if(this.disabled) return false
-                if(this.show){
+                if (this.disabled) return false
+                if (this.show) {
                     this.show = false
-                }else{
+                } else {
                     this.show = true
                 }
             },
             change(obj) {
+                console.log(obj)
                 if (obj) {
                     this.selected = obj
                 } else {
@@ -70,11 +71,11 @@
             choose(id, name) {
                 let finded = false
                 this.list.find((value, index) => {
-                    if (id == value.id) {
+                    if (id === value.id) {
                         this.selected = value
                         finded = true
                     }
-                    if (name == value.name) {
+                    if (name === value.name) {
                         this.selected = value
                         finded = true
                     }
@@ -113,7 +114,7 @@
                             if (list instanceof Array) {
                                 list.forEach((item, index) => {
                                     arr.push({
-                                        id: item.id || item.code || index+1,
+                                        id: (item.id == undefined) ? ((item.code == undefined) ? index + 1 : item.code) : item.id,
                                         name: item.name || item.desc || item.user || item
                                     })
                                 })
