@@ -45,7 +45,7 @@
                             </a>
                         </td>
                         <td width="10%" label="归属地">{{props.item.city}}</td>
-                        <td width="10%" label="称呼">{{props.item.call_name}}</td>
+                        <td width="10%" label="称呼">{{props.item.call}}{{props.item.gender=='男'?'先生':''}}{{props.item.gender=='女'?'女士':''}}</td>
                         <td width="10%" label="拨打时间">{{props.item.created_at}}</td>
                         <td width="10%" label="通话时长">{{props.item.call_time}}</td>
                         <td width="20%" label="备注">{{props.item.remarks}}</td>
