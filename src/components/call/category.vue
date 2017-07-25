@@ -32,7 +32,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+startTime+'&search_end_time='+endTime + '&category=1'"
+                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+startTime+'&search_end_time='+endTimezuo"
                         class="btn blue btn-export">
                         <span>
                             <i class="icon icon-export"></i>导出</span>
@@ -44,7 +44,7 @@
                     <template scope="props">
                         <td width="10%" label="参与坐席">
                             <template v-if="userType!=4">
-                                <router-link :to="{path:'/call/seat',query:Object.assign({project_id:project_id,seat_id:props.item.seat_id,seat_name:props.item.name,crumb_seat_id:props.item.seat_id,crumb_seat_name:props.item.name},crumbs)}">{{props.item.name}}</router-link>
+                                <router-link :to="{path:'/call/seat',query:{project_id:project_id,seat_id:props.item.seat_id,seat_name:props.item.name,crumb_seat_id:props.item.seat_id,crumb_seat_name:props.item.name}}">{{props.item.name}}</router-link>
                             </template>
                             <template v-else>{{props.item.name}}</template>
                         </td>
@@ -86,7 +86,7 @@
             }
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.init()
             }
         },
@@ -117,10 +117,10 @@
         methods: {
             init() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.project_name = this.$route.query.project_name ? this.$route.query.project_name : ''
-                this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
-                this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
-                this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
+                this.project_name = this.$route.query.project_name || ''
+                this.project_id = this.$route.query.project_id || ''
+                this.endTime = this.$route.query.endTime || ''
+                this.startTime = this.$route.query.startTime || ''
                 this.refresh()
                 this.heads()
             },
@@ -131,7 +131,6 @@
                         search_project_id: this.project_id,
                         search_start_time: this.startTime,
                         search_end_time: this.endTime,
-                        category: 1,
                         page: this.currentPage,
                     },
                     success: data => {

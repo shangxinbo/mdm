@@ -1,6 +1,3 @@
-<style lang="less">
-    @import '../../assets/less/data-cloud.less';
-</style>
 <template>
     <div class="warp">
         <div class="main">
@@ -9,8 +6,8 @@
             <div class="title-warp" v-else>{{client_name?client_name+'的话务':(agent_name?agent_name+'的话务':'话务管理')}}</div>
             <div class="data-property">
                 <indexFilter @submit="search"></indexFilter>
-                <div class="data-export" v-if="list.length>0">
-                    <ul>
+                <div class="data-export">
+                    <ul v-if="list.length>0">
                         <li>
                             <span class="t">拨通次数</span>
                             <span class="num">{{head.effect_call_times}}</span>
@@ -30,50 +27,52 @@
                         </a>
                     </ul>
                 </div>
-                <div class="data-export" v-else></div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th width="13%">项目名称</th>
-                                <th width="13%" v-if="userType==1&&!client_id">客户名称</th>
-                                <th width="13%" v-if="userType==1&&!agent_id&&!client_id">所属代理</th>
-                                <th width="6%">外呼次数</th>
-                                <th width="6%">拨通次数</th>
-                                <th width="6%">拨通率</th>
-                                <th width="6%">呼损次数</th>
-                                <th width="6%">呼损率</th>
-                                <th width="8%">通话时长</th>
-                                <th width="8%">平均通话</th>
-                                <th width="6%">挂机短信</th>
-                                <th width="6%" v-if="userType!=4">参与坐席</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>
-                                    <router-link :to="{path : '/call/cate',query : Object.assign({project_id:item.id,project_name:item.name,crumb_project_id:item.id,crumb_project_name:item.name},crumbs)}">{{item.name}}</router-link>
-                                </td>
-                                <td v-if="userType==1&&!client_id">
-                                    <router-link :to="{query : Object.assign({client_id:item.client_id,client_name:item.client_name,crumb_client_id:item.client_id,crumb_client_name:item.client_name},crumbs)}">{{item.client_name}}</router-link>
-                                </td>
-                                <td v-if="userType==1&&!agent_id&&!client_id">
-                                    <router-link :to="{query : {agent_id:item.agency_id,agent_name:item.agency_name,crumb_agent_id:item.agency_id,crumb_agent_name:item.agency_name}}">{{item.agency_name}}</router-link>
-                                </td>
-                                <td>{{item.call_times}}</td>
-                                <td>{{item.effect_call_times}}</td>
-                                <td>{{item.effect_call_rate}}%</td>
-                                <td>{{item.uneffect_call_times}}</td>
-                                <td>{{item.uneffect_call_rate}}%</td>
-                                <td>{{item.charge_time }}</td>
-                                <td>{{item.avg_time }}</td>
-                                <td>{{item.message_num }}</td>
-                                <td v-if="userType!=4">{{item.seat_num}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" v-else>暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="13%" label="项目名称">
+                            <router-link :to="{
+                                path : '/call/cate',
+                                query:{
+                                    project_id: props.item.id,
+                                    project_name:props.item.name,
+                                    crumb_project_id:props.item.id,
+                                    crumb_project_name:props.item.name
+                                }
+                            }">{{props.item.name}}</router-link>
+                        </td>
+                        <td width="13%" label="客户名称" v-if="userType==1&&!client_id">
+                            <router-link :to="{
+                                query : {
+                                    client_id:props.item.client_id,
+                                    client_name:props.item.client_name,
+                                    crumb_client_id:props.item.client_id,
+                                    crumb_client_name:props.item.client_name
+                                }
+                            }">{{props.item.client_name}}</router-link>
+                        </td>
+                        <td width="13%" label="所属代理" v-if="userType==1&&!agent_id&&!client_id">
+                            <router-link :to="{
+                                query : {
+                                    agent_id:props.item.agency_id,
+                                    agent_name:props.item.agency_name,
+                                    crumb_agent_id:props.item.agency_id,
+                                    crumb_agent_name:props.item.agency_name
+                                }
+                            }">{{props.item.agency_name}}</router-link>
+                        </td>
+                        <td width="6%" label="外呼次数">{{props.item.call_times}}</td>
+                        <td width="6%" label="拨通次数">{{props.item.effect_call_times}}</td>
+                        <td width="6%" label="拨通率">{{props.item.effect_call_rate}}%</td>
+                        <td width="6%" label="呼损次数">{{props.item.uneffect_call_times}}</td>
+                        <td width="6%" label="呼损率">{{props.item.uneffect_call_rate}}%</td>
+                        <td width="8%" label="通话时长">{{props.item.charge_time }}</td>
+                        <td width="8%" label="平均通话">{{props.item.avg_time }}</td>
+                        <td width="6%" label="挂机短信">{{props.item.message_num }}</td>
+                        <td width="6%" label="参与坐席" v-if="userType!=4">{{props.item.seat_num}}</td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
@@ -84,6 +83,7 @@
     import pages from 'components/common/pages'
     import indexFilter from './index_filter'
     import crumbs from './crumbs'
+    import mtable from 'components/utils/table'
 
     export default {
         data() {
@@ -102,70 +102,56 @@
         },
         computed: {
             downUrl() {
-                let client_id = this.$route.query.client_id ? this.$route.query.client_id : (this.$route.query.search_client_id ? this.$route.query.search_client_id : '')
-                let agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : (this.$route.query.search_agent_id ? this.$route.query.search_agent_id : '')
-                let api
+                let client_id = this.$route.query.client_id || this.$route.query.search_client_id || ''
+                let agent_id = this.$route.query.agent_id || this.$route.query.search_agent_id || ''
+                let category = 1
                 if (this.$route.query.client_id) {
-                    api = '/teltraffic/categoryExport?category=3&'
+                    category = 3
                 } else if (this.$route.query.agent_id) {
-                    api = '/teltraffic/categoryExport?category=2&'
-                } else {
-                    api = '/teltraffic/export?'
+                    category = 2
                 }
-                return api
-                    + 'search_name=' + (this.$route.query.search_name ? this.$route.query.search_name : '')
+                return '/teltraffic/export?'
+                    + 'category=' + category
+                    + '&search_name=' + (this.$route.query.search_name || '')
                     + '&search_client_id=' + client_id
                     + '&search_agent_id=' + agent_id
-                    + '&search_start_time=' + (this.$route.query.startTime ? this.$route.query.startTime : '')
-                    + '&search_end_time=' + (this.$route.query.endTime ? this.$route.query.endTime : '')
-            },
-            crumbs() {
-                let obj = {}
-                if (this.$route.query.crumb_agent_id) {
-                    obj.crumb_agent_id = this.$route.query.crumb_agent_id
-                    obj.crumb_agent_name = this.$route.query.crumb_agent_name
-                }
-                if (this.$route.query.crumb_client_id) {
-                    obj.crumb_client_id = this.$route.query.crumb_client_id
-                    obj.crumb_client_name = this.$route.query.crumb_client_name
-                }
-                return obj
+                    + '&search_start_time=' + (this.$route.query.startTime || '')
+                    + '&search_end_time=' + (this.$route.query.endTime || '')
             }
         },
         watch: {
-            $route: function () {
-                this.init()
+            $route() {
+                this.render()
+                this.heads()
             }
         },
         components: {
             pages,
             indexFilter,
-            crumbs
+            crumbs,
+            mtable
         },
         created() {
-            this.init()
+            this.render()
+            this.heads()
         },
         methods: {
-            init() {
-                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.agent_id = this.$route.query.agent_id
-                this.agent_name = this.$route.query.agent_name
-                this.client_id = this.$route.query.client_id
-                this.client_name = this.$route.query.client_name
-                this.render()
-                this.heads()
-            },
             render() {
-                let client_id = this.$route.query.client_id ? this.$route.query.client_id : (this.$route.query.search_client_id ? this.$route.query.search_client_id : '')
-                let agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : (this.$route.query.search_agent_id ? this.$route.query.search_agent_id : '')
+                this.client_id = this.$route.query.client_id
+                let client_id = this.client_id || this.$route.query.search_client_id || ''
+                this.agent_id = this.$route.query.agent_id
+                let agent_id = this.agent_id || this.$route.query.search_agent_id || ''
+                this.currentPage = this.$route.query.page ? this.$route.query.page : 1
+                this.agent_name = this.$route.query.agent_name
+                this.client_name = this.$route.query.client_name
                 this.$ajax({
                     url: API.call_list,
                     data: {
                         search_name: this.$route.query.search_name,
                         search_client_id: client_id,
                         search_agent_id: agent_id,
-                        search_start_time: this.$route.query.startTime,
-                        search_end_time: this.$route.query.endTime,
+                        search_start_time: this.$route.query.startTime ? this.$route.query.startTime : '',
+                        search_end_time: this.$route.query.endTime ? this.$route.query.endTime : '',
                         page: this.currentPage,
                     },
                     success: data => {
@@ -180,16 +166,17 @@
                 })
             },
             heads() {
-                let client_id = this.$route.query.client_id ? this.$route.query.client_id : (this.$route.query.search_client_id ? this.$route.query.search_client_id : '')
-                let agent_id = this.$route.query.agent_id ? this.$route.query.agent_id : (this.$route.query.search_agent_id ? this.$route.query.search_agent_id : '')
+                let client_id = this.$route.query.client_id || this.$route.query.search_client_id || ''
+                let agent_id = this.$route.query.agent_id || this.$route.query.search_agent_id || ''
                 this.$ajax({
                     url: API.call_head,
                     data: {
+                        category: 2,
                         search_name: this.$route.query.search_name,
                         search_client_id: client_id,
                         search_agent_id: agent_id,
-                        search_start_time: this.$route.query.startTime,
-                        search_end_time: this.$route.query.end_time
+                        search_start_time: this.$route.query.startTime ? this.$route.query.startTime : '',
+                        search_end_time: this.$route.query.endTime ? this.$route.query.endTime : ''
                     },
                     success: data => {
                         if (data.code == 200) {
