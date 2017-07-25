@@ -137,7 +137,7 @@
                         user_name: this.username,
                         mail: this.email,
                         tel: this.tel,
-                        regoin: this.addr,
+                        location: this.addr,
                         application_addr: this.self_addr
                     },
                     success: data => {
