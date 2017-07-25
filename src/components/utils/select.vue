@@ -70,11 +70,11 @@
             choose(id, name) {
                 let finded = false
                 this.list.find((value, index) => {
-                    if (id != null && id == value.id) {
+                    if (id != '' && id == value.id) {
                         this.selected = value
                         finded = true
                     }
-                    if (name != null && name == value.name) {
+                    if (name != '' && name == value.name) {
                         this.selected = value
                         finded = true
                     }
@@ -95,7 +95,7 @@
                 if (this.initlist) {
 
                     this.list = this.initlist  //保证initlist 是合规的
-
+                    console.log(this.id)
                     this.choose(this.id, this.name)
 
                     if (callback) callback()
