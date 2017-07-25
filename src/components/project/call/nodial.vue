@@ -109,8 +109,8 @@
                     tel: tel,
                     city: city,
                     call: call,
-                    sex: sex,
-                    call_num: call_num
+                    sex: sex ? sex : '',
+                    call_num: call_num ? call_num : 0
                 })
                 this.$router.push({
                     path: '/project/dial',
