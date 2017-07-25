@@ -46,8 +46,8 @@
                 getCity: API.clue_attribution,
                 city: city,
                 getCity_param: {
-                    project_id:id,
-                    seat_id:user.id
+                    project_id: id,
+                    seat_id: user.id
                 },
                 startTime: '',
                 endTime: '',
@@ -95,7 +95,7 @@
                 let obj = {
                     startTime: this.startTime,
                     endTime: this.endTime,
-                    city: this.$refs.citySelect.selected.name
+                    city: this.$refs.citySelect.selected.name == '全部' ? '' : this.$refs.citySelect.selected.name
                 }
                 this.$emit('submit', obj)
             }

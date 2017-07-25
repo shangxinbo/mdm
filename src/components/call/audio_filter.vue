@@ -7,7 +7,7 @@
             </li>
             <li>
                 <label class="name">归属地</label>
-                <mselect ref="citySelect" :api="getCity" :param="getCity_param" :id="city"></mselect>
+                <mselect ref="citySelect" :api="getCity" :param="getCity_param" :name="city"></mselect>
             </li>
             <li>
                 <label class="name">拨打结果</label>
@@ -54,14 +54,13 @@
     export default {
         data: function () {
             let now = moment().format('YYYY-MM-DD')
-            let city = this.$route.query.city ? this.$route.query.city : '全部'
             let id = this.$route.query.project_id
             let seat_id = this.$route.query.seat_id
             return {
                 getCity: API.clue_attribution,
                 getResult1: API.clue_get_result,
                 getResult2: API.clue_get_sub_result,
-                city: city,
+                city: '',
                 getCity_param: {
                     project_id:id,
                     seat_id:seat_id
