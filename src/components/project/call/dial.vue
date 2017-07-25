@@ -174,10 +174,12 @@
             if (from.path != to.path && !this.jump_self) {
                 let r = confirm('是否要离开这个页面')
                 if (r) {
+                    window.mycomm_agent.logout()
                     window.onbeforeunload = ''
                     next()
                 }
             } else {
+                window.mycomm_agent.logout()
                 window.onbeforeunload = ''
                 next()
             }
