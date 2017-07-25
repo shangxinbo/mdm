@@ -95,7 +95,6 @@
                 if (this.initlist) {
 
                     this.list = this.initlist  //保证initlist 是合规的
-                    console.log(this.id)
                     this.choose(this.id, this.name)
 
                     if (callback) callback()
