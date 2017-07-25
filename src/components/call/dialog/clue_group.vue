@@ -10,7 +10,7 @@
                     <ul>
                         <li>
                             <span class="t">项目名称</span>
-                            <span class="num">{{projectName}}</span>
+                            <span class="num">{{project_name}}</span>
                         </li>
                         <li>
                             <span class="t">称呼</span>
@@ -33,8 +33,8 @@
                         <tr>
                             <th class="w160">拨打时间</th>
                             <th class="w80">通话时长</th>
-                            <th class="t1">备注</th>
-                            <th class="w160 tl">拨打结果</th>
+                            <th >备注</th>
+                            <th class="w160">拨打结果</th>
                             <th class="w200">通话录音</th>
                         </tr>
                     </table>
@@ -46,8 +46,8 @@
                                 <tr v-for="(item,index) in list" :index="index" :class="{tr2:index%2}">
                                     <td class="w160">{{item.created_at}}</td>
                                     <td class="w80">{{item.call_time}}</td>
-                                    <td class="t1">{{item.dial_status|resultText}}</td>
-                                    <td class="w160 tl">{{item.remarks}}</td>
+                                    <td>{{item.remarks}}</td>
+                                    <td class="w160">{{item.dia_result}}</td>
                                     <td class="w200">
                                         <a v-if="item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
                                             <span class="notice">
@@ -83,7 +83,8 @@
                 playNow: -1,
                 id: '',
                 call:'',
-                city:''
+                city:'',
+                project_name:''
             }
         },
         created() {
@@ -101,6 +102,7 @@
                             this.list = data.data.list
                             this.call = call
                             this.city = city
+                            this.project_name = data.data.project_name
 
                             let audios = document.querySelectorAll('.btn-audio')
                             for (let i = 0; i < audios.length; i++) {
@@ -126,16 +128,8 @@
             this.offsetTop = -dh / 2 + 'px'
         },
         computed: {
-            projectName() {
-                return this.$route.query.crumb_project_name
-            },
             exportUrl() {
                 return `${API.call_audio_phone_export}?id=${this.id}`
-            }
-        },
-        filters: {
-            resultText(val) {
-                return callResultConf[val]
             }
         },
         methods: {
