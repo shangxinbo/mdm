@@ -164,7 +164,7 @@
                         this.username = data.data.user_name
                         this.email = data.data.mail
                         this.tel = data.data.tel
-                        this.addr = data.data.store_addr
+                        this.addr = data.data.location
                         this.self_addr = data.data.application_addr
                         this.style = 'block'
                         this.$store.commit('SHOW_LAYER')
