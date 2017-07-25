@@ -56,7 +56,6 @@
                 }
             },
             change(obj) {
-                console.log(obj)
                 if (obj) {
                     this.selected = obj
                 } else {
@@ -71,11 +70,11 @@
             choose(id, name) {
                 let finded = false
                 this.list.find((value, index) => {
-                    if (id === value.id) {
+                    if (id != null && id == value.id) {
                         this.selected = value
                         finded = true
                     }
-                    if (name === value.name) {
+                    if (name != null && name == value.name) {
                         this.selected = value
                         finded = true
                     }
