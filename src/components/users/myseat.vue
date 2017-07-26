@@ -20,11 +20,11 @@
             <div class="data-warp">
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="坐席账号">{{props.item.user}}</td>
-                        <td label="坐席状态">{{props.item.status==1?'有效':'失效'}}</td>
-                        <td label="开通日期">{{props.item.created_at}}</td>
-                        <td label="失效日期">{{props.item.expire_time}}</td>
-                        <td label="操作">
+                        <td width="20%" label="坐席账号">{{props.item.user}}</td>
+                        <td width="10%" label="坐席状态">{{props.item.status==1?'有效':'失效'}}</td>
+                        <td width="20%" label="开通日期">{{props.item.created_at}}</td>
+                        <td width="20%" label="失效日期">{{props.item.expire_time}}</td>
+                        <td width="20%" label="操作">
                             <a href="javascript:void(0);" @click="showResetPassDialog(props.item.id,props.item.user)">重置密码</a>
                             <a v-if="props.item.status==1" href="javascript:void(0);" @click="showAddFee(props.item.id)">续费</a>
                         </td>
