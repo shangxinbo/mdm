@@ -1,0 +1,41 @@
+@import (reference) "base.less";
+@import "data-property.less";//数据form信息
+@import "data-table.less";//数据表格
+@import "page.less";//分页
+@import "data-detail.less";//数据详情信息
+@import "sms-phone.less";//手机显示
+//----------------------------------------------------------------------------------------------------
+.title-warp{
+  font-size: 20px;
+  padding-bottom: 30px;
+  color: @grayColor;
+  position: relative;
+  .tag-nav{
+    padding: 0;
+    a{
+      font-size: 20px;
+      height: 30px;
+    }
+  }
+  .notice{
+    color: @redColor;
+    font-size: 14px;
+    line-height: 36px;
+    display: inline-block;
+    padding: 0 15px 0 38px;
+    margin-left: 20px;
+    background-color: #fffae5;
+    border: 1px solid #f0ebd5;
+    position: absolute;
+    top: -4px;
+    i{
+      .flo();
+      background: url('@{url}/data-icon.png') no-repeat 0 0;
+      .wh(17px);
+      display: inline-block;
+      position: absolute;
+      top:9px;
+      left: 12px;
+    }
+  }
+}

@@ -1,0 +1,78 @@
+@import (reference) "base.less";
+//---------------------------------------------- 标签切换 ------------------------------------------------------
+.data-card{
+  position: absolute;
+  right: 10%;
+  top: 20px;
+  width: 382px;
+  padding-bottom: 10px;
+  border: 1px solid #dcdcdc;
+  background:@whiteColor;
+  border-radius: 10px;
+  .title{
+    padding: 20px 0 0 30px;
+    font-size: 16px;
+    color: @grayColor;
+  }
+  .btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+  dl{
+    margin: 0 30px;
+    dt{
+      font-size: 20px;
+      color: @grayColor;
+      padding: 20px 0;
+    }
+    dd{
+      position: relative;
+      padding-left: 94px;
+      margin-bottom: 4px;
+      .name{
+        width: 80px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        line-height: 28px;
+        font-size: 14px;
+        color: @grayColor2;
+        text-align: right;
+        .icon{
+          width: 14px;
+          height: 15px;
+          display: inline-block;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          margin-top: -7px;
+          .flo();
+          background: url('@{url}/data-icon.png') no-repeat 0 0;
+          &.card1{
+            background-position: 0 -19px;
+          }
+          &.card2{
+            background-position: 0 -34px;
+          }
+          &.card3{
+            background-position: 0 -49px;
+          }
+          &.card4{
+            background-position: 0 -64px;
+          }
+        }
+      }
+      .text{
+        line-height: 28px;
+        font-size: 14px;
+        color: @grayColor;
+      }
+    }
+  }
+}
+@media (max-width: 1600px){
+  .data-card{
+    right: 0;
+  }
+}
