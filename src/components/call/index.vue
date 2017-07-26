@@ -32,35 +32,13 @@
                 <mtable :list="list">
                     <template scope="props">
                         <td width="13%" label="项目名称">
-                            <router-link :to="{
-                                path : '/call/cate',
-                                query:{
-                                    project_id: props.item.id,
-                                    project_name:props.item.name,
-                                    crumb_project_id:props.item.id,
-                                    crumb_project_name:props.item.name
-                                }
-                            }">{{props.item.name}}</router-link>
+                            <router-link :to="{path : '/call/cate',query : Object.assign({project_id:props.item.id,project_name:props.item.name,crumb_project_id:props.item.id,crumb_project_name:props.item.name},crumbs)}">{{props.item.name}}</router-link>
                         </td>
                         <td width="13%" label="客户名称" v-if="userType==1&&!client_id">
-                            <router-link :to="{
-                                query : {
-                                    client_id:props.item.client_id,
-                                    client_name:props.item.client_name,
-                                    crumb_client_id:props.item.client_id,
-                                    crumb_client_name:props.item.client_name
-                                }
-                            }">{{props.item.client_name}}</router-link>
+                            <router-link :to="{query : Object.assign({client_id:props.item.client_id,client_name:props.item.client_name,crumb_client_id:props.item.client_id,crumb_client_name:props.item.client_name},crumbs)}">{{props.item.client_name}}</router-link>
                         </td>
                         <td width="13%" label="所属代理" v-if="userType==1&&!agent_id&&!client_id">
-                            <router-link :to="{
-                                query : {
-                                    agent_id:props.item.agency_id,
-                                    agent_name:props.item.agency_name,
-                                    crumb_agent_id:props.item.agency_id,
-                                    crumb_agent_name:props.item.agency_name
-                                }
-                            }">{{props.item.agency_name}}</router-link>
+                            <router-link :to="{query : {agent_id:props.item.agency_id,agent_name:props.item.agency_name,crumb_agent_id:props.item.agency_id,crumb_agent_name:props.item.agency_name}}">{{props.item.agency_name}}</router-link>
                         </td>
                         <td width="6%" label="外呼次数">{{props.item.call_times}}</td>
                         <td width="6%" label="拨通次数">{{props.item.effect_call_times}}</td>
@@ -117,6 +95,18 @@
                     + '&search_agent_id=' + agent_id
                     + '&search_start_time=' + (this.$route.query.startTime || '')
                     + '&search_end_time=' + (this.$route.query.endTime || '')
+            },
+            crumbs() {
+                let obj = {}
+                if (this.$route.query.crumb_agent_id) {
+                    obj.crumb_agent_id = this.$route.query.crumb_agent_id
+                    obj.crumb_agent_name = this.$route.query.crumb_agent_name
+                }
+                if (this.$route.query.crumb_client_id) {
+                    obj.crumb_client_id = this.$route.query.crumb_client_id
+                    obj.crumb_client_name = this.$route.query.crumb_client_name
+                }
+                return obj
             }
         },
         watch: {

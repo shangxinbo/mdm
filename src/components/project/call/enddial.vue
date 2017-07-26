@@ -61,7 +61,7 @@
                 totalPage: 1,
                 list: [],
                 total: 0,
-                smsShow:0
+                smsShow: 0
             }
         },
         created() {
@@ -150,10 +150,10 @@
                     tel: tel,
                     city: city,
                     call: call,
-                    sex: sex,
-                    call_num: call_num,
-                    sms:this.$route.query.sms,
-                    status:1
+                    sex: sex ? sex : '',
+                    call_num: call_num ? call_num : 0,
+                    sms: this.$route.query.sms,
+                    status: 1
                 })
                 this.$router.push({
                     path: '/project/dial',
@@ -168,10 +168,10 @@
                     tel: tel,
                     city: city,
                     call: call,
-                    sex: sex,
-                    call_num: call_num,
-                    sms:this.$route.query.sms,
-                    status:1
+                    sex: sex ? sex : '',
+                    call_num: call_num ? call_num : 0,
+                    sms: this.$route.query.sms,
+                    status: 1
                 })
                 this.$router.push({
                     path: '/project/view',

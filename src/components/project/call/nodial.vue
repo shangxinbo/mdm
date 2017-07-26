@@ -15,11 +15,11 @@
                 </div>
                 <mtable :list="list">
                     <template scope="props">
-                        <td label="拨打资源">{{props.item.telephone_crypt}}</td>
-                        <td label="归属地">{{props.item.city}}</td>
-                        <td label="分配日期">{{props.item.distribution_date}}</td>
-                        <td label="操作">
-                            <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.sex,props.item.call_num)">
+                        <td width="25%" label="拨打资源">{{props.item.telephone_crypt}}</td>
+                        <td width="25%" label="归属地">{{props.item.city}}</td>
+                        <td width="25%" label="分配日期">{{props.item.distribution_date}}</td>
+                        <td width="25%" label="操作">
+                            <a href="javascript:void(0);" @click="call(props.item.id,props.item.telephone_crypt,props.item.city,props.item.call,props.item.gender,props.item.call_num)">
                                 <span class="notice">
                                     <i class="icon phone"></i>
                                 </span>拨打
