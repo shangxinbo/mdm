@@ -202,11 +202,18 @@
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
+            let host = location.hostname
+            let agentInit = 1
+            if(host.indexOf('mdm.geotmt.com')>=0){
+                agentInit = 9
+            }else if(host.indexOf('yhk.geotmt.com')>=0){
+                agentInit = 3
+            }
             return {
                 title: '新建客户',
                 userType: user.type,
                 agentApi: agentApi,
-                agentId: 1,
+                agentId: agentInit,
                 clue_price: '',
                 tel_price: '',
                 seat_price: '',
