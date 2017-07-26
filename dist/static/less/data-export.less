@@ -1,0 +1,110 @@
+@import (reference) "base.less";
+//---------------------------------------------- 数据导出 ------------------------------------------------------
+.data-export{
+    min-height: 30px;
+    position: relative;
+    margin: 20px 0 15px;
+    padding-right: 180px;
+    &.side280{
+        padding-right: 280px;
+    }
+    ul{
+        display: inline-block;
+        li{
+            float: left;
+            margin: 0 40px 0 0;
+            position: relative;
+            color: @grayColor;
+            span{
+                display: inline-block;
+            }
+            .t{
+                position: relative;
+                padding:0 10px 0 0;
+                font-size: 14px;
+                line-height: 30px;
+                color: @grayColor2;
+                a{
+                    color: @blueColor;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+            .num{
+                font-size: 20px;
+            }
+        }
+    }
+    .btn{
+        border-width: 1px;
+    }
+    .btn-export{
+        position: absolute;
+        top: 0;
+        right: 0;
+        a{
+            display: inline-block;
+            margin-left: 10px;
+        }
+    }
+    .btn-a{
+        line-height: 30px;
+        font-size: 14px;
+        color: @blueColor;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+    .add-explain{
+        position: absolute;
+        top: 0;
+        right: 0;
+        height:30px;
+        line-height: 30px;
+        span{
+            font-size: 14px;
+            color: @grayColor;
+            &.t{
+                color: @grayColor2;
+                padding-right: 10px;
+            }
+            &.num{
+                font-size: 20px;
+                padding-right: 5px;
+                em{
+                    font-size: 14px;
+                }
+            }
+        }
+        a{
+            font-size: 14px;
+            color: @blueColor;
+            display: inline-block;
+            margin-left: 20px;
+            &.btn{
+                span{
+                    color: @whiteColor;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1366px){
+    .data-export{
+        ul{
+            li{
+                margin: 0 20px 0 0;
+                .num{
+                    font-size: 16px;
+                }
+            }
+        }
+        .btn-export{
+            a{
+                margin-left: 5px;
+            }
+        }
+    }
+
+}
