@@ -68,7 +68,9 @@
                         <li class="li-btn">
                             <div class="input-warp">
                                 <button class="btn blue" @click="submit" v-if="!loading">提交</button>
-                                <button v-if="loading" class="btn loading" type="button"><em>...</em></button>
+                                <button v-if="loading" class="btn loading" type="button">
+                                    <em>...</em>
+                                </button>
                             </div>
                         </li>
                     </ul>
@@ -182,6 +184,11 @@
                     return false
                 } else {
                     this.error_status = ''
+                }
+
+                if (this.contentLength + this.sign.length + 2 > 70) {
+                    this.$alert('运营商限制每条短信内容不得超过70个字符,<br/>请缩短短信内容')
+                    return false
                 }
 
                 let obj = {

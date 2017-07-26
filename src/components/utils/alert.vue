@@ -3,7 +3,7 @@
         <div class="dialog-body">
             <div class="pop-default">
                 <p>
-                    <span>{{msg}}</span>
+                    <span v-html="msg"></span>
                 </p>
             </div>
         </div>
