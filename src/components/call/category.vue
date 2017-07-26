@@ -44,7 +44,7 @@
                     <template scope="props">
                         <td width="10%" label="参与坐席">
                             <template v-if="userType!=4">
-                                <router-link :to="{path:'/call/seat',query:{project_id:project_id,seat_id:props.item.seat_id,seat_name:props.item.name,crumb_seat_id:props.item.seat_id,crumb_seat_name:props.item.name}}">{{props.item.name}}</router-link>
+                                <router-link :to="{path:'/call/seat',query:Object.assign({project_id:project_id,seat_id:props.item.seat_id,seat_name:props.item.name,crumb_seat_id:props.item.seat_id,crumb_seat_name:props.item.name},crumbs)}">{{props.item.name}}</router-link>
                             </template>
                             <template v-else>{{props.item.name}}</template>
                         </td>

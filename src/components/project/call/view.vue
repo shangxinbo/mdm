@@ -44,7 +44,7 @@
                             </li>
                             <li>
                                 <span class="t">称呼</span>
-                                <span class="num">{{render.call}}{{render.sex=='男'?'先生':'女士'}}</span>
+                                <span class="num">{{render.call}}{{render.sex=='男'?'先生':''}}{{render.sex=='女'?'女士':''}}</span>
                             </li>
                         </ul>
                     </div>
