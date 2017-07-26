@@ -61,12 +61,11 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import changeInfo from './dialog/changeInfo'
     
     export default {
-        data: function () {
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 user: '',
@@ -87,21 +86,20 @@
                 this.$refs.changeInfo.$emit('show',this.$data)
             }
         },
-        created: function () {
-            let _this = this
-            mAjax(_this, {
+        created() {
+            this.$ajax({
                 url: API.agent_my_info,
                 data: {
                     id: this.id
                 },
                 success: data => {
-                    _this.user = data.data.user
-                    _this.name = data.data.name
-                    _this.username = data.data.user_name
-                    _this.email = data.data.mail
-                    _this.tel = data.data.tel
-                    _this.addr = data.data.regoin
-                    _this.self_addr = data.data.application_addr
+                    this.user = data.data.user
+                    this.name = data.data.name
+                    this.username = data.data.user_name
+                    this.email = data.data.mail
+                    this.tel = data.data.tel
+                    this.addr = data.data.regoin
+                    this.self_addr = data.data.application_addr
                 }
             })
         }

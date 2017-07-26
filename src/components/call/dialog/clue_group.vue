@@ -10,11 +10,15 @@
                     <ul>
                         <li>
                             <span class="t">项目名称</span>
-                            <span class="num">{{projectName}}</span>
+                            <span class="num">{{project_name}}</span>
                         </li>
                         <li>
-                            <span class="t">外呼次数</span>
-                            <span class="num">{{success_num}}</span>
+                            <span class="t">称呼</span>
+                            <span class="num">{{call}}</span>
+                        </li>
+                        <li>
+                            <span class="t">归属地</span>
+                            <span class="num">{{city}}</span>
                         </li>
                     </ul>
                     <div class="btn-export">
@@ -28,21 +32,23 @@
                     <table cellspacing="0" cellpadding="0">
                         <tr>
                             <th class="w160">拨打时间</th>
-                            <th class="w110">通话时长</th>
-                            <th class="w110">拨打结果</th>
-                            <th>通话录音</th>
+                            <th class="w80">通话时长</th>
+                            <th >备注</th>
+                            <th class="w160">拨打结果</th>
+                            <th class="w200">通话录音</th>
                         </tr>
                     </table>
                 </div>
-                <div class="scroll-warp scrollBar w640" style="overflow-y:auto">
+                <div class="scroll-warp scrollBar" style="overflow-y:auto">
                     <div class="data-table">
                         <table cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr v-for="(item,index) in list" :index="index" :class="{tr2:index%2}">
                                     <td class="w160">{{item.created_at}}</td>
-                                    <td class="w110">{{item.call_time}}</td>
-                                    <td class="w110">{{item.dial_status|resultText}}</td>
-                                    <td>
+                                    <td class="w80">{{item.call_time}}</td>
+                                    <td>{{item.remarks}}</td>
+                                    <td class="w160">{{item.dia_result}}</td>
+                                    <td class="w200">
                                         <a v-if="item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
                                             <span class="notice">
                                                 <i class="icon play"></i>
@@ -64,27 +70,28 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import callResultConf from '../../project/callResultConf'
+    import callResultConf from '../../project/call/callResultConf'
     export default {
         data() {
             return {
                 show: 'none',
                 offsetLeft: 0,
                 offsetTop: 0,
-                success_num: 0,
                 tel: '',
                 list: [],
                 playNow: -1,
-                id: ''
+                id: '',
+                call:'',
+                city:'',
+                project_name:''
             }
         },
         created() {
-            this.$on('show', (id, tel) => {
+            this.$on('show', (id, tel,call,city) => {
                 this.tel = tel
                 this.id = id
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_phone_audio,
                     data: {
                         id: id
@@ -93,7 +100,9 @@
                         if (data.code == 200 && data.data.list.length > 0) {
                             this.show = 'block'
                             this.list = data.data.list
-                            this.success_num = data.data.count
+                            this.call = call
+                            this.city = city
+                            this.project_name = data.data.project_name
 
                             let audios = document.querySelectorAll('.btn-audio')
                             for (let i = 0; i < audios.length; i++) {
@@ -119,16 +128,8 @@
             this.offsetTop = -dh / 2 + 'px'
         },
         computed: {
-            projectName() {
-                return this.$route.query.crumb_project_name
-            },
             exportUrl() {
                 return `${API.call_audio_phone_export}?id=${this.id}`
-            }
-        },
-        filters: {
-            resultText(val) {
-                return callResultConf[val]
             }
         },
         methods: {
@@ -167,23 +168,6 @@
                     dom.play()
                 }
 
-
-
-                // if (index == this.playNow) {
-                //     dom.pause()
-                //     span[0].querySelector('i').className = 'icon play'
-                //     span[1].innerHTML = '继续播放'
-                //     this.playNow = -1
-                // } else {
-                //     if (dom.getAttribute('src') != url) {
-                //         dom.src = url
-                //         dom.load()
-                //     }
-                //     dom.play()
-                //     span[0].querySelector('i').className = 'icon pause'
-                //     span[1].innerHTML = '暂停'
-                //     this.playNow = index
-                // }
             }
         }
     }

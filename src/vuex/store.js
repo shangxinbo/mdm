@@ -6,10 +6,6 @@ Vue.use(Vuex)
 
 const state = {
     showLayer: false,
-    toast:{
-        msg:'',   //msg string
-        during:1000
-    },   
     changeMypassDialogShow:false,
     callInfo:null,
     showCallSet:false,
@@ -33,15 +29,6 @@ const mutations = {
     // 隐藏遮罩层
     HIDE_LAYER(state) {
         state.showLayer = false
-    },
-    SHOW_TOAST(state,msg,during) {
-        state.toast = {
-            msg:msg,
-            during:during?during:3000
-        }
-    },
-    HIDE_TOAST(state) {
-        state.toast = {}
     },
     SHOW_CHANGEPASS(state) {
         state.changeMypassDialogShow = true

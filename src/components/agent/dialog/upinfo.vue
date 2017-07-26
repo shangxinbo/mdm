@@ -68,7 +68,7 @@
 
 
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import { isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     import REG from 'src/services/reg'
 
@@ -192,8 +192,7 @@
                     this.self_addr_error = ''
                 }
                 if (cansub == false) return false
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: this.url,
                     data: {
                         id: this.id,
@@ -208,54 +207,51 @@
                     success: data => {
                         if (data.code == 200) {
                             let msg = ''
-                            if (_this.type == 'create') {
+                            if (this.type == 'create') {
                                 msg = '添加代理成功'
-                            } else if (_this.type == 'update') {
+                            } else if (this.type == 'update') {
                                 msg = '信息修改成功'
                             } else {
                                 msg = 'ok'
                             }
-                            _this.close()
-                            _this.$store.commit('SHOW_TOAST', msg)
-                            _this.$router.replace('/agent/index')
+                            this.close()
+                            this.$toast(msg, () => {
+                                this.$router.replace('/agent/index')
+                            })
+
                         } else {
-                            _this.self_addr_error = data.message
+                            this.self_addr_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         },
         created() {
-            let _this = this
-
             this.$on('show', function (id) {
-                _this.type = 'create'
-                _this.url = API.operate_addagent
+                this.type = 'create'
+                this.url = API.operate_addagent
                 if (id) {
-                    _this.type = 'update'
-                    _this.url = API.operate_upagent
-                    mAjax(_this, {
+                    this.type = 'update'
+                    this.url = API.operate_upagent
+                    this.$ajax({
                         url: API.operate_getagent,
                         data: {
                             id: id
                         },
                         success: data => {
-                            _this.id = id
-                            _this.user = data.data.user
-                            _this.name = data.data.name
-                            _this.username = data.data.user_name
-                            _this.email = data.data.mail
-                            _this.tel = data.data.tel
-                            _this.addr = data.data.regoin
-                            _this.self_addr = data.data.application_addr
+                            this.id = id
+                            this.user = data.data.user
+                            this.name = data.data.name
+                            this.username = data.data.user_name
+                            this.email = data.data.mail
+                            this.tel = data.data.tel
+                            this.addr = data.data.regoin
+                            this.self_addr = data.data.application_addr
                         }
                     })
                 }
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         },
         updated() {

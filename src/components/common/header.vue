@@ -45,7 +45,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import Vue from 'vue'
     export default {
@@ -84,17 +83,16 @@
             },
             logout() {
                 this.show = false
-                let _this = this
 
-                mAjax(this, {
+                this.$ajax({
                     url: API.logout,
-                    success: function (data) {
+                    success: data => {
                         localStorage.removeItem('user')
                         sessionStorage.clear()
                         window.location.reload()
                     },
-                    error: function (err) {
-                        _this.error = err
+                    error: err => {
+                        this.error = err
                     }
                 })
             },

@@ -21,6 +21,8 @@ module.exports = function (req, res) {
                 "uneffect_call_rate": "@int(0,100)",
                 "uneffect_call_times": "@int(0,1000)",
                 "seat_num": "@int(1,10)",
+                "message_num": 1000, //挂机短信数，
+                "info_num": 0  //留资数
             }
         ]
     })

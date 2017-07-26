@@ -48,12 +48,10 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import callResultConf from '../callResultConf'
-    import md5 from 'js-md5'
+    import callResultConf from '../call/callResultConf'
     export default {
-        data: () => {
+        data() {
             return {
                 style: 'none',
                 tel: '',
@@ -65,45 +63,40 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            callThis:function(){
+            callThis() {
                 this.close()
-                this.$emit('callThis',this.id,this.tel)
+                this.$emit('callThis', this.id, this.tel)
             }
         },
         filters: {
-            toResultText: function (value) {
+            toResultText(value) {
                 if (value) {
                     return callResultConf[value]
                 } else {
                     return '未拨打'
                 }
-            },
-            md5Tel(value){     
-                let mm = md5.create().update(value).hex()
-                return mm.substr(0,16)
             }
         },
-        created: function () {
-            let _this = this
+        created() {
             this.$on('show', function (id, name) {
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_clue_info,
                     data: {
                         id: id
                     },
                     success: data => {
-                        _this.id = id
-                        _this.tel = data.data.telephone_crypt
-                        _this.project = name
-                        _this.status = data.data.clue_status
-                        _this.result = data.data.dial_status
-                        _this.des = data.data.remarks
-                        _this.style = 'block'
-                        _this.$store.commit('SHOW_LAYER')
+                        this.id = id
+                        this.tel = data.data.telephone_crypt
+                        this.project = name
+                        this.status = data.data.clue_status
+                        this.result = data.data.dial_status
+                        this.des = data.data.remarks
+                        this.style = 'block'
+                        this.$store.commit('SHOW_LAYER')
                     }
                 })
 

@@ -83,7 +83,7 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import { isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
     import REG from 'src/services/reg'
     export default {
@@ -190,88 +190,84 @@
 
                 if (cansub == false) return false
 
-                let _this = this
                 let api = this.edit ? API.update_operate : API.create_operate
                 let data = this.edit ? { id: this.id, user_name: this.username, mail: this.email, tel: this.tel, rule: powerArr.join(',') } :
                     { user: this.user, user_name: this.username, mail: this.email, tel: this.tel, rule: powerArr.join(',') }
-                mAjax(this, {
+                this.$ajax({
                     url: api,
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            let msg = _this.edit ? '修改信息成功' : '新建账号成功'
-                            _this.$store.commit('SHOW_TOAST', msg)
+                            this.close()
+                            let msg = this.edit ? '修改信息成功' : '新建账号成功'
+                            this.$toast(msg)
                         } else {
-                            _this.tel_error = data.message
+                            this.tel_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         },
         created: function () {
-            let _this = this
             this.$on('edit', function (id, user, username, email, tel) {
-                mAjax(this, {
+                this.$ajax({
                     url: API.get_operate_info,
                     data: {
                         id: id
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.style = 'block'
+                            this.style = 'block'
                             let info = data.data
-                            _this.user = info.user ? info.user : ''
-                            _this.username = info.user_name ? info.user_name : ''
-                            _this.email = info.mail ? info.mail : ''
-                            _this.tel = info.tel ? info.tel : ''
-                            _this.id = id
+                            this.user = info.user ? info.user : ''
+                            this.username = info.user_name ? info.user_name : ''
+                            this.email = info.mail ? info.mail : ''
+                            this.tel = info.tel ? info.tel : ''
+                            this.id = id
 
                             let arr = info.rule.split(',')
-                            for (let i in _this.power) {
-                                _this.power[i] = false
+                            for (let i in this.power) {
+                                this.power[i] = false
                             }
                             if (info.rule && arr.length > 0) {
                                 arr.forEach(el => {
-                                    _this.power[el] = true
+                                    this.power[el] = true
                                 })
                             }
 
-                            _this.edit = true
-                            _this.user_error = ''
-                            _this.username_error = ''
-                            _this.email_error = ''
-                            _this.tel_error = ''
-                            _this.power_error = ''
-                            _this.$store.commit('SHOW_LAYER')
+                            this.edit = true
+                            this.user_error = ''
+                            this.username_error = ''
+                            this.email_error = ''
+                            this.tel_error = ''
+                            this.power_error = ''
+                            this.$store.commit('SHOW_LAYER')
                         } else {
-                            this.$store.commit('SHOW_TOAST', '获取用户信息失败')
+
+                            this.$toast('获取用户信息失败')
                         }
                     },
                     error: err => {
-                        this.$store.commit('SHOW_TOAST', '获取用户信息失败')
+                        this.$toast('获取用户信息失败')
                     }
                 })
             })
             this.$on('create', function () {
-                _this.style = 'block'
-                _this.user = ''
-                _this.username = ''
-                _this.email = ''
-                _this.tel = ''
-                for (let i in _this.power) {
-                    _this.power[i] = false
+                this.style = 'block'
+                this.user = ''
+                this.username = ''
+                this.email = ''
+                this.tel = ''
+                for (let i in this.power) {
+                    this.power[i] = false
                 }
-                _this.edit = false
-                _this.user_error = ''
-                _this.username_error = ''
-                _this.email_error = ''
-                _this.tel_error = ''
-                _this.power_error = ''
-                _this.$store.commit('SHOW_LAYER')
+                this.edit = false
+                this.user_error = ''
+                this.username_error = ''
+                this.email_error = ''
+                this.tel_error = ''
+                this.power_error = ''
+                this.$store.commit('SHOW_LAYER')
             })
         }
     }

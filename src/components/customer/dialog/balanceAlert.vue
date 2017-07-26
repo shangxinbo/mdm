@@ -14,32 +14,30 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
-        data:function(){
+        data() {
             return {
-                style:'none'
+                style: 'none'
             }
         },
-        methods:{
-            close(){
+        methods: {
+            close() {
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             }
         },
-        created:function(){
+        created() {
             let balanceAlert = sessionStorage.getItem('balanceAlert')
-            let _this = this
-            if(!balanceAlert){
-                mAjax(this,{
-                    url:API.customer_alarm,
-                    success:data=>{
-                        if(data.code==200){
-                            if(data.data.warning){
-                                _this.style = 'block'
-                                _this.$store.commit('SHOW_LAYER')
-                                sessionStorage.setItem('balanceAlert',true)
+            if (!balanceAlert) {
+                this.$ajax({
+                    url: API.customer_alarm,
+                    success: data => {
+                        if (data.code == 200) {
+                            if (data.data.warning) {
+                                this.style = 'block'
+                                this.$store.commit('SHOW_LAYER')
+                                sessionStorage.setItem('balanceAlert', true)
                             }
                         }
                     }
@@ -47,4 +45,5 @@
             }
         }
     }
+
 </script>

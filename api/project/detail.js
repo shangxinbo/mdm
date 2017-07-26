@@ -36,6 +36,8 @@ module.exports = function (req, res) {
         "clue_connect_num": 1,
         "clue_odd_num": 998,
         "agency": "代理1",
-        "agency_id": 123
+        "agency_id": 123,
+        "is_hang_up_message":1,       
+        "hang_up_message_num":200       
     })
 }

@@ -6,8 +6,12 @@
         <div class="main">
             <div class="title-warp">余额管理</div>
             <div class="money-sum">
-                <span class="name">余额</span><span class="num">&yen;<em>{{customerInfo['balance']}}</em></span>
-                <p class="notice" v-if="alarm" style="max-width: 500px;"><i class="icon"></i>您的余额不足，请尽快联系相关人员进行充值，以免影响您的正常使用</p>
+                <span class="name">余额</span>
+                <span class="num">&yen;
+                    <em>{{customerInfo['balance']}}</em>
+                </span>
+                <p class="notice" v-if="alarm" style="max-width: 500px;">
+                    <i class="icon"></i>您的余额不足，请尽快联系相关人员进行充值，以免影响您的正常使用</p>
             </div>
             <div class="tag-nav">
                 <router-link to="/expense/balance?type=in" :class="type=='in'?'active':''">充值记录</router-link>
@@ -32,7 +36,6 @@
 
 
 <script>
-    import {mAjax, dateFormat} from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import mselect from 'components/utils/select'
@@ -40,7 +43,7 @@
     import dataTable from './bTable'
 
     export default {
-        data: function () {
+        data() {
             let user = JSON.parse(localStorage.getItem('user'))
             return {
                 userType: user.type,
@@ -54,7 +57,7 @@
             }
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.type = this.$route.query.type ? this.$route.query.type : "in"
                 if (this.type == 'in') {
@@ -74,62 +77,57 @@
         },
         methods: {
             refresh: function () {
-                let _this = this
-                mAjax(this, {
-                    url: _this.url,
+                this.$ajax({
+                    url: this.url,
                     data: {
                         nums: 10,
-                        page: _this.currentPage,
+                        page: this.currentPage,
                     },
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.list = data.data.data
-                            _this.totalPage = Math.ceil(data.data.total / data.data.per_page)
+                            this.list = data.data.data
+                            this.totalPage = Math.ceil(data.data.total / data.data.per_page)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
             },
             //客户详情
             getCustomerInfo: function () {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_info,
-                    data: {},
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.customerInfo = data.data
+                            this.customerInfo = data.data
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
             },
             //客户余额报警
             getCustomerAlert: function () {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_alarm,
-                    data: {},
                     success: (data) => {
                         if (data.code == 200) {
-                            _this.alarm = data.data.warning
+                            this.alarm = data.data.warning
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
             },
             jump(num) {
-                let obj = Object.assign({}, this.$route.query, {page: num})
+                let obj = Object.assign({}, this.$route.query, { page: num })
                 this.$router.replace({
                     name: this.$route.name,
                     query: obj
                 })
             }
         },
-        created: function () {
+        created() {
             this.currentPage = this.$route.query.page ? this.$route.query.page : 1
             this.type = this.$route.query.type ? this.$route.query.type : 'in'
             if (this.type == 'in') {

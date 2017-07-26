@@ -35,14 +35,6 @@
     <ul>
         <li class="active">
             <a href="client-manage.html"><span><i class="icon icon01"></i>项目管理</span></a>
-            <ul>
-                <li class="active">
-                    <a href="client-manage.html"><span><i class="icon icon01-1"></i>外呼项目</span></a>
-                </li>
-                <li>
-                    <a href="client-manage-sms.html"><span><i class="icon icon01-2"></i>短信项目</span></a>
-                </li>
-            </ul>
         </li>
         <li>
             <a href="client-telephone.html"><span><i class="icon icon02"></i>话务管理</span></a>
@@ -83,12 +75,6 @@
                         </div>
                     </li>
                     <li>
-                        <label class="name">使用挂机短信</label>
-                        <div class="input-warp">
-                            <p class="text">使用</p>
-                        </div>
-                    </li>
-                    <li>
                         <label class="name">项目创建时间</label>
                         <div class="input-warp">
                             <p class="text">2017-03-20</p>
@@ -101,25 +87,25 @@
                         </div>
                     </li>
                     <li class="both">
-                        <label class="name">线索量</label>
+                        <label class="name">资源总量</label>
                         <div class="input-warp">
                             <p class="text">3000</p>
                         </div>
                     </li>
                     <li>
-                        <label class="name">剩余线索</label>
+                        <label class="name">未拨打</label>
                         <div class="input-warp">
                             <p class="text">2000</p>
                         </div>
                     </li>
                     <li>
-                        <label class="name">拨通线索</label>
+                        <label class="name">已拨通</label>
                         <div class="input-warp">
                             <p class="text">800</p>
                         </div>
                     </li>
                     <li>
-                        <label class="name">有效率</label>
+                        <label class="name">拨通率</label>
                         <div class="input-warp">
                             <p class="text">80%</p>
                         </div>
@@ -131,7 +117,7 @@
                         </div>
                     </li>
                     <li>
-                        <label class="name">剩余时间</label>
+                        <label class="name">项目剩余时间</label>
                         <div class="input-warp">
                             <p class="text">9时9分9秒</p>
                         </div>
@@ -151,48 +137,107 @@
                 </ul>
             </form>
             <div class="btn-warp">
-                <button class="btn blue" type="button" onclick="getWindow('dialogAllocation');">分配坐席</button>
+                <button class="btn blue" type="button" onclick="getWindow('dialogAllocation');">分配线索</button>
             </div>
         </div>
     </div>
 </div>
 <div class="footer"><p>版权所有：北京集奥聚合科技有限公司</p></div>
-<!-- 分配坐席弹窗 -->
+<!-- 分配线索弹窗 -->
 <div class="dialog" id="dialogAllocation">
     <a href="javascript:void(0);" class="icon dialog-close" title="关闭"></a>
     <div class="dialog-header">
-        <h4>分配坐席</h4>
+        <h4>分配线索</h4>
     </div>
     <div class="dialog-body">
         <div class="dialog-allocation">
+            <ul class="mode">
+                <li>
+                    <label>线索分配方式</label>
+                    <div class="input-warp">
+                        <div class="select-warp seat-select">  <!-- 在div上加上class（select-open）显示出ul列表 -->
+                            <p class="all"><span>平均分配</span></p>
+                            <div class="select-ul">
+                                <div class="scroll-warp scrollBar">
+                                    <ul>
+                                        <li onclick="tagCutover(this,'select-cutover1')">平均分配</li>
+                                        <li onclick="tagCutover(this,'select-cutover2')">自定义平配</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="mode">
+                <li>
+                    <label>未分配线索</label>
+                    <div class="input-warp">
+                        <p class="text"> 8888</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="select-cutover1">
+                        <label>本次分配线索</label>
+                        <div class="input-warp">
+                            <input class="text" type="text" style="width: 120px; min-width: 120px">
+                        </div>
+                    </div>
+                    <div class="select-cutover2" style="display: none"></div>
+                </li>
+            </ul>
             <div class="title">中国电信项目1分配给以下坐席拨打</div>
-            <div class="check-warp">
-                <div class="scroll-warp scrollBar">
-                    <ul class="scroll-content screening-item">
-                        <li class="checked"><p><i class="icon"></i><span>坐席1</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席2</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席3</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席4</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席5</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席6</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席7</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席8</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席5</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席6</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席7</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席8</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席5</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席6</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席7</span></p></li>
-                        <li><p><i class="icon"></i><span>坐席8</span></p></li>
-                    </ul>
+            <div class="cutover">
+                <div class="select-cutover1">
+                    <div class="check-warp">
+                        <div class="scroll-warp scrollBar">
+                            <ul class="scroll-content screening-item">
+                                <li class="checked"><p><i class="icon"></i><span>坐席1</span></p>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席3</span></p>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li> <p><i class="icon"></i><span>坐席6</span></p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dialog-select">
+                        <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="dialog-select">
-                <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                <div class="select-cutover2" style="display: none">
+                    <div class="check-warp">
+                        <div class="scroll-warp scrollBar">
+                            <ul class="scroll-content screening-item">
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席1</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席2</span></p></li>
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席3</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                                <li><p><i class="icon"></i><span>坐席4</span></p></li>
+                                <li><p><i class="icon"></i><span>坐席5</span></p></li>
+                                <li class="checked">
+                                    <p><i class="icon"></i><span>坐席6</span></p>
+                                    <div class="clue"><span>分配线索</span><input class="text" type="text" value=""></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dialog-select">
+                        <div class="checkall"><i class="icon"></i><span>全选</span></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="error-warp"><p class="error">坐席不能为空</p></div>
     <div class="dialog-footer">
 
         <!--<button class="btn disabled" type="button"  disabled="disabled" >确定</button>--><!--不可用状态-->
@@ -200,12 +245,12 @@
         <button class="btn" type="button" onclick="hideDialog('dialogAllocation');">取消</button>
     </div>
 </div>
-<!-- 分配坐席弹窗 End -->
-<!-- 分配坐席成功弹窗-->
+<!-- 分配线索弹窗 End -->
+<!-- 分配线索成功弹窗-->
 <div class="dialog tips-succ" id="dialogAllocationSucc">
     <div class="dialog-body">
         <div class="pop-default">
-            <p class="title"><span><i class="icon succ"></i>坐席分配成功</span></p>
+            <p class="title"><span><i class="icon succ"></i>分配线索成功</span></p>
         </div>
     </div>
 </div>
@@ -304,6 +349,14 @@
         var idW = -(ids.width()/2);
         $('<div id="shadowLayer"></div>').appendTo("body").show();
         ids.show().css({ "margin-left": idW,"margin-top": idH });
+    }
+    //标签切换
+    function tagCutover(c,d){
+        $(c).attr("class");
+        $(c).parent().children().removeClass("active");
+        $(c).addClass("active");
+        $("."+d).parent().children().hide();
+        $("."+d).show();
     }
 </script>
 </body>

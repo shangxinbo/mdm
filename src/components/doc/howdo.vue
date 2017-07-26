@@ -3,35 +3,26 @@
         <div class="main">
             <div class="title-warp">操作手册管理</div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0">
-                        <tbody>
-                            <tr>
-                                <th>账号权限</th>
-                                <th>操作手册名称</th>
-                                <th>上传时间</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.role}}</td>
-                                <td>{{item.name}}</td>
-                                <td>{{item.date}}</td>
-                                <td>
-                                    <a href="javascript:void(0);" @click="dialog(item.id,item.role,item.name)">更新手册</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="10%" label="账号权限">{{props.item.role}}</td>
+                        <td width="50%" label="操作手册名称">{{props.item.name}}</td>
+                        <td width="20%" label="更新时间">{{props.item.date}}</td>
+                        <td width="10%" label="操作">
+                            <a href="javascript:void(0);" @click="dialog(props.item.id,props.item.role,props.item.name)">更新手册</a>
+                        </td>
+                    </template>
+                </mtable>
             </div>
         </div>
         <upDialog ref="dialog"></upDialog>
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import upDialog from './dialog/updoc'
+    import mtable from 'components/utils/table'
+
     export default {
         data() {
             return {
@@ -39,7 +30,7 @@
             }
         },
         created() {
-            mAjax(this, {
+            this.$ajax({
                 url: API.doc_list,
                 success: data => {
                     this.list = data.data
@@ -52,7 +43,8 @@
             }
         },
         components: {
-            upDialog
+            upDialog,
+            mtable
         }
     }
 

@@ -10,7 +10,9 @@ module.exports = function (req, res) {
             "clueNumTotal": "@int(1000,10000)",
             "oddNumTotal": "@int(1000,10000)",
             "connectNumTotal": "@int(1000,10000)",
-            "clueValidPercent": "@int(1000,10000)"
+            "clueValidPercent": "@int(1000,10000)",
+            "hangUpSms":"@int(1000,10000)",
+            "leftInfo":"@int(1000,10000)",
         },
         "page": {
             "total": 100
@@ -29,7 +31,7 @@ module.exports = function (req, res) {
                 "type": 1,
                 "total_start_time": "",
                 "last_pause_time": null,
-                "audit_status": 1,
+                "audit_status": '@int(-3,3)',
                 "audit_reason": "",
                 "auditor": 11,
                 "status": '@int(-3,3)',
@@ -50,7 +52,13 @@ module.exports = function (req, res) {
                 "clue_connect_num": 1,
                 "clue_odd_num": 998,
                 "agency": "代理1",
-                "agency_id": 123
+                "agency_id": 123,
+                "hangUpSms":123,
+                "leftInfo":123,
+                "is_hang_up_message":'@int(0,1)',
+                "undistributed":'@int(0,1000)',
+                "client_is_hang_up_message":'@int(0,1)',
+                "have_nodial_clues":'@int(0,1)'
             }
         ]
     })

@@ -51,6 +51,12 @@
                                 <p v-if="content_error" class="error">{{content_error}}</p>
                             </div>
                         </li>
+                        <li class="check-warp">
+                            <div class="hang-check" :class="{checked:sms}">
+                                <i class="icon" @click="useSms"></i>
+                                <span>使用挂机短信</span>
+                            </div>
+                        </li>
                         <li>
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
@@ -60,17 +66,16 @@
                 </form>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
+    import { dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
     import datepicker from 'vuejs-datepicker'
-    import alert from 'components/dialog/alert'
+    import background from 'assets/img/dialog-icon.png'
     export default {
-        data: function () {
+        data() {
             return {
                 id: '',
                 name: '',
@@ -85,6 +90,8 @@
                 expectTime_error: '',
                 content: '',
                 content_error: '',
+                sms: 0,
+                sms_init: 0,
                 api: {
                     project_type: API.project_type_list
                 },
@@ -101,10 +108,14 @@
         components: {
             mselect,
             datepicker,
-            alert
         },
         methods: {
-            submit: function () {
+            useSms() {
+                if (!this.sms_init) {
+                    this.sms = this.sms == 1 ? 0 : 1
+                }
+            },
+            submit() {
                 let reg = /^[a-zA-Z0-9\u4e00-\u9fa5]{4,20}$/
                 let reg_Inter = /^[1-9][0-9]*$/
                 let projectType = this.$refs.projectTypeSelect.selected.id
@@ -154,7 +165,6 @@
                     return false
                 }
                 let time = typeof this.expectTime == 'string' ? this.expectTime : dateFormat(this.expectTime)
-                let _this = this
                 let api = API.project_add
                 let data = {
                     name: this.name,
@@ -162,34 +172,34 @@
                     region: this.region,
                     expect_clue_num: this.expectClue,
                     expect_begin_time: time,
-                    desc: this.content
+                    desc: this.content,
+                    is_hang_up_message: this.sms
                 }
                 if (this.id) {
                     api = API.project_recheck
                     data.id = this.id
                 }
 
-                mAjax(this, {
+                this.$ajax({
                     url: api,
                     data: data,
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', _this.id ? '重新申请成功' : '新建成功', function () {
-                                _this.$router.replace('/project/index')
+                            this.$toast(this.id ? '重新申请成功' : '新建成功', ()=> {
+                                this.$router.replace('/project/index')
                             })
                         } else {
-                            _this.content_error = data.message
+                            this.content_error = data.message
                         }
                     }
                 })
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
-            let _this = this
             if (id) {
                 this.id = id
-                mAjax(this, {
+                this.$ajax({
                     url: API.project_detail,
                     data: {
                         id: id
@@ -197,12 +207,14 @@
                     success: data => {
                         if (data.code == 200) {
                             let detail = data.data
-                            _this.name = detail.name
-                            _this.type = detail.type
-                            _this.region = detail.region
-                            _this.expectClue = detail.expect_clue_num
-                            _this.expectTime = detail.expect_begin_date
-                            _this.content = detail.desc
+                            this.name = detail.name
+                            this.type = detail.type
+                            this.region = detail.region
+                            this.expectClue = detail.expect_clue_num
+                            this.expectTime = detail.expect_begin_date
+                            this.content = detail.desc
+                            this.sms = detail.is_hang_up_message
+                            this.sms_init = detail.is_hang_up_message
                         }
                     }
                 })

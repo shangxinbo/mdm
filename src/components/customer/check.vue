@@ -96,24 +96,42 @@
                                     <input type="radio" name="sendMode" class="radio" id="sendBatch" value="sendBatch" checked="checked">
                                     <i class="icon"></i>
                                     <span class="radioname">通过</span>
-                                    <ul class="data-in" v-show="option==1">
-                                        <li>
-                                            <span>线索单价</span>
-                                            <input class="text" v-model="clue_price" type="text">
-                                            <span>元/条</span>
-                                        </li>
-                                        <li>
-                                            <span>话费单价</span>
-                                            <input class="text" v-model="call_price" type="text">
-                                            <span>元/分钟</span>
-                                        </li>
-                                        <li>
-                                            <span>坐席单价</span>
-                                            <input class="text" v-model="seat_price" type="text">
-                                            <span>元/个/月</span>
-                                        </li>
-                                    </ul>
-                                    <p v-if="price_error" class="error">{{price_error}}</p>
+                                    <div class="data-marketing check-warp">
+                                        <dl class="data-section">
+                                            <dd>
+                                                <ul class="data-in" v-show="option==1">
+                                                    <li>
+                                                        <span>线索单价</span>
+                                                        <input class="text" v-model="clue_price" type="text">
+                                                        <span>元/条</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>话费单价</span>
+                                                        <input class="text" v-model="call_price" type="text">
+                                                        <span>元/分钟</span>
+                                                    </li>
+                                                    <li>
+                                                        <span>坐席单价</span>
+                                                        <input class="text" v-model="seat_price" type="text">
+                                                        <span>元/个/月</span>
+                                                    </li>
+                                                    <li class="block" :class="{checked:sms==1}">
+                                                        <div class="hang-check">
+                                                            <i class="icon" @click="toggleSms"></i>
+                                                            <span>开通挂机短信</span>
+                                                        </div>
+                                                        <div class="hang-input">
+                                                            <span>挂机短信单价</span>
+                                                            <span class="sign">&yen;</span>
+                                                            <input class="text" v-model="sms_price" type="text">
+                                                            <span>/条</span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p v-if="price_error" class="error">{{price_error}}</p>
+                                            </dd>
+                                        </dl>
+                                    </div>
                                 </label>
                                 <label class="radio-warp" :class="{'radio-active':option==2}" @click="radio(2)" for="sendSingle">
                                     <input type="radio" name="sendMode" class="radio" id="sendSingle" value="sendSingle">
@@ -136,13 +154,10 @@
                 </form>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import alert from 'components/dialog/alert'
     export default {
         data: function () {
             return {
@@ -169,13 +184,12 @@
                 clue_price: '',
                 call_price: '',
                 seat_price: '',
+                sms: 0,
+                sms_price: '',
                 price_error: '',
                 reason: '',
                 reason_error: ''
             }
-        },
-        components: {
-            alert
         },
         methods: {
             radio(num) {
@@ -200,14 +214,34 @@
                             this.price_error = '单价必须是数值'
                             return false
                         } else {
-                            if(this.clue_price>=0&&this.call_price>=0&&this.seat_price>=0){
+                            if (this.clue_price >= 0 && this.call_price >= 0 && this.seat_price >= 0) {
                                 this.price_error = ''
-                            }else{
+                            } else {
                                 this.price_error = '单价必须大于等于0'
                                 return false
                             }
                         }
                     }
+
+                    if (this.sms) {
+                        if (!this.sms_price) {
+                            this.price_error = '挂机短信单价必填'
+                            return false
+                        } else {
+                            if (isNaN(this.sms_price)) {
+                                this.price_error = '单价必须是数值'
+                                return false
+                            } else {
+                                if (this.sms_price < 0) {
+                                    this.price_error = '单价必须大于等于0'
+                                    return false
+                                } else {
+                                    this.price_error = ''
+                                }
+                            }
+                        }
+                    }
+
                 } else {
                     this.price_error = ''
                     if (!this.reason) {
@@ -217,8 +251,7 @@
                         this.reason_error = ''
                     }
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_check,
                     data: {
                         id: this.$route.params.id,
@@ -226,23 +259,32 @@
                         tel_price: this.call_price,
                         seat_price: this.seat_price,
                         audit_status: this.option,
-                        audit_advice: this.reason
+                        audit_advice: this.reason,
+                        is_hang_up_message: this.sms,
+                        hang_up_message_price: this.sms_price
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', '提交成功', () => {
-                                _this.$router.replace('/customer/index')
+                            this.$toast('提交成功', () => {
+                                this.$router.replace('/customer/index')
                             })
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
+            },
+            toggleSms() {
+                if (this.sms) {
+                    this.sms = 0
+                } else {
+                    this.sms = 1
+                }
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
-            mAjax(this, {
+            this.$ajax({
                 url: API.customer_detail_by_operate,
                 data: {
                     id: id
@@ -251,7 +293,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$refs.alert.$emit('show', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

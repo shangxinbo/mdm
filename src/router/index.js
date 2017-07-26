@@ -16,11 +16,19 @@ const customer_check = resolve => System.import('components/customer/check.vue')
 const myinfo = resolve => System.import('components/users/info.vue')
 const cusmy = resolve => System.import('components/users/cusmy.vue')
 const myseat = resolve => System.import('components/users/myseat.vue')
-const project_list = resolve => System.import('components/project/index.vue')
-const project_call_list = resolve => System.import('components/project/calllist.vue')
+const project_list = resolve => System.import('components/project/list/index.vue')
+const project_call_list = resolve => System.import('components/project/call/index.vue')
+const project_call_no_dial = resolve => System.import('components/project/call/nodial.vue')
+const project_call_end_dial = resolve => System.import('components/project/call/enddial.vue')
+const project_dial = resolve => System.import('components/project/call/dial.vue')
+const project_clue_history = resolve => System.import('components/project/call/view.vue')
 const project_detail = resolve => System.import('components/project/detail.vue')
 const project_add = resolve => System.import('components/project/add.vue')
 const project_create = resolve => System.import('components/project/create/index.vue')
+const project_hang_up_sms = resolve => System.import('components/project/sms/index.vue')
+const project_sms_template = resolve => System.import('components/project/sms/template.vue')
+const project_sms_template_add = resolve => System.import('components/project/sms/templateAdd.vue')
+const project_left_info = resolve => System.import('components/project/leftinfo/index.vue')
 const call_index = resolve => System.import('components/call/index.vue')
 const call_cate = resolve => System.import('components/call/category.vue')
 const call_seat = resolve => System.import('components/call/audio.vue')
@@ -49,9 +57,23 @@ let mRouter = new Router({
                 { path: '/user/cusmy', name: 'cusmy', component: cusmy },
                 { path: '/user/myseat', name: 'myseat', component: myseat },
                 { path: '/project/index/', name: 'project_list', component: project_list },
-                { path: '/project/call/', name: 'project_call_list', component: project_call_list },
+                {
+                    path: '/project/call/',
+                    name: 'project_call_list',
+                    component: project_call_list,
+                    children: [
+                        { path: 'nodial/', name: 'project_call_no_dial', component: project_call_no_dial },
+                        { path: 'enddial/', name: 'project_call_end_dial', component: project_call_end_dial },
+                    ]
+                },
+                { path: '/project/dial', name: 'project_dial', component: project_dial },
+                { path: '/project/view', name: 'project_clue_history', component: project_clue_history },
                 { path: '/project/detail/:id/', name: 'project_detail', component: project_detail },
                 { path: '/project/add/:id?', name: 'project_add', component: project_add },
+                { path: '/project/sms/list', name: 'project_hang_up_sms', component: project_hang_up_sms },
+                { path: '/project/sms/template', name: 'project_sms_template', component: project_sms_template },
+                { path: '/project/sms/template/add', name: 'project_sms_template_add', component: project_sms_template_add },
+                { path: '/project/leftinfo', name: 'project_left_info', component: project_left_info },
                 { path: '/call/index', name: 'call_index', component: call_index },
                 { path: '/call/cate', name: 'call_cate', component: call_cate },
                 { path: '/call/seat', name: 'call_seat', component: call_seat },

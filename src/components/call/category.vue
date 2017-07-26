@@ -32,7 +32,7 @@
                             <span class="num">{{head.avg_time}}</span>
                         </li>
                     </ul>
-                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+startTime+'&search_end_time='+endTime + '&category=1'"
+                    <a :href="'/teltraffic/categoryExport?search_project_id='+project_id+'&search_start_time='+startTime+'&search_end_time='+endTime"
                         class="btn blue btn-export">
                         <span>
                             <i class="icon icon-export"></i>导出</span>
@@ -40,51 +40,35 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>参与坐席</th>
-                                <th>外呼次数</th>
-                                <th>拨通次数</th>
-                                <th>拨通率</th>
-                                <th>呼损次数</th>
-                                <th>呼损率</th>
-                                <th>通话时长</th>
-                                <th>平均通话</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td v-if="userType!=4">
-                                    <router-link :to="{path:'/call/seat',query:Object.assign({project_id:project_id,seat_id:item.seat_id,seat_name:item.name,crumb_seat_id:item.seat_id,crumb_seat_name:item.name},crumbs)}">{{item.name}}</router-link>
-                                </td>
-                                <td v-else>{{item.name}}</td>
-                                <td>{{item.call_times}}</td>
-                                <td>{{item.effect_call_times}}</td>
-                                <td>{{item.effect_call_rate}}%</td>
-                                <td>{{item.uneffect_call_times}}</td>
-                                <td>{{item.uneffect_call_rate}}%</td>
-                                <td>{{item.charge_time }}</td>
-                                <td>{{item.avg_time}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" v-else>暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="10%" label="参与坐席">
+                            <template v-if="userType!=4">
+                                <router-link :to="{path:'/call/seat',query:Object.assign({project_id:project_id,seat_id:props.item.seat_id,seat_name:props.item.name,crumb_seat_id:props.item.seat_id,crumb_seat_name:props.item.name},crumbs)}">{{props.item.name}}</router-link>
+                            </template>
+                            <template v-else>{{props.item.name}}</template>
+                        </td>
+                        <td width="10%" label="外呼次数">{{props.item.call_times}}</td>
+                        <td width="10%" label="拨通次数">{{props.item.effect_call_times}}</td>
+                        <td width="10%" label="拨通率">{{props.item.effect_call_rate}}%</td>
+                        <td width="10%" label="呼损次数">{{props.item.uneffect_call_times}}</td>
+                        <td width="10%" label="呼损率">{{props.item.uneffect_call_rate}}%</td>
+                        <td width="20%" label="通话时长">{{props.item.charge_time}}</td>
+                        <td width="10%" label="平均通话">{{props.item.avg_time}}</td>
+                        <td width="10%" label="挂机短信">{{props.item.message_num}}</td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
-        <confirm ref="confirm"></confirm>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import categoryFilter from './category_filter'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
     import crumbs from './crumbs'
+    import mtable from 'components/utils/table'
 
     export default {
         data() {
@@ -102,15 +86,14 @@
             }
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.init()
             }
         },
         components: {
             pages,
             categoryFilter,
-            confirm,
-            alert,
+            mtable,
             crumbs
         },
         computed: {
@@ -134,50 +117,47 @@
         methods: {
             init() {
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
-                this.project_name = this.$route.query.project_name ? this.$route.query.project_name : ''
-                this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
-                this.endTime = this.$route.query.endTime ? this.$route.query.endTime : ''
-                this.startTime = this.$route.query.startTime ? this.$route.query.startTime : ''
+                this.project_name = this.$route.query.project_name || ''
+                this.project_id = this.$route.query.project_id || ''
+                this.endTime = this.$route.query.endTime || ''
+                this.startTime = this.$route.query.startTime || ''
                 this.refresh()
                 this.heads()
             },
             refresh() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_cate,
                     data: {
-                        search_project_id: _this.project_id,
+                        search_project_id: this.project_id,
                         search_start_time: this.startTime,
                         search_end_time: this.endTime,
-                        category: 1,
-                        page: _this.currentPage,
+                        page: this.currentPage,
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.list = data.data.data
-                            _this.totalPage = data.data.page
+                            this.list = data.data.data
+                            this.totalPage = data.data.page
                         } else {
-                            _this.list = []
-                            _this.totalPage = 1
+                            this.list = []
+                            this.totalPage = 1
                         }
                     }
                 })
             },
             heads() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_head,
                     data: {
                         category: 1,
-                        search_project_id: _this.project_id,
-                        search_start_time: _this.startTime,
-                        search_end_time: _this.endTime
+                        search_project_id: this.project_id,
+                        search_start_time: this.startTime,
+                        search_end_time: this.endTime
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.head = data.data
+                            this.head = data.data
                         } else {
-                            _this.head = []
+                            this.head = []
                         }
                     }
                 })

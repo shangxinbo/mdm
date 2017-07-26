@@ -85,6 +85,12 @@
                             </div>
                         </li>
                         <li v-if="detail.audit_status!=2">
+                            <label class="name">挂机短信</label>
+                            <div class="input-warp">
+                                <p class="text">{{detail.is_hang_up_message==1?'已开通':'未开通'}}</p>
+                            </div>
+                        </li>
+                        <li v-if="detail.audit_status!=2">
                             <label class="name">线索单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.clue_price}}/条</p>
@@ -100,6 +106,12 @@
                             <label class="name">坐席单价</label>
                             <div class="input-warp">
                                 <p class="text">￥{{detail.seat_price}}/个/月</p>
+                            </div>
+                        </li>
+                        <li v-if="detail.audit_status!=2">
+                            <label class="name">挂机短信单价</label>
+                            <div class="input-warp">
+                                <p class="text">￥{{detail.hang_up_message_price}}/条</p>
                             </div>
                         </li>
                     </ul>
@@ -140,14 +152,11 @@
             </div>
         </div>
         <editDialog ref="editDialog" @success="editOver"></editDialog>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import editDialog from './dialog/changeInfo'
-    import alert from 'components/dialog/alert'
 
     export default {
         data: function () {
@@ -171,14 +180,15 @@
                     mail: '',
                     tel: '',
                     location: '',
-                    application_addr: ''
+                    application_addr: '',
+                    is_hang_up_message:0,
+                    hang_up_message_price:''
                 },
                 userType: user.type
             }
         },
         components: {
             editDialog,
-            alert
         },
         methods: {
             showEditDialog() {
@@ -186,7 +196,7 @@
             },
             editOver() {
                 let _this = this
-                this.$refs.alert.$emit('show', '修改信息成功', () => {
+                this.$toast('修改信息成功', () => {
                     let user = JSON.parse(localStorage.getItem('user'))
                     if (user.type == 3) {
                         _this.$router.push('/project/index')
@@ -196,10 +206,10 @@
                 })
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
             let api = this.userType == 1 ? API.customer_detail_by_operate : API.customer_detail
-            mAjax(this, {
+            this.$ajax({
                 url: api,
                 data: {
                     id: id
@@ -208,7 +218,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$refs.alert.$emit('show', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

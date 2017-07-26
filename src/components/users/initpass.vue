@@ -48,18 +48,17 @@
                 </div>
             </div>
         </div>
-        <alert ref="alert"></alert>
         <div id="shadowLayer" v-if="layer"></div>
+        <toast ref="toast"></toast>
     </div>
 </template>
 <script>
     import logo from 'assets/img/logo.png'
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
-    import alert from 'components/dialog/alert'
     import REG from 'src/services/reg'
+    import toast from 'components/utils/toast'
     export default {
-        data: function () {
+        data() {
             return {
                 logo: logo,
                 oldpass: '',
@@ -70,34 +69,34 @@
                 repeat_error: ''
             }
         },
-        computed:{
-            layer:function(){
+        components:{
+            toast
+        },
+        computed: {
+            layer() {
                 return this.$store.state.showLayer
             }
         },
-        components:{
-            alert
-        },
         methods: {
             submit: function () {
-                if(this.layer){
-                    return false 
+                if (this.layer) {
+                    return false
                 }
 
                 if (!this.oldpass) {
                     this.old_error = '请填写旧密码'
                     return false
-                }else{
+                } else {
                     this.old_error = ''
                 }
                 if (!this.newpass) {
                     this.new_error = '请填写新密码'
                     return false
                 } else {
-                    if(this.newpass == this.oldpass){
+                    if (this.newpass == this.oldpass) {
                         this.new_error = '新密码与旧密码不能相同'
                         return false
-                    }else if (REG.password.patten1.test(this.newpass)&&REG.password.patten2.test(this.newpass)&&REG.password.patten3.test(this.newpass)&&REG.password.patten4.test(this.newpass)) {
+                    } else if (REG.password.patten1.test(this.newpass) && REG.password.patten2.test(this.newpass) && REG.password.patten3.test(this.newpass) && REG.password.patten4.test(this.newpass)) {
                         this.new_error = ''
                         if (this.repeat == this.newpass) {
                             this.repeat_error = ''
@@ -110,8 +109,7 @@
                         return false
                     }
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.update_pass,
                     data: {
                         oigrin_pwd: this.oldpass,
@@ -120,18 +118,16 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.$refs.alert.$emit('show', '修改密码成功',()=>{
-                                _this.$router.replace('/')
+                            this.$refs.toast.show('修改密码成功', () => {
+                                this.$router.replace('/')
                             })
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            this.repeat_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         }
     }
+
 </script>

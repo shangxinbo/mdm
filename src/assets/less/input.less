@@ -1,5 +1,5 @@
 @import (reference) "base.less";
-.btn .icon,.radio-warp .icon{
+.check-warp .icon,.btn .icon,.radio-warp .icon{
   .flo();
   background: url('@{url}/dialog-icon.png') no-repeat 0 0;
 }
@@ -137,11 +137,19 @@ textarea{
       border-radius: 4px;
       cursor: pointer;
       padding-right: 10px;
-      span{
+      span {
+        display: inline-block;
+        font-size: 14px;
         line-height: 43px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        color: @grayColor;
       }
     }
-    .icon{
+    .icon {
+      .wh(17px);
+      float: left;
       margin-top: 13px;
       margin-right: 10px;
       background-position: 0 -55px;
@@ -159,15 +167,15 @@ textarea{
 .btn{
   display: block;
   background-color: #FFF;
-  border: 1px solid #d8dde5;
+    border: 2px solid @blueColor;
   border-radius: 30px;
-  color: @grayColor;
+  color: @blueColor;
   font-size: 14px;
   line-height: 28px;
   position: relative;
   font-family: @YaHei;
   cursor: pointer;
-  min-width: 88px;
+  min-width: 100px;
   margin: 0 auto;
   text-align: center;
   &:hover{
@@ -176,6 +184,7 @@ textarea{
     background-color: #EDECF5;
     border-color: #EDECF5;
     color: #8b8da6;
+      cursor: auto;
   }
   &.blue,&.green{
     background-color: @blueColor;
@@ -191,6 +200,27 @@ textarea{
     border-color: @redColor;
     &:hover{
       background-color: lighten(@redColor,3%); //亮度增加 3%
+    }
+  }
+  &.loading{
+    background-color: #8bc8f1;
+    border-color: #8bc8f1;
+    color: #8bc8f1;
+    cursor: inherit;
+    &:hover{
+      background-color: lighten(#8bc8f1,0%); //亮度增加 3%
+    }
+    &:before {
+      display: block;
+      content: '';
+      width: 30px;
+      height: 8px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -4px 0 0 -15px;
+      z-index: 1;
+      background: url('@{url}/loader.gif') no-repeat 0 0;
     }
   }
   span{
@@ -218,8 +248,24 @@ textarea{
     &.edit{
       background-position: -101px 0;
     }
-    &.recharge{
-      background-position: -128px 0;
+      &.phone{
+          background-position: -102px -55px;
+          width: 12px;
+          height: 17px;
+          margin-top: -8px;
+      }
+      &.hangup{
+          background-position: -118px -55px;
+          width: 17px;
+          height: 17px;
+          margin-top: -8px;
+          left: -4px;
+      }
+    &.hook{
+      background-position: -144px 0;
+      width: 15px;
+      height: 14px;
+      margin-top: -7px;
     }
   }
 }

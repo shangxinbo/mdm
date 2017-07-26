@@ -12,34 +12,20 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>运营账号</th>
-                                <th>姓名</th>
-                                <th>邮箱</th>
-                                <th>手机号</th>
-                                <th>权限</th>
-                                <th>创建时间</th>
-                                <th>操作</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>{{item.user}}</td>
-                                <td>{{item.user_name}}</td>
-                                <td>{{item.mail}}</td>
-                                <td>{{item.tel}}</td>
-                                <td>{{item.rule}}</td>
-                                <td>{{item.created_at}}</td>
-                                <td>
-                                    <a href="javascript:void(0);" @click="showUpdateDialog(item.id,item.user,item.user_name,item.mail,item.tel)">修改信息</a>
-                                    <a href="javascript:void(0);" @click="showResetPassDialog(item.id,item.user)">重置密码</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" v-else>暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="10%" label="运营账号">{{props.item.user}}</td>
+                        <td width="10%" label="姓名">{{props.item.user_name}}</td>
+                        <td width="20%" label="邮箱">{{props.item.mail}}</td>
+                        <td width="10%" label="手机号">{{props.item.tel}}</td>
+                        <td width="20%" label="权限">{{props.item.rule}}</td>
+                        <td width="15%" label="创建时间">{{props.item.created_at}}</td>
+                        <td width="10%" label="操作">
+                            <a href="javascript:void(0);" @click="showUpdateDialog(props.item.id,props.item.user,props.item.user_name,props.item.mail,props.item.tel)">修改信息</a>
+                            <a href="javascript:void(0);" @click="showResetPassDialog(props.item.id,props.item.user)">重置密码</a>
+                        </td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='jump'></pages>
             </div>
         </div>
@@ -48,13 +34,14 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import updateInfoDialog from './dialog/upinfo'
     import changePassDialog from 'components/dialog/resetpass'
+    import mtable from 'components/utils/table'
+
     export default {
-        data: function () {
+        data() {
             return {
                 list: [],
                 currentPage: 1,
@@ -64,10 +51,11 @@
         components: {
             pages,
             updateInfoDialog,
+            mtable,
             changePassDialog
         },
         watch: {
-            $route: function () {
+            $route() {
                 this.init()
             }
         },
@@ -77,8 +65,7 @@
                 this.refresh()
             },
             refresh() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.operate_list,
                     data: {
                         page: this.currentPage
@@ -86,11 +73,11 @@
                     success: (data) => {
                         if (data.code == 200) {
                             let list = data.data
-                            _this.list = list.data
-                            _this.totalPage = Math.ceil(list.total / list.per_page)
+                            this.list = list.data
+                            this.totalPage = Math.ceil(list.total / list.per_page)
                         } else {
-                            _this.list = ''
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            this.list = ''
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -112,7 +99,7 @@
                 this.$refs.updateinfo.$emit('create')
             }
         },
-        created: function () {
+        created() {
             this.init()
         }
     }

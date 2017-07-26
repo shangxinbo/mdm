@@ -37,62 +37,49 @@
                 </div>
             </div>
             <div class="data-warp">
-                <div class="data-table">
-                    <table cellspacing="0" cellpadding="0" v-if="list.length>0">
-                        <tbody>
-                            <tr>
-                                <th>拨打资源</th>
-                                <th>拨打时间</th>
-                                <th>通话时长</th>
-                                <th>拨打结果</th>
-                                <th class="w160">通话录音</th>
-                            </tr>
-                            <tr v-for="(item,index) in list" :class="{tr2:index%2}">
-                                <td>
-                                    <a href="javascript:void(0)" @click="group(item.id,item.telephone_crypt)">
-                                        {{item.telephone_crypt}}
-                                    </a>
-                                </td>
-                                <td>{{item.created_at}}</td>
-                                <td>{{item.call_time}}</td>
-                                <td>{{item.dial_status|resultText}}</td>
-                                <td>
-                                    <a v-if="item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(item.file_mp3_url,index,$event)">
-                                        <span class="notice">
-                                            <i class="icon play"></i>
-                                        </span>
-                                        <span class="audio-txt">播放</span>
-                                    </a>
-                                    <a v-if="item.file_down_url" :href="item.file_down_url">
-                                        <span class="notice">
-                                            <i class="icon download"></i>
-                                        </span>下载</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="no-data" v-else>暂无数据</p>
-                </div>
+                <mtable :list="list">
+                    <template scope="props">
+                        <td width="10%" label="拨打资源">
+                            <a href="javascript:void(0)" @click="group(props.item.id,props.item.telephone_crypt,props.item.call_name,props.item.city)">
+                                {{props.item.telephone_crypt}}
+                            </a>
+                        </td>
+                        <td width="10%" label="归属地">{{props.item.city}}</td>
+                        <td width="10%" label="称呼">{{props.item.call}}{{props.item.gender=='男'?'先生':''}}{{props.item.gender=='女'?'女士':''}}</td>
+                        <td width="10%" label="拨打时间">{{props.item.created_at}}</td>
+                        <td width="10%" label="通话时长">{{props.item.call_time}}</td>
+                        <td width="20%" label="备注">{{props.item.remarks}}</td>
+                        <td width="15%" label="拨打结果">{{props.item.dia_result}}</td>
+                        <td width="15%" label="通话录音">
+                            <a v-if="props.item.file_mp3_url" class="btn-audio" href="javascript:void(0);" @click="playAudio(props.item.file_mp3_url,index,$event)">
+                                <span class="notice">
+                                    <i class="icon play"></i>
+                                </span>
+                                <span class="audio-txt">播放</span>
+                            </a>
+                            <a v-if="props.item.file_down_url" :href="props.item.file_down_url">
+                                <span class="notice">
+                                    <i class="icon download"></i>
+                                </span>下载</a>
+                        </td>
+                    </template>
+                </mtable>
                 <pages :total="totalPage" :current="currentPage" @jump='search'></pages>
             </div>
         </div>
         <audio controls="true" style="position: fixed;top: 67px;right: 165px;z-index:100000;width:400px;" id="audio" class="audio"
             @play="play" @pause="pause" @ended="end"></audio>
-        <confirm ref="confirm"></confirm>
-        <alert ref="alert"></alert>
         <clueGroup ref="clueGroup"></clueGroup>
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import audioFilter from './audio_filter'
-    import callResultConf from '../project/callResultConf'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
+    import callResultConf from '../project/call/callResultConf'
     import crumbs from './crumbs'
     import clueGroup from './dialog/clue_group'
+    import mtable from 'components/utils/table'
     export default {
         data() {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -108,7 +95,10 @@
                 start_time: '',
                 end_time: '',
                 tel: '',
-                playNow: -1
+                playNow: -1,
+                city: '',
+                result1: '',
+                result2: ''
             }
         },
         watch: {
@@ -129,10 +119,9 @@
         components: {
             pages,
             audioFilter,
-            confirm,
-            alert,
             crumbs,
-            clueGroup
+            clueGroup,
+            mtable
         },
         methods: {
             init() {
@@ -140,34 +129,37 @@
                 this.project_id = this.$route.query.project_id ? this.$route.query.project_id : ''
                 this.seat_id = this.$route.query.seat_id ? this.$route.query.seat_id : ''
                 this.seat_name = this.$route.query.seat_name ? this.$route.query.seat_name : ''
-                this.status = this.$route.query.result ? this.$route.query.result : ''
                 this.end_time = this.$route.query.end_time ? this.$route.query.end_time : ''
                 this.start_time = this.$route.query.start_time ? this.$route.query.start_time : ''
                 this.tel = this.$route.query.tel ? this.$route.query.tel : ''
+                this.city = this.$route.query.city ? this.$route.query.city : ''
+                this.result1 = this.$route.query.result1 ? this.$route.query.result1 : ''
+                this.result2 = this.$route.query.result2 ? this.$route.query.result2 : ''
                 this.refresh()
             },
             refresh() {
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.call_audio,
                     data: {
-                        project_id: _this.project_id,
-                        client_id: _this.seat_id,
-                        phone: _this.tel,
-                        status: _this.status,
+                        project_id: this.project_id,
+                        client_id: this.seat_id,
+                        phone: this.tel,
+                        area: this.city,
+                        dial_result_first: this.result1,
+                        dial_result_second: this.result2,
                         start_time: this.start_time,
                         end_time: this.end_time,
-                        page: _this.currentPage,
+                        page: this.currentPage,
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.list = data.data.list.data
-                            _this.head = data.data.count
-                            _this.totalPage = Math.ceil(data.data.list.total / data.data.list.per_page)
+                            this.list = data.data.list.data
+                            this.head = data.data.count
+                            this.totalPage = Math.ceil(data.data.list.total / data.data.list.per_page)
                         } else {
-                            _this.list = []
-                            _this.head = null
-                            _this.totalPage = 1
+                            this.list = []
+                            this.head = null
+                            this.totalPage = 1
                         }
                     }
                 })
@@ -198,9 +190,9 @@
                     item.removeAttribute('id')
                 }
                 evt.currentTarget.id = "currentplay"
-                if(text=='暂停'){
+                if (text == '暂停') {
                     dom.pause()
-                }else{
+                } else {
 
                     if (dom.getAttribute('src') != url) {
                         dom.src = url
@@ -208,21 +200,6 @@
                     }
                     dom.play()
                 }
-                // if (index == this.playNow) {
-                //     dom.pause()
-                //     span[0].querySelector('i').className = 'icon play'
-                //     span[1].innerHTML = '继续播放'
-                //     this.playNow = -1
-                // } else {
-                //     if (dom.getAttribute('src') != url) {
-                //         dom.src = url
-                //         dom.load()
-                //     }
-                //     dom.play()
-                //     span[0].querySelector('i').className = 'icon pause'
-                //     span[1].innerHTML = '暂停'
-                //     this.playNow = index
-                // }
             },
             end() {
                 let audios = document.querySelectorAll('.btn-audio')
@@ -245,14 +222,14 @@
                 audio[0].querySelector('i').className = 'icon pause'
                 audio[1].innerHTML = '暂停'
             },
-            group(id, tel) {
+            group(id, tel,call,city) {
                 this.playNow = -1
                 let dom = document.querySelector('#audio')
                 dom.pause()
                 dom.removeAttribute('src')
                 dom.load()
                 dom.style.display = 'none'
-                this.$refs.clueGroup.$emit('show', id, tel)
+                this.$refs.clueGroup.$emit('show', id, tel,call,city)
             }
         },
         created() {

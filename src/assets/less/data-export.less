@@ -4,6 +4,10 @@
     min-height: 30px;
     position: relative;
     margin: 20px 0 15px;
+    padding-right: 180px;
+    &.side280{
+        padding-right: 280px;
+    }
     ul{
         display: inline-block;
         li{
@@ -31,6 +35,9 @@
                 font-size: 20px;
             }
         }
+    }
+    .btn{
+        border-width: 1px;
     }
     .btn-export{
         position: absolute;
@@ -75,6 +82,11 @@
             color: @blueColor;
             display: inline-block;
             margin-left: 20px;
+            &.btn{
+                span{
+                    color: @whiteColor;
+                }
+            }
         }
     }
 }

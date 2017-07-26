@@ -59,7 +59,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     export default {
         data() {
@@ -75,25 +74,24 @@
             }
         },
         created() {
-            let _this = this
             this.$on('show', (id, company, price) => {
-                _this.id = id
-                _this.error = ''
-                mAjax(this, {
+                this.id = id
+                this.error = ''
+                this.$ajax({
                     url: API.operate_expire_seat_list,
                     data: {
                         id: id
                     },
                     success: data => {
-                        _this.company = company
-                        _this.price = price
-                        _this.expire_time = data.data.next_expire
+                        this.company = company
+                        this.price = price
+                        this.expire_time = data.data.next_expire
                         data.data.data.forEach(el => {
                             el.checked = false
                         })
-                        _this.list = data.data.data
-                        _this.style = 'block'
-                        _this.$store.commit('SHOW_LAYER')
+                        this.list = data.data.data
+                        this.style = 'block'
+                        this.$store.commit('SHOW_LAYER')
                     }
                 })
             })
@@ -162,7 +160,7 @@
                         arr.push(el.id)
                 })
                 let str = arr.join(',')
-                mAjax(this, {
+                this.$ajax({
                     url: API.operate_active_seat,
                     data: {
                         seat_id: str,
@@ -171,7 +169,7 @@
                     success: data => {
                         if (data.code == 200) {
                             this.close()
-                            this.$store.commit('SHOW_TOAST', '激活成功')
+                            this.$toast('激活成功')
                         }else{
                             this.error = data.message
                         }

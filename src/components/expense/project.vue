@@ -35,13 +35,11 @@
                             <label class="name">创建日期</label>
                             <div class="input-warp date-warp">
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh"
-                                                format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="search_start_time"></datepicker>
                                 </div>
                                 <em class="or">至</em>
                                 <div class="calendar-warp w45">
-                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh"
-                                                format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
+                                    <datepicker input-class="date" :disabled="datepicker_disabled2" language="zh" format="yyyy.MM.dd" v-model="search_end_time"></datepicker>
                                 </div>
                             </div>
                         </li>
@@ -57,10 +55,16 @@
                 <div class="data-export" v-if="list.length>0">
                     <ul>
                         <li>
-                            <span class="t">线索计费</span><span class="num">¥{{sum.clue_charging}}</span>
+                            <span class="t">线索计费</span>
+                            <span class="num">¥{{sum.clue_charging}}</span>
                         </li>
                         <li>
-                            <span class="t">通话计费</span><span class="num">¥{{sum.call_charging}}</span>
+                            <span class="t">通话计费</span>
+                            <span class="num">¥{{sum.call_charging}}</span>
+                        </li>
+                        <li>
+                            <span class="t">挂机短信计费</span>
+                            <span class="num">¥{{sum.message_charging}}</span>
                         </li>
                     </ul>
                     <div class="add-explain" v-if="userType==3">
@@ -80,7 +84,7 @@
 </template>
 
 <script>
-    import {mAjax, dateFormat} from 'src/services/functions'
+    import { dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
     import pages from 'components/common/pages'
     import mselect from 'components/utils/select'
@@ -119,16 +123,16 @@
             }
         },
         computed: {
-            datepicker_disabled:function () {
-                let end = this.search_end_time?this.search_end_time:''
-                if(end) {
-                    return  {
-                        to: new Date(2017,0,1),
+            datepicker_disabled: function () {
+                let end = this.search_end_time ? this.search_end_time : ''
+                if (end) {
+                    return {
+                        to: new Date(2017, 0, 1),
                         from: new Date(end)
                     }
-                }else{
-                    return  {
-                        to: new Date(2017,0,1),
+                } else {
+                    return {
+                        to: new Date(2017, 0, 1),
                         from: new Date()
                     }
                 }
@@ -136,7 +140,7 @@
             },
             datepicker_disabled2: function () {
                 let start = this.search_start_time
-                return  {
+                return {
                     to: new Date(start),
                     from: new Date()
                 }
@@ -156,19 +160,19 @@
         created: function () {
             this.init()
             let _this = this
-            document.onkeyup = function(evt){
-                if(evt.keyCode==13)
+            document.onkeyup = function (evt) {
+                if (evt.keyCode == 13)
                     _this.search()
             }
         },
         methods: {
-            init:function () {
-                this.search_name = this.$route.query.search_name?this.$route.query.search_name:''
-                this.search_customer = this.$route.query.search_customer===undefined?'':this.$route.query.search_customer
-                this.search_agent = this.$route.query.search_agent===undefined?'':this.$route.query.search_agent
-                this.search_status = this.$route.query.search_status===undefined?'':this.$route.query.search_status
-                this.search_start_time = this.$route.query.search_start_time?this.$route.query.search_start_time:''
-                this.search_end_time = this.$route.query.search_end_time?this.$route.query.search_end_time:''
+            init: function () {
+                this.search_name = this.$route.query.search_name ? this.$route.query.search_name : ''
+                this.search_customer = this.$route.query.search_customer === undefined ? '' : this.$route.query.search_customer
+                this.search_agent = this.$route.query.search_agent === undefined ? '' : this.$route.query.search_agent
+                this.search_status = this.$route.query.search_status === undefined ? '' : this.$route.query.search_status
+                this.search_start_time = this.$route.query.search_start_time ? this.$route.query.search_start_time : ''
+                this.search_end_time = this.$route.query.search_end_time ? this.$route.query.search_end_time : ''
                 this.currentPage = this.$route.query.page ? this.$route.query.page : 1
                 this.agent_id = this.$route.query.agent_id
                 this.agent_name = this.$route.query.agent_name
@@ -193,30 +197,30 @@
                 this.refresh()
             },
             refresh: function () {
-                let _this = this
                 let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
                 let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
-                mAjax(this, {
-                    url: _this.url,
+                this.$ajax({
+                    url: this.url,
                     data: {
-                        page: _this.currentPage,
-                        name: _this.search_name ? _this.search_name : '',
-                        uid: _this.search_customer ? _this.search_customer : '',
-                        superior_id: _this.search_agent ? _this.search_agent : '',
-                        status: _this.search_status,
+                        page: this.currentPage,
+                        name: this.search_name ? this.search_name : '',
+                        uid: this.search_customer ? this.search_customer : '',
+                        superior_id: this.search_agent ? this.search_agent : '',
+                        status: this.search_status,
                         created_at_start: start_time,
                         created_at_end: end_time
                     },
-                    success: (data) => {
+                    success: data => {
                         if (data.code == 200) {
-                            _this.list = data.data.charging.data
-                            _this.sum = {
+                            this.list = data.data.charging.data
+                            this.sum = {
                                 clue_charging: data.data.clue_charging,
-                                call_charging: data.data.call_charging
+                                call_charging: data.data.call_charging,
+                                message_charging: data.data.message_charging
                             }
-                            _this.totalPage = Math.ceil(data.data.charging.total / data.data.charging.per_page)
+                            this.totalPage = Math.ceil(data.data.charging.total / data.data.charging.per_page)
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
@@ -242,7 +246,7 @@
                 })
             },
             jump(num) {
-                let obj = Object.assign({}, this.$route.query, {page: num})
+                let obj = Object.assign({}, this.$route.query, { page: num })
                 this.$router.replace({
                     name: this.$route.name,
                     query: obj

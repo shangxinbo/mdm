@@ -48,6 +48,12 @@
                             </div>
                         </li>
                         <li>
+                            <label class="name">使用挂机短信</label>
+                            <div class="input-warp">
+                                <p class="text">{{detail.is_hang_up_message==1?'使用':'不使用'}}</p>
+                            </div>
+                        </li>
+                        <li>
                             <label class="name">项目创建时间</label>
                             <div class="input-warp">
                                 <p class="text">{{detail.created_at}}</p>
@@ -67,25 +73,25 @@
                         </li>
                         <template v-if="detail.status==1&&detail.audit_status==-2">
                             <li class="both">
-                                <label class="name">线索量</label>
+                                <label class="name">资源总量</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_num}}</p>
                                 </div>
                             </li>
                             <li>
-                                <label class="name">剩余线索</label>
+                                <label class="name">未拨打</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_odd_num}}</p>
                                 </div>
                             </li>
                             <li>
-                                <label class="name">拨通线索</label>
+                                <label class="name">已拨通</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_connect_num}}</p>
                                 </div>
                             </li>
                             <li>
-                                <label class="name">有效率</label>
+                                <label class="name">拨通率</label>
                                 <div class="input-warp">
                                     <p class="text">{{detail.clue_valid_percent}}%</p>
                                 </div>
@@ -108,6 +114,12 @@
                                     <p class="text">{{detail.project_seat_num}}</p>
                                 </div>
                             </li>
+                            <li>
+                                <label class="name">挂机短信</label>
+                                <div class="input-warp">
+                                    <p class="text">{{detail.hang_up_message_num}}</p>
+                                </div>
+                            </li>
                         </template>
                         <li v-if="detail.audit_status==2&&userType==3">
                             <div class="input-warp">
@@ -126,20 +138,15 @@
 
             </div>
         </div>
-        <alert ref="alert"></alert>
-        <confirm ref="confirm"></confirm>
         <refuseDialog ref="refuseDialog"></refuseDialog>
         <chooseSeatDialog ref="chooseSeatDialog"></chooseSeatDialog>
     </div>
 </template>
 <script>
-    import { mAjax, dateFormat } from 'src/services/functions'
     import API from 'src/services/api'
-    import confirm from 'components/dialog/confirm'
-    import alert from 'components/dialog/alert'
     import refuseDialog from './dialog/refuse'
     import chooseSeatDialog from './dialog/chooseSeat'
-    
+
     export default {
         data: function () {
             let user = JSON.parse(localStorage.getItem('user'))
@@ -170,16 +177,13 @@
             }
         },
         components: {
-            confirm,
-            alert,
             refuseDialog,
             chooseSeatDialog
         },
         methods: {
             accept(id) {
-                let _this = this
-                this.$refs.confirm.$emit('show', '确定要审核通过该项目？', function () {
-                    mAjax(this, {
+                this.$confirm('确定要审核通过该项目？', () => {
+                    this.$ajax({
                         url: API.preject_audit,
                         data: {
                             id: id,
@@ -187,11 +191,11 @@
                         },
                         success: data => {
                             if (data.code == 200) {
-                                _this.$refs.alert.$emit('show', '已完成审核', function () {
-                                    _this.$router.replace('/project/index')
+                                this.$toast('已完成审核', () => {
+                                    this.$router.replace('/project/index')
                                 })
                             } else {
-                                _this.$store.commit('SHOW_TOAST', data.message)
+                                this.$toast(data.message)
                             }
                         }
                     })
@@ -204,9 +208,9 @@
                 this.$refs.chooseSeatDialog.$emit('show', id, name)
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
-            mAjax(this, {
+            this.$ajax({
                 url: API.project_detail,
                 data: {
                     id: id
@@ -215,7 +219,7 @@
                     if (data.code == 200) {
                         this.detail = data.data
                     } else {
-                        this.$store.commit('SHOW_TOAST', data.message)
+                        this.$toast(data.message)
                     }
                 }
             })

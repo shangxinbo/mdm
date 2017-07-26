@@ -4,7 +4,7 @@
 
 .data-detail{
   position: relative;
-  .notice .icon,.notice:before{
+  .notice .icon,.notice:before,.btn-sms .icon{
     .flo();
     background: url('@{url}/data-icon.png') no-repeat 0 0;
   }
@@ -28,16 +28,20 @@
         text-align: right;
         color: @grayColor;
         width: 100px;
+          em{
+              display: inline-block;
+              font-size: 12px;
+              color: @grayColor2;
+              position: absolute;
+              bottom: -20px;
+              right: -5px;
+          }
       }
       p.text {
         font-size: 16px;
         line-height: 41px;
         color: @grayColor;
         display: inline-block;
-        .or{
-          display: inline-block;
-          padding: 0 10px;
-        }
         a{
           color: @blueColor;
           margin-right: 20px;
@@ -60,6 +64,7 @@
           line-height: 41px;
           width: 120px;
           font-size: 16px;
+          display: inline-block;
         }
         textarea{
           width: 60%;
@@ -129,9 +134,10 @@
         }
       }
       &.li-radio{
-        margin: 10px 0 0;
+        .name{
+          line-height: 24px;
+        }
         .radio-warp{
-          padding: 12px 0 0;
           display: block;
           overflow: hidden;
           .tips{
@@ -144,7 +150,6 @@
             font-size: 16px;
           }
           .data-marketing{
-            padding: 30px 0 0 30px;
             .data-section{
               .data-in{
                 li{
@@ -153,6 +158,9 @@
                       display: block;
                     }
                   }
+                &.block{
+                  clear: both;
+                }
                 }
               }
             }
@@ -175,14 +183,20 @@
               float: left;
               padding: 0 10px 20px 20px;
               font-size: 14px;
+              height: auto;
+              line-height: 30px;
+              min-width: 100px;
               .sign{
-                display: inline-block;
                 padding: 0 5px 0 10px;
+              }
+              span{
+                height: 30px;
+                line-height: 31px;
               }
               input.text{
                 margin: 0 10px 0 0;
-                min-width: 60px;
-                max-width: 100px;
+                min-width: 50px;
+                max-width: 80px;
                 height: 30px;
                 line-height: 30px;
                 width: 60px;
@@ -195,7 +209,7 @@
               .hang-check{
                 padding-right: 30px;
                 .icon{
-                  margin-top: 5px;
+                  margin-top: 7px;
                 }
               }
               .hang-input{
@@ -219,13 +233,99 @@
               width: 100%;
             }
           }
+          &.radio-inline{
+            display: inline-block;
+            margin-right: 30px;
+          }
         }
       }
       &.li-btn{
         padding-top: 30px;
+          .input-fl{
+              height: 45px;
+            .btn{
+                float: left;
+                margin: 0 30px 0 0;
+                width: auto;
+              padding: 0 30px;
+            }
+          }
+      }
+      &.li-service{
+        min-height: inherit;
+      }
+      &.check-warp{
+        padding-left: 115px;
+        padding-top: 10px;
+        min-height: inherit;
+        line-height: 17px;
       }
     }
   }
+    .seat-text{
+        &>li{
+            .name{
+                width: 60px;
+            }
+            .input-warp{
+                padding-left: 75px;
+            }
+            &.li-fl{
+                .fl-in{
+                    position: relative;
+                    float: left;
+                    margin-right: 40px;
+                    .btn{
+                        top: 5px;
+                    }
+                  .btn-sms{
+                    display: inline-block;
+                    line-height: 20px;
+                    font-size: 14px;
+                    color: @blueColor;
+                    margin-top: 12px;
+                    span{
+                      padding-left: 20px;
+                      position: relative;
+                      display: inline-block;
+                      .icon{
+                        background-position: -17px -51px;
+                        width: 15px;
+                        height: 14px;
+                        position: absolute;
+                        top: 50%;
+                        margin-top: -7px;
+                        left: 0;
+                      }
+                    }
+                  }
+                }
+                .select-warp{
+                    float: left;
+                    margin-right: 20px;
+                }
+            }
+            &.li-sex{
+                input.text{
+                    width: 200px;
+                }
+                .radio-warp{
+                    height: 20px;
+                    margin-left: 20px;
+                    i{
+                        vertical-align: middle;
+                        position: relative;
+                        top: -3px;
+                    }
+                    .radioname{
+                        display: inline-block;
+                        line-height: 20px;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
   .data-view{
     &>li{
       .name {
@@ -261,6 +361,11 @@
       max-height: 350px;
     }
   }
+  .sms-phone{
+    position: absolute;
+    left: 70%;
+    top: 30px;
+  }
 }
 .card-warp{
   .input-warp{
@@ -271,12 +376,7 @@
   .data-text{
     &>li{
       .input-warp{
-        padding-right: 550px;
-      }
-      &.li-radio{
-        .input-warp{
-          padding-right: 450px;
-        }
+        padding-right: 500px;
       }
     }
   }

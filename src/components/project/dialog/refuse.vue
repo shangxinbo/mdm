@@ -20,7 +20,6 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {
@@ -41,8 +40,7 @@
                     this.error = '拒绝原因必填'
                     return false
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.preject_audit,
                     data: {
                         id: this.id,
@@ -51,23 +49,24 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$store.commit('SHOW_TOAST', '操作成功')
+                            this.close()
+                            this.$toast('操作成功',()=>{
+                                window.location.reload()
+                            })
                         } else {
-                            _this.$store.commit('SHOW_TOAST', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })
             }
         },
         created: function () {
-            let _this = this
             this.$on('show', function (id) {
-                _this.id = id
-                _this.message = ''
-                _this.error = ''
-                _this.style = 'block'
-                _this.$store.commit('SHOW_LAYER')
+                this.id = id
+                this.message = ''
+                this.error = ''
+                this.style = 'block'
+                this.$store.commit('SHOW_LAYER')
             })
         }
     }

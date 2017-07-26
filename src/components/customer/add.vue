@@ -1,7 +1,7 @@
 <template>
     <div class="warp">
         <div class="main">
-            <div class="title-warp">新建客户</div>
+            <div class="title-warp">{{title}}</div>
             <div class="data-detail">
                 <form>
                     <ul class="data-text">
@@ -15,6 +15,10 @@
                         <li>
                             <label class="name">客户类型</label>
                             <mselect ref="typeSelect" :api="api.typeSelect" :id="type" :error="type_error"></mselect>
+                        </li>
+                        <li v-if="userType==1">
+                            <label class="name">所属代理</label>
+                            <mselect ref="agentSelect" :api="agentApi" :id="agentId" :hideAll="true"></mselect>
                         </li>
                         <li>
                             <label class="name">公司名称</label>
@@ -123,7 +127,53 @@
                                 <p v-show="self_addr_error" class="error">{{self_addr_error}}</p>
                             </div>
                         </li>
-                        <li class="li-btn">
+                    </ul>
+                    <div class="title-info" v-if="userType==1&&!id">服务报价</div>
+                    <ul class="data-text data-view">
+                        <li class="li-radio li-service" v-if="userType==1&&!id">
+                            <div class="radio-warp">
+                                <div class="data-marketing check-warp">
+                                    <dl class="data-section">
+                                        <dd>
+                                            <ul class="data-in">
+                                                <li>
+                                                    <span>线索单价</span>
+                                                    <span class="sign">¥</span>
+                                                    <input class="text" v-model="clue_price" type="text">
+                                                    <span>/条</span>
+                                                </li>
+                                                <li>
+                                                    <span>话费单价</span>
+                                                    <span class="sign">¥</span>
+                                                    <input class="text" v-model="tel_price" type="text">
+                                                    <span>/分钟</span>
+                                                </li>
+                                                <li>
+                                                    <span>坐席单价</span>
+                                                    <span class="sign">¥</span>
+                                                    <input class="text" v-model="seat_price" type="text">
+                                                    <span>/个/月</span>
+                                                </li>
+                                                <li :class="{checked:sms}">
+                                                    <div class="hang-check">
+                                                        <i class="icon" @click="checkSms"></i>
+                                                        <span>开通挂机短信</span>
+                                                    </div>
+                                                    <div class="hang-input">
+                                                        <span>挂机短信单价</span>
+                                                        <span class="sign">¥</span>
+                                                        <input class="text" v-model="sms_price" type="text">
+                                                        <span>/条</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <p v-if="price_error" class="error">{{price_error}}</p>
+                        </li>
+                        <li>
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
                             </div>
@@ -132,16 +182,17 @@
                 </form>
             </div>
         </div>
-        <alert ref="alert"></alert>
     </div>
 </template>
 <script>
-    import { mAjax, isRealPhone, isEmail } from 'src/services/functions'
+    import { isRealPhone, isEmail } from 'src/services/functions'
     import API from 'src/services/api'
     import mselect from 'components/utils/select'
-    import alert from 'components/dialog/alert'
     import axios from 'axios'
     import REG from 'src/services/reg'
+
+    let agentApi = API.angent_list_all
+
     function scrollTop(todo, num) {
         if (todo) {
             let offset = document.querySelector('form').querySelectorAll('label')[num].getBoundingClientRect().top
@@ -150,7 +201,25 @@
     }
     export default {
         data: function () {
+            let user = JSON.parse(localStorage.getItem('user'))
+            let host = location.hostname
+            let agentInit = 1
+            if(host.indexOf('mdm.geotmt.com')>=0){
+                agentInit = 9
+            }else if(host.indexOf('yhk.geotmt.com')>=0){
+                agentInit = 3
+            }
             return {
+                title: '新建客户',
+                userType: user.type,
+                agentApi: agentApi,
+                agentId: agentInit,
+                clue_price: '',
+                tel_price: '',
+                seat_price: '',
+                sms: 0,
+                sms_price: '',
+                price_error: '',
                 user: '',
                 user_error: '',
                 type: '',
@@ -234,7 +303,6 @@
         },
         components: {
             mselect,
-            alert
         },
         methods: {
             reUpload(num) {
@@ -273,6 +341,13 @@
                 }
                 this.qualification_name = file.name
                 this.qualification = evt.target.files[0]
+            },
+            checkSms() {
+                if (this.sms) {
+                    this.sms = 0
+                } else {
+                    this.sms = 1
+                }
             },
             submit() {
                 if (!this.user) {
@@ -373,6 +448,58 @@
                 let _this = this
                 let api = API.customer_add
                 let data = new FormData()
+
+                if (this.userType == 1) {
+                    api = API.customer_add_by_operate
+                    data.append('agent_id', this.$refs.agentSelect.selected.id )
+                    if (!this.id) {
+                        if (!this.clue_price) {
+                            this.price_error = '线索单价必填'
+                            return false
+                        } else if (!this.tel_price) {
+                            this.price_error = '话费单价必填'
+                            return false
+                        } else if (!this.seat_price) {
+                            this.price_error = '坐席单价必填'
+                            return false
+                        } else {
+                            if (isNaN(this.clue_price) || isNaN(this.tel_price) || isNaN(this.seat_price)) {
+                                this.price_error = '单价必须是数值'
+                                return false
+                            } else {
+                                if (this.clue_price >= 0 && this.tel_price >= 0 && this.seat_price >= 0) {
+                                    this.price_error = ''
+                                } else {
+                                    this.price_error = '单价必须大于等于0'
+                                    return false
+                                }
+                            }
+                        }
+                        if (this.sms) {
+                            if (!this.sms_price) {
+                                this.price_error = '挂机短信单价必填'
+                                return false
+                            } else {
+                                if (isNaN(this.sms_price)) {
+                                    this.price_error = '单价必须是数值'
+                                    return false
+                                } else {
+                                    if (this.sms_price >= 0) {
+                                        this.price_error = ''
+                                    } else {
+                                        this.price_error = '单价必须大于等于0'
+                                        return false
+                                    }
+                                }
+                            }
+                            data.append('hang_up_message_price', this.sms_price)
+                        }
+                        data.append('is_hang_up_message', this.sms)
+                        data.append('clue_price', this.clue_price)
+                        data.append('tel_price', this.tel_price)
+                        data.append('seat_price', this.seat_price)
+                    }
+                }
                 if (this.id) {
                     data.append('id', this.id)
                     api = API.customer_modify
@@ -393,44 +520,49 @@
                 data.append('application_addr', this.self_addr)
                 axios.post(api, data).then(function (res) {
                     if (res.status == 200 && res.data.code == 200) {
-                        _this.$refs.alert.$emit('show','客户资料已提交审核', () => {
-                            _this.$router.push('/customer/index')
+                        _this.$toast('客户资料已提交审核', () => {
+                            _this.$router.replace('/customer/index')
                         })
                     } else {
-                        _this.self_addr_error = res.data.message
+                        _this.price_error = res.data.message
                     }
                 }).catch(err => {
-                    _this.$refs.alert.$emit('show', '程序未知错误')
+                    _this.$toast('程序未知错误')
                 })
             }
         },
-        created: function () {
+        created() {
             let id = this.$route.params.id
-            let _this = this
+            let api = API.customer_detail
+            if (this.userType == 1) {
+                api = API.customer_detail_by_operate
+            }
             if (id) {
-                mAjax(this, {
-                    url: API.customer_detail,
+                this.title = '编辑客户'
+                this.$ajax({
+                    url: api,
                     data: {
                         id: id
                     },
                     success: data => {
                         if (data.code == 200) {
                             let detail = data.data
-                            _this.user = detail.user
-                            _this.type = detail.type
-                            _this.company = detail.company
-                            _this.legal = detail.legal
-                            _this.scope = detail.scope
-                            _this.addr = detail.store_addr
-                            _this.user_name = detail.user_name
-                            _this.email = detail.mail
-                            _this.tel = detail.tel
-                            _this.location = detail.location
-                            _this.self_addr = detail.application_addr
-                            _this.edit_licence = detail.licence
-                            _this.edit_qualification = detail.qualification
+                            this.user = detail.user
+                            this.type = detail.type
+                            this.company = detail.company
+                            this.legal = detail.legal
+                            this.scope = detail.scope
+                            this.addr = detail.store_addr
+                            this.user_name = detail.user_name
+                            this.email = detail.mail
+                            this.tel = detail.tel
+                            this.location = detail.location
+                            this.self_addr = detail.application_addr
+                            this.edit_licence = detail.licence
+                            this.edit_qualification = detail.qualification
+                            this.agentId = detail.agent_id
                         } else {
-                            _this.$refs.alert.$emit('show', data.message)
+                            this.$toast(data.message)
                         }
                     }
                 })

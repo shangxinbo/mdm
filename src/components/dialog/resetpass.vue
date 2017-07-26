@@ -35,11 +35,10 @@
     </div>
 </template>
 <script>
-    import { mAjax } from 'src/services/functions'
     import API from 'src/services/api'
     import REGULAR from 'src/services/reg'
     export default {
-        data: function () {
+        data() {
             return {
                 style: 'none',
                 user: '',
@@ -51,7 +50,7 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.style = 'none'
                 this.user = ''
                 this.id = ''
@@ -59,7 +58,7 @@
                 this.repass = ''
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 if (!this.newpass) {
                     this.newpass_error = '请填写新密码'
                     return false
@@ -80,8 +79,7 @@
                         return false
                     }
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.reset_operate_pass,
                     data: {
                         id: this.id,
@@ -89,26 +87,22 @@
                         confirm_pwd: this.repass
                     },
                     success: data => {
-                        _this.close()
-                        _this.$store.commit('SHOW_TOAST', '密码重置成功')
-                    },
-                    error: err => {
-                        console.log(err)
+                        this.close()
+                        this.$toast('密码重置成功')
                     }
                 })
             }
         },
-        created: function () {
-            let _this = this
+        created() {
             this.$on('show', function (id, user) {
-                _this.style = 'block'
-                _this.user = user ? user : ''
-                _this.id = id
-                _this.newpass_error = ''
-                _this.repass_error = ''
-                _this.$store.commit('SHOW_LAYER')
+                this.style = 'block'
+                this.user = user ? user : ''
+                this.id = id
+                this.newpass_error = ''
+                this.repass_error = ''
+                this.$store.commit('SHOW_LAYER')
             })
-        },
+        }
     }
 
 </script>

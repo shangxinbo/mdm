@@ -31,7 +31,6 @@
 </template>
 <script>
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
     export default {
         props: ['cate', 'tunnel', 'step'],
         data() {
@@ -85,7 +84,7 @@
                         })
                         data.preference = preference
                     }
-                    mAjax(this, {
+                    this.$ajax({
                         url: API.filter_area,
                         data: data,
                         success: data => {
@@ -106,9 +105,6 @@
                             } else {
                                 this.tag = []
                             }
-                        },
-                        error: err => {
-                            this.tag = []
                         }
                     })
                 }

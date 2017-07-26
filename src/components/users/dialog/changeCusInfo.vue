@@ -50,19 +50,19 @@
     </div>
 </template>
 <script>
-    import { mAjax, isEmail, isRealPhone } from 'src/services/functions'
+    import { isEmail, isRealPhone } from 'src/services/functions'
     import API from 'src/services/api'
 
     export default {
-        data: function () {
+        data() {
             return {
                 style: 'none',
-                id:'',
-                username:'',
-                email:'',
-                tel:'',
-                addr:'',
-                selfaddr:'',
+                id: '',
+                username: '',
+                email: '',
+                tel: '',
+                addr: '',
+                selfaddr: '',
                 username_error: '',
                 email_error: '',
                 tel_error: '',
@@ -71,7 +71,7 @@
             }
         },
         methods: {
-            close: function () {
+            close() {
                 this.username_error = ''
                 this.email_error = ''
                 this.tel_error = ''
@@ -80,7 +80,7 @@
                 this.style = 'none'
                 this.$store.commit('HIDE_LAYER')
             },
-            sure: function () {
+            sure() {
                 let reg = /^[\u4e00-\u9fa5]{2,6}$/
                 if (!this.username) {
                     this.username_error = '请填写姓名'
@@ -123,8 +123,7 @@
                     this.self_addr_error = '请填写所在位置'
                     return false
                 }
-                let _this = this
-                mAjax(this, {
+                this.$ajax({
                     url: API.customer_upself,
                     data: {
                         id: this.id,
@@ -136,31 +135,29 @@
                     },
                     success: data => {
                         if (data.code == 200) {
-                            _this.close()
-                            _this.$store.commit('SHOW_TOAST', '修改信息成功')
+                            this.close()
+                            this.$toast('修改信息成功', () => {
+                                window.location.reload()
+                            })
                         } else {
-                            _this.self_addr_error = data.message
+                            this.self_addr_error = data.message
                         }
-                    },
-                    error: err => {
-                        console.log(err)
                     }
                 })
             }
         },
-        created: function () {
-            let _this = this
+        created() {
             this.$on('show', function (obj) {
-                _this.style = 'block'
-                _this.id = obj.id
-                _this.username = obj.user_name
-                _this.email = obj.mail
-                _this.tel = obj.tel
-                _this.addr = obj.location
-                _this.selfaddr = obj.application_addr
-                _this.$store.commit('SHOW_LAYER')      
+                this.style = 'block'
+                this.id = obj.id
+                this.username = obj.user_name
+                this.email = obj.mail
+                this.tel = obj.tel
+                this.addr = obj.location
+                this.selfaddr = obj.application_addr
+                this.$store.commit('SHOW_LAYER')
             })
-        },
+        }
     }
 
 </script>

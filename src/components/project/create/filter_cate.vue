@@ -44,7 +44,6 @@
 </template>
 <script>
     import API from 'src/services/api'
-    import { mAjax } from 'src/services/functions'
     export default {
         data() {
             return {
@@ -56,7 +55,7 @@
             }
         },
         created() {
-            mAjax(this, {
+            this.$ajax({
                 url: API.filter_product_1,
                 success: data => {
                     if (data.code == 200) {
@@ -64,9 +63,6 @@
                     } else {
                         this.tag1 = []
                     }
-                },
-                error: err => {
-                    this.tag1 = []
                 }
             })
         },
@@ -97,7 +93,7 @@
             getLeaf(code) {
                 if(this.loading) return false //正在加载中
                 this.loading = true
-                mAjax(this, {
+                this.$ajax({
                     url: API.filter_product_2,
                     data: {
                         code: code,

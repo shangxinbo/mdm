@@ -6,6 +6,7 @@ module.exports = function(req, res) {
     return Mock.mock({
         "clue_charging": "@int(0,100)",
         "call_charging": "@int(0,100)",
+        "message_charging":"@int(0,100)",
         "charging": {
             "total": 100,
             "per_page": 10,
@@ -26,7 +27,8 @@ module.exports = function(req, res) {
                 "status": "项目状态", //状态
                 "agent_name": "@cname", //代理名称
                 "clue_charging": "@int(0,100)", //线索费用
-                "call_charging": "@int(0,100)" //通话费用
+                "call_charging": "@int(0,100)", //通话费用
+                "message_charging":'@int(0,100)' //挂机短信费用 
             }]
         }
     })
