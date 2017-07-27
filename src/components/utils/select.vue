@@ -124,9 +124,9 @@
                                     })
                                 }
                             }
-                            arr.sort((p, n) => {
-                                return parseInt(n.id) - parseInt(p.id)
-                            })
+                            // arr.sort((p, n) => {
+                            //     return parseInt(n.id) - parseInt(p.id)
+                            // })
 
                             this.list = arr
                             this.choose(this.id, this.name)
