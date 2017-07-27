@@ -229,8 +229,6 @@
                 let search_customer = this.$refs.customerSelect ? this.$refs.customerSelect.selected.id : ''
                 let search_agent = this.$refs.agentSelect ? this.$refs.agentSelect.selected.id : ''
                 let search_status = this.$refs.statusSelect ? this.$refs.statusSelect.selected.id : ''
-                //let start_time = this.search_start_time
-                //let end_time = this.search_end_time
                 let start_time = typeof (this.search_start_time) == 'string' ? this.search_start_time : dateFormat(this.search_start_time)
                 let end_time = typeof (this.search_end_time) == 'string' ? this.search_end_time : dateFormat(this.search_end_time)
                 let query = Object.assign({}, this.$route.query, {

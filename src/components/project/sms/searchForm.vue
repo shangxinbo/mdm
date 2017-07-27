@@ -9,7 +9,7 @@
             </li>
             <li>
                 <label class="name">坐席</label>
-                <mselect ref="seatSelect" :api="seatListApi"></mselect>
+                <mselect ref="seatSelect" :api="seatListApi" :param="getSeat_param"></mselect>
             </li>
             <li>
                 <label class="name">短信内容</label>
@@ -46,8 +46,12 @@
     export default {
         data() {
             let now = moment().format('YYYY-MM-DD')
+            let id = this.$route.query.project
             return {
                 seatListApi: API.seat_list_by_project,
+                getSeat_param: {
+                    id:id
+                },
                 tel: '',
                 content: '',
                 seat: '',
