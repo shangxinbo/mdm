@@ -28,7 +28,7 @@
                             <label class="name">预计线索量</label>
                             <div class="input-warp">
                                 <input class="text" type="text" v-model="expectClue">
-                                <p class="tips">外呼时间为3天，打不完的线索不会计费</p>
+                                <p class="tips">外呼时间为7天，打不完的线索不会计费</p>
                                 <p v-if="expectClue_error" class="error">{{expectClue_error}}</p>
                             </div>
                         </li>
@@ -38,7 +38,7 @@
                                 <div class="calendar-warp">
                                     <datepicker input-class="date" style="z-index:1" :disabled="datepicker_disabled" language="zh" format="yyyy.MM.dd" v-model="expectTime"></datepicker>
                                 </div>
-                                <p class="tips">未拨打的数据，三天后自动回收</p>
+                                <p class="tips">外呼时间为7天</p>
                                 <p v-if="expectTime_error" class="error">{{expectTime_error}}</p>
                             </div>
                         </li>
