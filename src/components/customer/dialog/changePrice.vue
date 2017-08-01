@@ -145,7 +145,7 @@
                     return false
                 } else {
                     if (isNaN(this.threshold) || this.threshold < 0 || parseInt(this.threshold) != this.threshold) {
-                        this.threshold_error = '阈值是大于等于零的数值'
+                        this.threshold_error = '阈值是大于等于零的整数'
                         return false
                     } else {
                         this.threshold_error = ''
