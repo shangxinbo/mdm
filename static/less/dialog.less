@@ -151,6 +151,46 @@
           }
         }
       }
+      .fs16{
+        font-size: 16px;
+      }
+      .data-inline{
+        display: block;
+        min-width: 300px;
+        overflow: hidden;
+        &>li{
+          float: left;
+          padding: 20px;
+          font-size: 14px;
+          height: 30px;
+          line-height: 30px;
+          min-width: 100px;
+          overflow: hidden;
+          span{
+            display: inline-block;
+            font-size: 14px;
+            height: 30px;
+            line-height: 31px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: @grayColor;
+          }
+          .sign{
+            padding: 0 5px 0 10px;
+          }
+          input.text{
+            margin: 0 10px 0 0;
+            min-width: 50px;
+            max-width: 80px;
+            height: 30px;
+            line-height: 30px;
+            width: 60px;
+            vertical-align: top;
+            padding: 0 5px;
+          }
+        }
+      }
     }
   }
 }
