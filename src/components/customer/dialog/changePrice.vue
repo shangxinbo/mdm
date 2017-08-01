@@ -51,6 +51,18 @@
                             </li>
                         </ul>
                     </dd>
+                    <dd>
+                        <div class="fs16">通知设置</div>
+                        <ul class="data-inline">
+                            <li>
+                                <span>余额不足</span>
+                                <span class="sign">¥</span>
+                                <input class="text" v-model="threshold" type="text">
+                                <span>时，通知客户</span>
+                            </li>
+                        </ul>
+                        <p v-show="threshold_error" class="error">{{threshold_error}}</p>
+                    </dd>
                 </dl>
             </div>
         </div>
@@ -76,7 +88,9 @@
                 error_sms: '',
                 sms: 0,
                 sms_price: '',
-                old_sms: 0
+                old_sms: 0,
+                threshold: '',
+                threshold_error: ''
             }
         },
         methods: {
@@ -126,6 +140,19 @@
                     }
                 }
 
+                if (!this.threshold) {
+                    this.threshold_error = '请填写余额通知阈值'
+                    return false
+                } else {
+                    if (isNaN(this.threshold) || this.threshold < 0 || parseInt(this.threshold) != this.threshold) {
+                        this.threshold_error = '阈值是大于等于零的数值'
+                        return false
+                    } else {
+                        this.threshold_error = ''
+                    }
+                }
+
+
                 this.$ajax({
                     url: API.change_price,
                     data: {
@@ -134,7 +161,8 @@
                         tel_price: this.call.toString().trim(),
                         seat_price: this.seat.toString().trim(),
                         is_hang_up_message: this.sms,
-                        hang_up_message_price: this.sms_price
+                        hang_up_message_price: this.sms_price,
+                        balance_alarm: this.threshold
                     },
                     success: data => {
                         if (data.code == 200) {
@@ -163,7 +191,7 @@
             }
         },
         created() {
-            this.$on('show', (id, seat, clue, call, sms, sms_price) => {
+            this.$on('show', (id, seat, clue, call, sms, sms_price,threshold) => {
                 this.id = id
                 this.clue = clue ? Number(clue) : ''
                 this.call = call ? Number(call) : ''
@@ -174,6 +202,7 @@
                 this.sms = sms
                 this.old_sms = sms
                 this.sms_price = sms_price
+                this.threshold = threshold
                 this.style = 'block'
                 this.$store.commit('SHOW_LAYER')
             })

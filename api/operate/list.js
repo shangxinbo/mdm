@@ -34,7 +34,8 @@ module.exports = function (req, res) {
                     "tel_price": "12",
                     "clue_price":"1",
                     "hang_up_message_price":"123",
-                    "created_at": '@date("yyyy-MM-dd HH:mm:ss")'
+                    "created_at": '@date("yyyy-MM-dd HH:mm:ss")',
+                    "balance_alarm":123
                 }
             ]
         }

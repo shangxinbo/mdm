@@ -43,7 +43,7 @@
                                 <a v-if="props.item.audit_status==1" href="javascript:void(0);" @click="showAddSeatDialog(props.item.id,props.item.company,props.item.seat_num,props.item.seat_price)">开坐席</a>
                                 <a v-if="props.item.audit_status==1&&props.item.expire_seat_num>0" href="javascript:void(0);" @click="showActiveSeatDialog(props.item.id,props.item.company,props.item.seat_price)">激活坐席</a>
                                 <a v-if="props.item.audit_status==1" href="javascript:void(0);" @click="showRechargeDialog(props.item.id,props.item.company,props.item.balance)">充值</a>
-                                <a v-if="props.item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(props.item.id,props.item.seat_price,props.item.clue_price,props.item.tel_price,props.item.is_hang_up_message,props.item.hang_up_message_price)">调价</a>
+                                <a v-if="props.item.audit_status==1" href="javascript:void(0);" @click="showChangePriceDialog(props.item.id,props.item.seat_price,props.item.clue_price,props.item.tel_price,props.item.is_hang_up_message,props.item.hang_up_message_price,props.item.balance_alarm)">调价</a>
                                 <router-link v-if="props.item.audit_status==1" :to="'/customer/add/'+props.item.id">编辑</router-link>
                             </template>
                             <template v-else>
@@ -171,8 +171,8 @@
             showRechargeDialog(id, company, balance) {
                 this.$refs.rechargeDialog.$emit('show', id, company, balance)
             },
-            showChangePriceDialog(id, seat_price, clue_price, call_price, sms, sms_price) {
-                this.$refs.changePriceDialog.$emit('show', id, seat_price, clue_price, call_price, sms, sms_price)
+            showChangePriceDialog(id, seat_price, clue_price, call_price, sms, sms_price,threshold) {
+                this.$refs.changePriceDialog.$emit('show', id, seat_price, clue_price, call_price, sms, sms_price,threshold)
             },
             showNoTemplateDialog() {
                 this.$refs.noTemplateListDialog.$emit('show')

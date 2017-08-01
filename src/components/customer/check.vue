@@ -130,6 +130,18 @@
                                                 </ul>
                                                 <p v-if="price_error" class="error">{{price_error}}</p>
                                             </dd>
+                                            <dd>
+                                                <div class="fs16">通知设置</div>
+                                                <ul class="data-inline">
+                                                    <li>
+                                                        <span>余额不足</span>
+                                                        <span class="sign">¥</span>
+                                                        <input class="text" v-model="threshold" type="text">
+                                                        <span>时，通知客户</span>
+                                                    </li>
+                                                </ul>
+                                                <p v-if="threshold_error" class="error">{{threshold_error}}</p>
+                                            </dd>
                                         </dl>
                                     </div>
                                 </label>
@@ -188,7 +200,9 @@
                 sms_price: '',
                 price_error: '',
                 reason: '',
-                reason_error: ''
+                reason_error: '',
+                threshold: '',
+                threshold_error: ''
             }
         },
         methods: {
@@ -242,6 +256,21 @@
                         }
                     }
 
+                    if (!this.threshold) {
+                        this.threshold_error = '请填写余额通知阈值'
+                        return false
+                    } else {
+                        if (isNaN(this.threshold) || this.threshold < 0 || parseInt(this.threshold) != this.threshold) {
+                            this.threshold_error = '阈值是大于等于零的整数值'
+                            return false
+                        } else {
+                            this.threshold_error = ''
+                        }
+                    }
+
+
+
+
                 } else {
                     this.price_error = ''
                     if (!this.reason) {
@@ -261,7 +290,8 @@
                         audit_status: this.option,
                         audit_advice: this.reason,
                         is_hang_up_message: this.sms,
-                        hang_up_message_price: this.sms_price
+                        hang_up_message_price: this.sms_price,
+                        balance_alarm: this.threshold
                     },
                     success: data => {
                         if (data.code == 200) {
