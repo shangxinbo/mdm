@@ -173,7 +173,18 @@
                             </div>
                             <p v-if="price_error" class="error">{{price_error}}</p>
                         </li>
-                        <li>
+                    </ul>
+                    <div class="title-info" v-if="userType==1&&!id">通知设置</div>
+                    <ul class="data-text" >
+                        <li class="li-service" v-if="userType==1&&!id">
+                            <ul class="data-inline">
+                                <li>
+                                    <span>余额不足</span><span class="sign">¥</span><input class="text" v-model="threshold" type="text"><span>时，通知客户</span>
+                                </li>
+                            </ul>
+                            <p v-if="threshold_error" class="error">{{threshold_error}}</p>
+                        </li>
+                        <li class="">
                             <div class="input-warp">
                                 <button class="btn blue" type="button" @click="submit">提交</button>
                             </div>
@@ -250,6 +261,8 @@
                 qualification_error: '',
                 edit_licence: '',
                 edit_qualification: '',
+                threshold:'',
+                threshold_error:'',
                 api: {
                     typeSelect: API.customer_type_list
                 }
@@ -498,6 +511,20 @@
                         data.append('clue_price', this.clue_price)
                         data.append('tel_price', this.tel_price)
                         data.append('seat_price', this.seat_price)
+
+                        
+                        if(!this.threshold){
+                            this.threshold_error = '请填写余额通知阈值'
+                            return false
+                        }else{
+                            if(isNaN(this.threshold)||this.threshold<0){
+                                this.threshold_error = '阈值是大于等于零的数值'
+                                return false
+                            }else{
+                                this.threshold_error = ''
+                            }
+                        }
+                        data.append('balance_alarm', this.threshold)
                     }
                 }
                 if (this.id) {
