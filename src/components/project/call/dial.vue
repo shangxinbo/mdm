@@ -354,10 +354,10 @@
                     _this.$ajax({
                         url: API.error_log,
                         data: {
-                            msg: {
+                            msg: JSON.stringify({
                                 history_id: _this.global.history_id,
                                 error: evt
-                            }
+                            })
                         },
                         success: data => {
                             console.log(data)
@@ -386,10 +386,10 @@
                     _this.$ajax({
                         url: API.error_log,
                         data: {
-                            msg: {
+                            msg: JSON.stringify({
                                 history_id: _this.global.history_id,
                                 error: evt
-                            }
+                            })
                         },
                         success: data => {
                             console.log(data)
