@@ -112,5 +112,6 @@ export default {
     clue_get_sub_result: API_PRE + '/clue/getDialSubresults',
     clue_get_record: API_PRE + '/seat/getPhoneRecord',
     clue_get_next1: API_PRE + '/seat/getNextClueDialNo',
-    clue_get_next2: API_PRE + '/seat/getNextClueDialOk'
+    clue_get_next2: API_PRE + '/seat/getNextClueDialOk',
+    error_log: API_PRE + '/log/save'
 }

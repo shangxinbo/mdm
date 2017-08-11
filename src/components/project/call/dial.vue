@@ -210,7 +210,7 @@
             save(callback) {
                 let result1 = this.$refs.result1Select.selected.id
                 let result2 = this.$refs.result2Select.selected.id
-                if (!result1||!result2) {
+                if (!result1 || !result2) {
                     this.variable.result_error = '拨打结果必须全部选择'
                     return false
                 } else {
@@ -337,8 +337,8 @@
                     status: this.$route.query.status
                 }
 
-                this.$refs.result1Select.selected = {id:'',name:'全部'}
-                this.$refs.result2Select.selected = {id:'',name:'全部'}
+                this.$refs.result1Select.selected = { id: '', name: '全部' }
+                this.$refs.result2Select.selected = { id: '', name: '全部' }
                 this.variable.desc = ''
                 this.variable.desc_error = ''
                 this.variable.result_error = ''
@@ -351,6 +351,21 @@
 
                 window.mycomm_agent.on_dial_f = function (evt) {
                     _this.$toast(evt.params.err_des)
+                    _this.$ajax({
+                        url: API.error_log,
+                        data: {
+                            msg: {
+                                history_id: _this.global.history_id,
+                                error: evt
+                            }
+                        },
+                        success: data => {
+                            console.log(data)
+                        },
+                        error: err => {
+                            console.log(err)
+                        }
+                    })
                     window.mycomm_agent.logout()
                 }
                 window.mycomm_agent.on_login_f = function (evt) {
@@ -368,6 +383,21 @@
                         default:
                             msg = '服务暂不可用，请联系管理员'
                     }
+                    _this.$ajax({
+                        url: API.error_log,
+                        data: {
+                            msg: {
+                                history_id: _this.global.history_id,
+                                error: evt
+                            }
+                        },
+                        success: data => {
+                            console.log(data)
+                        },
+                        error: err => {
+                            console.log(err)
+                        }
+                    })
                     _this.$toast(msg)
                 }
 
